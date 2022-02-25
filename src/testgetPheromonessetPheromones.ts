@@ -1,6 +1,7 @@
 import { getPheromone, setPheromone } from "./getsetPheromone";
 
 export function testgetPheromonessetPheromones() {
+    console.log("getPheromones, setPheromones test start");
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
 

@@ -10,5 +10,8 @@
   "devDependencies": {
     "typescript": "^4.5.5",
     "vite": "^2.8.4"
+  },
+  "dependencies": {
+    "mathjs": "^10.1.1"
   }
 }

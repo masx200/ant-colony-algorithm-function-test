@@ -1,6 +1,6 @@
 const Pheromonesrecord = new Map<`${number},${number}`, number>();
 /* 获得信息素 */
-export function getPheromone(left: number, right: number) {
+export function getPheromone(left: number, right: number): number | undefined {
     //信息素参数不分正反
     return (
         Pheromonesrecord.get(`${left},${right}`) ??
@@ -8,7 +8,7 @@ export function getPheromone(left: number, right: number) {
     );
 }
 /* 修改信息素 */
-export function setPheromone(left: number, right: number, Pheromone: number) {
+export function setPheromone(left: number, right: number, Pheromone: number): void {
     //参数排序
     //信息素参数不分正反
     let max = Math.max(left, right);
