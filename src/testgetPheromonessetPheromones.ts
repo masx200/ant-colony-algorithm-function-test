@@ -1,7 +1,11 @@
-import { getPheromone, setPheromone } from "./getsetPheromone";
+import {createPheromonestore } from "./createPheromonestore";
 
 export function testgetPheromonessetPheromones() {
     console.log("getPheromones, setPheromones test start");
+
+    const Pheromonestore = createPheromonestore();
+    console.log(Pheromonestore);
+    const { getPheromone, setPheromone }=Pheromonestore;
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
 
@@ -16,5 +20,6 @@ export function testgetPheromonessetPheromones() {
     console.assert(getPheromone(12, 10) === 80);
     console.assert(getPheromone(10, 1) === 90);
     console.assert(getPheromone(10, 12) === 80);
+    console.log(createPheromonestore());
     console.log("getPheromones, setPheromones test ok");
 }
