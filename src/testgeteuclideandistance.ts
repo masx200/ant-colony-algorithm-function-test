@@ -27,5 +27,7 @@ export function testgeteuclideandistance() {
   console.assert(geteuclideandistancebyindex(0, 2, nodecoordinates2) === 10);
   console.assert(geteuclideandistancebyindex(2, 0, nodecoordinates2) === 10);
   console.assert(geteuclideandistancebyindex(1, 1, nodecoordinates2) === 0);
+  console.log(nodecoordinates1);
+  console.log(nodecoordinates2);
   console.log("testgeteuclideandistance test ok");
 }

@@ -1,12 +1,12 @@
 {
   "name": "ant-colony-algorithm-function-test",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite -c vite.config.ts",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "format": "npx prettier --write *.json *.ts *.html */*.ts */*.css"
+    "format": "npx prettier --write *.json *.ts *.html */*.ts */*.css *.md"
   },
   "devDependencies": {
     "typescript": "^4.5.5",

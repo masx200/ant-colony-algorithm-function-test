@@ -1,4 +1,4 @@
-import * as math from "mathjs";
+import { distance as mathdistance } from "mathjs";
 import { Nodecoordinates } from "./Nodecoordinates";
 const nodecoordinatestostore = new WeakMap<
   Nodecoordinates,
@@ -53,5 +53,5 @@ export function euclideandistance(
   leftpair: [number, number],
   rightpair: [number, number]
 ): number {
-  return Number(math.distance(leftpair, rightpair));
+  return Number(mathdistance(leftpair, rightpair));
 }
