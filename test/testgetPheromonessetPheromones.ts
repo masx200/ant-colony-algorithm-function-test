@@ -1,5 +1,5 @@
 import { isEqual } from "lodash";
-import { createPheromonestore } from "./createPheromonestore";
+import { createPheromonestore } from "../functions/createPheromonestore";
 
 export function testgetPheromonessetPheromones() {
     console.log("getPheromones, setPheromones test start");

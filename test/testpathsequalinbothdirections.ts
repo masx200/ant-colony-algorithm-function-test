@@ -1,4 +1,4 @@
-import { pathsequalinbothdirections } from "./Pathsequalinbothdirections";
+import { pathsequalinbothdirections } from "../functions/ispathsequalinbothdirections";
 
 export function testpathsequalinbothdirections() {
     console.log("test pathsequalinbothdirections start");

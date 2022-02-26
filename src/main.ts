@@ -1,4 +1,4 @@
-import "./index";
+import "../test/index";
 import "./style.css";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
