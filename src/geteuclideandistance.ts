@@ -1,33 +1,8 @@
-import { distance as mathdistance } from "mathjs";
+import { euclideandistance } from "./euclideandistance";
+import { getstoreofnodecoordinates } from "./getstoreofnodecoordinates";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { numberstostringkey } from "./numberstostringkey";
-const nodecoordinatestostore = new WeakMap<
-    Nodecoordinates,
-    Map<`${number},${number}`, number>
->();
-
-function getstoreofnodecoordinates(
-    nodecoordinates: Nodecoordinates
-): Map<`${number},${number}`, number> {
-    return (
-        nodecoordinatestostore.get(nodecoordinates) ??
-        (() => {
-            const euclideandistancerecord = new Map<
-                `${number},${number}`,
-                number
-            >();
-            nodecoordinatestostore.set(
-                nodecoordinates,
-                euclideandistancerecord
-            );
-
-            return euclideandistancerecord;
-        })()
-    );
-}
-console.log(nodecoordinatestostore);
-
-/* 获得欧式距离 */
+/* 使用节点坐标获得欧式距离 */
 export function geteuclideandistancebyindex(
     left: number,
     right: number,
@@ -57,9 +32,4 @@ export function geteuclideandistancebyindex(
         })()
     );
 }
-export function euclideandistance(
-    leftpair: [number, number],
-    rightpair: [number, number]
-): number {
-    return Number(mathdistance(leftpair, rightpair));
-}
+

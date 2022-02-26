@@ -1,9 +1,9 @@
 import { isEqual } from "lodash";
 import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import {
-    euclideandistance,
     geteuclideandistancebyindex,
 } from "./geteuclideandistance";
+import { euclideandistance } from "./euclideandistance";
 import { Nodecoordinates } from "./Nodecoordinates";
 export function testgeteuclideandistance() {
     console.log("testgeteuclideandistance test start");

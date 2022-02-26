@@ -1,3 +1,4 @@
+/* 数字生成字符串键值 */
 export function numberstostringkey(
     left: number,
     right: number): `${number},${number}` {

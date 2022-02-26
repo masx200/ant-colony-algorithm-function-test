@@ -1,5 +1,6 @@
 import { numberstostringkey } from "./numberstostringkey";
-
+import { stringkeytonumbers } from "./stringkeytonumbers";
+/* 创建信息素仓库 */
 export function createPheromonestore(): {
     values: () => number[];
     keys: () => [number, number][];
@@ -8,6 +9,7 @@ export function createPheromonestore(): {
     setPheromone: (left: number, right: number, Pheromone: number) => void;
     [Symbol.toStringTag]: string;
 } {
+    /* 信息素存储 */
     const Pheromonesrecord = new Map<`${number},${number}`, number>();
     /* 获得信息素 */
     function getPheromone(left: number, right: number): number | undefined {
@@ -49,12 +51,5 @@ export function createPheromonestore(): {
         setPheromone,
         [Symbol.toStringTag]: "PheromoneStore",
     };
-}
-function stringkeytonumbers(value: `${number},${number}`): [number, number] {
-    let s = value;
-    let a = s.split(",");
-    let left = Number(a[0]);
-    let right = Number(a[1]);
-    return [left, right];
 }
 
