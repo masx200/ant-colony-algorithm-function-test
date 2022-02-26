@@ -1,3 +1,4 @@
+import { isEqual } from "lodash";
 import { createPheromonestore } from "./createPheromonestore";
 
 export function testgetPheromonessetPheromones() {
@@ -25,5 +26,28 @@ export function testgetPheromonessetPheromones() {
     let values = Pheromonestore.values();
     console.log(values);
     console.assert([90, 80].every((n) => values.includes(n)));
+    let keys = Pheromonestore.keys();
+    console.log(keys);
+    console.assert(
+        isEqual(
+            [
+                [1, 10],
+                [10, 12],
+            ],
+            keys
+        )
+    );
+    let entries = Pheromonestore.entries();
+    console.log(entries);
+
+    console.assert(
+        isEqual(
+            [
+                [1, 10, 90],
+                [10, 12, 80],
+            ],
+            entries
+        )
+    );
     console.log("getPheromones, setPheromones test ok");
 }
