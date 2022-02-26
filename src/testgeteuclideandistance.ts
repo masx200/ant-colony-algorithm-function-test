@@ -1,12 +1,10 @@
 import { isEqual } from "lodash";
 import { getalldistancesofnodes } from "./getalldistancesofnodes";
-import {
-    geteuclideandistancebyindex,
-} from "./geteuclideandistance";
+import { geteuclideandistancebyindex } from "./geteuclideandistance";
 import { euclideandistance } from "./euclideandistance";
 import { Nodecoordinates } from "./Nodecoordinates";
 export function testgeteuclideandistance() {
-    console.log("testgeteuclideandistance test start");
+    console.log("test geteuclideandistance test start");
     console.assert(euclideandistance([3, 4], [0, 0]) === 5);
 
     let nodecoordinates1: Nodecoordinates = [
@@ -52,7 +50,7 @@ export function testgeteuclideandistance() {
         )
     );
     console.assert(10 === Math.max(...node1distances));
-    console.log("testgeteuclideandistance test ok");
+    console.log("test geteuclideandistance test ok");
 }
 
 // function aboutequal(a: number, b: number) {
