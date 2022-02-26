@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
-
-export function pathsequalinbothdirections(
+//回环双向相等
+export function ispathsequalinbothdirections(
     left: Array<number>,
     right: Array<number>
 ): boolean {
