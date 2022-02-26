@@ -1,9 +1,10 @@
+import { isEqual } from "lodash";
+import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import {
     euclideandistance,
     geteuclideandistancebyindex,
 } from "./geteuclideandistance";
 import { Nodecoordinates } from "./Nodecoordinates";
-
 export function testgeteuclideandistance() {
     console.log("testgeteuclideandistance test start");
     console.assert(euclideandistance([3, 4], [0, 0]) === 5);
@@ -29,5 +30,31 @@ export function testgeteuclideandistance() {
     console.assert(geteuclideandistancebyindex(1, 1, nodecoordinates2) === 0);
     console.log(nodecoordinates1);
     console.log(nodecoordinates2);
+
+    const node1distances = getalldistancesofnodes(nodecoordinates1);
+    console.log(node1distances);
+    // console.assert(
+    //     [
+    //         4.123105625617661, 7.0710678118654755, 10, 4.123105625617661,
+    //         6.4031242374328485, 3.1622776601683795,
+    //     ]
+    //         .map((a, i) => a - node1distances[i])
+    //         .map((a) => aboutequal(a, 0))
+    //         .every(Boolean)
+    // );
+    console.assert(
+        isEqual(
+            [
+                4.123105625617661, 7.0710678118654755, 10, 4.123105625617661,
+                6.4031242374328485, 3.1622776601683795,
+            ],
+            node1distances
+        )
+    );
+    console.assert(10 === Math.max(...node1distances));
     console.log("testgeteuclideandistance test ok");
 }
+
+// function aboutequal(a: number, b: number) {
+//     return Math.abs(a - b) <= Number.EPSILON;
+// }

@@ -1,3 +1,5 @@
+import { numberstostringkey } from "./numberstostringkey";
+
 export function createPheromonestore(): {
     values: () => number[];
     keys: () => [number, number][];
@@ -55,11 +57,4 @@ function stringkeytonumbers(value: `${number},${number}`): [number, number] {
     let right = Number(a[1]);
     return [left, right];
 }
-function numberstostringkey(
-    left: number,
-    right: number
-): `${number},${number}` {
-    let max = Math.max(left, right);
-    let min = Math.min(left, right);
-    return `${min},${max}`;
-}
+

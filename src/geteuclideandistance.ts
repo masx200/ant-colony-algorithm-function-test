@@ -1,5 +1,6 @@
 import { distance as mathdistance } from "mathjs";
 import { Nodecoordinates } from "./Nodecoordinates";
+import { numberstostringkey } from "./numberstostringkey";
 const nodecoordinatestostore = new WeakMap<
     Nodecoordinates,
     Map<`${number},${number}`, number>
@@ -47,10 +48,11 @@ export function geteuclideandistancebyindex(
 
                 rightpair
             );
-            let max = Math.max(left, right);
-            let min = Math.min(left, right);
 
-            euclideandistancerecord.set(`${min},${max}`, distance);
+            euclideandistancerecord.set(
+                numberstostringkey(left, right),
+                distance
+            );
             return distance;
         })()
     );
