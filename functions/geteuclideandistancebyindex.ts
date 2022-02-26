@@ -11,7 +11,7 @@ export function geteuclideandistancebyindex(
     //参数排序
     //距离参数不分正反
     const euclideandistancerecord = getstoreofnodecoordinates(nodecoordinates);
-    console.log(euclideandistancerecord);
+    // console.log(euclideandistancerecord);
     return (
         euclideandistancerecord.get(`${left},${right}`) ??
         euclideandistancerecord.get(`${right},${left}`) ??
