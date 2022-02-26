@@ -25,22 +25,40 @@ export function Greedyalgorithmtosolvetsp(
         const restnodes = Array.from(indexsset);
         /* 计算其他点与此点的距离的最小值 */
 
-        const mindistance = Math.min(
+      /*  const mindistance = Math.min(
             ...restnodes.map((value) =>
                 geteuclideandistancebyindex(currentnode, value, nodecoordinates)
             )
         );
-
+*/
         // console.log(mindistance);
 
         /* 下一个点选择距离最近的点 */
-        const nextnode = restnodes.find((value) => {
+     /*   const nextnode = restnodes.find((value) => {
             return (
                 mindistance ===
                 geteuclideandistancebyindex(currentnode, value, nodecoordinates)
             );
         });
-        if (typeof nextnode !== "number") {
+        */
+        let nextnode=-1
+        let mindistance=Infinity
+        for(let [nodeindex,distance] of restnodes.map(value=>{return [
+
+value,
+            geteuclideandistancebyindex(currentnode,value,nodecoordinates)
+        ]})){
+
+if(distance<mindistance){
+
+    mindistance=distance
+    nextnode=nodeindex
+}
+
+
+
+        }
+        if ((typeof nextnode !== "number")||nextnode===-1) {
             throw new Error("Accident");
         }
         indexsset.delete(nextnode);
