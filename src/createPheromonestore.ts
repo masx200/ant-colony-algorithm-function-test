@@ -1,4 +1,11 @@
-export function createPheromonestore(): { values: () => number[]; keys: () => [number, number][]; entries: () => [number, number, number][]; getPheromone: (left: number, right: number) => number | undefined; setPheromone: (left: number, right: number, Pheromone: number) => void;[Symbol.toStringTag]: string; } {
+export function createPheromonestore(): {
+    values: () => number[];
+    keys: () => [number, number][];
+    entries: () => [number, number, number][];
+    getPheromone: (left: number, right: number) => number | undefined;
+    setPheromone: (left: number, right: number, Pheromone: number) => void;
+    [Symbol.toStringTag]: string;
+} {
     const Pheromonesrecord = new Map<`${number},${number}`, number>();
     /* 获得信息素 */
     function getPheromone(left: number, right: number): number | undefined {
