@@ -30,7 +30,7 @@ export function createPheromonestore(): {
 
         Pheromonesrecord.set(numberstostringkey(left, right), Pheromone);
     }
-    console.log(Pheromonesrecord);
+    // console.log(Pheromonesrecord);
     function values() {
         return Array.from(Pheromonesrecord.values());
     }

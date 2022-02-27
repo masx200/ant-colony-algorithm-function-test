@@ -11,7 +11,8 @@ export function ispathsequalinbothdirections(
         return false;
     }
 
-    return (isEqual(left,right)||
+    return (
+        isEqual(left, right) ||
         cyclereorganizeequal(left, right) ||
         cyclereorganizeequal(left, reversearray(right))
     );
@@ -42,7 +43,7 @@ function cyclereorganizeequal(
     if (!right.length) {
         return false;
     }
-    
+
     const firstindexinright = right.findIndex((v) => v === left[0]);
     if (firstindexinright < 0) {
         return false;
@@ -50,6 +51,6 @@ function cyclereorganizeequal(
     const reorganizedright = right
         .slice(firstindexinright)
         .concat(right.slice(0, firstindexinright));
-console.log(left, right, reorganizedright);
+    // console.log(left, right, reorganizedright);
     return isEqual(left, right) || isEqual(left, reorganizedright);
 }

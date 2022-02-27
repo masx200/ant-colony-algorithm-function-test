@@ -5,7 +5,7 @@ export function testgetPheromonessetPheromones() {
     console.log("getPheromones, setPheromones test start");
 
     const Pheromonestore = createPheromonestore();
-    console.log(Pheromonestore);
+    // console.log(Pheromonestore);
     const { getPheromone, setPheromone } = Pheromonestore;
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
@@ -21,13 +21,13 @@ export function testgetPheromonessetPheromones() {
     console.assert(getPheromone(12, 10) === 80);
     console.assert(getPheromone(10, 1) === 90);
     console.assert(getPheromone(10, 12) === 80);
-    console.log(createPheromonestore());
+    // console.log(createPheromonestore());
 
     let values = Pheromonestore.values();
-    console.log(values);
+    // console.log(values);
     console.assert([90, 80].every((n) => values.includes(n)));
     let keys = Pheromonestore.keys();
-    console.log(keys);
+    // console.log(keys);
     console.assert(
         isEqual(
             [
@@ -38,7 +38,7 @@ export function testgetPheromonessetPheromones() {
         )
     );
     let entries = Pheromonestore.entries();
-    console.log(entries);
+    // console.log(entries);
 
     console.assert(
         isEqual(

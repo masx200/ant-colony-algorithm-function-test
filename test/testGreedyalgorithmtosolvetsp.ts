@@ -17,7 +17,8 @@ export function testGreedyalgorithmtosolvetsp() {
         [5, 50],
         [6, 80],
         [10, 100],
-        [11, 40],[200,200]
+        [11, 40],
+        [200, 200],
     ];
     console.log("贪心算法要解决的问题的坐标是", nodecoordinates1);
 

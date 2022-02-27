@@ -4,4 +4,4 @@ export const nodecoordinatestostore = new WeakMap<
     Nodecoordinates,
     Map<`${number},${number}`, number>
 >();
-console.log(nodecoordinatestostore);
+// console.log(nodecoordinatestostore);

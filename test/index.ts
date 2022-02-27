@@ -4,7 +4,7 @@ import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
 import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
 
-console.log("hello world");
+// console.log("hello world");
 
 testgetPheromonessetPheromones();
 

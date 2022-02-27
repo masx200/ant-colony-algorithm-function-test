@@ -26,11 +26,11 @@ export function testgeteuclideandistance() {
     console.assert(geteuclideandistancebyindex(0, 2, nodecoordinates2) === 10);
     console.assert(geteuclideandistancebyindex(2, 0, nodecoordinates2) === 10);
     console.assert(geteuclideandistancebyindex(1, 1, nodecoordinates2) === 0);
-    console.log(nodecoordinates1);
-    console.log(nodecoordinates2);
+    // console.log(nodecoordinates1);
+    // console.log(nodecoordinates2);
 
     const node1distances = getalldistancesofnodes(nodecoordinates1);
-    console.log(node1distances);
+    // console.log(node1distances);
     // console.assert(
     //     [
     //         4.123105625617661, 7.0710678118654755, 10, 4.123105625617661,
