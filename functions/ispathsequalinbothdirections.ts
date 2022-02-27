@@ -11,7 +11,7 @@ export function ispathsequalinbothdirections(
         return false;
     }
 
-    return (
+    return (isEqual(left,right)||
         cyclereorganizeequal(left, right) ||
         cyclereorganizeequal(left, reversearray(right))
     );
