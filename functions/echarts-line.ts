@@ -78,6 +78,20 @@ export function drawlinechart(
         yAxis: {},
         series: [
             {
+                label: {
+                    show: true,
+                    formatter(parm) {
+                        // console.log(parm.data);
+                        return (
+                            "(" + Array.from([parm.data].flat()).join(",") + ")"
+                        );
+                    },
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                    },
+                },
                 data: data,
                 type: "line",
             },
