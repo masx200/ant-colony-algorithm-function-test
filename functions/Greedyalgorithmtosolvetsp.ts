@@ -43,16 +43,14 @@ export function Greedyalgorithmtosolvetsp(
         */
         let nextnode = -1;
         let mindistance = Infinity;
-        for (let [nodeindex, distance] of restnodes.map((value) => {
-            return [
+        for (let [nodeindex, distance] of restnodes.map((value) => [
+            value,
+            geteuclideandistancebyindex(
+                currentnode,
                 value,
-                geteuclideandistancebyindex(
-                    currentnode,
-                    value,
-                    nodecoordinates
-                ),
-            ];
-        })) {
+                nodecoordinates
+            ),
+        ])) {
             if (distance < mindistance) {
                 mindistance = distance;
                 nextnode = nodeindex;

@@ -12,14 +12,10 @@ export function closedtotalpathlength(
                 const nextindex = index === array.length - 1 ? 0 : index + 1;
                 return [value, array[nextindex]];
             })
-            .map(([left, right]) => {
-                // console.log(left, right);
-
-                return geteuclideandistancebyindex(
-                    left,
-                    right,
-                    nodecoordinates
-                );
-            })
+            .map(([left, right]) => /* console.log(left, right);*/ geteuclideandistancebyindex(
+    left,
+    right,
+    nodecoordinates
+))
     );
 }

@@ -13,6 +13,7 @@ export function ispathsequalinbothdirections(
 
     return (
         isEqual(left, right) ||
+        isEqual(reversearray(left), right) ||
         cyclereorganizeequal(left, right) ||
         cyclereorganizeequal(left, reversearray(right))
     );
