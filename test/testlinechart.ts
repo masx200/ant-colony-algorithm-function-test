@@ -16,6 +16,6 @@ export function testdrawlinechart() {
     ].map(([a, b]) => {
         return [a * Math.random(), b * Math.random()];
     });
-    console.log('画出折线图的数据是',data)
+    console.log("画出折线图的数据是", data);
     drawlinechart(data, mychart);
 }

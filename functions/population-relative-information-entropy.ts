@@ -5,10 +5,10 @@ import { ispathsequalinbothdirections } from "./ispathsequalinbothdirections";
 export function population_relative_information_entropy(
     routes: Array<number[]>
 ) {
-    if (!routes.length) {
+    if (!(routes.length >= 2)) {
         throw new Error("incorrect routes");
     }
-    if (!routes[0].length) {
+    if (!(routes[0].length >= 2)) {
         throw new Error("incorrect routes");
     }
     const routesnumber = routes.length;
@@ -17,15 +17,43 @@ export function population_relative_information_entropy(
     if (!routes.every((route) => route.length === nodesnumber)) {
         throw new Error("incorrect routes");
     }
-
-    const fitnessvalues = routes.map((route, _i, a) => /* 计算与此路径相同的路径个数除以总路径数 */ (
-        a.reduce((previous, current) => (
-            previous +
-            Number(ispathsequalinbothdirections(current, route))
-        ), 0) / routesnumber
-    ));
-    return (
-        -sum(fitnessvalues.map((fitness) => fitness * Math.log(fitness))) /
-        Math.log(routesnumber)
+    const notrepeatroutes = routes.reduce((previous: number[][], route) => {
+        if (previous.length) {
+            // return previous;
+            /* 如果此路径与所有路径都不同,则添加 */
+            if (
+                previous.some((notrepeatroute) =>
+                    ispathsequalinbothdirections(route, notrepeatroute)
+                )
+            ) {
+                // debugger;
+                return previous;
+            } else {
+                // debugger;
+                return [...previous, route];
+            }
+        } else {
+            // debugger;
+            return [route];
+        }
+    }, []);
+    const fitnessvalues = notrepeatroutes.map((route) =>
+        /* 计算与此路径相同的路径个数除以总路径数 */ routes.reduce(
+            (previous, current) =>
+                previous + Number(ispathsequalinbothdirections(current, route)),
+            0
+        )
     );
+    const sumfitnessvalues = sum(fitnessvalues);
+    const fitnessweight = fitnessvalues.map((v) => v / sumfitnessvalues);
+    // debugger;
+    const result =
+        -sum(fitnessweight.map((fitness) => fitness * Math.log(fitness))) /
+        Math.log(routesnumber);
+    // debugger;
+    if (Number.isNaN(result)) {
+        throw new Error("Accident ");
+    }
+
+    return result;
 }

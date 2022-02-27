@@ -1,3 +1,4 @@
+import { test_population_relative_information_entropy } from "./test-population-relative-information-entropy";
 import { testgeteuclideandistance } from "./testgeteuclideandistance";
 import { testgetPheromonessetPheromones } from "./testgetPheromonessetPheromones";
 import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
@@ -15,3 +16,4 @@ testrobustsegmentintersect();
 
 testdrawlinechart();
 testGreedyalgorithmtosolvetsp();
+test_population_relative_information_entropy();

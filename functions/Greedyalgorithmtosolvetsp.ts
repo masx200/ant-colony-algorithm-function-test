@@ -45,11 +45,7 @@ export function Greedyalgorithmtosolvetsp(
         let mindistance = Infinity;
         for (let [nodeindex, distance] of restnodes.map((value) => [
             value,
-            geteuclideandistancebyindex(
-                currentnode,
-                value,
-                nodecoordinates
-            ),
+            geteuclideandistancebyindex(currentnode, value, nodecoordinates),
         ])) {
             if (distance < mindistance) {
                 mindistance = distance;
