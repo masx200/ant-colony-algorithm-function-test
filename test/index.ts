@@ -1,8 +1,8 @@
 import { test_population_relative_information_entropy } from "./test-population-relative-information-entropy";
 import { testgeteuclideandistance } from "./testgeteuclideandistance";
 import { testgetPheromonessetPheromones } from "./testgetPheromonessetPheromones";
-import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
-import { testdrawlinechart } from "./testlinechart";
+import { nodecoordinates1, testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
+import { nodecoordinates2 } from "./testlinechart";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
 import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
 
@@ -14,6 +14,7 @@ testgeteuclideandistance();
 testpathsequalinbothdirections();
 testrobustsegmentintersect();
 
-testdrawlinechart();
-testGreedyalgorithmtosolvetsp();
+// testdrawlinechart();
+testGreedyalgorithmtosolvetsp(nodecoordinates1);
+testGreedyalgorithmtosolvetsp(nodecoordinates2);
 test_population_relative_information_entropy();
