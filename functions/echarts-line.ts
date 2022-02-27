@@ -117,6 +117,10 @@ export function createmychart(): echarts.ECharts {
     const resizeobserver = new ResizeObserver(() => {
         myChart.resize(getcharsizeofwindow());
     });
-    resizeobserver.observe(container);
+    resizeobserver.observe(container)
+    window.addEventListener("resize",()=>{
+
+        myChart.resize(getcharsizeofwindow())
+    })
     return myChart;
 }
