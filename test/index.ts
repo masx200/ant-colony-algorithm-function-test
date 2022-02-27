@@ -12,5 +12,6 @@ testgetPheromonessetPheromones();
 testgeteuclideandistance();
 testpathsequalinbothdirections();
 testrobustsegmentintersect();
-testGreedyalgorithmtosolvetsp();
+
 testdrawlinechart();
+testGreedyalgorithmtosolvetsp();

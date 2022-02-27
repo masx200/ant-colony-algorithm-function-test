@@ -1,4 +1,5 @@
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { drawlinechart, createmychart } from "../functions/echarts-line";
 import { Greedyalgorithmtosolvetsp } from "../functions/Greedyalgorithmtosolvetsp";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 
@@ -29,4 +30,12 @@ export function testGreedyalgorithmtosolvetsp() {
     console.log("贪心算法得出的路径长度", totallength);
     console.assert(greedypath.length === nodecoordinates1.length);
     console.log("贪心算法测试结束");
+
+    const linechardata = greedypath
+        .concat(greedypath[0])
+        .map((v) => nodecoordinates1[v]);
+    console.log("贪心算法路径结果画图坐标", linechardata);
+    console.log("test drawlinechart");
+    const mychart = createmychart();
+    drawlinechart(linechardata, mychart);
 }

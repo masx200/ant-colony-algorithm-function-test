@@ -69,19 +69,6 @@ type ECOption = echarts.ComposeOption<
 //     // ...
 // };
 
-const container =
-    document.getElementById("main") ||
-    document.body.appendChild(
-        Object.assign(document.createElement("div"), { id: "main" })
-    );
-export const myChart = echarts.init(container);
-
-container.style.width = "100%";
-container.style.height = "100%";
-const resizeobserver = new ResizeObserver(() => {
-    myChart.resize();
-});
-resizeobserver.observe(container);
 export function drawlinechart(
     data: Array<[number, number]>,
     mychart: echarts.ECharts
@@ -98,5 +85,24 @@ export function drawlinechart(
         // ...
     };
     mychart.setOption(option);
-    myChart.resize();
+    mychart.resize(getcharsizeofwindow());
+}
+function getcharsizeofwindow(): { width: number; height: number } {
+    const min = Math.min(window.innerHeight, window.innerWidth);
+    return {
+        width: min,
+        height: min,
+    };
+}
+export function createmychart(): echarts.ECharts {
+    const container = document.body.appendChild(document.createElement("div"));
+    const myChart = echarts.init(container);
+
+    // container.style.width = "100%";
+    // container.style.height = "100%";
+    const resizeobserver = new ResizeObserver(() => {
+        myChart.resize(getcharsizeofwindow());
+    });
+    resizeobserver.observe(container);
+    return myChart;
 }
