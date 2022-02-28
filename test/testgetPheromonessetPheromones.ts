@@ -6,7 +6,7 @@ export function testgetPheromonessetPheromones() {
 
     const Pheromonestore = createPheromonestore();
     // console.log(Pheromonestore);
-    const { getPheromone, setPheromone } = Pheromonestore;
+    const { get: getPheromone, set: setPheromone } = Pheromonestore;
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
 
