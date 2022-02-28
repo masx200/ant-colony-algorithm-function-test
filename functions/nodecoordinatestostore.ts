@@ -5,4 +5,4 @@ export const nodecoordinatestostore = new WeakMap<
     Nodecoordinates,
     SparseTwoDimensionalMatrixSymmetry
 >();
-// console.log(nodecoordinatestostore);
+console.log(nodecoordinatestostore);
