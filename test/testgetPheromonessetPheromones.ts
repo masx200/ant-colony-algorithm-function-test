@@ -10,7 +10,11 @@ export function testgetPheromonessetPheromones() {
     const { get: getPheromone, set: setPheromone } = Pheromonestore;
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
-
+    Pheromonestore.set(11, 11, 11);
+    console.assert(Pheromonestore.size() === 3);
+    console.assert(Pheromonestore.delete(11, 11));
+    console.assert(!Pheromonestore.delete(11, 11));
+    console.assert(!Pheromonestore.has(11, 11));
     console.assert(getPheromone(1, 10) === 9);
     console.assert(getPheromone(12, 10) === 8);
     console.assert(getPheromone(10, 1) === 9);
@@ -22,6 +26,8 @@ export function testgetPheromonessetPheromones() {
     console.assert(getPheromone(12, 10) === 80);
     console.assert(getPheromone(10, 1) === 90);
     console.assert(getPheromone(10, 12) === 80);
+    console.assert(Pheromonestore.has(1, 10));
+    console.assert(Pheromonestore.has(12, 10));
     console.assert(Pheromonestore.size() === 2);
     console.assert(createPheromonestore().size() === 0);
 
@@ -51,5 +57,7 @@ export function testgetPheromonessetPheromones() {
             entries
         )
     );
+    Pheromonestore.clear();
+    console.assert(Pheromonestore.size() === 0);
     console.log("getPheromones, setPheromones test ok");
 }

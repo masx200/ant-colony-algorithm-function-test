@@ -30,7 +30,19 @@ export function create_sparse_two_dimensional_matrix_symmetry(): SparseTwoDimens
     function entries(): [number, number, number][] {
         return Array.from(SparseTwoDimensionalMatrix.entries());
     }
+    const has = (left: number, right: number) =>
+        SparseTwoDimensionalMatrix.has(left, right) ||
+        SparseTwoDimensionalMatrix.has(right, left);
+
     return {
+        delete: (left: number, right: number) => {
+            return SparseTwoDimensionalMatrix.delete(
+                Math.min(left, right),
+                Math.max(left, right)
+            );
+        },
+        has,
+        clear: SparseTwoDimensionalMatrix.clear,
         size: SparseTwoDimensionalMatrix.size,
         symmetry: true,
         values,

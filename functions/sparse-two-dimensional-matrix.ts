@@ -6,7 +6,7 @@ export function create_sparse_two_dimensional_matrix(): SparseTwoDimensionalMatr
     const valuesrecord = new Map<`${number},${number}`, number>();
 
     function get(left: number, right: number): number | undefined {
-        return valuesrecord.get(`${left},${right}`);
+        return valuesrecord.get(numberstostringkeynotsymmetry(left, right));
     }
 
     function set(left: number, right: number, value: number): void {
@@ -25,13 +25,23 @@ export function create_sparse_two_dimensional_matrix(): SparseTwoDimensionalMatr
             return [...stringkeytonumbers(key), value];
         });
     }
+    const has = (left: number, right: number) =>
+        valuesrecord.has(numberstostringkeynotsymmetry(left, right));
+
     return {
+        clear: () => valuesrecord.clear(),
+        has,
         size: () => valuesrecord.size,
         values,
         keys,
         entries,
         get,
         set,
+        delete: (left: number, right: number) => {
+            return valuesrecord.delete(
+                numberstostringkeynotsymmetry(left, right)
+            );
+        },
         [Symbol.toStringTag]: "SparseTwoDimensionalMatrix",
     };
 }

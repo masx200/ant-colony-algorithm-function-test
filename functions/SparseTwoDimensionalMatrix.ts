@@ -6,4 +6,7 @@ export type SparseTwoDimensionalMatrix = {
     set: (left: number, right: number, value: number) => void;
     [Symbol.toStringTag]: string;
     size(): number;
+    clear: () => void;
+    has: (left: number, right: number) => boolean;
+    delete: (left: number, right: number) => boolean;
 };
