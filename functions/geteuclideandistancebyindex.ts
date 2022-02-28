@@ -1,7 +1,7 @@
 import { euclideandistance } from "./euclideandistance";
 import { getstoreofnodecoordinates } from "./getstoreofnodecoordinates";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { numberstostringkey } from "./numberstostringkey";
+// import { numberstostringkeysymmetry } from "./numberstostringkeysymmetry";
 /* 使用节点坐标获得欧式距离 */
 export function geteuclideandistancebyindex(
     left: number,
@@ -13,8 +13,8 @@ export function geteuclideandistancebyindex(
     const euclideandistancerecord = getstoreofnodecoordinates(nodecoordinates);
     // console.log(euclideandistancerecord);
     return (
-        euclideandistancerecord.get(`${left},${right}`) ??
-        euclideandistancerecord.get(`${right},${left}`) ??
+        euclideandistancerecord.get(left, right) /* ??
+        euclideandistancerecord.get(`${right},${left}`) ?? */ ??
         (() => {
             let leftpair = nodecoordinates[left];
             let rightpair = nodecoordinates[right];
@@ -25,7 +25,9 @@ export function geteuclideandistancebyindex(
             );
 
             euclideandistancerecord.set(
-                numberstostringkey(left, right),
+                left,
+                right,
+                // numberstostringkeysymmetry(left, right),
                 distance
             );
             return distance;
