@@ -1,9 +1,7 @@
 import { test_population_relative_information_entropy } from "./test-population-relative-information-entropy";
 import { testgeteuclideandistance } from "./testgeteuclideandistance";
 import { testgetPheromonessetPheromones } from "./testgetPheromonessetPheromones";
-import {
-    testGreedyalgorithmtosolvetsp,
-} from "./testGreedyalgorithmtosolvetsp";
+import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { nodecoordinates1 } from "./nodecoordinates1";
 import { nodecoordinates2 } from "./nodecoordinates2";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
