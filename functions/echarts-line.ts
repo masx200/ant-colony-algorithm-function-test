@@ -102,7 +102,7 @@ export function drawlinechart(
     mychart.resize(getcharsizeofwindow());
 }
 function getcharsizeofwindow(): { width: number; height: number } {
-    const min = Math.max(100, Math.min(window.innerHeight, window.innerWidth));
+    const min = Math.max(300, Math.min(window.innerHeight, window.innerWidth));
     return {
         width: min,
         height: min,
