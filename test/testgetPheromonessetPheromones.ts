@@ -5,7 +5,8 @@ export function testgetPheromonessetPheromones() {
     console.log("getPheromones, setPheromones test start");
 
     const Pheromonestore = createPheromonestore();
-    // console.log(Pheromonestore);
+
+    console.log(Pheromonestore);
     const { get: getPheromone, set: setPheromone } = Pheromonestore;
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
@@ -21,7 +22,8 @@ export function testgetPheromonessetPheromones() {
     console.assert(getPheromone(12, 10) === 80);
     console.assert(getPheromone(10, 1) === 90);
     console.assert(getPheromone(10, 12) === 80);
-    // console.log(createPheromonestore());
+    console.assert(Pheromonestore.size() === 2);
+    console.assert(createPheromonestore().size() === 0);
 
     let values = Pheromonestore.values();
     // console.log(values);

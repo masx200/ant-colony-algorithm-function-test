@@ -5,4 +5,5 @@ export type SparseTwoDimensionalMatrix = {
     get: (left: number, right: number) => number | undefined;
     set: (left: number, right: number, value: number) => void;
     [Symbol.toStringTag]: string;
+    size(): number;
 };

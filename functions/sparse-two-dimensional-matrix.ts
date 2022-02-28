@@ -26,6 +26,7 @@ export function create_sparse_two_dimensional_matrix(): SparseTwoDimensionalMatr
         });
     }
     return {
+        size: () => valuesrecord.size,
         values,
         keys,
         entries,

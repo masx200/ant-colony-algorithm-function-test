@@ -31,6 +31,7 @@ export function create_sparse_two_dimensional_matrix_symmetry(): SparseTwoDimens
         return Array.from(SparseTwoDimensionalMatrix.entries());
     }
     return {
+        size: SparseTwoDimensionalMatrix.size,
         symmetry: true,
         values,
         keys,
