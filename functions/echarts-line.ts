@@ -42,7 +42,7 @@ echarts.use([
 // 接下来的使用就跟之前一样，初始化图表，设置配置项
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
-type ECOption = echarts.ComposeOption<
+export type ECOption = echarts.ComposeOption<
     | BarSeriesOption
     | LineSeriesOption
     | TitleComponentOption
@@ -51,75 +51,10 @@ type ECOption = echarts.ComposeOption<
     | DatasetComponentOption
 >;
 
-// 注册必须的组件
-
-// const option: ECOption = {
-//     xAxis: {},
-//     yAxis: {},
-//     series: [
-//         {
-//             data: [
-//                 [20, 120],
-//                 [50, 200],
-//                 [40, 50],
-//             ],
-//             type: "line",
-//         },
-//     ],
-//     // ...
-// };
-
-export function drawlinechart(
-    data: Array<[number, number]>,
-    mychart: echarts.ECharts
-) {
-    const option: ECOption = {
-        xAxis: {},
-        yAxis: {},
-        series: [
-            {
-                label: {
-                    show: true,
-                    formatter(parm) {
-                        // console.log(parm.data);
-                        return (
-                            "(" + Array.from([parm.data].flat()).join(",") + ")"
-                        );
-                    },
-                },
-                emphasis: {
-                    label: {
-                        show: true,
-                    },
-                },
-                data: data,
-                type: "line",
-            },
-        ],
-        // ...
-    };
-    mychart.setOption(option);
-    mychart.resize(getcharsizeofwindow());
-}
-function getcharsizeofwindow(): { width: number; height: number } {
+export function getcharsizeofwindow(): { width: number; height: number } {
     const min = Math.max(300, Math.min(window.innerHeight, window.innerWidth));
     return {
         width: min,
         height: min,
     };
-}
-export function createmychart(): echarts.ECharts {
-    const container = document.body.appendChild(document.createElement("div"));
-    const myChart = echarts.init(container);
-
-    // container.style.width = "100%";
-    // container.style.height = "100%";
-    const resizeobserver = new ResizeObserver(() => {
-        myChart.resize(getcharsizeofwindow());
-    });
-    resizeobserver.observe(container);
-    window.addEventListener("resize", () => {
-        myChart.resize(getcharsizeofwindow());
-    });
-    return myChart;
 }

@@ -1,5 +1,6 @@
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
-import { drawlinechart, createmychart } from "../functions/echarts-line";
+import { drawlinechart } from "../functions/drawlinechart";
+import { createmychart } from "../functions/createmychart";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetsp";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 export function testGreedyalgorithmtosolvetsp(
