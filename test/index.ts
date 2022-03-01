@@ -1,4 +1,4 @@
-import { nodecoordinates1 } from "./nodecoordinates1";
+import { nodecoordinates21 } from "./nodecoordinates21";
 import { nodecoordinates2 } from "./nodecoordinates2";
 import { nodecoordinates3 } from "./nodecoordinates3";
 import { test_issubroutecycle } from "./test-issubroutecycle";
@@ -20,7 +20,7 @@ testpathsequalinbothdirections();
 testrobustsegmentintersect();
 
 // testdrawlinechart();
-testGreedyalgorithmtosolvetsp(nodecoordinates1);
+testGreedyalgorithmtosolvetsp(nodecoordinates21);
 testGreedyalgorithmtosolvetsp(nodecoordinates2);
 test_population_relative_information_entropy();
 testGreedyalgorithmtosolvetsp(nodecoordinates3);
