@@ -9,9 +9,10 @@ import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
 import { testPathTabooList } from "./testPathTabooList";
 import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
-
+import { nodecoordinates4 } from "./nodecoordinates4";
 // console.log("hello world");
 
+testGreedyalgorithmtosolvetsp(nodecoordinates4);
 testgetPheromonessetPheromones();
 
 testgeteuclideandistance();
