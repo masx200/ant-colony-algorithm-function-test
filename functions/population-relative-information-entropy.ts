@@ -1,5 +1,5 @@
 import { sum } from "lodash";
-import { ispathsequalinbothdirections } from "./ispathsequalinbothdirections";
+import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
 
 /* 种群相对信息熵 */
 export function population_relative_information_entropy(
@@ -23,7 +23,7 @@ export function population_relative_information_entropy(
             /* 如果此路径与所有路径都不同,则添加 */
             if (
                 previous.some((notrepeatroute) =>
-                    ispathsequalinbothdirections(route, notrepeatroute)
+                    ispathsequalinbothdirectionswithcycle(route, notrepeatroute)
                 )
             ) {
                 // debugger;
@@ -40,7 +40,8 @@ export function population_relative_information_entropy(
     const fitnessvalues = notrepeatroutes.map((route) =>
         /* 计算与此路径相同的路径个数除以总路径数 */ routes.reduce(
             (previous, current) =>
-                previous + Number(ispathsequalinbothdirections(current, route)),
+                previous +
+                Number(ispathsequalinbothdirectionswithcycle(current, route)),
             0
         )
     );

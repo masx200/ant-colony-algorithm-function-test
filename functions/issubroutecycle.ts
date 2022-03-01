@@ -1,8 +1,6 @@
 import { cyclereoganize } from "./cyclereoganize";
-import {
-    ispathsequalinbothdirections,
-    reversearray,
-} from "./ispathsequalinbothdirections";
+import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
+import { reversearray } from "./reversearray";
 import { issubroutenotcyclewithreverse } from "./issubroutenotcyclewithreverse";
 /* 判断是否是子路径,包括环路和非环路 */
 export function issubroutecycle(
@@ -27,7 +25,7 @@ export function issubroutecycle(
         parentroute.length === countofnodes &&
         childroute.length == countofnodes
     ) {
-        return ispathsequalinbothdirections(parentroute, childroute);
+        return ispathsequalinbothdirectionswithcycle(parentroute, childroute);
     } else if (
         parentroute.length !== countofnodes &&
         childroute.length !== countofnodes
