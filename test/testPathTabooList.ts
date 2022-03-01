@@ -1,10 +1,17 @@
 import { isEqual } from "lodash";
 import { createPathTabooList } from "../functions/PathTabooList";
+import { assertshouldcatcherror } from "./assertshouldcatcherror";
 
 export function testPathTabooList() {
     console.log("test PathTabooList start");
 
     const ptl = createPathTabooList(10);
+    assertshouldcatcherror(() => {
+        createPathTabooList(0);
+    });
+    assertshouldcatcherror(() => {
+        createPathTabooList(1);
+    });
     console.log(ptl);
     console.assert(ptl.size() === 0);
 
@@ -40,6 +47,10 @@ export function testPathTabooList() {
     console.assert(ptl.size() === 0);
 
     ptl.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+    assertshouldcatcherror(() => {
+        ptl.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 10]);
+    });
+
     ptl.add([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     ptl.add([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
     console.assert(ptl.size() === 1);
