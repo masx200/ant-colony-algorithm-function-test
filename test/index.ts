@@ -1,6 +1,6 @@
 import { nodecoordinates21 } from "./nodecoordinates21";
-import { nodecoordinates2 } from "./nodecoordinates2";
-import { nodecoordinates3 } from "./nodecoordinates3";
+import { nodecoordinates10 } from "./nodecoordinates10";
+import { nodecoordinates30 } from "./nodecoordinates30";
 import { test_issubroutecycle } from "./test-issubroutecycle";
 import { test_population_relative_information_entropy } from "./test-population-relative-information-entropy";
 import { testgeteuclideandistance } from "./testgeteuclideandistance";
@@ -21,8 +21,8 @@ testrobustsegmentintersect();
 
 // testdrawlinechart();
 testGreedyalgorithmtosolvetsp(nodecoordinates21);
-testGreedyalgorithmtosolvetsp(nodecoordinates2);
+testGreedyalgorithmtosolvetsp(nodecoordinates10);
 test_population_relative_information_entropy();
-testGreedyalgorithmtosolvetsp(nodecoordinates3);
+testGreedyalgorithmtosolvetsp(nodecoordinates30);
 test_issubroutecycle();
 testPathTabooList();
