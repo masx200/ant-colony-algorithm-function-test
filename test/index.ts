@@ -7,6 +7,7 @@ import { testgeteuclideandistance } from "./testgeteuclideandistance";
 import { testgetPheromonessetPheromones } from "./testgetPheromonessetPheromones";
 import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
+import { testPathTabooList } from "./testPathTabooList";
 import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
 
 // console.log("hello world");
@@ -23,3 +24,4 @@ testGreedyalgorithmtosolvetsp(nodecoordinates2);
 test_population_relative_information_entropy();
 testGreedyalgorithmtosolvetsp(nodecoordinates3);
 test_issubroutecycle();
+testPathTabooList();

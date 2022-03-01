@@ -4,7 +4,7 @@ import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdi
 
 /**
  * 路径禁忌列表  类似于Set*/
-type PathTabooList = {
+export type PathTabooList = {
     size(): number;
     countofnodes: number;
     add(route: number[]): void;
@@ -20,6 +20,9 @@ type PathTabooList = {
 export function createPathTabooList(
     countofnodes: number //路径最多节点数,用于判断是否是环路
 ): PathTabooList {
+    if (countofnodes < 2) {
+        throw new Error("incorrect countofnodes");
+    }
     const store = new Map<number, Set<number[]>>();
     const keys = () => {
         const sets = [...store.values()];
