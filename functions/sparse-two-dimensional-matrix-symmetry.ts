@@ -2,6 +2,11 @@
 import { create_sparse_two_dimensional_matrix } from "./sparse-two-dimensional-matrix";
 // import { stringkeytonumbers } from "./stringkeytonumbers";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
+
+/**
+ * 
+ * 创建稀疏二维矩阵对称式
+ */ 
 export function create_sparse_two_dimensional_matrix_symmetry(): SparseTwoDimensionalMatrixSymmetry {
     const SparseTwoDimensionalMatrix = create_sparse_two_dimensional_matrix();
 

@@ -1,4 +1,4 @@
-/* 数字生成字符串键值 对称式矩阵*/
+/* 数字生成字符串键值 非对称式矩阵*/
 export function numberstostringkeynotsymmetry(
     left: number,
     right: number

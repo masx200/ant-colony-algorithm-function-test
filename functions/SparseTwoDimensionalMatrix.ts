@@ -1,3 +1,4 @@
+/* 稀疏二维矩阵 非对称式*/
 export type SparseTwoDimensionalMatrix = {
     values: () => number[];
     keys: () => [number, number][];

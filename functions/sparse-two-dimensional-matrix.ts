@@ -1,7 +1,7 @@
 import { numberstostringkeynotsymmetry } from "./numberstostringkeynotsymmetry";
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 import { stringkeytonumbers } from "./stringkeytonumbers";
-/* 稀疏二维矩阵 非对称*/
+/* 创建稀疏二维矩阵 非对称*/
 export function create_sparse_two_dimensional_matrix(): SparseTwoDimensionalMatrix {
     const valuesrecord = new Map<`${number},${number}`, number>();
 

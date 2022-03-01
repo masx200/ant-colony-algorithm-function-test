@@ -1,6 +1,6 @@
 import * as echarts from "echarts/core";
 import { getcharsizeofwindow } from "./echarts-line";
-
+/* 创建echarts实例 */
 export function createmychart(): echarts.ECharts {
     const container = document.body.appendChild(document.createElement("div"));
     const myChart = echarts.init(container);

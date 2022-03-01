@@ -2,7 +2,7 @@ import { combinations } from "combinatorial-generators";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { Nodecoordinates } from "./Nodecoordinates";
 
-/* 获得节点的所有组合之间的距离数组 */
+/* 获得节点的所有组合之间的距离数组,无固定顺序 */
 export function getalldistancesofnodes(
     nodecoordinates: Nodecoordinates
 ): number[] {

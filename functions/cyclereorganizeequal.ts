@@ -14,6 +14,8 @@ import { cyclereoganize } from "./cyclereoganize";
 //         cyclereorganizeequal(reversearray(left), right)
 //     );
 // }
+
+/* 回环路径重新排列判断相等 */
 export function cyclereorganizeequal(
     left: Array<number>,
     right: Array<number>
