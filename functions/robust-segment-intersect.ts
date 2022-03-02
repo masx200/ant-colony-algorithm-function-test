@@ -1,4 +1,4 @@
-type Coordinate = [number, number];
+export type Coordinate = [number, number];
 /* 判断线段是否相交 
 Tests if the closed line segment [a0,a1] intersects the closed line segment [b0,b1].
 

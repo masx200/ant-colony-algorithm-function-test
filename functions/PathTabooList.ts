@@ -33,31 +33,21 @@ export function createPathTabooList(
         if (!set) {
             return false;
         }
-        return Boolean(
-            Array.from(set).some((value) => {
-                if (route.length === countofnodes) {
-                    /* 回环路径 */
-                    return ispathsequalinbothdirectionswithcycle(route, value);
-                } else {
-                    return ispathsequalinbothdirectionswithoutcycle(
-                        route,
-                        value
-                    );
-                }
-            })
-        );
+        return Array.from(set).some((value) => {
+            if (route.length === countofnodes) {
+                /* 回环路径 */
+                return ispathsequalinbothdirectionswithcycle(route, value);
+            } else {
+                /* 非回环路径 */
+                return ispathsequalinbothdirectionswithoutcycle(route, value);
+            }
+        });
     };
     const add = (route: number[]) => {
         if (route.length <= 1 || route.length > countofnodes) {
             throw new Error("incorrect route");
         }
-        const set =
-            store.get(route.length) ??
-            (() => {
-                const set = new Set<number[]>();
-                store.set(route.length, set);
-                return set;
-            })();
+        const set = store.get(route.length) ?? createandsetaset(store, route);
         if (!has(route)) {
             set.add(route);
         }
@@ -104,4 +94,9 @@ export function createPathTabooList(
         countofnodes,
         [Symbol.toStringTag]: "PathTabooList",
     };
+}
+function createandsetaset(store: Map<number, Set<number[]>>, route: number[]): Set<number[]> {
+    const set = new Set<number[]>();
+    store.set(route.length, set);
+    return set;
 }
