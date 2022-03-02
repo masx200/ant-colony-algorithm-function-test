@@ -4,8 +4,14 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
 
 // import { stringkeytonumbers } from "./stringkeytonumbers";
 /* 创建信息素仓库 */
-export function createPheromonestore(): SparseTwoDimensionalMatrixSymmetry {
-    return create_sparse_two_dimensional_matrix_symmetry();
+export function createPheromonestore(
+    scale: number
+): SparseTwoDimensionalMatrixSymmetry {
+    return create_sparse_two_dimensional_matrix_symmetry({
+        row: scale,
+        column: scale,
+        default: -1,
+    });
 }
 // /* 信息素存储 */
 // const Pheromonesrecord = new Map<`${number},${number}`, number>();

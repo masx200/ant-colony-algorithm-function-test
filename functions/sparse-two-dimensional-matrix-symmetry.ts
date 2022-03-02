@@ -1,26 +1,49 @@
-// import { numberstostringkeynotsymmetry } from "./numberstostringkeynotsymmetry";
-import { create_sparse_two_dimensional_matrix } from "./sparse-two-dimensional-matrix";
-// import { stringkeytonumbers } from "./stringkeytonumbers";
+import {
+    create_sparse_two_dimensional_matrix,
+    SparseMatrixOptions,
+} from "./sparse-two-dimensional-matrix";
+
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 /**
  *
  * 创建稀疏二维矩阵对称式
  */
-export function create_sparse_two_dimensional_matrix_symmetry(): SparseTwoDimensionalMatrixSymmetry {
-    const SparseTwoDimensionalMatrix = create_sparse_two_dimensional_matrix();
+export function create_sparse_two_dimensional_matrix_symmetry(
+    opts: SparseMatrixOptions
+): SparseTwoDimensionalMatrixSymmetry {
+    const { row, column } = opts;
+    function checkoutofbounds(inputrow: number, inputcolumn: number) {
+        //序号应该从0开始到row-1结束
+        if (
+            inputrow > opts.row - 1 ||
+            inputcolumn > opts.column - 1 ||
+            inputrow < 0 ||
+            inputcolumn < 0
+        ) {
+            throw new Error("row or column out of bounds");
+        }
+    }
+    if (row !== column) {
+        throw new Error("Symmetry Matrix , row, column should equal");
+    }
+    const SparseTwoDimensionalMatrix =
+        create_sparse_two_dimensional_matrix(opts);
 
-    function get(left: number, right: number): number | undefined {
-        return (
-            SparseTwoDimensionalMatrix.get(left, right) ??
-            SparseTwoDimensionalMatrix.get(right, left)
-        );
+    function get(row: number, column: number): number {
+        checkoutofbounds(row, column);
+        return SparseTwoDimensionalMatrix.has(row, column)
+            ? SparseTwoDimensionalMatrix.get(row, column)
+            : SparseTwoDimensionalMatrix.has(column, row)
+            ? SparseTwoDimensionalMatrix.get(column, row)
+            : opts.default;
     }
 
-    function set(left: number, right: number, value: number): void {
+    function set(row: number, column: number, value: number): void {
+        checkoutofbounds(row, column);
         SparseTwoDimensionalMatrix.set(
-            Math.min(left, right),
-            Math.max(left, right),
+            Math.min(row, column),
+            Math.max(row, column),
             value
         );
     }
@@ -35,15 +58,16 @@ export function create_sparse_two_dimensional_matrix_symmetry(): SparseTwoDimens
     function entries(): [number, number, number][] {
         return Array.from(SparseTwoDimensionalMatrix.entries());
     }
-    const has = (left: number, right: number) =>
-        SparseTwoDimensionalMatrix.has(left, right) ||
-        SparseTwoDimensionalMatrix.has(right, left);
+    const has = (row: number, column: number) =>
+        SparseTwoDimensionalMatrix.has(row, column) ||
+        SparseTwoDimensionalMatrix.has(column, row);
 
     return {
-        delete: (left: number, right: number) => {
+        ...opts,
+        delete: (row: number, column: number) => {
             return SparseTwoDimensionalMatrix.delete(
-                Math.min(left, right),
-                Math.max(left, right)
+                Math.min(row, column),
+                Math.max(row, column)
             );
         },
         has,

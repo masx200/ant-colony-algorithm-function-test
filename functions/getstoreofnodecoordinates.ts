@@ -9,15 +9,18 @@ export function getstoreofnodecoordinates(
 ): SparseTwoDimensionalMatrixSymmetry {
     return (
         nodecoordinatestostore.get(nodecoordinates) ??
-        (() => {
-            const euclideandistancerecord =
-                create_sparse_two_dimensional_matrix_symmetry();
-            nodecoordinatestostore.set(
-                nodecoordinates,
-                euclideandistancerecord
-            );
-
-            return euclideandistancerecord;
-        })()
+        createdistancestore(nodecoordinates)
     );
+}
+function createdistancestore(nodecoordinates: Nodecoordinates) {
+    const row = nodecoordinates.length;
+    const euclideandistancerecord =
+        create_sparse_two_dimensional_matrix_symmetry({
+            row,
+            column: row,
+            default: -1,
+        });
+    nodecoordinatestostore.set(nodecoordinates, euclideandistancerecord);
+
+    return euclideandistancerecord;
 }
