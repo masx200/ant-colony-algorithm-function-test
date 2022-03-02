@@ -1,20 +1,17 @@
+import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { createPathTabooList, PathTabooList } from "./PathTabooList";
+import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
-export interface PickNodeOptions {
+export type PickNodeOptions = Constants & {
     parameterrandomization: boolean;
-    alphamax: number;
-    alphamin: number;
-    alphazero: number;
-    betamax: number;
-    betamin: number;
-    betazero: number;
-    getpheromone: (left: number, right: number) => number;
+
+    getpheromone: GetPheromone;
     currentroute: number[];
     availablenodes: number[];
 
-    getdistancebyserialnumber: (left: number, right: number) => number;
-}
+    getdistancebyserialnumber: GetDistanceBySerialNumber;
+};
 
 export type IntersectionFilter = (
     countofnodes: number,
@@ -43,7 +40,7 @@ export type Constants = {
 };
 export type PathConstructOptions = Constants & {
     nodecoordinates: Nodecoordinates;
-    /**交叉点检测器  */
+    /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
     intersectionfilter: IntersectionFilter;
     /**选择下一个节点使用轮盘选择法 */
     picknextnode(args: PickNodeOptions): number;
@@ -58,32 +55,94 @@ export type PathConstructOptions = Constants & {
     countofnodes: number;
     /* 通过序号获得欧氏距离 */
     getdistancebyserialnumber: GetDistanceBySerialNumber;
+
+    pheromonestore: SparseTwoDimensionalMatrixSymmetry;
 };
 /**禁忌回溯路径构建 */
 export function taboo_backtracking_path_construction(
     opts: PathConstructOptions
 ): number[] {
-    const { startnode, countofnodes, filterforbiddenbeforepick } = opts;
+    const {
+        parameterrandomization,
+        startnode,
+        countofnodes,
+        filterforbiddenbeforepick,
+        intersectionfilter,
+        nodecoordinates,
+        picknextnode,
+        pheromonestore,
+
+        alphamax,
+        alphamin,
+        alphazero,
+        betamax,
+        betamin,
+        betazero,
+    } = opts;
+
+    const getpheromone = (left: number, right: number) => {
+        return pheromonestore.get(left, right);
+    };
+    const getdistancebyserialnumber = (left: number, right: number) => {
+        return geteuclideandistancebyindex(left, right, nodecoordinates);
+    };
+
     const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
 
     let route: number[] = [startnode];
-    while (true) {
-        if (route.length === countofnodes) {
-            break;
-        } else {
-            const availablenodes = new Set<number>(
-                Array(countofnodes)
-                    .fill(0)
-                    .map((_v, i) => i)
-                    .filter((v) => route.includes(v))
+    while (route.length !== countofnodes) {
+        const availablenodes = new Set<number>(
+            Array(countofnodes)
+                .fill(0)
+                .map((_v, i) => i)
+                .filter((v) => !route.includes(v))
+        );
+        const selectednodes = Array.from(availablenodes).filter((value) => {
+            return filterforbiddenbeforepick(
+                Array.from(route),
+                pathTabooList,
+                value
             );
-            const selectednodes = Array.from(availablenodes).filter((value) => {
-                return filterforbiddenbeforepick(
-                    Array.from(route),
-                    pathTabooList,
-                    value
-                );
+        });
+        const intersectionnodes = selectednodes.filter((value) => {
+            return intersectionfilter(
+                countofnodes,
+                Array.from(route),
+                nodecoordinates,
+                value
+            );
+        });
+        /* 造成交叉点的路线添加到禁忌表中 */
+        intersectionnodes
+            .map((value) => [...route, value])
+            .forEach((r) => pathTabooList.add(r));
+
+        const filterednodes = selectednodes.filter(
+            (value) => !intersectionnodes.includes(value)
+        );
+
+        /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
+        if (filterednodes.length === 0) {
+            pathTabooList.add(Array.from(route));
+            /* 退回上一步 */
+            route = route.slice(0, route.length - 1);
+            continue;
+        } else {
+            const nextnode = picknextnode({
+                alphamax,
+                alphamin,
+                alphazero,
+                betamax,
+                betamin,
+                betazero,
+                parameterrandomization,
+                currentroute: Array.from(route),
+                availablenodes: Array.from(filterednodes),
+                getpheromone,
+                getdistancebyserialnumber,
             });
+            route = [...route, nextnode];
+            continue;
         }
     }
     return route;
