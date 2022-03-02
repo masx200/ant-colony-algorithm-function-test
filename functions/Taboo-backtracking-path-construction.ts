@@ -1,6 +1,6 @@
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { createPathTabooList, PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "./PathTabooList";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 export type PickNodeOptions = Constants & {
@@ -51,10 +51,10 @@ export type PathConstructOptions = Constants & {
     parameterrandomization: boolean;
 
     /* 通过序号获得信息素 */
-    getpheromone: GetPheromone;
+    // getpheromone: GetPheromone;
     countofnodes: number;
     /* 通过序号获得欧氏距离 */
-    getdistancebyserialnumber: GetDistanceBySerialNumber;
+    // getdistancebyserialnumber: GetDistanceBySerialNumber;
 
     pheromonestore: SparseTwoDimensionalMatrixSymmetry;
 };
@@ -78,6 +78,7 @@ export function taboo_backtracking_path_construction(
         betamax,
         betamin,
         betazero,
+        pathTabooList,
     } = opts;
 
     const getpheromone = (left: number, right: number) => {
@@ -87,7 +88,7 @@ export function taboo_backtracking_path_construction(
         return geteuclideandistancebyindex(left, right, nodecoordinates);
     };
 
-    const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
+    // const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
 
     let route: number[] = [startnode];
     while (route.length !== countofnodes) {
