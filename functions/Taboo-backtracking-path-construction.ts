@@ -92,6 +92,10 @@ export function taboo_backtracking_path_construction(
 
     let route: number[] = [startnode];
     while (route.length !== countofnodes) {
+        /* 路径长度检查 */
+        if (route.length > countofnodes || route.length < 1) {
+            throw Error("route accident");
+        }
         const availablenodes = new Set<number>(
             Array(countofnodes)
                 .fill(0)
