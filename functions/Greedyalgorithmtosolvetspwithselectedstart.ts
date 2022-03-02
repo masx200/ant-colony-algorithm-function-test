@@ -1,5 +1,4 @@
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
-import { getnumberfromarrayofnmber } from "./Greedyalgorithmtosolvetsp";
 import { Nodecoordinates } from "./Nodecoordinates";
 
 /* 可选起点的贪心算法 */
@@ -16,7 +15,7 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
         .map((_v, i) => i);
     const indexsset = new Set(inputindexs);
     /* 第一个点随机选择 */
-    const firstnode = getnumberfromarrayofnmber(start);
+    const firstnode = start;
     const result = [firstnode];
     indexsset.delete(firstnode);
 

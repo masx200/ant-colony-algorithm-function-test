@@ -1,49 +1,18 @@
+import { Constants } from "./Constants";
+import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.1";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
+import { IntersectionFilter } from "./IntersectionFilter.1";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
+import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
-export type PickNodeOptions = Constants & {
-    parameterrandomization: boolean;
-
-    getpheromone: GetPheromone;
-    currentroute: number[];
-    availablenodes: number[];
-
-    getdistancebyserialnumber: GetDistanceBySerialNumber;
-};
-
-export type IntersectionFilter = (
-    countofnodes: number,
-    currentroute: number[],
-    nodecoordinates: Nodecoordinates,
-    nextnode: number
-) => boolean;
-
-export type FilterForbiddenBeforePick = (
-    currentroute: number[],
-    pathTabooList: PathTabooList,
-    nextnode: number
-) => boolean;
-
-export type GetPheromone = (left: number, right: number) => number;
-
-export type GetDistanceBySerialNumber = (left: number, right: number) => number;
-/**一些常数 */
-export type Constants = {
-    alphamax: number;
-    alphamin: number;
-    alphazero: number;
-    betamax: number;
-    betamin: number;
-    betazero: number;
-};
 export type PathConstructOptions = Constants & {
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
     intersectionfilter: IntersectionFilter;
     /**选择下一个节点使用轮盘选择法 */
-    picknextnode(args: PickNodeOptions): number;
+    picknextnode(args: PickNextNodeRouletteOptions): number;
     pathTabooList: PathTabooList;
     startnode: number;
     /**过滤禁忌表当中的节点 */
@@ -141,8 +110,8 @@ export function taboo_backtracking_path_construction(
                 betamin,
                 betazero,
                 parameterrandomization,
-                currentroute: Array.from(route),
-                availablenodes: Array.from(filterednodes),
+                currentnode: Array.from(route).slice(-1)[0],
+                availablenextnodes: Array.from(filterednodes),
                 getpheromone,
                 getdistancebyserialnumber,
             });
