@@ -114,8 +114,11 @@ export function taboo_backtracking_path_construction(
         } else {
             // debugger;
             if (filterednodes.length === 0) {
-                debugger;
+                /* 路径长度为1,没有可选的下一个点是不可能的 */
+                throw Error("accident");
             }
+            //     debugger;
+            // }
             const nextnode = picknextnode({
                 alphamax,
                 alphamin,

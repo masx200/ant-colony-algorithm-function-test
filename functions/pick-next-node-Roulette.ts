@@ -19,7 +19,7 @@ export function picknextnodeRoulette(
         availablenextnodes,
     } = args;
     if (availablenextnodes.length === 0) {
-        debugger;
+        // debugger;
         throw Error(
             "invalid availablenextnodes:" + JSON.stringify(availablenextnodes)
         );
