@@ -4,7 +4,8 @@ import { robustsegmentintersect } from "./robust-segment-intersect";
 export function checkcurrentsegmentsintersectnextsegment(
     currentsegments: [number, number][],
     nextsegment: [number, number],
-    nodecoordinates: Nodecoordinates): boolean {
+    nodecoordinates: Nodecoordinates
+): boolean {
     return currentsegments.some((segment) => {
         const intersectparameters = [
             segment[0],
