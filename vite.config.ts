@@ -1,3 +1,5 @@
 import { defineConfig } from "vite";
 
-export default defineConfig({});
+export default defineConfig({
+    build: { target: "es2021" },
+});
