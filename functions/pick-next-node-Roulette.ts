@@ -19,7 +19,7 @@ export function picknextnodeRoulette(
         availablenextnodes,
     } = args;
     if (availablenextnodes.length === 0) {
-        // debugger
+        debugger;
         throw Error(
             "invalid availablenextnodes:" + JSON.stringify(availablenextnodes)
         );
@@ -35,7 +35,9 @@ export function picknextnodeRoulette(
             Math.pow(getdistancebyserialnumber(nextnode, currentnode), beta)
         );
     });
-    return getnumberfromarrayofnmber(
+    const result = getnumberfromarrayofnmber(
         pickRandom(availablenextnodes, 1, weights)
     );
+    // debugger;
+    return result;
 }

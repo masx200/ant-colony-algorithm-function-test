@@ -61,6 +61,7 @@ export function taboo_backtracking_path_construction(
 
     let route: number[] = [startnode];
     while (route.length !== countofnodes) {
+        // debugger;
         /* 路径长度检查 */
         if (route.length > countofnodes || route.length < 1) {
             throw Error("route accident");
@@ -71,6 +72,7 @@ export function taboo_backtracking_path_construction(
                 .map((_v, i) => i)
                 .filter((v) => !route.includes(v))
         );
+        // debugger;
         /* 找出禁忌表中不包含的路径 */
         const selectednodes = Array.from(availablenodes).filter((value) => {
             return !filterforbiddenbeforepick(
@@ -79,6 +81,7 @@ export function taboo_backtracking_path_construction(
                 value
             );
         });
+        // debugger;
         /* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
         let filterednodes: undefined | number[];
         if (route.length >= 3) {
@@ -97,10 +100,11 @@ export function taboo_backtracking_path_construction(
             filterednodes = selectednodes.filter(
                 (value) => !intersectionnodes.includes(value)
             );
+            // debugger;
         } else {
             filterednodes = Array.from(selectednodes);
         }
-
+        // debugger;
         /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
         if (route.length > 1 && filterednodes.length === 0) {
             pathTabooList.add(Array.from(route));
@@ -109,6 +113,9 @@ export function taboo_backtracking_path_construction(
             continue;
         } else {
             // debugger;
+            if (filterednodes.length === 0) {
+                debugger;
+            }
             const nextnode = picknextnode({
                 alphamax,
                 alphamin,
@@ -122,7 +129,7 @@ export function taboo_backtracking_path_construction(
                 getpheromone,
                 getdistancebyserialnumber,
             });
-
+            // debugger;
             route = [...route, nextnode];
             continue;
         }
