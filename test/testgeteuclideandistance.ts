@@ -1,7 +1,7 @@
 import { isEqual } from "lodash";
+import { euclideandistance } from "../functions/euclideandistance";
 import { getalldistancesofnodes } from "../functions/getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
-import { euclideandistance } from "../functions/euclideandistance";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 export function testgeteuclideandistance() {
     console.log("test geteuclideandistance test start");

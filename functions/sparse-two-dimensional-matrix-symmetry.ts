@@ -2,7 +2,6 @@ import {
     create_sparse_two_dimensional_matrix,
     SparseMatrixOptions,
 } from "./sparse-two-dimensional-matrix";
-
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 /**

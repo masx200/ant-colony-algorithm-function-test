@@ -1,8 +1,8 @@
-import { Nodecoordinates } from "./Nodecoordinates";
-
 // import { pickRandom } from "mathjs";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
+import { Nodecoordinates } from "./Nodecoordinates";
+
 /* 贪心算法解决tsp问题,返回路径序列 
 尝试所有起点找到最优的一个
 */

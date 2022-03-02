@@ -1,3 +1,5 @@
+//@ts-ignore
+import crosses from "robust-segment-intersect";
 export type Coordinate = [number, number];
 /* 判断线段是否相交 
 Tests if the closed line segment [a0,a1] intersects the closed line segment [b0,b1].
@@ -15,6 +17,3 @@ export function robustsegmentintersect(
 ): boolean {
     return crosses(a0, a1, b0, b1);
 }
-
-//@ts-ignore
-import crosses from "robust-segment-intersect";
