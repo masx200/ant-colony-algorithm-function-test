@@ -6,7 +6,6 @@ export interface SparseMatrixOptions {
     column: number;
     default: number;
 }
-
 /* 创建稀疏二维矩阵 非对称*/
 export function create_sparse_two_dimensional_matrix(
     opts: SparseMatrixOptions
@@ -23,8 +22,8 @@ export function create_sparse_two_dimensional_matrix(
             throw new Error("row or column out of bounds");
         }
     }
-    if (row < 2 || 2 > column) {
-        throw new Error(" row, column should greater than 2");
+    if (!(row > 0 && column > 0)) {
+        throw new Error(" row, column should greater than 0");
     }
     const valuesrecord = new Map<`${number},${number}`, number>();
 
