@@ -18,6 +18,12 @@ export function picknextnodeRoulette(
         currentnode,
         availablenextnodes,
     } = args;
+    if (availablenextnodes.length === 0) {
+        // debugger
+        throw Error(
+            "invalid availablenextnodes:" + JSON.stringify(availablenextnodes)
+        );
+    }
     const beta = parameterrandomization ? random(betamin, betamax) : betazero;
 
     const alpha = parameterrandomization

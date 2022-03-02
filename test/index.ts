@@ -10,6 +10,7 @@ import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
 import { testPathTabooList } from "./testPathTabooList";
 import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
+import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
 // console.log("hello world");
 
 testGreedyalgorithmtosolvetsp(nodecoordinates6);
@@ -25,6 +26,8 @@ testGreedyalgorithmtosolvetsp(nodecoordinates10);
 test_population_relative_information_entropy();
 
 test_issubroutecycle();
-testPathTabooList();
+
 testGreedyalgorithmtosolvetsp(nodecoordinates21);
 testGreedyalgorithmtosolvetsp(nodecoordinates30);
+test_taboo_backtracking_path_construction(nodecoordinates6);
+testPathTabooList();

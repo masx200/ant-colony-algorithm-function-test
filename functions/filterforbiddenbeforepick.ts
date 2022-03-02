@@ -5,5 +5,6 @@ export function filterforbiddenbeforepick(
     pathTabooList: PathTabooList,
     nextnode: number
 ): boolean {
+    // debugger
     return pathTabooList.has([...currentroute, nextnode]);
 }

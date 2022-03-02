@@ -71,37 +71,44 @@ export function taboo_backtracking_path_construction(
                 .map((_v, i) => i)
                 .filter((v) => !route.includes(v))
         );
+        /* 找出禁忌表中不包含的路径 */
         const selectednodes = Array.from(availablenodes).filter((value) => {
-            return filterforbiddenbeforepick(
+            return !filterforbiddenbeforepick(
                 Array.from(route),
                 pathTabooList,
                 value
             );
         });
-        const intersectionnodes = selectednodes.filter((value) => {
-            return intersectionfilter(
-                countofnodes,
-                Array.from(route),
-                nodecoordinates,
-                value
+        /* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
+        let filterednodes: undefined | number[];
+        if (route.length >= 3) {
+            const intersectionnodes = selectednodes.filter((value) => {
+                return intersectionfilter(
+                    countofnodes,
+                    Array.from(route),
+                    nodecoordinates,
+                    value
+                );
+            });
+            /* 造成交叉点的路线添加到禁忌表中 */
+            intersectionnodes
+                .map((value) => [...route, value])
+                .forEach((r) => pathTabooList.add(r));
+            filterednodes = selectednodes.filter(
+                (value) => !intersectionnodes.includes(value)
             );
-        });
-        /* 造成交叉点的路线添加到禁忌表中 */
-        intersectionnodes
-            .map((value) => [...route, value])
-            .forEach((r) => pathTabooList.add(r));
-
-        const filterednodes = selectednodes.filter(
-            (value) => !intersectionnodes.includes(value)
-        );
+        } else {
+            filterednodes = Array.from(selectednodes);
+        }
 
         /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
-        if (filterednodes.length === 0) {
+        if (route.length > 1 && filterednodes.length === 0) {
             pathTabooList.add(Array.from(route));
             /* 退回上一步 */
             route = route.slice(0, route.length - 1);
             continue;
         } else {
+            // debugger;
             const nextnode = picknextnode({
                 alphamax,
                 alphamin,
@@ -115,6 +122,7 @@ export function taboo_backtracking_path_construction(
                 getpheromone,
                 getdistancebyserialnumber,
             });
+
             route = [...route, nextnode];
             continue;
         }

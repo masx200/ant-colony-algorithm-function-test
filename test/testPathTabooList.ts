@@ -1,5 +1,5 @@
 import { isEqual } from "lodash";
-import { createPathTabooList } from "../functions/PathTabooList";
+import { createPathTabooList } from "../functions/createPathTabooList";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
 
 export function testPathTabooList() {
