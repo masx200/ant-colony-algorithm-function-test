@@ -145,7 +145,12 @@ nextnode = picknextnode({
                 getdistancebyserialnumber,
             })
 
-}}else{
+}
+route = [...route, nextnode];
+            continue;
+
+
+}else{
             const nextnode = picknextnode({
                 alphamax,
                 alphamin,
