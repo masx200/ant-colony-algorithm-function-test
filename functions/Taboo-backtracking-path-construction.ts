@@ -69,7 +69,7 @@ export function taboo_backtracking_path_construction(
 
     let route: number[] = [startnode];
     while (route.length !== countofnodes) {
-        // debugger;
+        debugger;
         /* 路径长度检查 */
         if (route.length > countofnodes || route.length < 1) {
             throw Error("route accident");
@@ -122,6 +122,7 @@ export function taboo_backtracking_path_construction(
             pathTabooList.add(Array.from(route));
             /* 退回上一步 */
             route = route.slice(0, route.length - 1);
+            debugger
             continue;
         } else {
             // debugger;
@@ -171,9 +172,11 @@ export function taboo_backtracking_path_construction(
                 ) {
                     pathTabooList.add([...route, nextnode]);
                     route = route.slice();
+                    debugger
                     continue;
                 } else {
                     route = [...route, nextnode];
+                    debugger
                     continue;
                 }
             } else {
@@ -190,7 +193,7 @@ export function taboo_backtracking_path_construction(
                 //     getpheromone,
                 //     getdistancebyserialnumber,
                 // });
-                // debugger;
+                debugger;
                 route = [...route, nextnode];
                 continue;
             }
