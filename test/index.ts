@@ -11,9 +11,6 @@ console.time();
 testGreedyalgorithmtosolvetsp(nodecoordinates30);
 // test_taboo_backtracking_path_construction(nodecoordinates6);
 
-testGreedyalgorithmtosolvetsp(nodecoordinates10);
-// test_taboo_backtracking_path_construction(nodecoordinates10);
-
 testGreedyalgorithmtosolvetsp(nodecoordinates21);
 // test_taboo_backtracking_path_construction(nodecoordinates21);
 // (() => {
@@ -30,5 +27,7 @@ testGreedyalgorithmtosolvetsp(nodecoordinates21);
 // })();
 
 testGreedyalgorithmtosolvetsp(nodecoordinates6);
-test_taboo_backtracking_path_construction(nodecoordinates6);
+// test_taboo_backtracking_path_construction(nodecoordinates6);
+testGreedyalgorithmtosolvetsp(nodecoordinates10);
+test_taboo_backtracking_path_construction(nodecoordinates10);
 console.timeEnd();
