@@ -32,7 +32,7 @@ export function createPathTabooList(
         });
     };
     const add = (route: number[]) => {
-        // debugger;
+        debugger;
         if (
             route.length <= 1 ||
             route.length > countofnodes ||

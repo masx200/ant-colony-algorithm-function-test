@@ -20,5 +20,13 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
             nodecoordinates6
         )
     );
+    asserttrue(
+        !intersectionfilterfun(
+            [0, 1, 2, 4, 5],
+
+            3,
+            nodecoordinates6
+        )
+    );
     console.log("  testcheckcurrentsegmentsintersectnextsegment end");
 }
