@@ -25,6 +25,7 @@ export function testGreedyalgorithmtosolvetsp(
         "number"
     ) {
         cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
+cachebestrouteofnodecoordinates.set(    nodecoordinates,  greedypath)
     } else {
         const bestlength =
             cachebestlengthofnodecoordinates.get(nodecoordinates);
