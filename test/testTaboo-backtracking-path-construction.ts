@@ -22,7 +22,7 @@ export function test_taboo_backtracking_path_construction(
 
     const pheromonestore = createPheromonestore(countofnodes);
     fill_sparse_two_dimensional_matrix(pheromonestore, 1);
-    const parameterrandomization = true;
+    const parameterrandomization = false;
     const alphazero = 1;
     const alphamax = alphazero * 2;
     const alphamin = alphazero / 5;
