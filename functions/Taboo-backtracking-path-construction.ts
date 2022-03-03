@@ -125,38 +125,36 @@ export function taboo_backtracking_path_construction(
             // }
             if (route.length >= 3) {
                 //先选择点再测试是否有交叉点
-                let nextnode: number | undefined;
-                while (true) {
-                    nextnode = picknextnode({
-                        alphamax,
-                        alphamin,
-                        alphazero,
-                        betamax,
-                        betamin,
-                        betazero,
-                        parameterrandomization,
-                        currentnode: Array.from(route).slice(-1)[0],
-                        availablenextnodes: Array.from(filterednodes),
-                        getpheromone,
-                        getdistancebyserialnumber,
-                    });
-                    if (
-                        intersectionfilter(
-                            Array.from(route),
+                // let nextnode: number | undefined;
+                // while (true) {
+                const nextnode = picknextnode({
+                    alphamax,
+                    alphamin,
+                    alphazero,
+                    betamax,
+                    betamin,
+                    betazero,
+                    parameterrandomization,
+                    currentnode: Array.from(route).slice(-1)[0],
+                    availablenextnodes: Array.from(filterednodes),
+                    getpheromone,
+                    getdistancebyserialnumber,
+                });
+                if (
+                    intersectionfilter(
+                        Array.from(route),
 
-                            nextnode,
-                            nodecoordinates
-                        )
-                    ) {
-                        pathTabooList.add([...route, nextnode]);
-                        continue;
-                    } else {
-                        break;
-                    }
+                        nextnode,
+                        nodecoordinates
+                    )
+                ) {
+                    pathTabooList.add([...route, nextnode]);
+                    route = route.slice();
+                    continue;
+                } else {
+                    route = [...route, nextnode];
+                    continue;
                 }
-
-                route = [...route, nextnode];
-                continue;
             } else {
                 const nextnode = picknextnode({
                     alphamax,
