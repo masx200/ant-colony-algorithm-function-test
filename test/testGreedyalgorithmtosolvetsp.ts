@@ -4,6 +4,7 @@ import { drawlinechart } from "../functions/drawlinechart";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetsp";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "./asserttrue";
+import{cachebestrouteofnodecoordinates}from"../functions/cachebestrouteofnodecoordinates"
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 export function testGreedyalgorithmtosolvetsp(
     nodecoordinates: Nodecoordinates
@@ -29,7 +30,8 @@ export function testGreedyalgorithmtosolvetsp(
             cachebestlengthofnodecoordinates.get(nodecoordinates);
         if (bestlength && bestlength > totallength) {
             cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
-        }
+cachebestrouteofnodecoordinates.set(    nodecoordinates,  greedypath)
+  }
     }
     asserttrue(greedypath.length === nodecoordinates.length);
     console.log("贪心算法测试结束");
