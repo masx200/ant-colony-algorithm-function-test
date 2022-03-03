@@ -11,13 +11,11 @@ console.time();
 testGreedyalgorithmtosolvetsp(nodecoordinates30);
 // test_taboo_backtracking_path_construction(nodecoordinates6);
 
-testGreedyalgorithmtosolvetsp(nodecoordinates6);
-// test_taboo_backtracking_path_construction(nodecoordinates6);
 testGreedyalgorithmtosolvetsp(nodecoordinates10);
 // test_taboo_backtracking_path_construction(nodecoordinates10);
 
 testGreedyalgorithmtosolvetsp(nodecoordinates21);
-test_taboo_backtracking_path_construction(nodecoordinates21);
+// test_taboo_backtracking_path_construction(nodecoordinates21);
 // (() => {
 //     let nodecoordinates1 = nodecoordinates21;
 //     let greedypath = [
@@ -30,4 +28,7 @@ test_taboo_backtracking_path_construction(nodecoordinates21);
 //     const mychart = createmychart();
 //     drawlinechart(linechardata, mychart);
 // })();
+
+testGreedyalgorithmtosolvetsp(nodecoordinates6);
+test_taboo_backtracking_path_construction(nodecoordinates6);
 console.timeEnd();

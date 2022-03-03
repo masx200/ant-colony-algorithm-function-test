@@ -32,7 +32,8 @@ export function createPathTabooList(
         });
     };
     const add = (route: number[]) => {
-        debugger;
+        console.log("添加到禁忌表", route);
+        // debugger;
         if (
             route.length <= 1 ||
             route.length > countofnodes ||
