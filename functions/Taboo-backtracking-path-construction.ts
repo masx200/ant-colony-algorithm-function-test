@@ -85,7 +85,10 @@ const countofnodes=nodecoordinates.length
         /* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
         let filterednodes: undefined | number[];
         if (route.length >= 3) {
-            const intersectionnodes = selectednodes.filter((value) => {
+            const intersectionnodes = selectednodes
+//不能取太多点进行检查路径交叉，否则太费时间
+.slice(0,5)
+.filter((value) => {
                 return intersectionfilter(
                    // countofnodes,
                     Array.from(route),
@@ -120,6 +123,8 @@ const countofnodes=nodecoordinates.length
             //     debugger;
             // }
 if(route.length >= 3){
+
+//先选择点再测试是否有交叉点
 let nextnode:number|undefined
 while(typeof nextnode==="undefined"
 ||intersectionfilter(
