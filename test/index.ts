@@ -1,11 +1,10 @@
-import { createmychart } from "../functions/createmychart";
-import { drawlinechart } from "../functions/drawlinechart";
 import { nodecoordinates10 } from "./nodecoordinates10";
 import { nodecoordinates21 } from "./nodecoordinates21";
 import { nodecoordinates30 } from "./nodecoordinates30";
 import { nodecoordinates6 } from "./nodecoordinates6";
 import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
+console.time();
 // import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
 // console.log("hello world");
 
@@ -31,3 +30,4 @@ test_taboo_backtracking_path_construction(nodecoordinates21);
 //     const mychart = createmychart();
 //     drawlinechart(linechardata, mychart);
 // })();
+console.timeEnd();
