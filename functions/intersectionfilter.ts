@@ -22,7 +22,8 @@ const countofnodes=nodecoordinates.length
         const result = nextsegments.some((nextsegment) =>
             checkcurrentsegmentsintersectnextsegment(
 //          在 currentsegments   去除与 nextsegment相邻的线段
-  currentsegments,
+  currentsegments.filter(([left,right])=>!haverepetitions([left,right,nextsegment[0],nextsegment[1]])),
+           
                 nextsegment,
                 nodecoordinates
             )
