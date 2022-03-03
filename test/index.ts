@@ -30,6 +30,6 @@ test_issubroutecycle();
 
 testGreedyalgorithmtosolvetsp(nodecoordinates21);
 testGreedyalgorithmtosolvetsp(nodecoordinates30);
-// test_taboo_backtracking_path_construction(nodecoordinates6);
+ test_taboo_backtracking_path_construction(nodecoordinates6);
 testPathTabooList();
 testcheckcurrentsegmentsintersectnextsegment();
