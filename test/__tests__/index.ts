@@ -1,6 +1,7 @@
 import { test_issubroutecycle } from "../test-issubroutecycle";
 import { test_population_relative_information_entropy } from "../test-population-relative-information-entropy";
 import { testcheckcurrentsegmentsintersectnextsegment } from "../testcheckcurrentsegmentsintersectnextsegment";
+import { testclosedtotalpathlength } from "../testclosedtotalpathlength";
 import { testgeteuclideandistance } from "../testgeteuclideandistance";
 import { testgetPheromonessetPheromones } from "../testgetPheromonessetPheromones";
 import { testpathsequalinbothdirections } from "../testpathsequalinbothdirections";
@@ -19,5 +20,5 @@ it("main test", () => {
 
     test_issubroutecycle();
     testPathTabooList();
-    testcheckcurrentsegmentsintersectnextsegment();
+    testcheckcurrentsegmentsintersectnextsegment();testclosedtotalpathlength();
 });

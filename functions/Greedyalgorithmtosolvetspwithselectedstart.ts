@@ -9,8 +9,8 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
     if (start < 0 || start >= nodecoordinates.length) {
         throw new Error("incorrect start");
     }
-    const { length } = nodecoordinates;
-    const inputindexs = Array(length)
+    // const { length } = nodecoordinates;
+    const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
     const indexsset = new Set(inputindexs);

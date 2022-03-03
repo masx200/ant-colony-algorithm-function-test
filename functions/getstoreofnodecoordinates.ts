@@ -1,5 +1,5 @@
 import { Nodecoordinates } from "./Nodecoordinates";
-import { nodecoordinatestostore } from "./nodecoordinatestostore";
+import { cachenodecoordinatestostore } from "./cachenodecoordinatestostore";
 import { create_sparse_two_dimensional_matrix_symmetry } from "./sparse-two-dimensional-matrix-symmetry";
 // import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
@@ -8,7 +8,7 @@ export function getstoreofnodecoordinates(
     nodecoordinates: Nodecoordinates
 ): SparseTwoDimensionalMatrixSymmetry {
     return (
-        nodecoordinatestostore.get(nodecoordinates) ??
+        cachenodecoordinatestostore.get(nodecoordinates) ??
         createdistancestore(nodecoordinates)
     );
 }
@@ -20,7 +20,7 @@ function createdistancestore(nodecoordinates: Nodecoordinates) {
             column: row,
             default: -1,
         });
-    nodecoordinatestostore.set(nodecoordinates, euclideandistancerecord);
+    cachenodecoordinatestostore.set(nodecoordinates, euclideandistancerecord);
 
     return euclideandistancerecord;
 }

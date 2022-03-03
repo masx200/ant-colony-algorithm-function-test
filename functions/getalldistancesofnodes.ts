@@ -6,8 +6,8 @@ import { Nodecoordinates } from "./Nodecoordinates";
 export function getalldistancesofnodes(
     nodecoordinates: Nodecoordinates
 ): number[] {
-    let { length } = nodecoordinates;
-    let inputarray = Array(length)
+    // let { length } = nodecoordinates;
+    let inputarray = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
     return [...combinations(inputarray, 2)].map(([left, right]) =>

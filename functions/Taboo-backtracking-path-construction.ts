@@ -9,8 +9,10 @@ import { PathTabooList } from "./PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
+import { totalpathlengthwithoutcycle } from "./totalpathlengthwithoutcycle";
 
 export type PathConstructOptions = Constants & {
+    getbestpathlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
     // intersectionfilter: IntersectionFilter;
@@ -40,6 +42,7 @@ export function taboo_backtracking_path_construction(
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
+        getbestpathlength,
         parameterrandomization,
         startnode,
         //   countofnodes,
@@ -86,41 +89,17 @@ export function taboo_backtracking_path_construction(
         );
         // debugger;
         /* 找出禁忌表中不包含的路径 */
-        const selectednodes = Array.from(availablenodes).filter((value) => {
-            return !filterforbiddenbeforepick(
-                Array.from(route),
-                pathTabooList,
-                value
-            );
-        });
-        // debugger;
-        /* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
-        //   /*   let filterednodes: undefined | number[];
-        //     if (route.length >= 3) {
-        //         const intersectionnodes = selectednodes
-        //             //不能取太多点进行检查路径交叉，否则太费时间
-        //             .slice(0, 5)
-        //             .filter((value) => {
-        //                 return intersectionfilter(
-        //                     // countofnodes,
-        //                     Array.from(route),
-        //                     nodecoordinates,
-        //                     value
-        //                 );
-        //             });
-        //         /* 造成交叉点的路线添加到禁忌表中 */
-        //         intersectionnodes
-        //             .map((value) => [...route, value])
-        //             .forEach((r) => pathTabooList.add(r));
-        //         filterednodes = selectednodes.filter(
-        //             (value) => !intersectionnodes.includes(value)
-        //         );
-        //         // debugger;
-        //     } else {
-        //         filterednodes = Array.from(selectednodes);
-        //     } */
-        // debugger;
-        const filterednodes = Array.from(selectednodes);
+        const selectednodes = Array.from(availablenodes).filter(
+            (value) =>
+                !filterforbiddenbeforepick(
+                    // countofnodes,
+                    Array.from(route),
+                    pathTabooList,
+                    value
+                )
+        );
+
+        const filterednodes = selectednodes;
         /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
         if (route.length > 1 && filterednodes.length === 0) {
             pathTabooList.add(Array.from(route));
@@ -153,60 +132,35 @@ export function taboo_backtracking_path_construction(
                 getpheromone,
                 getdistancebyserialnumber,
             });
-            if (route.length >= 3) {
-                //先选择点再测试是否有交叉点
-                // let nextnode: number | undefined;
-                // while (true) {
-                // const nextnode = picknextnode({
-                //     alphamax,
-                //     alphamin,
-                //     alphazero,
-                //     betamax,
-                //     betamin,
-                //     betazero,
-                //     parameterrandomization,
-                //     currentnode: Array.from(route).slice(-1)[0],
-                //     availablenextnodes: Array.from(filterednodes),
-                //     getpheromone,
-                //     getdistancebyserialnumber,
-                // });
-                if (
-                    intersectionfilter(
-                        Array.from(route),
-
-                        nextnode,
-                        nodecoordinates
-                    )
-                ) {
-                    pathTabooList.add([...route, nextnode]);
-                    route = route.slice();
-                    console.warn("路径构建失败,遇到交叉点", [
-                        ...route,
-                        nextnode,
-                    ]);
-                    // debugger;
-                    continue;
-                } else {
-                    route = [...route, nextnode];
-                    console.log("路径构建经过节点", route);
-                    // debugger;
-                    continue;
-                }
-            } else {
-                // const nextnode = picknextnode({
-                //     alphamax,
-                //     alphamin,
-                //     alphazero,
-                //     betamax,
-                //     betamin,
-                //     betazero,
-                //     parameterrandomization,
-                //     currentnode: Array.from(route).slice(-1)[0],
-                //     availablenextnodes: Array.from(filterednodes),
-                //     getpheromone,
-                //     getdistancebyserialnumber,
-                // });
+            if (
+                route.length >= 2 &&
+                totalpathlengthwithoutcycle(route, nodecoordinates)
+            ) {
+                /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
+                pathTabooList.add([...route, nextnode]);
+                route = route.slice();
+                console.warn("路径构建失败,路径片段长度已经大于最优路径长度", [
+                    ...route,
+                    nextnode,
+                ]);
                 // debugger;
+                continue;
+            }
+            if (
+                route.length >= 3 &&
+                intersectionfilter(
+                    Array.from(route),
+
+                    nextnode,
+                    nodecoordinates
+                )
+            ) {
+                pathTabooList.add([...route, nextnode]);
+                route = route.slice();
+                console.warn("路径构建失败,遇到交叉点", [...route, nextnode]);
+                // debugger;
+                continue;
+            } else {
                 route = [...route, nextnode];
                 console.log("路径构建经过节点", route);
                 continue;
@@ -222,3 +176,60 @@ export function taboo_backtracking_path_construction(
     );
     return route;
 }
+// debugger;
+/* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
+//   /*   let filterednodes: undefined | number[];
+//     if (route.length >= 3) {
+//         const intersectionnodes = selectednodes
+//             //不能取太多点进行检查路径交叉，否则太费时间
+//             .slice(0, 5)
+//             .filter((value) => {
+//                 return intersectionfilter(
+//                     // countofnodes,
+//                     Array.from(route),
+//                     nodecoordinates,
+//                     value
+//                 );
+//             });
+//         /* 造成交叉点的路线添加到禁忌表中 */
+//         intersectionnodes
+//             .map((value) => [...route, value])
+//             .forEach((r) => pathTabooList.add(r));
+//         filterednodes = selectednodes.filter(
+//             (value) => !intersectionnodes.includes(value)
+//         );
+//         // debugger;
+//     } else {
+//         filterednodes = Array.from(selectednodes);
+//     } */
+// debugger;
+//先选择点再测试是否有交叉点
+// let nextnode: number | undefined;
+// while (true) {
+// const nextnode = picknextnode({
+//     alphamax,
+//     alphamin,
+//     alphazero,
+//     betamax,
+//     betamin,
+//     betazero,
+//     parameterrandomization,
+//     currentnode: Array.from(route).slice(-1)[0],
+//     availablenextnodes: Array.from(filterednodes),
+//     getpheromone,
+//     getdistancebyserialnumber,
+// });
+// const nextnode = picknextnode({
+//     alphamax,
+//     alphamin,
+//     alphazero,
+//     betamax,
+//     betamin,
+//     betazero,
+//     parameterrandomization,
+//     currentnode: Array.from(route).slice(-1)[0],
+//     availablenextnodes: Array.from(filterednodes),
+//     getpheromone,
+//     getdistancebyserialnumber,
+// });
+// debugger;

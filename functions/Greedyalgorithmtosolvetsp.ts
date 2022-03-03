@@ -9,8 +9,8 @@ import { Nodecoordinates } from "./Nodecoordinates";
 export function Greedyalgorithmtosolvetspwithallstartbest(
     nodecoordinates: Nodecoordinates
 ): number[] {
-    const { length } = nodecoordinates;
-    const inputindexs = Array(length)
+    // const { length } = nodecoordinates;
+    const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
     let bestlength = Infinity;

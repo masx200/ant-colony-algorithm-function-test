@@ -4,24 +4,38 @@ import { drawlinechart } from "../functions/drawlinechart";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetsp";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "./asserttrue";
+import { cachebestlengthofnodecoordinates } from "./cachebestlengthofnodecoordinates";
 export function testGreedyalgorithmtosolvetsp(
-    nodecoordinates1: Nodecoordinates
+    nodecoordinates: Nodecoordinates
 ) {
     console.log("贪心算法测试开始");
 
-    console.log("贪心算法要解决的问题的坐标是", nodecoordinates1);
+    console.log("贪心算法要解决的问题的坐标是", nodecoordinates);
 
     const greedypath =
-        Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates1);
+        Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
     console.log("贪心算法得到的路径是", greedypath);
 
-    const totallength = closedtotalpathlength(greedypath, nodecoordinates1);
+    const totallength = closedtotalpathlength(greedypath, nodecoordinates);
     console.log("贪心算法得出的路径长度", totallength);
-    asserttrue(greedypath.length === nodecoordinates1.length);
+
+    if (
+        typeof cachebestlengthofnodecoordinates.get(nodecoordinates) !==
+        "number"
+    ) {
+        cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
+    } else {
+        const bestlength =
+            cachebestlengthofnodecoordinates.get(nodecoordinates);
+        if (bestlength && bestlength > totallength) {
+            cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
+        }
+    }
+    asserttrue(greedypath.length === nodecoordinates.length);
     console.log("贪心算法测试结束");
 
     const linechardata = [...greedypath, greedypath[0]].map(
-        (v) => nodecoordinates1[v]
+        (v) => nodecoordinates[v]
     );
     console.log("贪心算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
