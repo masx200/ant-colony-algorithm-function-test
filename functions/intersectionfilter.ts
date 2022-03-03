@@ -21,7 +21,8 @@ const countofnodes=nodecoordinates.length
 
         const result = nextsegments.some((nextsegment) =>
             checkcurrentsegmentsintersectnextsegment(
-                currentsegments,
+//          在 currentsegments   去除与 nextsegment相邻的线段
+  currentsegments,
                 nextsegment,
                 nodecoordinates
             )
@@ -36,7 +37,9 @@ const countofnodes=nodecoordinates.length
         ];
 
         const result = checkcurrentsegmentsintersectnextsegment(
-            currentsegments,
+//          在 currentsegments   去除与 nextsegment相邻的线段
+         
+     currentsegments,
             nextsegment,
             nodecoordinates
         );
