@@ -1,7 +1,8 @@
 import "../functions/echarts-line";
-import "../test/index";
-import "./style.css";
 
+import "./style.css";
+import "./mytestinsert";
+import "../test/index";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `

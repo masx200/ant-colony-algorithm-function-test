@@ -3,7 +3,7 @@ import { nodecoordinates21 } from "./nodecoordinates21";
 import { nodecoordinates30 } from "./nodecoordinates30";
 import { nodecoordinates6 } from "./nodecoordinates6";
 import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
-import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
+
 console.time();
 // import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
 // console.log("hello world");
@@ -11,8 +11,6 @@ console.time();
 testGreedyalgorithmtosolvetsp(nodecoordinates30);
 // test_taboo_backtracking_path_construction(nodecoordinates6);
 
-testGreedyalgorithmtosolvetsp(nodecoordinates21);
-// test_taboo_backtracking_path_construction(nodecoordinates21);
 // (() => {
 //     let nodecoordinates1 = nodecoordinates21;
 //     let greedypath = [
@@ -29,5 +27,7 @@ testGreedyalgorithmtosolvetsp(nodecoordinates21);
 testGreedyalgorithmtosolvetsp(nodecoordinates6);
 // test_taboo_backtracking_path_construction(nodecoordinates6);
 testGreedyalgorithmtosolvetsp(nodecoordinates10);
-test_taboo_backtracking_path_construction(nodecoordinates10);
+// test_taboo_backtracking_path_construction(nodecoordinates10);
+testGreedyalgorithmtosolvetsp(nodecoordinates21);
+// test_taboo_backtracking_path_construction(nodecoordinates21);
 console.timeEnd();
