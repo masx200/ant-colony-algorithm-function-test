@@ -125,14 +125,7 @@ export function taboo_backtracking_path_construction(
             if (route.length >= 3) {
                 //先选择点再测试是否有交叉点
                 let nextnode: number | undefined;
-                while (
-                    typeof nextnode === "undefined" ||
-                    intersectionfilter(
-                        Array.from(route),
-                        nodecoordinates,
-                        nextnode
-                    )
-                ) {
+                while (true) {
                     nextnode = picknextnode({
                         alphamax,
                         alphamin,
@@ -146,7 +139,20 @@ export function taboo_backtracking_path_construction(
                         getpheromone,
                         getdistancebyserialnumber,
                     });
+                    if (
+                        intersectionfilter(
+                            Array.from(route),
+                            nodecoordinates,
+                            nextnode
+                        )
+                    ) {
+                        pathTabooList.add([...route, nextnode]);
+                        continue;
+                    } else {
+                        break;
+                    }
                 }
+
                 route = [...route, nextnode];
                 continue;
             } else {
