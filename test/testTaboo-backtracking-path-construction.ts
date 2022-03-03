@@ -4,12 +4,12 @@ import { createmychart } from "../functions/createmychart";
 import { createPheromonestore } from "../functions/createPheromonestore";
 import { drawlinechart } from "../functions/drawlinechart";
 import { fill_sparse_two_dimensional_matrix } from "../functions/fill_sparse_two_dimensional_matrix";
-import { filterforbiddenbeforepick } from "../functions/filterforbiddenbeforepick";
+// import { filterforbiddenbeforepick } from "../functions/filterforbiddenbeforepick";
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
-import { intersectionfilter } from "../functions/intersectionfilter";
+// import { intersectionfilter } from "../functions/intersectionfilter";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { createPathTabooList } from "../functions/createPathTabooList";
-import { picknextnodeRoulette } from "../functions/pick-next-node-Roulette";
+// import { picknextnodeRoulette } from "../functions/pick-next-node-Roulette";
 import { taboo_backtracking_path_construction } from "../functions/Taboo-backtracking-path-construction";
 
 export function test_taboo_backtracking_path_construction(
@@ -39,9 +39,9 @@ export function test_taboo_backtracking_path_construction(
         pathTabooList,
         pheromonestore,
         // countofnodes,
-        picknextnode: picknextnodeRoulette,
+        // picknextnode: picknextnodeRoulette,
         nodecoordinates,
-        intersectionfilter,
+        // intersectionfilter,
         parameterrandomization,
         startnode,
         alphamax,
@@ -50,7 +50,7 @@ export function test_taboo_backtracking_path_construction(
         betamax,
         betamin,
         betazero,
-        filterforbiddenbeforepick,
+        // filterforbiddenbeforepick,
     });
     console.log("禁忌回溯算法得到的路径是", route);
     const totallength = closedtotalpathlength(route, nodecoordinates);

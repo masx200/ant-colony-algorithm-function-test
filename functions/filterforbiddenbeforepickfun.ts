@@ -1,6 +1,6 @@
 import { PathTabooList } from "./PathTabooList";
 
-export function filterforbiddenbeforepick(
+export function filterforbiddenbeforepickfun(
     currentroute: number[],
     pathTabooList: PathTabooList,
     nextnode: number

@@ -1,22 +1,25 @@
 import { Constants } from "./Constants";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
+import { filterforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
+import { intersectionfilterfun } from "./intersectionfilterfun";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
+import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 export type PathConstructOptions = Constants & {
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
-    intersectionfilter: IntersectionFilter;
+    // intersectionfilter: IntersectionFilter;
     /**选择下一个节点使用轮盘选择法 */
-    picknextnode(args: PickNextNodeRouletteOptions): number;
+    // picknextnode(args: PickNextNodeRouletteOptions): number;
     pathTabooList: PathTabooList;
     startnode: number;
     /**过滤禁忌表当中的节点 */
-    filterforbiddenbeforepick: FilterForbiddenBeforePick;
+    // filterforbiddenbeforepick: FilterForbiddenBeforePick;
     parameterrandomization: boolean;
 
     /* 通过序号获得信息素 */
@@ -31,14 +34,19 @@ export type PathConstructOptions = Constants & {
 export function taboo_backtracking_path_construction(
     opts: PathConstructOptions
 ): number[] {
+    const filterforbiddenbeforepick: FilterForbiddenBeforePick =
+        filterforbiddenbeforepickfun;
+    const intersectionfilter: IntersectionFilter = intersectionfilterfun;
+    const picknextnode: (args: PickNextNodeRouletteOptions) => number =
+        picknextnodeRoulette;
     const {
         parameterrandomization,
         startnode,
         //   countofnodes,
-        filterforbiddenbeforepick,
-        intersectionfilter,
+        //   filterforbiddenbeforepick,
+        // intersectionfilter,
         nodecoordinates,
-        picknextnode,
+        // picknextnode,
         pheromonestore,
 
         alphamax,
@@ -123,23 +131,36 @@ export function taboo_backtracking_path_construction(
             }
             //     debugger;
             // }
+            const nextnode = picknextnode({
+                alphamax,
+                alphamin,
+                alphazero,
+                betamax,
+                betamin,
+                betazero,
+                parameterrandomization,
+                currentnode: Array.from(route).slice(-1)[0],
+                availablenextnodes: Array.from(filterednodes),
+                getpheromone,
+                getdistancebyserialnumber,
+            });
             if (route.length >= 3) {
                 //先选择点再测试是否有交叉点
                 // let nextnode: number | undefined;
                 // while (true) {
-                const nextnode = picknextnode({
-                    alphamax,
-                    alphamin,
-                    alphazero,
-                    betamax,
-                    betamin,
-                    betazero,
-                    parameterrandomization,
-                    currentnode: Array.from(route).slice(-1)[0],
-                    availablenextnodes: Array.from(filterednodes),
-                    getpheromone,
-                    getdistancebyserialnumber,
-                });
+                // const nextnode = picknextnode({
+                //     alphamax,
+                //     alphamin,
+                //     alphazero,
+                //     betamax,
+                //     betamin,
+                //     betazero,
+                //     parameterrandomization,
+                //     currentnode: Array.from(route).slice(-1)[0],
+                //     availablenextnodes: Array.from(filterednodes),
+                //     getpheromone,
+                //     getdistancebyserialnumber,
+                // });
                 if (
                     intersectionfilter(
                         Array.from(route),
@@ -156,19 +177,19 @@ export function taboo_backtracking_path_construction(
                     continue;
                 }
             } else {
-                const nextnode = picknextnode({
-                    alphamax,
-                    alphamin,
-                    alphazero,
-                    betamax,
-                    betamin,
-                    betazero,
-                    parameterrandomization,
-                    currentnode: Array.from(route).slice(-1)[0],
-                    availablenextnodes: Array.from(filterednodes),
-                    getpheromone,
-                    getdistancebyserialnumber,
-                });
+                // const nextnode = picknextnode({
+                //     alphamax,
+                //     alphamin,
+                //     alphazero,
+                //     betamax,
+                //     betamin,
+                //     betazero,
+                //     parameterrandomization,
+                //     currentnode: Array.from(route).slice(-1)[0],
+                //     availablenextnodes: Array.from(filterednodes),
+                //     getpheromone,
+                //     getdistancebyserialnumber,
+                // });
                 // debugger;
                 route = [...route, nextnode];
                 continue;

@@ -1,7 +1,7 @@
 import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegmentsintersectnextsegment";
 import { Nodecoordinates } from "./Nodecoordinates";
 
-export function intersectionfilter(
+export function intersectionfilterfun(
     //countofnodes: number,
     currentroute: number[],
 

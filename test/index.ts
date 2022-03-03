@@ -14,7 +14,6 @@ import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
 import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
 // console.log("hello world");
 
-testGreedyalgorithmtosolvetsp(nodecoordinates6);
 testgetPheromonessetPheromones();
 
 testgeteuclideandistance();
@@ -23,15 +22,18 @@ testrobustsegmentintersect();
 
 // testdrawlinechart();
 
-testGreedyalgorithmtosolvetsp(nodecoordinates10);
 test_population_relative_information_entropy();
 
 test_issubroutecycle();
 
-testGreedyalgorithmtosolvetsp(nodecoordinates21);
 testGreedyalgorithmtosolvetsp(nodecoordinates30);
 // test_taboo_backtracking_path_construction(nodecoordinates6);
 testPathTabooList();
 testcheckcurrentsegmentsintersectnextsegment();
-// test_taboo_backtracking_path_construction(nodecoordinates6);
+testGreedyalgorithmtosolvetsp(nodecoordinates6);
+test_taboo_backtracking_path_construction(nodecoordinates6);
+testGreedyalgorithmtosolvetsp(nodecoordinates10);
+// test_taboo_backtracking_path_construction(nodecoordinates10);
+
+testGreedyalgorithmtosolvetsp(nodecoordinates21);
 test_taboo_backtracking_path_construction(nodecoordinates21);

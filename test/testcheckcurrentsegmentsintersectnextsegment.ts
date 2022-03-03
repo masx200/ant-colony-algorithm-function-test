@@ -1,10 +1,10 @@
-import { intersectionfilter } from "../functions/intersectionfilter";
+import { intersectionfilterfun } from "../functions/intersectionfilterfun";
 import { nodecoordinates6 } from "./nodecoordinates6";
 
 export function testcheckcurrentsegmentsintersectnextsegment() {
     console.log("  testcheckcurrentsegmentsintersectnextsegment start");
     console.assert(
-        intersectionfilter(
+        intersectionfilterfun(
             [3, 1, 0],
 
             2,
@@ -12,7 +12,7 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
         )
     );
     console.assert(
-        !intersectionfilter(
+        !intersectionfilterfun(
             [0, 1, 2],
 
             4,
