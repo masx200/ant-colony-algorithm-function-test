@@ -11,7 +11,7 @@ export function intersectionfilter(
     const currentsegments: [number, number][] = currentroute
         .slice(0, currentroute.length - 1)
         .map((v, i) => [v, currentroute[i + 1]]);
-    debugger;
+    // debugger;
     if (countofnodes === currentroute.length + 1) {
         /*形成环路了, 需要判断两个线段是否有交点 */
         const nextsegments: [number, number][] = [
@@ -36,7 +36,7 @@ export function intersectionfilter(
                 nodecoordinates
             )
         );
-        debugger;
+        // debugger;
         return result;
     } else {
         /*没有形成环路, 判断一个线段是否有交点 */
@@ -60,7 +60,7 @@ export function intersectionfilter(
             nextsegment,
             nodecoordinates
         );
-        debugger;
+        // debugger;
         return result;
     }
 }
