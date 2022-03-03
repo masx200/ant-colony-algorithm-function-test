@@ -1,7 +1,7 @@
 import { Constants } from "./Constants";
-import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.1";
+import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
-import { IntersectionFilter } from "./IntersectionFilter.1";
+import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
