@@ -38,7 +38,7 @@ export function test_taboo_backtracking_path_construction(
     const route = taboo_backtracking_path_construction({
         pathTabooList,
         pheromonestore,
-        countofnodes,
+       // countofnodes,
         picknextnode: picknextnodeRoulette,
         nodecoordinates,
         intersectionfilter,
