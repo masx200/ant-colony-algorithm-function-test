@@ -1,7 +1,7 @@
 import { Nodecoordinates } from "./Nodecoordinates";
 
 export type IntersectionFilter = (
-    countofnodes: number,
+   // countofnodes: number,
     currentroute: number[],
     nodecoordinates: Nodecoordinates,
     nextnode: number
