@@ -21,7 +21,7 @@ export type PathConstructOptions = Constants & {
 
     /* 通过序号获得信息素 */
     // getpheromone: GetPheromone;
-    countofnodes: number;
+   // countofnodes: number;
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
 
@@ -34,7 +34,7 @@ export function taboo_backtracking_path_construction(
     const {
         parameterrandomization,
         startnode,
-        countofnodes,
+     //   countofnodes,
         filterforbiddenbeforepick,
         intersectionfilter,
         nodecoordinates,
@@ -49,7 +49,7 @@ export function taboo_backtracking_path_construction(
         betazero,
         pathTabooList,
     } = opts;
-
+const countofnodes=nodecoordinates.length
     const getpheromone = (left: number, right: number) => {
         return pheromonestore.get(left, right);
     };
@@ -87,7 +87,7 @@ export function taboo_backtracking_path_construction(
         if (route.length >= 3) {
             const intersectionnodes = selectednodes.filter((value) => {
                 return intersectionfilter(
-                    countofnodes,
+                   // countofnodes,
                     Array.from(route),
                     nodecoordinates,
                     value
