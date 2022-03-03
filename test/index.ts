@@ -11,7 +11,7 @@ import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
 import { testpathsequalinbothdirections } from "./testpathsequalinbothdirections";
 import { testPathTabooList } from "./testPathTabooList";
 import { testrobustsegmentintersect } from "./testrobustsegmentintersect";
-// import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
+import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
 // console.log("hello world");
 
 testGreedyalgorithmtosolvetsp(nodecoordinates6);
