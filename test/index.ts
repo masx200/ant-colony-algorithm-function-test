@@ -3,6 +3,8 @@ import { nodecoordinates21 } from "./nodecoordinates21";
 import { nodecoordinates30 } from "./nodecoordinates30";
 import { nodecoordinates6 } from "./nodecoordinates6";
 import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
+addEventListener("load",()=>{
+
 
 console.time();
 // import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
@@ -31,3 +33,6 @@ testGreedyalgorithmtosolvetsp(nodecoordinates10);
 testGreedyalgorithmtosolvetsp(nodecoordinates21);
 // test_taboo_backtracking_path_construction(nodecoordinates21);
 console.timeEnd();
+
+
+})
