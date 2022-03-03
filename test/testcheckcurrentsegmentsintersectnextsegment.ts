@@ -1,26 +1,24 @@
-import { checkcurrentsegmentsintersectnextsegment } from "../functions/checkcurrentsegmentsintersectnextsegment";
+import { intersectionfilter } from "../functions/intersectionfilter";
 import { nodecoordinates6 } from "./nodecoordinates6";
 
 export function testcheckcurrentsegmentsintersectnextsegment() {
     console.log("  testcheckcurrentsegmentsintersectnextsegment start");
     console.assert(
-        checkcurrentsegmentsintersectnextsegment(
-            [
-                [3, 1],
-                [1, 0],
+        intersectionfilter(
+            [3,1,0
+              
             ],
-            [0, 2],
-            nodecoordinates6
+            
+            nodecoordinates6,2
         )
     );
     console.assert(
-        !checkcurrentsegmentsintersectnextsegment(
-            [
-                [0, 1],
-                [1, 2],
+        !intersectionfilter(
+            [0,1,2
+                
             ],
-            [2, 4],
-            nodecoordinates6
+            
+            nodecoordinates6,4
         )
     );
     console.log("  testcheckcurrentsegmentsintersectnextsegment end");
