@@ -68,7 +68,10 @@ export function taboo_backtracking_path_construction(
     // const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
 
     let route: number[] = [startnode];
+    let trycount = 0;
+    const starttime = Number(new Date());
     while (route.length !== countofnodes) {
+        trycount++;
         console.log("路径构建开始", route);
         // debugger;
         /* 路径长度检查 */
@@ -175,7 +178,10 @@ export function taboo_backtracking_path_construction(
                 ) {
                     pathTabooList.add([...route, nextnode]);
                     route = route.slice();
-                    console.warn("路径构建失败,遇到交叉点", route, nextnode);
+                    console.warn("路径构建失败,遇到交叉点", [
+                        ...route,
+                        nextnode,
+                    ]);
                     // debugger;
                     continue;
                 } else {
@@ -205,5 +211,8 @@ export function taboo_backtracking_path_construction(
             }
         }
     }
+    console.log("路径一条构建完成,循环次数", trycount);
+    const endtime = Number(new Date());
+    console.log("路径一条构建完成,消耗时间", endtime - starttime);
     return route;
 }
