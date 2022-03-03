@@ -1,3 +1,5 @@
+import{cachebestrouteofnodecoordinates}from"../functions/cachebestrouteofnodecoordinates"
+
 import { pickRandom } from "mathjs";
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { createmychart } from "../functions/createmychart";
@@ -71,12 +73,15 @@ export function test_taboo_backtracking_path_construction(
         "number"
     ) {
         cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
+
+cachebestrouteofnodecoordinates.set(    nodecoordinates,  route)
     } else {
         const bestlength =
             cachebestlengthofnodecoordinates.get(nodecoordinates);
         if (bestlength && bestlength >= totallength) {
             cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
-        } else {
+cachebestrouteofnodecoordinates.set(    nodecoordinates,  route)      
+  } else {
             console.warn("路径长度比最优解得到的结果更差,禁忌此路径", route);
             pathTabooList.add(route);
         }
@@ -86,7 +91,11 @@ export function test_taboo_backtracking_path_construction(
         cachebestlengthofnodecoordinates.get(nodecoordinates)
     );
     /* 每条路径构建完成之后,如果路径长度比贪心算法得到的结果更差,则将此路径添加到路径禁忌列表. */
-    asserttrue(route.length === nodecoordinates.length);
+console.log(
+        "最短路径是",
+        cachebestrouteofnodecoordinates.get(nodecoordinates)
+    );   
+ asserttrue(route.length === nodecoordinates.length);
     const linechardata = [...route, route[0]].map((v) => nodecoordinates[v]);
     console.log("禁忌回溯算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
