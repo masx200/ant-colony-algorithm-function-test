@@ -38,7 +38,7 @@ const restitem=Array(countofnodes)
                 .fill(0)
                 .map((_v, i) => i)
                 .filter((v) => !route.includes(v))
-        )[0];
+        [0];
 add([...route,restitem])
 }
         // console.warn("添加到禁忌表", route);
