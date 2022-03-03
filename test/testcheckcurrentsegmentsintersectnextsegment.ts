@@ -7,16 +7,16 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
         intersectionfilter(
             [3, 1, 0],
 
-            nodecoordinates6,
-            2
+            2,
+            nodecoordinates6
         )
     );
     console.assert(
         !intersectionfilter(
             [0, 1, 2],
 
-            nodecoordinates6,
-            4
+            4,
+            nodecoordinates6
         )
     );
     console.log("  testcheckcurrentsegmentsintersectnextsegment end");

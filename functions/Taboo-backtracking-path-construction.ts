@@ -83,31 +83,32 @@ export function taboo_backtracking_path_construction(
         });
         // debugger;
         /* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
-        let filterednodes: undefined | number[];
-        if (route.length >= 3) {
-            const intersectionnodes = selectednodes
-                //不能取太多点进行检查路径交叉，否则太费时间
-                .slice(0, 5)
-                .filter((value) => {
-                    return intersectionfilter(
-                        // countofnodes,
-                        Array.from(route),
-                        nodecoordinates,
-                        value
-                    );
-                });
-            /* 造成交叉点的路线添加到禁忌表中 */
-            intersectionnodes
-                .map((value) => [...route, value])
-                .forEach((r) => pathTabooList.add(r));
-            filterednodes = selectednodes.filter(
-                (value) => !intersectionnodes.includes(value)
-            );
-            // debugger;
-        } else {
-            filterednodes = Array.from(selectednodes);
-        }
+        //   /*   let filterednodes: undefined | number[];
+        //     if (route.length >= 3) {
+        //         const intersectionnodes = selectednodes
+        //             //不能取太多点进行检查路径交叉，否则太费时间
+        //             .slice(0, 5)
+        //             .filter((value) => {
+        //                 return intersectionfilter(
+        //                     // countofnodes,
+        //                     Array.from(route),
+        //                     nodecoordinates,
+        //                     value
+        //                 );
+        //             });
+        //         /* 造成交叉点的路线添加到禁忌表中 */
+        //         intersectionnodes
+        //             .map((value) => [...route, value])
+        //             .forEach((r) => pathTabooList.add(r));
+        //         filterednodes = selectednodes.filter(
+        //             (value) => !intersectionnodes.includes(value)
+        //         );
+        //         // debugger;
+        //     } else {
+        //         filterednodes = Array.from(selectednodes);
+        //     } */
         // debugger;
+        const filterednodes = Array.from(selectednodes);
         /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
         if (route.length > 1 && filterednodes.length === 0) {
             pathTabooList.add(Array.from(route));
@@ -142,8 +143,9 @@ export function taboo_backtracking_path_construction(
                     if (
                         intersectionfilter(
                             Array.from(route),
-                            nodecoordinates,
-                            nextnode
+
+                            nextnode,
+                            nodecoordinates
                         )
                     ) {
                         pathTabooList.add([...route, nextnode]);

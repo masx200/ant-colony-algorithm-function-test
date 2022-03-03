@@ -4,8 +4,9 @@ import { Nodecoordinates } from "./Nodecoordinates";
 export function intersectionfilter(
     //countofnodes: number,
     currentroute: number[],
-    nodecoordinates: Nodecoordinates,
-    nextnode: number
+
+    nextnode: number,
+    nodecoordinates: Nodecoordinates
 ): boolean {
     const countofnodes = nodecoordinates.length;
     const currentsegments: [number, number][] = currentroute
