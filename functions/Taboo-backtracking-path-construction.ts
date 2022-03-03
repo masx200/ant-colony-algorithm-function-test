@@ -122,7 +122,7 @@ export function taboo_backtracking_path_construction(
             pathTabooList.add(Array.from(route));
             /* 退回上一步 */
             route = route.slice(0, route.length - 1);
-            debugger
+            debugger;
             continue;
         } else {
             // debugger;
@@ -172,11 +172,11 @@ export function taboo_backtracking_path_construction(
                 ) {
                     pathTabooList.add([...route, nextnode]);
                     route = route.slice();
-                    debugger
+                    debugger;
                     continue;
                 } else {
                     route = [...route, nextnode];
-                    debugger
+                    debugger;
                     continue;
                 }
             } else {
