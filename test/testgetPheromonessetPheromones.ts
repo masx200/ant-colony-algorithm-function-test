@@ -1,6 +1,7 @@
 import { isEqual } from "lodash";
 import { createPheromonestore } from "../functions/createPheromonestore";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
+import { asserttrue } from "./asserttrue";
 
 export function testgetPheromonessetPheromones() {
     console.log("getPheromones, setPheromones test start");
@@ -25,32 +26,32 @@ export function testgetPheromonessetPheromones() {
     assertshouldcatcherror(() => {
         Pheromonestore.set(-1, 0, 0);
     });
-    console.assert(Pheromonestore.size() === 3);
-    console.assert(Pheromonestore.delete(11, 11));
-    console.assert(!Pheromonestore.delete(11, 11));
-    console.assert(!Pheromonestore.has(11, 11));
-    console.assert(getPheromone(1, 10) === 9);
-    console.assert(getPheromone(12, 10) === 8);
-    console.assert(getPheromone(10, 1) === 9);
-    console.assert(getPheromone(10, 12) === 8);
+    asserttrue(Pheromonestore.size() === 3);
+    asserttrue(Pheromonestore.delete(11, 11));
+    asserttrue(!Pheromonestore.delete(11, 11));
+    asserttrue(!Pheromonestore.has(11, 11));
+    asserttrue(getPheromone(1, 10) === 9);
+    asserttrue(getPheromone(12, 10) === 8);
+    asserttrue(getPheromone(10, 1) === 9);
+    asserttrue(getPheromone(10, 12) === 8);
     setPheromone(10, 1, 90);
     setPheromone(10, 12, 80);
 
-    console.assert(getPheromone(1, 10) === 90);
-    console.assert(getPheromone(12, 10) === 80);
-    console.assert(getPheromone(10, 1) === 90);
-    console.assert(getPheromone(10, 12) === 80);
-    console.assert(Pheromonestore.has(1, 10));
-    console.assert(Pheromonestore.has(12, 10));
-    console.assert(Pheromonestore.size() === 2);
-    console.assert(createPheromonestore(3).size() === 0);
+    asserttrue(getPheromone(1, 10) === 90);
+    asserttrue(getPheromone(12, 10) === 80);
+    asserttrue(getPheromone(10, 1) === 90);
+    asserttrue(getPheromone(10, 12) === 80);
+    asserttrue(Pheromonestore.has(1, 10));
+    asserttrue(Pheromonestore.has(12, 10));
+    asserttrue(Pheromonestore.size() === 2);
+    asserttrue(createPheromonestore(3).size() === 0);
 
     let values = Pheromonestore.values();
     // console.log(values);
-    console.assert([90, 80].every((n) => values.includes(n)));
+    asserttrue([90, 80].every((n) => values.includes(n)));
     let keys = Pheromonestore.keys();
     // console.log(keys);
-    console.assert(
+    asserttrue(
         isEqual(
             [
                 [1, 10],
@@ -62,7 +63,7 @@ export function testgetPheromonessetPheromones() {
     let entries = Pheromonestore.entries();
     // console.log(entries);
 
-    console.assert(
+    asserttrue(
         isEqual(
             [
                 [1, 10, 90],
@@ -72,7 +73,7 @@ export function testgetPheromonessetPheromones() {
         )
     );
     Pheromonestore.clear();
-    console.assert(Pheromonestore.size() === 0);
+    asserttrue(Pheromonestore.size() === 0);
     assertshouldcatcherror(() => {
         createPheromonestore(0);
     });
