@@ -2,11 +2,12 @@ import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegments
 import { Nodecoordinates } from "./Nodecoordinates";
 
 export function intersectionfilter(
-    countofnodes: number,
+    //countofnodes: number,
     currentroute: number[],
     nodecoordinates: Nodecoordinates,
     nextnode: number
 ): boolean {
+const countofnodes=nodecoordinates.length
     const currentsegments: [number, number][] = currentroute
         .slice(0, currentroute.length - 1)
         .map((v, i) => [v, currentroute[i + 1]]);
