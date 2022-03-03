@@ -163,10 +163,10 @@ route = [...route, nextnode];
                 availablenextnodes: Array.from(filterednodes),
                 getpheromone,
                 getdistancebyserialnumber,
-            });}
+            });
             // debugger;
             route = [...route, nextnode];
-            continue;
+            continue;}
         }
     }
     return route;
