@@ -7,7 +7,7 @@ export function intersectionfilter(
     nodecoordinates: Nodecoordinates,
     nextnode: number
 ): boolean {
-const countofnodes=nodecoordinates.length
+    const countofnodes = nodecoordinates.length;
     const currentsegments: [number, number][] = currentroute
         .slice(0, currentroute.length - 1)
         .map((v, i) => [v, currentroute[i + 1]]);
@@ -21,9 +21,17 @@ const countofnodes=nodecoordinates.length
 
         const result = nextsegments.some((nextsegment) =>
             checkcurrentsegmentsintersectnextsegment(
-//          在 currentsegments   去除与 nextsegment相邻的线段
-  currentsegments.filter(([left,right])=>!haverepetitions([left,right,nextsegment[0],nextsegment[1]])),
-           
+                //          在 currentsegments   去除与 nextsegment相邻的线段
+                currentsegments.filter(
+                    ([left, right]) =>
+                        !haverepetitions([
+                            left,
+                            right,
+                            nextsegment[0],
+                            nextsegment[1],
+                        ])
+                ),
+
                 nextsegment,
                 nodecoordinates
             )
@@ -38,9 +46,17 @@ const countofnodes=nodecoordinates.length
         ];
 
         const result = checkcurrentsegmentsintersectnextsegment(
-//          在 currentsegments   去除与 nextsegment相邻的线段
-         
-     currentsegments.filter(([left,right])=>!haverepetitions([left,right,nextsegment[0],nextsegment[1]])),
+            //          在 currentsegments   去除与 nextsegment相邻的线段
+
+            currentsegments.filter(
+                ([left, right]) =>
+                    !haverepetitions([
+                        left,
+                        right,
+                        nextsegment[0],
+                        nextsegment[1],
+                    ])
+            ),
             nextsegment,
             nodecoordinates
         );
@@ -48,10 +64,7 @@ const countofnodes=nodecoordinates.length
         return result;
     }
 }
-function haverepetitions(arr:number[]):boolean{
-
-const set=new Set(arr)
-return set.size!=arr.length
-
-
+function haverepetitions(arr: number[]): boolean {
+    const set = new Set(arr);
+    return set.size != arr.length;
 }

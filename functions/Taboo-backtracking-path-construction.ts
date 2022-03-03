@@ -21,7 +21,7 @@ export type PathConstructOptions = Constants & {
 
     /* 通过序号获得信息素 */
     // getpheromone: GetPheromone;
-   // countofnodes: number;
+    // countofnodes: number;
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
 
@@ -34,7 +34,7 @@ export function taboo_backtracking_path_construction(
     const {
         parameterrandomization,
         startnode,
-     //   countofnodes,
+        //   countofnodes,
         filterforbiddenbeforepick,
         intersectionfilter,
         nodecoordinates,
@@ -49,7 +49,7 @@ export function taboo_backtracking_path_construction(
         betazero,
         pathTabooList,
     } = opts;
-const countofnodes=nodecoordinates.length
+    const countofnodes = nodecoordinates.length;
     const getpheromone = (left: number, right: number) => {
         return pheromonestore.get(left, right);
     };
@@ -86,16 +86,16 @@ const countofnodes=nodecoordinates.length
         let filterednodes: undefined | number[];
         if (route.length >= 3) {
             const intersectionnodes = selectednodes
-//不能取太多点进行检查路径交叉，否则太费时间
-.slice(0,5)
-.filter((value) => {
-                return intersectionfilter(
-                   // countofnodes,
-                    Array.from(route),
-                    nodecoordinates,
-                    value
-                );
-            });
+                //不能取太多点进行检查路径交叉，否则太费时间
+                .slice(0, 5)
+                .filter((value) => {
+                    return intersectionfilter(
+                        // countofnodes,
+                        Array.from(route),
+                        nodecoordinates,
+                        value
+                    );
+                });
             /* 造成交叉点的路线添加到禁忌表中 */
             intersectionnodes
                 .map((value) => [...route, value])
@@ -122,56 +122,51 @@ const countofnodes=nodecoordinates.length
             }
             //     debugger;
             // }
-if(route.length >= 3){
-
-//先选择点再测试是否有交叉点
-let nextnode:number|undefined
-while(typeof nextnode==="undefined"
-||intersectionfilter(
-                    
-                    Array.from(route),
-                    nodecoordinates,
-                    nextnode
-                )
-
-){
-
-nextnode = picknextnode({
-                alphamax,
-                alphamin,
-                alphazero,
-                betamax,
-                betamin,
-                betazero,
-                parameterrandomization,
-                currentnode: Array.from(route).slice(-1)[0],
-                availablenextnodes: Array.from(filterednodes),
-                getpheromone,
-                getdistancebyserialnumber,
-            })
-
-}
-route = [...route, nextnode];
-            continue;
-
-
-}else{
-            const nextnode = picknextnode({
-                alphamax,
-                alphamin,
-                alphazero,
-                betamax,
-                betamin,
-                betazero,
-                parameterrandomization,
-                currentnode: Array.from(route).slice(-1)[0],
-                availablenextnodes: Array.from(filterednodes),
-                getpheromone,
-                getdistancebyserialnumber,
-            });
-            // debugger;
-            route = [...route, nextnode];
-            continue;}
+            if (route.length >= 3) {
+                //先选择点再测试是否有交叉点
+                let nextnode: number | undefined;
+                while (
+                    typeof nextnode === "undefined" ||
+                    intersectionfilter(
+                        Array.from(route),
+                        nodecoordinates,
+                        nextnode
+                    )
+                ) {
+                    nextnode = picknextnode({
+                        alphamax,
+                        alphamin,
+                        alphazero,
+                        betamax,
+                        betamin,
+                        betazero,
+                        parameterrandomization,
+                        currentnode: Array.from(route).slice(-1)[0],
+                        availablenextnodes: Array.from(filterednodes),
+                        getpheromone,
+                        getdistancebyserialnumber,
+                    });
+                }
+                route = [...route, nextnode];
+                continue;
+            } else {
+                const nextnode = picknextnode({
+                    alphamax,
+                    alphamin,
+                    alphazero,
+                    betamax,
+                    betamin,
+                    betazero,
+                    parameterrandomization,
+                    currentnode: Array.from(route).slice(-1)[0],
+                    availablenextnodes: Array.from(filterednodes),
+                    getpheromone,
+                    getdistancebyserialnumber,
+                });
+                // debugger;
+                route = [...route, nextnode];
+                continue;
+            }
         }
     }
     return route;
