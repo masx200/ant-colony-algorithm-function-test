@@ -81,6 +81,10 @@ export function test_taboo_backtracking_path_construction(
             pathTabooList.add(route);
         }
     }
+    console.log(
+        "最优路径长度",
+        cachebestlengthofnodecoordinates.get(nodecoordinates)
+    );
     /* 每条路径构建完成之后,如果路径长度比贪心算法得到的结果更差,则将此路径添加到路径禁忌列表. */
     asserttrue(route.length === nodecoordinates.length);
     const linechardata = [...route, route[0]].map((v) => nodecoordinates[v]);

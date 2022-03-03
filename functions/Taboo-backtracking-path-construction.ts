@@ -103,7 +103,7 @@ export function taboo_backtracking_path_construction(
         /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
         if (route.length > 1 && filterednodes.length === 0) {
             pathTabooList.add(Array.from(route));
-            console.warn("路径构建失败,无路可走", route);
+            console.warn("路径构建失败,无路可走,禁忌此路径", route);
             /* 退回上一步 */
             // route = route.slice(0, route.length - 1);
             //无路可走开始广度搜索吧
@@ -158,7 +158,7 @@ export function taboo_backtracking_path_construction(
             ) {
                 pathTabooList.add([...route, nextnode]);
                 route = route.slice();
-                console.warn("路径构建失败,遇到交叉点", [...route, nextnode]);
+                console.warn("路径构建失败,遇到交叉点,禁忌此路径", [...route, nextnode]);
                 // debugger;
                 continue;
             } else {
