@@ -121,9 +121,10 @@ export function taboo_backtracking_path_construction(
         /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
         if (route.length > 1 && filterednodes.length === 0) {
             pathTabooList.add(Array.from(route));
+            console.log("路径构建失败,无路可走", route);
             /* 退回上一步 */
             route = route.slice(0, route.length - 1);
-            console.log("路径构建失败,无路可走", route);
+            
             // debugger;
             continue;
         } else {
