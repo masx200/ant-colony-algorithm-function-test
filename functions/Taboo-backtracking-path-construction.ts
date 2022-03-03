@@ -119,6 +119,33 @@ const countofnodes=nodecoordinates.length
             }
             //     debugger;
             // }
+if(route.length >= 3){
+let nextnode:number|undefined
+while(typeof nextnode==="undefined"
+||intersectionfilter(
+                    
+                    Array.from(route),
+                    nodecoordinates,
+                    nextnode
+                );
+
+){
+
+nextnode = picknextnode({
+                alphamax,
+                alphamin,
+                alphazero,
+                betamax,
+                betamin,
+                betazero,
+                parameterrandomization,
+                currentnode: Array.from(route).slice(-1)[0],
+                availablenextnodes: Array.from(filterednodes),
+                getpheromone,
+                getdistancebyserialnumber,
+            })
+
+}}else{
             const nextnode = picknextnode({
                 alphamax,
                 alphamin,
@@ -131,7 +158,7 @@ const countofnodes=nodecoordinates.length
                 availablenextnodes: Array.from(filterednodes),
                 getpheromone,
                 getdistancebyserialnumber,
-            });
+            });}
             // debugger;
             route = [...route, nextnode];
             continue;
