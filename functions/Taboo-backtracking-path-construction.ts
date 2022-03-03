@@ -127,7 +127,7 @@ while(typeof nextnode==="undefined"
                     Array.from(route),
                     nodecoordinates,
                     nextnode
-                );
+                )
 
 ){
 
