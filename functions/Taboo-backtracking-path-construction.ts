@@ -126,8 +126,10 @@ export function taboo_backtracking_path_construction(
             pathTabooList.add(Array.from(route));
             console.warn("路径构建失败,无路可走", route);
             /* 退回上一步 */
-            route = route.slice(0, route.length - 1);
+            // route = route.slice(0, route.length - 1);
+            //无路可走开始广度搜索吧
 
+            route = [startnode];
             // debugger;
             continue;
         } else {
@@ -213,6 +215,10 @@ export function taboo_backtracking_path_construction(
     }
     console.log("路径一条构建完成,循环次数", trycount);
     const endtime = Number(new Date());
-    console.log("路径一条构建完成,消耗时间", endtime - starttime);
+    console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
+    console.log(
+        "路径一条构建完成,平均每次循环消耗的时间毫秒",
+        (endtime - starttime) / trycount
+    );
     return route;
 }
