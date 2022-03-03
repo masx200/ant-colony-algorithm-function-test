@@ -12,8 +12,8 @@ import { createPathTabooList } from "../functions/createPathTabooList";
 // import { picknextnodeRoulette } from "../functions/pick-next-node-Roulette";
 import { taboo_backtracking_path_construction } from "../functions/Taboo-backtracking-path-construction";
 import { asserttrue } from "./asserttrue";
-import { cachenodecoordinatestopathTabooList } from "./cachenodecoordinatestopathTabooList";
-import { cachebestlengthofnodecoordinates } from "./cachebestlengthofnodecoordinates";
+import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoordinatestopathTabooList";
+import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
@@ -35,7 +35,7 @@ export function test_taboo_backtracking_path_construction(
     console.log("test_taboo_backtracking_path_construction start");
     console.log("禁忌回溯要解决的问题的坐标是", nodecoordinates);
 
-    const inputindexs = Array(length)
+    const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
     const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
@@ -77,6 +77,7 @@ export function test_taboo_backtracking_path_construction(
         if (bestlength && bestlength >= totallength) {
             cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
         } else {
+            console.warn("路径长度比最优解得到的结果更差,禁忌此路径", route);
             pathTabooList.add(route);
         }
     }

@@ -4,7 +4,7 @@ import { drawlinechart } from "../functions/drawlinechart";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetsp";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "./asserttrue";
-import { cachebestlengthofnodecoordinates } from "./cachebestlengthofnodecoordinates";
+import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 export function testGreedyalgorithmtosolvetsp(
     nodecoordinates: Nodecoordinates
 ) {
