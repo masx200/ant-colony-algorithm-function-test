@@ -22,7 +22,7 @@ export type PathConstructOptions = Constants & {
     startnode: number;
     /**过滤禁忌表当中的节点 */
     // filterforbiddenbeforepick: FilterForbiddenBeforePick;
-   // parameterrandomization: boolean;
+    // parameterrandomization: boolean;
 
     /* 通过序号获得信息素 */
     // getpheromone: GetPheromone;
@@ -42,8 +42,9 @@ export function taboo_backtracking_path_construction(
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
+        randomselectionprobability,
         getbestpathlength,
-      //  parameterrandomization,
+        //  parameterrandomization,
         startnode,
         //   countofnodes,
         //   filterforbiddenbeforepick,
@@ -52,11 +53,11 @@ export function taboo_backtracking_path_construction(
         // picknextnode,
         pheromonestore,
 
-      //  alphamax,
-     //   alphamin,
+        //  alphamax,
+        //   alphamin,
         alphazero,
-    //    betamax,
-     //   betamin,
+        //    betamax,
+        //   betamin,
         betazero,
         pathTabooList,
     } = opts;
@@ -120,13 +121,14 @@ export function taboo_backtracking_path_construction(
             //     debugger;
             // }
             const nextnode = picknextnode({
-              //  alphamax,
-               // alphamin,
+                randomselectionprobability,
+                //  alphamax,
+                // alphamin,
                 alphazero,
-               // betamax,
-              //  betamin,
+                // betamax,
+                //  betamin,
                 betazero,
-              //  parameterrandomization,
+                //  parameterrandomization,
                 currentnode: Array.from(route).slice(-1)[0],
                 availablenextnodes: Array.from(filterednodes),
                 getpheromone,
@@ -139,10 +141,10 @@ export function taboo_backtracking_path_construction(
             ) {
                 /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
                 pathTabooList.add([...route, nextnode]);
-//广度搜索                
-route = [startnode];
+                //广度搜索
+                route = [startnode];
 
-//route = route.slice();
+                //route = route.slice();
                 console.warn(
                     "路径构建失败,路径片段长度已经大于最优路径长度,禁忌此路径",
                     [...route, nextnode]
@@ -160,9 +162,12 @@ route = [startnode];
                 )
             ) {
                 pathTabooList.add([...route, nextnode]);
-               //深度搜索
- route = route.slice();
-                console.warn("路径构建失败,遇到交叉点,禁忌此路径", [...route, nextnode]);
+                //深度搜索
+                route = route.slice();
+                console.warn("路径构建失败,遇到交叉点,禁忌此路径", [
+                    ...route,
+                    nextnode,
+                ]);
                 // debugger;
                 continue;
             } else {

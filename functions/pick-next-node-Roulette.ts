@@ -1,5 +1,6 @@
-import { pickRandom
-/*, random */
+import {
+    pickRandom,
+    /*, random */
 } from "mathjs";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
@@ -8,13 +9,14 @@ export function picknextnodeRoulette(
     args: PickNextNodeRouletteOptions
 ): number {
     const {
-      //  alphamax,
-       // alphamin,
+        randomselectionprobability,
+        //  alphamax,
+        // alphamin,
         alphazero,
-     //   betamax,
-     //   betamin,
+        //   betamax,
+        //   betamin,
         betazero,
-     //   parameterrandomization,
+        //   parameterrandomization,
         getpheromone,
         getdistancebyserialnumber,
         currentnode,
@@ -26,22 +28,23 @@ export function picknextnodeRoulette(
             "invalid availablenextnodes:" + JSON.stringify(availablenextnodes)
         );
     }
-    const beta =betazero
-// parameterrandomization ? random(betamin, betamax) : betazero;
+    const beta = betazero;
+    // parameterrandomization ? random(betamin, betamax) : betazero;
 
-    const alpha = alphazero
-//parameterrandomization
+    const alpha = alphazero;
+    //parameterrandomization
     //    ? random(alphamin, alphamax)
-     //   : alphazero;
+    //   : alphazero;
+    const randomselection = Math.random() < randomselectionprobability;
     const weights: number[] = availablenextnodes.map((nextnode) => {
         return (
             Math.pow(getpheromone(nextnode, currentnode), alpha) /
             Math.pow(getdistancebyserialnumber(nextnode, currentnode), beta)
         );
     });
-    const result = getnumberfromarrayofnmber(
-        pickRandom(availablenextnodes, 1, weights)
-    );
+    const result = randomselection
+        ? getnumberfromarrayofnmber(pickRandom(availablenextnodes, 1))
+        : getnumberfromarrayofnmber(pickRandom(availablenextnodes, 1, weights));
     // debugger;
     return result;
 }

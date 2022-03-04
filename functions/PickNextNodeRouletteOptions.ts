@@ -3,7 +3,7 @@ import { GetDistanceBySerialNumber } from "./GetDistanceBySerialNumber";
 import { GetPheromone } from "./GetPheromone";
 
 export type PickNextNodeRouletteOptions = Constants & {
-   // parameterrandomization: boolean;
+    // parameterrandomization: boolean;
 
     getpheromone: GetPheromone;
     currentnode: number;

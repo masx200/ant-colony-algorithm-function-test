@@ -32,15 +32,14 @@ export function createPathTabooList(
         });
     };
     const add = (route: number[]) => {
-//当添加一条路径长度为(总节点数-1)的路径到禁忌路径列表时，应该自动补全成完整路径添加到禁忌列表中
-if(route.length===countofnodes-1){
-const restitem=Array(countofnodes)
+        //当添加一条路径长度为(总节点数-1)的路径到禁忌路径列表时，应该自动补全成完整路径添加到禁忌列表中
+        if (route.length === countofnodes - 1) {
+            const restitem = Array(countofnodes)
                 .fill(0)
                 .map((_v, i) => i)
-                .filter((v) => !route.includes(v))
-        [0];
-add([...route,restitem])
-}
+                .filter((v) => !route.includes(v))[0];
+            add([...route, restitem]);
+        }
         // console.warn("添加到禁忌表", route);
         // debugger;
         if (

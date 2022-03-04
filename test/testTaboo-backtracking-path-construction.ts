@@ -1,4 +1,4 @@
-import{cachebestrouteofnodecoordinates}from"../functions/cachebestrouteofnodecoordinates"
+import { cachebestrouteofnodecoordinates } from "../functions/cachebestrouteofnodecoordinates";
 
 import { pickRandom } from "mathjs";
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
@@ -19,6 +19,7 @@ import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthof
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
+    const randomselectionprobability = 0;
     // const { length } = nodecoordinates;
     const countofnodes = nodecoordinates.length;
     const pathTabooList =
@@ -27,13 +28,13 @@ export function test_taboo_backtracking_path_construction(
 
     const pheromonestore = createPheromonestore(countofnodes);
     fill_sparse_two_dimensional_matrix(pheromonestore, 1);
-   // const parameterrandomization = false;
+    // const parameterrandomization = false;
     const alphazero = 1;
-   // const alphamax = alphazero * 2;
-   // const alphamin = alphazero / 5;
+    // const alphamax = alphazero * 2;
+    // const alphamin = alphazero / 5;
     const betazero = 5;
-   // const betamax = betazero * 2;
-  //  const betamin = betazero / 5;
+    // const betamax = betazero * 2;
+    //  const betamin = betazero / 5;
     console.log("test_taboo_backtracking_path_construction start");
     console.log("禁忌回溯要解决的问题的坐标是", nodecoordinates);
 
@@ -47,6 +48,7 @@ export function test_taboo_backtracking_path_construction(
         );
     }
     const route = taboo_backtracking_path_construction({
+        randomselectionprobability,
         getbestpathlength,
         pathTabooList,
         pheromonestore,
@@ -54,13 +56,13 @@ export function test_taboo_backtracking_path_construction(
         // picknextnode: picknextnodeRoulette,
         nodecoordinates,
         // intersectionfilter,
-     //   parameterrandomization,
+        //   parameterrandomization,
         startnode,
-    //    alphamax,
-    //    alphamin,
+        //    alphamax,
+        //    alphamin,
         alphazero,
-    //    betamax,
-   //     betamin,
+        //    betamax,
+        //     betamin,
         betazero,
         // filterforbiddenbeforepick,
     });
@@ -74,14 +76,14 @@ export function test_taboo_backtracking_path_construction(
     ) {
         cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
 
-cachebestrouteofnodecoordinates.set(    nodecoordinates,  route)
+        cachebestrouteofnodecoordinates.set(nodecoordinates, route);
     } else {
         const bestlength =
             cachebestlengthofnodecoordinates.get(nodecoordinates);
         if (bestlength && bestlength >= totallength) {
             cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
-cachebestrouteofnodecoordinates.set(    nodecoordinates,  route)      
-  } else {
+            cachebestrouteofnodecoordinates.set(nodecoordinates, route);
+        } else {
             console.warn("路径长度比最优解得到的结果更差,禁忌此路径", route);
             pathTabooList.add(route);
         }
@@ -91,11 +93,11 @@ cachebestrouteofnodecoordinates.set(    nodecoordinates,  route)
         cachebestlengthofnodecoordinates.get(nodecoordinates)
     );
     /* 每条路径构建完成之后,如果路径长度比贪心算法得到的结果更差,则将此路径添加到路径禁忌列表. */
-console.log(
+    console.log(
         "最短路径是",
         cachebestrouteofnodecoordinates.get(nodecoordinates)
-    );   
- asserttrue(route.length === nodecoordinates.length);
+    );
+    asserttrue(route.length === nodecoordinates.length);
     const linechardata = [...route, route[0]].map((v) => nodecoordinates[v]);
     console.log("禁忌回溯算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
