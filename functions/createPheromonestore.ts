@@ -1,5 +1,5 @@
 // import { numberstostringkeysymmetry } from "./numberstostringkeysymmetry";
-import { SparseMatrixSymmetryCreate } from "./sparse-two-dimensional-matrix-symmetry";
+import { SparseMatrixSymmetryCreate } from "./SparseMatrixSymmetryCreate";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 // import { stringkeytonumbers } from "./stringkeytonumbers";

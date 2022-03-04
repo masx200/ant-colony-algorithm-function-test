@@ -1,5 +1,5 @@
 import { closedtotalpathlength } from "./closed-total-path-length";
-import { SparseMatrixFill } from "./fill_sparse_two_dimensional_matrix";
+import { SparseMatrixFill } from "./SparseMatrixFill";
 
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";

@@ -1,8 +1,5 @@
 import { matrixkeyiterator } from "./matrixkeyiterator";
-import {
-    SparseMatrixCreate,
-    SparseMatrixOptions,
-} from "./sparse-two-dimensional-matrix";
+import { SparseMatrixCreate, SparseMatrixOptions } from "./SparseMatrixCreate";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 /**

@@ -1,6 +1,6 @@
 import { Nodecoordinates } from "./Nodecoordinates";
 import { cachenodecoordinatestostore } from "./cachenodecoordinatestostore";
-import { SparseMatrixSymmetryCreate } from "./sparse-two-dimensional-matrix-symmetry";
+import { SparseMatrixSymmetryCreate } from "./SparseMatrixSymmetryCreate";
 // import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 /* 获得缓存节点坐标和距离的数组的稀疏二维对称矩阵 */
