@@ -1,7 +1,7 @@
 import { SparseMatrixMap } from "./SparseMatrixMap";
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 
-export function SparseMatrixSubtraction<R extends number, C extends number>(
+export function SparseMatrixSubtract<R extends number, C extends number>(
     matrix1: SparseTwoDimensionalMatrix<R, C>,
     matrix2: SparseTwoDimensionalMatrix<R, C>
 ) {
