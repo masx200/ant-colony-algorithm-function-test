@@ -30,11 +30,11 @@ export function test_taboo_backtracking_path_construction(
     fill_sparse_two_dimensional_matrix(pheromonestore, 1);
     // const parameterrandomization = false;
     const alphazero = 1;
-    // const alphamax = alphazero * 2;
-    // const alphamin = alphazero / 5;
+    // const   = alphazero * 2;
+    // const   = alphazero / 5;
     const betazero = 5;
-    // const betamax = betazero * 2;
-    //  const betamin = betazero / 5;
+    // const   = betazero * 2;
+    //  const   = betazero / 5;
     console.log("test_taboo_backtracking_path_construction start");
     console.log("禁忌回溯要解决的问题的坐标是", nodecoordinates);
 
@@ -58,11 +58,11 @@ export function test_taboo_backtracking_path_construction(
         // intersectionfilter,
         //   parameterrandomization,
         startnode,
-        //    alphamax,
-        //    alphamin,
+        //     ,
+        //     ,
         alphazero,
-        //    betamax,
-        //     betamin,
+        //     ,
+        //      ,
         betazero,
         // filterforbiddenbeforepick,
     });

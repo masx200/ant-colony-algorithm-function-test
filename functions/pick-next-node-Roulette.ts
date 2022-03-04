@@ -10,11 +10,11 @@ export function picknextnodeRoulette(
 ): number {
     const {
         randomselectionprobability,
-        //  alphamax,
-        // alphamin,
+        //   ,
+        //  ,
         alphazero,
-        //   betamax,
-        //   betamin,
+        //    ,
+        //    ,
         betazero,
         //   parameterrandomization,
         getpheromone,
@@ -29,11 +29,11 @@ export function picknextnodeRoulette(
         );
     }
     const beta = betazero;
-    // parameterrandomization ? random(betamin, betamax) : betazero;
+    // parameterrandomization ? random( ,  ) : betazero;
 
     const alpha = alphazero;
     //parameterrandomization
-    //    ? random(alphamin, alphamax)
+    //    ? random( ,  )
     //   : alphazero;
     const randomselection = Math.random() < randomselectionprobability;
     const weights: number[] = randomselection

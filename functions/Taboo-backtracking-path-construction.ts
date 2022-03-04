@@ -1,5 +1,5 @@
-import { asserttrue } from "../test/asserttrue";
 import { Constants } from "./Constants";
+import { constructonesteproute } from "./constructonesteproute";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { filterforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
@@ -10,7 +10,6 @@ import { PathTabooList } from "./PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
-import { totalpathlengthwithoutcycle } from "./totalpathlengthwithoutcycle";
 
 export type PathConstructOptions = Constants & {
     getbestpathlength: () => number;
@@ -54,11 +53,11 @@ export function taboo_backtracking_path_construction(
         // picknextnode,
         pheromonestore,
 
-        //  alphamax,
-        //   alphamin,
+        //   ,
+        //    ,
         alphazero,
-        //    betamax,
-        //   betamin,
+        //     ,
+        //    ,
         betazero,
         pathTabooList,
     } = opts;
@@ -73,111 +72,35 @@ export function taboo_backtracking_path_construction(
     // const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
 
     let route: number[] = [startnode];
+    function getroute() {
+        return Array.from(route);
+    }
     let trycount = 0;
     const starttime = Number(new Date());
     while (route.length !== countofnodes) {
         trycount++;
         console.log("路径构建开始", route);
+
+        route = Array.from(
+            constructonesteproute({
+                startnode,
+                countofnodes,
+                getbestpathlength,
+                filterforbiddenbeforepick,
+                getdistancebyserialnumber,
+                getpheromone,
+                getroute,
+                intersectionfilter,
+                nodecoordinates,
+                pathTabooList,
+                picknextnode,
+                alphazero,
+                betazero,
+                randomselectionprobability,
+            })
+        );
         // debugger;
         /* 路径长度检查 */
-        if (route.length > countofnodes || route.length < 1) {
-            throw Error("route accident");
-        }
-        const availablenodes = new Set<number>(
-            Array(countofnodes)
-                .fill(0)
-                .map((_v, i) => i)
-                .filter((v) => !route.includes(v))
-        );
-        // debugger;
-        /* 找出禁忌表中不包含的路径 */
-        const selectednodes = Array.from(availablenodes).filter(
-            (value) =>
-                !filterforbiddenbeforepick(
-                    // countofnodes,
-                    Array.from(route),
-                    pathTabooList,
-                    value
-                )
-        );
-
-        const filterednodes = selectednodes;
-        /* 可能出现无路可走的情况添加到禁忌表中  ,并回溯*/
-        if (route.length > 1 && filterednodes.length === 0) {
-            pathTabooList.add(Array.from(route));
-            console.warn("路径构建失败,无路可走,禁忌此路径", route);
-            /* 退回上一步 */
-            // route = route.slice(0, route.length - 1);
-            //无路可走开始广度搜索吧
-
-            route = [startnode];
-            // debugger;
-            continue;
-        } else {
-            // debugger;
-            if (filterednodes.length === 0) {
-                /* 路径长度为1,没有可选的下一个点是不可能的 */
-                throw Error("accident");
-            }
-            //     debugger;
-            // }
-            const nextnode = picknextnode({
-                randomselectionprobability,
-                //  alphamax,
-                // alphamin,
-                alphazero,
-                // betamax,
-                //  betamin,
-                betazero,
-                //  parameterrandomization,
-                currentnode: Array.from(route).slice(-1)[0],
-                availablenextnodes: Array.from(filterednodes),
-                getpheromone,
-                getdistancebyserialnumber,
-            });
-            asserttrue(!pathTabooList.has([...route, nextnode]));
-            if (
-                route.length >= 2 &&
-                totalpathlengthwithoutcycle(route, nodecoordinates) >
-                    getbestpathlength()
-            ) {
-                /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
-                pathTabooList.add([...route, nextnode]);
-                console.warn(
-                    "路径构建失败,路径片段长度已经大于最优路径长度,禁忌此路径",
-                    [...route, nextnode]
-                );
-                //广度搜索
-                route = [startnode];
-
-                //route = route.slice();
-
-                // debugger;
-                continue;
-            } else if (
-                route.length >= 3 &&
-                intersectionfilter(
-                    Array.from(route),
-
-                    nextnode,
-                    nodecoordinates
-                )
-            ) {
-                pathTabooList.add([...route, nextnode]);
-                //深度搜索
-                route = route.slice();
-                console.warn("路径构建失败,遇到交叉点,禁忌此路径", [
-                    ...route,
-                    nextnode,
-                ]);
-                // debugger;
-                continue;
-            } else {
-                route = [...route, nextnode];
-                console.log("路径构建经过节点", route);
-                continue;
-            }
-        }
     }
     console.log("路径一条构建完成,循环次数", trycount);
     const endtime = Number(new Date());
@@ -188,60 +111,3 @@ export function taboo_backtracking_path_construction(
     );
     return route;
 }
-// debugger;
-/* 路径交叉检测从第四个节点的选择开始.三个点不会造成交叉. */
-//   /*   let filterednodes: undefined | number[];
-//     if (route.length >= 3) {
-//         const intersectionnodes = selectednodes
-//             //不能取太多点进行检查路径交叉，否则太费时间
-//             .slice(0, 5)
-//             .filter((value) => {
-//                 return intersectionfilter(
-//                     // countofnodes,
-//                     Array.from(route),
-//                     nodecoordinates,
-//                     value
-//                 );
-//             });
-//         /* 造成交叉点的路线添加到禁忌表中 */
-//         intersectionnodes
-//             .map((value) => [...route, value])
-//             .forEach((r) => pathTabooList.add(r));
-//         filterednodes = selectednodes.filter(
-//             (value) => !intersectionnodes.includes(value)
-//         );
-//         // debugger;
-//     } else {
-//         filterednodes = Array.from(selectednodes);
-//     } */
-// debugger;
-//先选择点再测试是否有交叉点
-// let nextnode: number | undefined;
-// while (true) {
-// const nextnode = picknextnode({
-//     alphamax,
-//     alphamin,
-//     alphazero,
-//     betamax,
-//     betamin,
-//     betazero,
-//     parameterrandomization,
-//     currentnode: Array.from(route).slice(-1)[0],
-//     availablenextnodes: Array.from(filterednodes),
-//     getpheromone,
-//     getdistancebyserialnumber,
-// });
-// const nextnode = picknextnode({
-//     alphamax,
-//     alphamin,
-//     alphazero,
-//     betamax,
-//     betamin,
-//     betazero,
-//     parameterrandomization,
-//     currentnode: Array.from(route).slice(-1)[0],
-//     availablenextnodes: Array.from(filterednodes),
-//     getpheromone,
-//     getdistancebyserialnumber,
-// });
-// debugger;
