@@ -104,6 +104,7 @@ export function test_taboo_backtracking_path_construction(
     const mychart = createmychart();
     drawlinechart(linechardata, mychart);
     console.log("test_taboo_backtracking_path_construction end");
+    console.log("禁忌列表", pathTabooList, pathTabooList.size());
 }
 function createptlandset(
     countofnodes: number,
