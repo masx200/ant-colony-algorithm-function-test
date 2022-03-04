@@ -1,3 +1,4 @@
+import { asserttrue } from "../test/asserttrue";
 import { Constants } from "./Constants";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { filterforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
@@ -134,6 +135,7 @@ export function taboo_backtracking_path_construction(
                 getpheromone,
                 getdistancebyserialnumber,
             });
+            asserttrue(!pathTabooList.has([...route, nextnode]));
             if (
                 route.length >= 2 &&
                 totalpathlengthwithoutcycle(route, nodecoordinates) >
@@ -151,8 +153,7 @@ export function taboo_backtracking_path_construction(
                 );
                 // debugger;
                 continue;
-            }
-            if (
+            } else if (
                 route.length >= 3 &&
                 intersectionfilter(
                     Array.from(route),
