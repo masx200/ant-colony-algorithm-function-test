@@ -3,6 +3,10 @@ import { PathTabooList } from "./PathTabooList";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 export type Mytspsearchoptions = {
+    /**信息素强度*/
+    pheromoneintensityQ: number;
+    /**信息素挥发系数 */
+    pheromonevolatilitycoefficientR: number;
     setbestroute: (route: number[]) => void;
     setbestpathlength: (a: number) => void;
     getbestpathlength: () => number;
