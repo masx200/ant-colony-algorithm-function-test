@@ -11,15 +11,26 @@ ant-colony-algorithm-function-test
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  安装
+```
+yarn install
+```
+
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  调试
+```
+yarn dev
+```
+2.  测试
+```
+yarn test
+```
+3.  打包
+```
+yarn build
+```
 
 #### 参与贡献
 
