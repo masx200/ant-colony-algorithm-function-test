@@ -131,15 +131,13 @@ export function myantsystemtspsearchsolve(opts: Mytspsearchoptions) {
         const iteratebestroute = routes[bestindex];
         asserttrue(Boolean(iteratebestroute));
 
+        if (
+            iteratebestlength === iterateworstlength ||
+            iterateworstlength === globalbestlength
+        ) {
+            //最差和最好一样，相当于没有最差
+        }
 
-if(iteratebestlength===iterateworstlength||iterateworstlength===globalbestlength){
-
-
-//最差和最好一样，相当于没有最差
-
-}
-
-        
         numberofiterations++;
         lastlength = routesandlengths[0].totallength;
     }

@@ -19,7 +19,7 @@ import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthof
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
-    const randomselectionprobability = 1;
+    const randomselectionprobability = 0.3;
     // const { length } = nodecoordinates;
     const countofnodes = nodecoordinates.length;
     const pathTabooList =
