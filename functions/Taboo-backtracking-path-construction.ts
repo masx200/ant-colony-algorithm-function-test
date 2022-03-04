@@ -43,7 +43,7 @@ export function taboo_backtracking_path_construction(
         picknextnodeRoulette;
     const {
         getbestpathlength,
-        parameterrandomization,
+      //  parameterrandomization,
         startnode,
         //   countofnodes,
         //   filterforbiddenbeforepick,
@@ -52,11 +52,11 @@ export function taboo_backtracking_path_construction(
         // picknextnode,
         pheromonestore,
 
-        alphamax,
-        alphamin,
+      //  alphamax,
+     //   alphamin,
         alphazero,
-        betamax,
-        betamin,
+    //    betamax,
+     //   betamin,
         betazero,
         pathTabooList,
     } = opts;
@@ -120,13 +120,13 @@ export function taboo_backtracking_path_construction(
             //     debugger;
             // }
             const nextnode = picknextnode({
-                alphamax,
-                alphamin,
+              //  alphamax,
+               // alphamin,
                 alphazero,
-                betamax,
-                betamin,
+               // betamax,
+              //  betamin,
                 betazero,
-                parameterrandomization,
+              //  parameterrandomization,
                 currentnode: Array.from(route).slice(-1)[0],
                 availablenextnodes: Array.from(filterednodes),
                 getpheromone,
