@@ -7,6 +7,8 @@ export function createmychart(): echarts.ECharts {
         myChart.resize(getcharsizeofwindow());
     });
     const container = document.body.appendChild(document.createElement("div"));
+    document.body.appendChild(document.createElement("hr"));
+
     const myChart = echarts.init(container);
 
     container.style.width = "100%";

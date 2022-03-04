@@ -4,6 +4,7 @@ import { nodecoordinates30 } from "../test/nodecoordinates30";
 import { nodecoordinates6 } from "../test/nodecoordinates6";
 import { test_taboo_backtracking_path_construction } from "../test/testTaboo-backtracking-path-construction";
 import { inserttestbuttton } from "./inserttestbuttton";
+document.body.appendChild(document.createElement("hr"));
 
 inserttestbuttton("测试6", () => {
     test_taboo_backtracking_path_construction(nodecoordinates6);
@@ -17,3 +18,4 @@ inserttestbuttton("测试21", () => {
 inserttestbuttton("测试30", () => {
     test_taboo_backtracking_path_construction(nodecoordinates30);
 });
+document.body.appendChild(document.createElement("hr"));
