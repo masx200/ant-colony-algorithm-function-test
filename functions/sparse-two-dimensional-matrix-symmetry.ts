@@ -1,3 +1,4 @@
+import { matrixkeyiterator } from "./matrixkeyiterator";
 import {
     SparseMatrixCreate,
     SparseMatrixOptions,
@@ -26,7 +27,8 @@ export function SparseMatrixSymmetryCreate(
     if (row !== column) {
         throw new Error("Symmetry Matrix , row, column should equal");
     }
-    const SparseTwoDimensionalMatrix = SparseMatrixCreate(opts);
+    const { initializer, ...rest } = opts;
+    const SparseTwoDimensionalMatrix = SparseMatrixCreate(rest);
 
     function get(row: number, column: number): number {
         checkoutofbounds(row, column);
@@ -34,7 +36,7 @@ export function SparseMatrixSymmetryCreate(
             ? SparseTwoDimensionalMatrix.get(row, column)
             : SparseTwoDimensionalMatrix.has(column, row)
             ? SparseTwoDimensionalMatrix.get(column, row)
-            : opts.default;
+            : opts.default ?? 0;
     }
 
     function set(row: number, column: number, value: number): void {
@@ -60,8 +62,9 @@ export function SparseMatrixSymmetryCreate(
         SparseTwoDimensionalMatrix.has(row, column) ||
         SparseTwoDimensionalMatrix.has(column, row);
 
-    return {
-        ...opts,
+    const obj: SparseTwoDimensionalMatrixSymmetry = {
+        row,
+        column,
         delete: (row: number, column: number) => {
             return SparseTwoDimensionalMatrix.delete(
                 Math.min(row, column),
@@ -79,4 +82,13 @@ export function SparseMatrixSymmetryCreate(
         set,
         [Symbol.toStringTag]: "SparseTwoDimensionalMatrixSymmetry",
     };
+    if (initializer) {
+        for (let [i, j] of matrixkeyiterator(row, column)) {
+            const value = initializer(i, j);
+            if (typeof value === "number") {
+                obj.set(i, j, value);
+            }
+        }
+    }
+    return obj;
 }
