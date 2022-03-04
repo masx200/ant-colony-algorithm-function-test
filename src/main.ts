@@ -5,5 +5,5 @@ import "./mytestinsert";
 import "../test/index";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
-app.innerHTML = `<h1>Hello Vite!</h1>`;
+app.innerHTML = `<h1>禁忌路径构建测试</h1>`;
 document.title = "ant-colony-algorithm-function-test";
