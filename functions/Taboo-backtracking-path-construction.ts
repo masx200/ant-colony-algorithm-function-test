@@ -22,7 +22,7 @@ export type PathConstructOptions = Constants & {
     startnode: number;
     /**过滤禁忌表当中的节点 */
     // filterforbiddenbeforepick: FilterForbiddenBeforePick;
-    parameterrandomization: boolean;
+   // parameterrandomization: boolean;
 
     /* 通过序号获得信息素 */
     // getpheromone: GetPheromone;
