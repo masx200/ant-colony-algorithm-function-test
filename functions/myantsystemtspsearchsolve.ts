@@ -32,7 +32,7 @@ export type Mytspsearchoptions = {
     numberofstagnantiterations: number;
 };
 /* 令蚁群算法开始迭代 多少轮次搜索 */
-export function myantsystemtspsearchsolve(opts: Mytspsearchoptions) {
+export function mycontinuousantsystemtspsearchsolve(opts: Mytspsearchoptions) {
     // console.log(opts);
     const {
         pheromoneintensityQ,

@@ -6,16 +6,20 @@ import { test_taboo_backtracking_path_construction } from "../test/testTaboo-bac
 import { inserttestbuttton } from "./inserttestbuttton";
 document.body.appendChild(document.createElement("hr"));
 
-inserttestbuttton("测试6", () => {
+const button6=inserttestbuttton("测试6", (button) => {
     test_taboo_backtracking_path_construction(nodecoordinates6);
 });
-inserttestbuttton("测试10", () => {
+const button10 = inserttestbuttton("测试10", (button) => {
     test_taboo_backtracking_path_construction(nodecoordinates10);
 });
-inserttestbuttton("测试21", () => {
+const button21 = inserttestbuttton("测试21", (button) => {
     test_taboo_backtracking_path_construction(nodecoordinates21);
 });
-inserttestbuttton("测试30", () => {
+const button30 = inserttestbuttton("测试30", (button) => {
     test_taboo_backtracking_path_construction(nodecoordinates30);
 });
 document.body.appendChild(document.createElement("hr"));
+console.log(button6);
+console.log(button10);
+console.log(button21);
+console.log(button30);
