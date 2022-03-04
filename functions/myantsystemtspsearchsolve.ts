@@ -11,11 +11,14 @@ export type Mytspsearchoptions = {
     setbestpathlength: (a: number) => void;
     getbestpathlength: () => number;
     nodecoordinates: Nodecoordinates;
-
+    /**
+     * 蚂蚁数量
+     */
     numberofants: number;
     alphazero: number;
     betazero: number;
     pathTabooList: PathTabooList;
+    /**迭代次数 */
     numberofiterations: number;
     pheromonestore: SparseTwoDimensionalMatrixSymmetry;
 };
