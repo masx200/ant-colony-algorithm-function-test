@@ -12,7 +12,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 export type PathConstructOptions = Constants & {
-    getbestpathlength: () => number;
+    getbestlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
     // intersectionfilter: IntersectionFilter;
@@ -43,7 +43,7 @@ export function taboo_backtracking_path_construction(
         picknextnodeRoulette;
     const {
         randomselectionprobability,
-        getbestpathlength,
+        getbestlength,
         //  parameterrandomization,
         startnode,
         //   countofnodes,
@@ -85,7 +85,7 @@ export function taboo_backtracking_path_construction(
             constructonesteproute({
                 startnode,
                 countofnodes,
-                getbestpathlength,
+                getbestlength,
                 filterforbiddenbeforepick,
                 getdistancebyserialnumber,
                 getpheromone,

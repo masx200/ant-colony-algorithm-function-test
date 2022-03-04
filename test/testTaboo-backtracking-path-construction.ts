@@ -42,14 +42,14 @@ export function test_taboo_backtracking_path_construction(
         .fill(0)
         .map((_v, i) => i);
     const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
-    function getbestpathlength(): number {
+    function getbestlength(): number {
         return (
             cachebestlengthofnodecoordinates.get(nodecoordinates) || Infinity
         );
     }
     const route = taboo_backtracking_path_construction({
         randomselectionprobability,
-        getbestpathlength,
+        getbestlength,
         pathTabooList,
         pheromonestore,
         // countofnodes,

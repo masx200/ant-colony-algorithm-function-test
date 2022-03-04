@@ -9,7 +9,7 @@ import { totalpathlengthwithoutcycle } from "./totalpathlengthwithoutcycle";
 export function constructonesteproute({
     startnode,
     getdistancebyserialnumber,
-    getbestpathlength,
+    getbestlength,
     randomselectionprobability,
     alphazero,
     betazero,
@@ -25,7 +25,7 @@ export function constructonesteproute({
     getdistancebyserialnumber: (left: number, right: number) => number;
     intersectionfilter: IntersectionFilter;
     nodecoordinates: Nodecoordinates;
-    getbestpathlength: () => number;
+    getbestlength: () => number;
     randomselectionprobability: number;
 
     alphazero: number;
@@ -98,7 +98,7 @@ export function constructonesteproute({
         if (
             route.length >= 2 &&
             totalpathlengthwithoutcycle(route, nodecoordinates) >
-                getbestpathlength()
+                getbestlength()
         ) {
             /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
             pathTabooList.add([...route, nextnode]);

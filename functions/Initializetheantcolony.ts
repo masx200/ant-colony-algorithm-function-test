@@ -7,7 +7,7 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
 export type InitializeOptions = {
     setbestroute: (route: number[]) => void;
     setbestpathlength: (a: number) => void;
-    getbestpathlength: () => number;
+    getbestlength: () => number;
     pheromonestore: SparseTwoDimensionalMatrixSymmetry;
     nodecoordinates: Nodecoordinates;
 };
@@ -16,7 +16,7 @@ export type InitializeOptions = {
 export function Initializetheantcolony(opts: InitializeOptions) {
     const {
         nodecoordinates,
-        getbestpathlength,
+        getbestlength,
         setbestpathlength,
         setbestroute,
         pheromonestore,
@@ -28,7 +28,7 @@ export function Initializetheantcolony(opts: InitializeOptions) {
 
     const totallength = closedtotalpathlength(greedypath, nodecoordinates);
     console.log("贪心算法得出的路径长度", totallength);
-    if (totallength < getbestpathlength()) {
+    if (totallength < getbestlength()) {
         setbestpathlength(totallength);
         setbestroute(greedypath);
     }
