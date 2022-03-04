@@ -143,14 +143,15 @@ export function taboo_backtracking_path_construction(
             ) {
                 /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
                 pathTabooList.add([...route, nextnode]);
-                //广度搜索
-                route = [startnode];
-
-                //route = route.slice();
                 console.warn(
                     "路径构建失败,路径片段长度已经大于最优路径长度,禁忌此路径",
                     [...route, nextnode]
                 );
+                //广度搜索
+                route = [startnode];
+
+                //route = route.slice();
+
                 // debugger;
                 continue;
             } else if (
