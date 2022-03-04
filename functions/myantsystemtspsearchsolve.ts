@@ -21,6 +21,8 @@ export type Mytspsearchoptions = {
     /**迭代次数 */
     numberofiterations: number;
     pheromonestore: SparseTwoDimensionalMatrixSymmetry;
+    /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
+    numberofstagnantiterations: number;
 };
 /* 令蚁群算法开始迭代 多少次搜索 */
 export function myantsystemtspsearchsolve(opts: Mytspsearchoptions) {
