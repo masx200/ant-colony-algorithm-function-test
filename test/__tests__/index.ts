@@ -7,7 +7,8 @@ import { testgetPheromonessetPheromones } from "../testgetPheromonessetPheromone
 import { testpathsequalinbothdirections } from "../testpathsequalinbothdirections";
 import { testPathTabooList } from "../testPathTabooList";
 import { testrobustsegmentintersect } from "../testrobustsegmentintersect";
-it("main test", () => {
+import { testgreedynodecoordinates6 } from "../testgreedynodecoordinates6";
+it("main test functions", () => {
     testgetPheromonessetPheromones();
 
     testgeteuclideandistance();
@@ -20,5 +21,8 @@ it("main test", () => {
 
     test_issubroutecycle();
     testPathTabooList();
-    testcheckcurrentsegmentsintersectnextsegment();testclosedtotalpathlength();
+    testcheckcurrentsegmentsintersectnextsegment();
+    testclosedtotalpathlength();
+    testgreedynodecoordinates6();
 });
+
