@@ -8,5 +8,5 @@ export function inserttestbuttton(
     button.addEventListener("click", () => {
         onclick(button);
     });
-    return button
+    return button;
 }

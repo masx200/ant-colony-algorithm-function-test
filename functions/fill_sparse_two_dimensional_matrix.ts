@@ -1,7 +1,7 @@
 import { matrixkeyiterator } from "./matrixkeyiterator";
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 /**矩阵所有元素填充 */
-export function fill_sparse_two_dimensional_matrix(
+export function SparseMatrixFill(
     matrix: SparseTwoDimensionalMatrix,
     value: number
 ) {

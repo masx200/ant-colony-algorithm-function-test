@@ -7,7 +7,7 @@ export interface SparseMatrixOptions {
     default: number;
 }
 /* 创建稀疏二维矩阵 非对称*/
-export function create_sparse_two_dimensional_matrix(
+export function SparseMatrixCreate(
     opts: SparseMatrixOptions
 ): SparseTwoDimensionalMatrix {
     const { row, column } = opts;

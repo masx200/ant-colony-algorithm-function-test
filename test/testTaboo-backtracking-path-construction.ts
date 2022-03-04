@@ -5,7 +5,7 @@ import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { createmychart } from "../functions/createmychart";
 import { createPheromonestore } from "../functions/createPheromonestore";
 import { drawlinechart } from "../functions/drawlinechart";
-import { fill_sparse_two_dimensional_matrix } from "../functions/fill_sparse_two_dimensional_matrix";
+
 // import { filterforbiddenbeforepick } from "../functions/filterforbiddenbeforepick";
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 // import { intersectionfilter } from "../functions/intersectionfilter";
@@ -16,6 +16,7 @@ import { taboo_backtracking_path_construction } from "../functions/Taboo-backtra
 import { asserttrue } from "./asserttrue";
 import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoordinatestopathTabooList";
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
+import { SparseMatrixFill } from "../functions/fill_sparse_two_dimensional_matrix";
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
@@ -27,7 +28,7 @@ export function test_taboo_backtracking_path_construction(
         createptlandset(countofnodes, nodecoordinates);
 
     const pheromonestore = createPheromonestore(countofnodes);
-    fill_sparse_two_dimensional_matrix(pheromonestore, 1);
+    SparseMatrixFill(pheromonestore, 1);
     // const parameterrandomization = false;
     const alphazero = 1;
     // const   = alphazero * 2;

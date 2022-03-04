@@ -1,5 +1,6 @@
 import { closedtotalpathlength } from "./closed-total-path-length";
-import { fill_sparse_two_dimensional_matrix } from "./fill_sparse_two_dimensional_matrix";
+import { SparseMatrixFill } from "./fill_sparse_two_dimensional_matrix";
+
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
@@ -33,5 +34,5 @@ export function Initializetheantcolony(opts: InitializeOptions) {
         setbestroute(greedypath);
     }
     const initialpheromone = 1 / nodecoordinates.length / totallength;
-    fill_sparse_two_dimensional_matrix(pheromonestore, initialpheromone);
+    SparseMatrixFill(pheromonestore, initialpheromone);
 }

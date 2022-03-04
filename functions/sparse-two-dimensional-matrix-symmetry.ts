@@ -1,5 +1,5 @@
 import {
-    create_sparse_two_dimensional_matrix,
+    SparseMatrixCreate,
     SparseMatrixOptions,
 } from "./sparse-two-dimensional-matrix";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
@@ -8,7 +8,7 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
  *
  * 创建稀疏二维矩阵对称式
  */
-export function create_sparse_two_dimensional_matrix_symmetry(
+export function SparseMatrixSymmetryCreate(
     opts: SparseMatrixOptions
 ): SparseTwoDimensionalMatrixSymmetry {
     const { row, column } = opts;
@@ -26,8 +26,7 @@ export function create_sparse_two_dimensional_matrix_symmetry(
     if (row !== column) {
         throw new Error("Symmetry Matrix , row, column should equal");
     }
-    const SparseTwoDimensionalMatrix =
-        create_sparse_two_dimensional_matrix(opts);
+    const SparseTwoDimensionalMatrix = SparseMatrixCreate(opts);
 
     function get(row: number, column: number): number {
         checkoutofbounds(row, column);

@@ -1,5 +1,5 @@
 // import { numberstostringkeysymmetry } from "./numberstostringkeysymmetry";
-import { create_sparse_two_dimensional_matrix_symmetry } from "./sparse-two-dimensional-matrix-symmetry";
+import { SparseMatrixSymmetryCreate } from "./sparse-two-dimensional-matrix-symmetry";
 import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 // import { stringkeytonumbers } from "./stringkeytonumbers";
@@ -7,7 +7,7 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
 export function createPheromonestore(
     scale: number
 ): SparseTwoDimensionalMatrixSymmetry {
-    return create_sparse_two_dimensional_matrix_symmetry({
+    return SparseMatrixSymmetryCreate({
         row: scale,
         column: scale,
         default: -1,

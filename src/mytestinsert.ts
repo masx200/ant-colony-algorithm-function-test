@@ -6,7 +6,7 @@ import { test_taboo_backtracking_path_construction } from "../test/testTaboo-bac
 import { inserttestbuttton } from "./inserttestbuttton";
 document.body.appendChild(document.createElement("hr"));
 
-const button6=inserttestbuttton("测试6", (button) => {
+const button6 = inserttestbuttton("测试6", (button) => {
     test_taboo_backtracking_path_construction(nodecoordinates6);
 });
 const button10 = inserttestbuttton("测试10", (button) => {
