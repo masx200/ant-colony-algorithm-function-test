@@ -1,7 +1,7 @@
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { createmychart } from "../functions/createmychart";
 import { drawlinechart } from "../functions/drawlinechart";
-import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetsp";
+import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "./asserttrue";
 import { cachebestrouteofnodecoordinates } from "../functions/cachebestrouteofnodecoordinates";
