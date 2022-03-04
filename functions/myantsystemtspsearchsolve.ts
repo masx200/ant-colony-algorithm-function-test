@@ -132,7 +132,12 @@ export function myantsystemtspsearchsolve(opts: Mytspsearchoptions) {
         asserttrue(Boolean(iteratebestroute));
 
 
+if(iteratebestlength===iterateworstlength||iterateworstlength===globalbestlength){
 
+
+//最差和最好一样，相当于没有最差
+
+}
 
         
         numberofiterations++;
