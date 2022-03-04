@@ -6,13 +6,13 @@ export function picknextnodeRoulette(
     args: PickNextNodeRouletteOptions
 ): number {
     const {
-        alphamax,
-        alphamin,
+      //  alphamax,
+       // alphamin,
         alphazero,
-        betamax,
-        betamin,
+     //   betamax,
+     //   betamin,
         betazero,
-        parameterrandomization,
+     //   parameterrandomization,
         getpheromone,
         getdistancebyserialnumber,
         currentnode,
@@ -24,11 +24,13 @@ export function picknextnodeRoulette(
             "invalid availablenextnodes:" + JSON.stringify(availablenextnodes)
         );
     }
-    const beta = parameterrandomization ? random(betamin, betamax) : betazero;
+    const beta =betazero
+// parameterrandomization ? random(betamin, betamax) : betazero;
 
-    const alpha = parameterrandomization
-        ? random(alphamin, alphamax)
-        : alphazero;
+    const alpha = alphazero
+//parameterrandomization
+    //    ? random(alphamin, alphamax)
+     //   : alphazero;
     const weights: number[] = availablenextnodes.map((nextnode) => {
         return (
             Math.pow(getpheromone(nextnode, currentnode), alpha) /
