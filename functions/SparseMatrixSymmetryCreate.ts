@@ -6,9 +6,9 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
  *
  * 创建稀疏二维矩阵对称式
  */
-export function SparseMatrixSymmetryCreate(
-    opts: SparseMatrixOptions
-): SparseTwoDimensionalMatrixSymmetry {
+export function SparseMatrixSymmetryCreate<R extends number>(
+    opts: SparseMatrixOptions<R, R>
+): SparseTwoDimensionalMatrixSymmetry<R, R> {
     const { row, column } = opts;
     function checkoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
@@ -59,7 +59,7 @@ export function SparseMatrixSymmetryCreate(
         SparseTwoDimensionalMatrix.has(row, column) ||
         SparseTwoDimensionalMatrix.has(column, row);
 
-    const obj: SparseTwoDimensionalMatrixSymmetry = {
+    const obj: SparseTwoDimensionalMatrixSymmetry<R, R> = {
         row,
         column,
         delete: (row: number, column: number) => {

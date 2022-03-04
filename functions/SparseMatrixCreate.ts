@@ -2,16 +2,19 @@ import { matrixkeyiterator } from "./matrixkeyiterator";
 import { numberstostringkeynotsymmetry } from "./numberstostringkeynotsymmetry";
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 import { stringkeytonumbers } from "./stringkeytonumbers";
-export interface SparseMatrixOptions {
-    row: number;
-    column: number;
+export interface SparseMatrixOptions<
+    R extends number = number,
+    C extends number = number
+> {
+    row: R;
+    column: C;
     default?: number;
     initializer?: (row: number, column: number) => number;
 }
 /* 创建稀疏二维矩阵 非对称*/
-export function SparseMatrixCreate(
-    opts: SparseMatrixOptions
-): SparseTwoDimensionalMatrix {
+export function SparseMatrixCreate<R extends number, C extends number>(
+    opts: SparseMatrixOptions<R, C>
+): SparseTwoDimensionalMatrix<R, C> {
     const { row, column, initializer } = opts;
     function checkoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束

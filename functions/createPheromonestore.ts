@@ -4,9 +4,9 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
 
 // import { stringkeytonumbers } from "./stringkeytonumbers";
 /* 创建信息素仓库 */
-export function createPheromonestore(
-    scale: number
-): SparseTwoDimensionalMatrixSymmetry {
+export function createPheromonestore<R extends number>(
+    scale: R
+): SparseTwoDimensionalMatrixSymmetry<R, R> {
     return SparseMatrixSymmetryCreate({
         row: scale,
         column: scale,
