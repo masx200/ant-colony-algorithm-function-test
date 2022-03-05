@@ -1,3 +1,4 @@
+import { asserttrue } from "../test/asserttrue";
 import { SparseMatrix } from "./SparseMatrix";
 import { SparseMatrixReduce } from "./SparseMatrixReduce";
 
@@ -5,6 +6,7 @@ export function SparseMatrixMin<R extends number, C extends number>(
     matrix1: SparseMatrix<R, C>,
     ...matrixs: SparseMatrix<R, C>[]
 ) {
+    asserttrue(matrixs.length, "invalid arguments matrixs");
     return SparseMatrixReduce(
         (previousValue: number, currentValue: number) => {
             return Math.min(previousValue, currentValue);

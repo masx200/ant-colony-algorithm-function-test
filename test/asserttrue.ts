@@ -1,4 +1,4 @@
-export function asserttrue(con: boolean, msg?: string): asserts con is true {
+export function asserttrue(con: any, msg?: string): asserts con {
     if (!con) {
         throw Error("assert error true:" + msg);
     }

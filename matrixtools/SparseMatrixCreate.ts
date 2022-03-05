@@ -28,7 +28,9 @@ export function SparseMatrixCreate<
             inputrow < 0 ||
             inputcolumn < 0
         ) {
-            throw new Error("row or column out of bounds");
+            throw new Error(
+                "row or column out of bounds:" + inputrow + "," + inputcolumn
+            );
         } else {
             return true;
         }
@@ -47,8 +49,8 @@ export function SparseMatrixCreate<
     }
     const at = (inputrow: number, inputcolumn: number) => {
         return get(
-            inputrow < 0 ? row - inputrow : inputrow,
-            inputcolumn < 0 ? column - inputcolumn : column
+            inputrow < 0 ? row + inputrow : inputrow,
+            inputcolumn < 0 ? column + inputcolumn : column
         );
     };
 

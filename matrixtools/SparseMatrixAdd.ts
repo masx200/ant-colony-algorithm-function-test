@@ -6,6 +6,7 @@ export function SparseMatrixAdd<R extends number, C extends number>(
     matrix1: SparseMatrix<R, C>,
     ...matrixs: SparseMatrix<R, C>[]
 ) {
+    asserttrue(matrixs.length, "invalid arguments matrixs");
     const { row, column } = matrix1;
     asserttrue(
         matrixs.every((m) => {
