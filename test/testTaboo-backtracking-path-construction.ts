@@ -16,7 +16,8 @@ import { taboo_backtracking_path_construction } from "../functions/Taboo-backtra
 import { asserttrue } from "./asserttrue";
 import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoordinatestopathTabooList";
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
-import { SparseMatrixFill } from "../functions/SparseMatrixFill";
+import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
+
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {

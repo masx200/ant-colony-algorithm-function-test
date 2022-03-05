@@ -1,8 +1,8 @@
 import { matrixkeyiterator } from "./matrixkeyiterator";
-import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
+import { SparseMatrix } from "./SparseMatrix";
 /**矩阵所有元素填充 */
 export function SparseMatrixFill<R extends number, C extends number>(
-    matrix: SparseTwoDimensionalMatrix<R, C>,
+    matrix: SparseMatrix<R, C>,
     value: number
 ) {
     const { row, column } = matrix;

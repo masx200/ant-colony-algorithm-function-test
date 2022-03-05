@@ -1,26 +1,29 @@
 import { numberstostringkeynotsymmetry } from "../functions/numberstostringkeynotsymmetry";
 import { matrixkeyiterator } from "./matrixkeyiterator";
-import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
+import { SparseMatrixKey } from "./SparseMatrixKey";
+import { SparseMatrix } from "./SparseMatrix";
 
 export interface SparseMatrixOptions<
     R extends number = number,
     C extends number = number
 > {
-    row: R;
-    column: C;
+    row?: R;
+    column?: C;
     default?: number;
     initializer?: (row: number, column: number) => number;
 }
+
 /* 创建稀疏二维矩阵 非对称*/
-export function SparseMatrixCreate<R extends number, C extends number>(
-    opts: SparseMatrixOptions<R, C>
-): SparseTwoDimensionalMatrix<R, C> {
-    const { row, column, initializer } = opts;
+export function SparseMatrixCreate<
+    R extends number = number,
+    C extends number = number
+>(opts?: SparseMatrixOptions<R, C>): SparseMatrix<R, C> {
+    const { row = 1, column = 1, initializer } = opts || {};
     function checkoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
         if (
-            inputrow > opts.row - 1 ||
-            inputcolumn > opts.column - 1 ||
+            inputrow > row - 1 ||
+            inputcolumn > column - 1 ||
             inputrow < 0 ||
             inputcolumn < 0
         ) {
@@ -31,13 +34,12 @@ export function SparseMatrixCreate<R extends number, C extends number>(
         throw new Error(" row, column should greater than 0");
     }
     const valuesrecord = new Map<`${number},${number}`, number>();
-
+    const defaultvalue = opts?.default ?? 0;
     function get(row: number, column: number): number {
         checkoutofbounds(row, column);
         return (
             valuesrecord.get(numberstostringkeynotsymmetry(row, column)) ??
-            opts.default ??
-            0
+            defaultvalue
         );
     }
 
@@ -65,9 +67,10 @@ export function SparseMatrixCreate<R extends number, C extends number>(
     const has = (row: number, column: number) =>
         valuesrecord.has(numberstostringkeynotsymmetry(row, column));
 
-    const obj = {
-        row,
-        column,
+    const obj: SparseMatrix<R, C> = {
+        [SparseMatrixKey]: true,
+        row: row as R,
+        column: column as C,
         // clear: () => valuesrecord.clear(),
         has,
         // size: () => valuesrecord.size,
@@ -81,7 +84,7 @@ export function SparseMatrixCreate<R extends number, C extends number>(
         //         numberstostringkeynotsymmetry(row, column)
         //     );
         // },
-        [Symbol.toStringTag]: "SparseTwoDimensionalMatrix",
+        [Symbol.toStringTag]: "SparseMatrix",
     };
 
     if (initializer) {

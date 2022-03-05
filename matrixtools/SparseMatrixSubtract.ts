@@ -1,10 +1,10 @@
 import { asserttrue } from "../test/asserttrue";
 import { SparseMatrixMap } from "./SparseMatrixMap";
-import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
+import { SparseMatrix } from "./SparseMatrix";
 
 export function SparseMatrixSubtract<R extends number, C extends number>(
-    matrix1: SparseTwoDimensionalMatrix<R, C>,
-    matrix2: SparseTwoDimensionalMatrix<R, C>
+    matrix1: SparseMatrix<R, C>,
+    matrix2: SparseMatrix<R, C>
 ) {
     const { row, column } = matrix1;
     asserttrue(matrix2.row === row && matrix2.column === column);

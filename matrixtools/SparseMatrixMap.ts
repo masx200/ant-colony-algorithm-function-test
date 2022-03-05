@@ -1,11 +1,11 @@
 import { SparseMatrixForEach } from "./SparseMatrixForEach";
 import { SparseMatrixFrom } from "./SparseMatrixFrom";
-import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
+import { SparseMatrix } from "./SparseMatrix";
 
 export function SparseMatrixMap<R extends number, C extends number>(
-    matrix: SparseTwoDimensionalMatrix<R, C>,
+    matrix: SparseMatrix<R, C>,
     callback: (value: number, row: number, column: number) => number
-): SparseTwoDimensionalMatrix<R, C> {
+): SparseMatrix<R, C> {
     const result = SparseMatrixFrom(matrix);
     SparseMatrixForEach(matrix, (v, i, j) => {
         const value = callback(v, i, j);

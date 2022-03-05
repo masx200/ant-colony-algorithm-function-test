@@ -1,4 +1,4 @@
-import { SparseTwoDimensionalMatrixSymmetry } from "../matrixtools/SparseTwoDimensionalMatrixSymmetry";
+import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { euclideandistance } from "./euclideandistance";
 import { getstoreofnodecoordinates } from "./getstoreofnodecoordinates";
 import { Nodecoordinates } from "./Nodecoordinates";
@@ -27,7 +27,7 @@ function calcandsetdistance(
     nodecoordinates: Nodecoordinates,
     left: number,
     right: number,
-    euclideandistancerecord: SparseTwoDimensionalMatrixSymmetry
+    euclideandistancerecord: SparseMatrixSymmetry
 ) {
     let leftpair = nodecoordinates[left];
     let rightpair = nodecoordinates[right];

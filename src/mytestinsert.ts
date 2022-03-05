@@ -7,15 +7,19 @@ import { inserttestbuttton } from "./inserttestbuttton";
 document.body.appendChild(document.createElement("hr"));
 
 const button6 = inserttestbuttton("测试6", (button) => {
+    console.log(button);
     test_taboo_backtracking_path_construction(nodecoordinates6);
 });
 const button10 = inserttestbuttton("测试10", (button) => {
+    console.log(button);
     test_taboo_backtracking_path_construction(nodecoordinates10);
 });
 const button21 = inserttestbuttton("测试21", (button) => {
+    console.log(button);
     test_taboo_backtracking_path_construction(nodecoordinates21);
 });
 const button30 = inserttestbuttton("测试30", (button) => {
+    console.log(button);
     test_taboo_backtracking_path_construction(nodecoordinates30);
 });
 document.body.appendChild(document.createElement("hr"));

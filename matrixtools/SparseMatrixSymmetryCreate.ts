@@ -1,20 +1,20 @@
 import { matrixkeyiterator } from "./matrixkeyiterator";
 import { SparseMatrixCreate, SparseMatrixOptions } from "./SparseMatrixCreate";
-import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
+import { SparseMatrixSymmetry } from "./SparseMatrixSymmetry";
 
 /**
  *
  * 创建稀疏二维矩阵对称式
  */
-export function SparseMatrixSymmetryCreate<R extends number>(
-    opts: SparseMatrixOptions<R, R>
-): SparseTwoDimensionalMatrixSymmetry<R> {
-    const { row, column } = opts;
+export function SparseMatrixSymmetryCreate<R extends number = number>(
+    opts?: SparseMatrixOptions<R, R>
+): SparseMatrixSymmetry<R> {
+    const { row = 1, column = opts?.row || 1 } = opts || {};
     function checkoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
         if (
-            inputrow > opts.row - 1 ||
-            inputcolumn > opts.column - 1 ||
+            inputrow > row - 1 ||
+            inputcolumn > column - 1 ||
             inputrow < 0 ||
             inputcolumn < 0
         ) {
@@ -24,60 +24,56 @@ export function SparseMatrixSymmetryCreate<R extends number>(
     if (row !== column) {
         throw new Error("Symmetry Matrix , row, column should equal");
     }
-    const { initializer, ...rest } = opts;
-    const SparseTwoDimensionalMatrix = SparseMatrixCreate(rest);
-
+    const { initializer, ...rest } = opts || {};
+    const matrix = SparseMatrixCreate(rest);
+    const defaultvalue = opts?.default ?? 0;
     function get(row: number, column: number): number {
         checkoutofbounds(row, column);
-        return SparseTwoDimensionalMatrix.has(row, column)
-            ? SparseTwoDimensionalMatrix.get(row, column)
-            : SparseTwoDimensionalMatrix.has(column, row)
-            ? SparseTwoDimensionalMatrix.get(column, row)
-            : opts.default ?? 0;
+        return matrix.has(row, column)
+            ? matrix.get(row, column)
+            : matrix.has(column, row)
+            ? matrix.get(column, row)
+            : defaultvalue;
     }
 
     function set(row: number, column: number, value: number): void {
         checkoutofbounds(row, column);
-        SparseTwoDimensionalMatrix.set(
-            Math.min(row, column),
-            Math.max(row, column),
-            value
-        );
+        matrix.set(Math.min(row, column), Math.max(row, column), value);
     }
-    // console.log(SparseTwoDimensionalMatrix);
+    // console.log(SparseMatrix);
     function values() {
-        return Array.from(SparseTwoDimensionalMatrix.values());
+        return Array.from(matrix.values());
     }
     function keys(): [number, number][] {
-        return Array.from(SparseTwoDimensionalMatrix.keys());
+        return Array.from(matrix.keys());
     }
 
     function entries(): [number, number, number][] {
-        return Array.from(SparseTwoDimensionalMatrix.entries());
+        return Array.from(matrix.entries());
     }
     const has = (row: number, column: number) =>
-        SparseTwoDimensionalMatrix.has(row, column) ||
-        SparseTwoDimensionalMatrix.has(column, row);
+        matrix.has(row, column) || matrix.has(column, row);
 
-    const obj: SparseTwoDimensionalMatrixSymmetry<R> = {
-        row,
-        column,
+    const obj: SparseMatrixSymmetry<R> = {
+        ...matrix,
+        row: row as R,
+        column: column as R,
         // delete: (row: number, column: number) => {
-        //     return SparseTwoDimensionalMatrix.delete(
+        //     return SparseMatrix.delete(
         //         Math.min(row, column),
         //         Math.max(row, column)
         //     );
         // },
         has,
-        // clear: SparseTwoDimensionalMatrix.clear,
-        // size: SparseTwoDimensionalMatrix.size,
+        // clear: SparseMatrix.clear,
+        // size: SparseMatrix.size,
         symmetry: true,
         values,
         keys,
         entries,
         get,
         set,
-        [Symbol.toStringTag]: "SparseTwoDimensionalMatrixSymmetry",
+        [Symbol.toStringTag]: "SparseMatrixSymmetry",
     };
     if (initializer) {
         for (let [i, j] of matrixkeyiterator(row, column)) {

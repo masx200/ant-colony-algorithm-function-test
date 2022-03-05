@@ -1,12 +1,12 @@
 // import { stringkeytonumbers } from "./stringkeytonumbers";
 
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
-import { SparseTwoDimensionalMatrixSymmetry } from "../matrixtools/SparseTwoDimensionalMatrixSymmetry";
+import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 
 /* 创建信息素仓库 */
 export function createPheromonestore<R extends number>(
     scale: R
-): SparseTwoDimensionalMatrixSymmetry<R> {
+): SparseMatrixSymmetry<R> {
     return SparseMatrixSymmetryCreate({
         row: scale,
         column: scale,

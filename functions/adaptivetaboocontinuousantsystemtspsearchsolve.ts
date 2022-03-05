@@ -5,7 +5,7 @@ import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
 import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
-import { SparseTwoDimensionalMatrixSymmetry } from "../matrixtools/SparseTwoDimensionalMatrixSymmetry";
+import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { asserttrue } from "../test/asserttrue";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { cycleroutetosegments } from "./cycleroutetosegments";
@@ -35,7 +35,7 @@ export type Mytspsearchoptions = {
     pathTabooList: PathTabooList;
     /**最大迭代次数 */
     maxnumberofiterations: number;
-    pheromonestore: SparseTwoDimensionalMatrixSymmetry;
+    pheromonestore: SparseMatrixSymmetry;
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     numberofstagnantiterations: number;
 };

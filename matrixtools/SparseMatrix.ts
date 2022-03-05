@@ -1,5 +1,7 @@
+import { SparseMatrixKey } from "./SparseMatrixKey";
+
 /* 稀疏二维矩阵 非对称式*/
-export type SparseTwoDimensionalMatrix<
+export type SparseMatrix<
     R extends number = number,
     C extends number = number
 > = {
@@ -13,4 +15,4 @@ export type SparseTwoDimensionalMatrix<
     // clear: () => void;
     has: (row: number, column: number) => boolean;
     // delete: (row: number, column: number) => boolean;
-} & { row: R; column: C };
+} & { row: R; column: C } & { [SparseMatrixKey]: true };

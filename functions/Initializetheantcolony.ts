@@ -1,15 +1,15 @@
+import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
+import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { closedtotalpathlength } from "./closed-total-path-length";
-import { SparseMatrixFill } from "./SparseMatrixFill";
 
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 export type InitializeOptions = {
     setbestroute: (route: number[]) => void;
     setbestpathlength: (a: number) => void;
     getbestlength: () => number;
-    pheromonestore: SparseTwoDimensionalMatrixSymmetry;
+    pheromonestore: SparseMatrixSymmetry;
     nodecoordinates: Nodecoordinates;
 };
 

@@ -1,9 +1,9 @@
 import { SparseMatrixCreate } from "./SparseMatrixCreate";
-import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
+import { SparseMatrix } from "./SparseMatrix";
 
 export function SparseMatrixFrom<R extends number, C extends number>(
-    matrix: SparseTwoDimensionalMatrix<R, C>
-): SparseTwoDimensionalMatrix<R, C> {
+    matrix: SparseMatrix<R, C>
+): SparseMatrix<R, C> {
     const { row, column } = matrix;
 
     const obj = SparseMatrixCreate({

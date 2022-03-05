@@ -1,3 +1,4 @@
+import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { Constants } from "./Constants";
 import { constructonesteproute } from "./constructonesteproute";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
@@ -9,7 +10,6 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
-import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
 
 export type PathConstructOptions = Constants & {
     getbestlength: () => number;
@@ -30,7 +30,7 @@ export type PathConstructOptions = Constants & {
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
 
-    pheromonestore: SparseTwoDimensionalMatrixSymmetry;
+    pheromonestore: SparseMatrixSymmetry;
 };
 /**禁忌回溯路径构建 */
 export function taboo_backtracking_path_construction(

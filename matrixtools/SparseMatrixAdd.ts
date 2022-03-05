@@ -1,10 +1,10 @@
 import { asserttrue } from "../test/asserttrue";
 import { SparseMatrixMap } from "./SparseMatrixMap";
-import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
+import { SparseMatrix } from "./SparseMatrix";
 
 export function SparseMatrixAdd<R extends number, C extends number>(
-    matrix1: SparseTwoDimensionalMatrix<R, C>,
-    ...matrixs: SparseTwoDimensionalMatrix<R, C>[]
+    matrix1: SparseMatrix<R, C>,
+    ...matrixs: SparseMatrix<R, C>[]
 ) {
     const { row, column } = matrix1;
     asserttrue(
