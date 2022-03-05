@@ -77,6 +77,7 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
         set,
         [Symbol.toStringTag]: "SparseMatrixSymmetry",
     };
+
     if (initializer) {
         for (let [i, j] of matrixkeyiterator(row, column)) {
             const value = initializer(i, j);

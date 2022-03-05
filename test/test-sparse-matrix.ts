@@ -14,10 +14,12 @@ import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMin } from "../matrixtools/SparseMatrixMin";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixOfArrays } from "../matrixtools/SparseMatrixOfArrays";
+import { SparseMatrixOnes } from "../matrixtools/SparseMatrixOnes";
 import { SparseMatrixSome } from "../matrixtools/SparseMatrixSome";
 import { SparseMatrixSubtract } from "../matrixtools/SparseMatrixSubtract";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 import { SparseMatrixTranspose } from "../matrixtools/SparseMatrixTranspose";
+import { SparseMatrixZeros } from "../matrixtools/SparseMatrixZeros";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
@@ -326,6 +328,24 @@ export function testsparsematrix() {
                 [0, 1],
             ]),
             SparseMatrixIdentity({ row: 2, column: 2 })
+        )
+    );
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [0, 0],
+                [0, 0],
+            ]),
+            SparseMatrixZeros({ row: 2, column: 2 })
+        )
+    );
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [1, 1, 1],
+                [1, 1, 1],
+            ]),
+            SparseMatrixOnes({ row: 2, column: 3 })
         )
     );
     console.log("test sparsematrix end");
