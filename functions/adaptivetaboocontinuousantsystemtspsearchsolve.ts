@@ -145,7 +145,9 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         ) {
             //最差和最好一样，相当于没有最差
         }
-
+        if (Math.random() < pheromoneDiffusionProbability) {
+            //信息素扩散
+        }
         numberofiterations++;
         lastlength = routesandlengths[0].totallength;
     }
