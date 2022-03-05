@@ -104,7 +104,7 @@ probabilityofacceptingasuboptimalsolution:number,
                 getbestlength()
         ) {
           if(Math.random()<probabilityofacceptingasuboptimalsolution){
-console.warn("接受次优解，路径构建经过节点", route);
+console.warn("接受次优解，路径片段长度已经大于最优路径长度，路径构建经过节点", route);
 return  [...route, nextnode];
             
             
@@ -145,7 +145,7 @@ return  [...route, nextnode];
             return route;
         } else {
             route = [...route, nextnode];
-            console.log("路径构建经过节点", route);
+            console.log("路径构建正常经过节点", route);
             return route;
         }
     }
