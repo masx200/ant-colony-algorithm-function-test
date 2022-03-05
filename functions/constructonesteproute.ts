@@ -4,7 +4,7 @@ import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
-import { totalpathlengthwithoutcycle } from "./totalpathlengthwithoutcycle";
+import { closedtotalpathlength } from "./closed-total-path-length";
 /**构建一步路径,并返回下一次的路径 */
 export function constructonesteproute({
     startnode,
@@ -97,7 +97,7 @@ export function constructonesteproute({
         asserttrue(!pathTabooList.has([...route, nextnode]));
         if (
             route.length >= 2 &&
-            totalpathlengthwithoutcycle(route, nodecoordinates) >
+            closedtotalpathlength(route, nodecoordinates) >
                 getbestlength()
         ) {
             /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
