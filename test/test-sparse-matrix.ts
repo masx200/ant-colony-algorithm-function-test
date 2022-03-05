@@ -9,9 +9,12 @@ import { SparseMatrixEquals } from "../matrixtools/SparseMatrixEquals";
 import { SparseMatrixEvery } from "../matrixtools/SparseMatrixEvery";
 import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
+import { SparseMatrixGetColumn } from "../matrixtools/SparseMatrixGetColumn";
+import { SparseMatrixGetRow } from "../matrixtools/SparseMatrixGetRow";
 import { SparseMatrixIdentity } from "../matrixtools/SparseMatrixIdentity";
 import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMin } from "../matrixtools/SparseMatrixMin";
+import { SparseMatrixMultiplyMatrix } from "../matrixtools/SparseMatrixMultiplyMatrix";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixOfArrays } from "../matrixtools/SparseMatrixOfArrays";
 import { SparseMatrixOnes } from "../matrixtools/SparseMatrixOnes";
@@ -349,5 +352,77 @@ export function testsparsematrix() {
             SparseMatrixOnes({ row: 2, column: 3 })
         )
     );
+    console.log(
+        SparseMatrixToArrays(
+            SparseMatrixMultiplyMatrix(
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ]),
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ])
+            )
+        )
+    );
+    asserttrue(
+        isEqual(
+            [1, 2],
+            SparseMatrixGetRow(
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ]),
+                0
+            )
+        )
+    );
+    asserttrue(
+        isEqual(
+            [1, 3],
+            SparseMatrixGetColumn(
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ]),
+                0
+            )
+        ),
+        "SparseMatrixGetColumn"
+    );
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixMultiplyMatrix(
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ]),
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ])
+            ),
+            SparseMatrixOfArrays([
+                [7, 10],
+                [15, 22],
+            ])
+        )
+    );
+    console.log(
+        SparseMatrixToArrays(
+            SparseMatrixContinuousMultiplication(
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ]),
+                SparseMatrixOfArrays([
+                    [1, 2],
+                    [3, 4],
+                ])
+            )
+        )
+    );
+
     console.log("test sparsematrix end");
 }

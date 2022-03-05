@@ -13,6 +13,7 @@ export function SparseMatrixMultiplyMatrix<
     matrix1: SparseMatrix<M, P>,
     matrix2: SparseMatrix<P, N>
 ): SparseMatrix<M, N> {
+    // asserttrue(dot([3,4],[2,4])===22)
     const row = matrix1.row;
     const column = matrix2.column;
     asserttrue(matrix1.column === matrix2.row);

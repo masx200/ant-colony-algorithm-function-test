@@ -7,6 +7,6 @@ export const SparseMatrixGetColumn = (
     return Array(matrix.row)
         .fill(0)
         .map((_v, r) => {
-            return matrix.get(column, r);
+            return matrix.get(r, column);
         });
 };
