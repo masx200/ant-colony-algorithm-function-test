@@ -43,6 +43,7 @@ export type Mytspsearchoptions = {
 export function adaptivetaboocontinuousantsystemtspsearchsolve(
     opts: Mytspsearchoptions
 ) {
+const probabilityofacceptingasuboptimalsolution=0.1
     // console.log(opts);
     const {
         pheromoneintensityQ,
@@ -88,7 +89,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
 
                 const route = taboo_backtracking_path_construction({
                     alphazero,
-                    betazero,
+                  probabilityofacceptingasuboptimalsolution,  betazero,
                     randomselectionprobability,
                     getbestlength,
                     nodecoordinates,
