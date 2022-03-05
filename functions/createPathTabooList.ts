@@ -6,7 +6,7 @@ import { PathTabooListSymbol } from "./PathTabooListSymbol";
 
 /**
  * 路径禁忌列表  */
-export function createPathTabooList<N extends number>(
+export function createPathTabooList<N extends number=number>(
     countofnodes: N
     //路径最多节点数,用于判断是否是环路
 ): PathTabooList<N> {
