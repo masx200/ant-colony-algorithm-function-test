@@ -134,7 +134,11 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         console.log("信息素扩散概率", pheromoneDiffusionProbability);
         const globalbestroute = getbestroute();
         const globalbestlength = getbestlength();
-        const iterateworstlength = Math.min(...lengths);
+      
+
+/*
+
+  const iterateworstlength = Math.min(...lengths);
         const worstindex = lengths.findIndex(
             (totallength) => totallength === iterateworstlength
         );
@@ -148,6 +152,9 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         asserttrue(bestindex >= 0);
         const iteratebestroute = routes[bestindex];
         asserttrue(Boolean(iteratebestroute));
+
+*/
+
         const globalbestroutesegments = cycleroutetosegments(globalbestroute);
         const iterateworstroutesegments =
             cycleroutetosegments(iterateworstroute);
