@@ -3,11 +3,18 @@ import { assertSparseMatrixRowColumn } from "../matrixtools/assertSparseMatrixRo
 import { isSparseMatrix } from "../matrixtools/isSparseMatrix";
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
+import { SparseMatrixContinuousMultiplication } from "../matrixtools/SparseMatrixContinuousMultiplication";
 import { SparseMatrixCreate } from "../matrixtools/SparseMatrixCreate";
 import { SparseMatrixEquals } from "../matrixtools/SparseMatrixEquals";
+import { SparseMatrixEvery } from "../matrixtools/SparseMatrixEvery";
 import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
+import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
+import { SparseMatrixMin } from "../matrixtools/SparseMatrixMin";
+import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixOfArrays } from "../matrixtools/SparseMatrixOfArrays";
+import { SparseMatrixSome } from "../matrixtools/SparseMatrixSome";
+import { SparseMatrixSubtract } from "../matrixtools/SparseMatrixSubtract";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 import { SparseMatrixTranspose } from "../matrixtools/SparseMatrixTranspose";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
@@ -200,5 +207,116 @@ export function testsparsematrix() {
     );
     asserttrue(SparseMatrixFrom(matrix3) != matrix3);
     asserttrue(SparseMatrixEquals(SparseMatrixFrom(matrix3), matrix3));
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [1, 1],
+                [1, 1],
+            ]),
+            SparseMatrixMax(
+                SparseMatrixOfArrays([
+                    [1, 0],
+                    [0, 1],
+                ]),
+                SparseMatrixOfArrays([
+                    [0, 1],
+                    [1, 0],
+                ])
+            )
+        )
+    );
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [0, 0],
+                [0, 0],
+            ]),
+            SparseMatrixMin(
+                SparseMatrixOfArrays([
+                    [1, 0],
+                    [0, 1],
+                ]),
+                SparseMatrixOfArrays([
+                    [0, 1],
+                    [1, 0],
+                ])
+            )
+        )
+    );
+    asserttrue(
+        SparseMatrixEvery(
+            SparseMatrixOfArrays([
+                [0, 0],
+                [0, 0],
+            ]),
+            (v) => v === 0
+        )
+    );
+    asserttrue(
+        SparseMatrixSome(
+            SparseMatrixOfArrays([
+                [0, 1],
+                [0, 0],
+            ]),
+            (v) => v === 1
+        )
+    );
+
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [1, -1],
+                [-1, 1],
+            ]),
+            SparseMatrixSubtract(
+                SparseMatrixOfArrays([
+                    [1, 0],
+                    [0, 1],
+                ]),
+                SparseMatrixOfArrays([
+                    [0, 1],
+                    [1, 0],
+                ])
+            )
+        )
+    );
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [3, 0],
+                [0, 3],
+            ]),
+            SparseMatrixMultiplyNumber(
+                3,
+                SparseMatrixOfArrays([
+                    [1, 0],
+                    [0, 1],
+                ])
+            )
+        )
+    );
+
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [6, 0],
+                [0, 6],
+            ]),
+            SparseMatrixContinuousMultiplication(
+                SparseMatrixOfArrays([
+                    [3, 0],
+                    [0, 3],
+                ]),
+                SparseMatrixOfArrays([
+                    [1, 0],
+                    [0, 1],
+                ]),
+                SparseMatrixOfArrays([
+                    [2, 0],
+                    [0, 2],
+                ])
+            )
+        )
+    );
     console.log("test sparsematrix end");
 }
