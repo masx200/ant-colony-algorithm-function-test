@@ -27,8 +27,8 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
     }
     const { initializer, ...rest } = opts || {};
     const matrix = SparseMatrixCreate(rest);
-    const defaultvalue = 0
-    
+    const defaultvalue = 0;
+
     // opts?.default ?? 0;
     function get(row: number, column: number): number {
         assertnotoutofbounds(row, column);
