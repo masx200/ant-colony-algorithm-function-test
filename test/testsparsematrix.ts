@@ -4,8 +4,12 @@ import { isSparseMatrix } from "../matrixtools/isSparseMatrix";
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixCreate } from "../matrixtools/SparseMatrixCreate";
+import { SparseMatrixEquals } from "../matrixtools/SparseMatrixEquals";
+import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
+import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
 import { SparseMatrixOfArrays } from "../matrixtools/SparseMatrixOfArrays";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
+import { SparseMatrixTranspose } from "../matrixtools/SparseMatrixTranspose";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
@@ -122,6 +126,16 @@ export function testsparsematrix() {
         [3, 4],
         [3, 4],
     ]);
+    asserttrue(
+        isEqual(matrix2.entries(), [
+            [0, 0, 1],
+            [0, 1, 2],
+            [1, 0, 3],
+            [1, 1, 4],
+            [2, 0, 3],
+            [2, 1, 4],
+        ])
+    );
     console.log(matrix2);
     console.log(matrix2.entries());
     SparseMatrixAssign(
@@ -133,5 +147,58 @@ export function testsparsematrix() {
     asserttrue(
         isEqual(SparseMatrixToArrays(matrix2), SparseMatrixToArrays(matrix3))
     );
+    asserttrue(SparseMatrixEquals(matrix2, matrix3));
+    asserttrue(SparseMatrixEquals(matrix2, SparseMatrixFrom(matrix3), matrix3));
+    asserttrue(
+        !SparseMatrixEquals(
+            SparseMatrixFrom(matrix3),
+            SparseMatrixTranspose(matrix3)
+        )
+    );
+    console.log(SparseMatrixTranspose(matrix3));
+    console.log(SparseMatrixTranspose(matrix3).entries());
+    asserttrue(
+        isEqual(
+            [
+                [0, 0, 0],
+                [0, 1, 1],
+                [0, 2, 2],
+                [1, 0, 1],
+                [1, 1, 2],
+                [1, 2, 3],
+            ],
+            SparseMatrixTranspose(matrix3).entries()
+        )
+    );
+    const matrix4 = SparseMatrixCreate({
+        row: 3,
+        column: 2,
+        initializer: (i, j) => i * j,
+    });
+    console.log(SparseMatrixToArrays(matrix4));
+    asserttrue(
+        isEqual(
+            [
+                [0, 0],
+                [0, 1],
+                [0, 2],
+            ],
+            SparseMatrixToArrays(matrix4)
+        )
+    );
+    SparseMatrixFill(matrix4, 9);
+    console.log(SparseMatrixToArrays(matrix4));
+    asserttrue(
+        isEqual(
+            [
+                [9, 9],
+                [9, 9],
+                [9, 9],
+            ],
+            SparseMatrixToArrays(matrix4)
+        )
+    );
+    asserttrue(SparseMatrixFrom(matrix3) != matrix3);
+    asserttrue(SparseMatrixEquals(SparseMatrixFrom(matrix3), matrix3));
     console.log("test sparsematrix end");
 }

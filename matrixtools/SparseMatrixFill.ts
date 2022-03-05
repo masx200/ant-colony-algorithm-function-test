@@ -4,7 +4,7 @@ import { SparseMatrix } from "./SparseMatrix";
 export function SparseMatrixFill<R extends number, C extends number>(
     matrix: SparseMatrix<R, C>,
     value: number
-) {
+): void {
     const { row, column } = matrix;
 
     for (let [i, j] of matrixkeyiterator(row, column)) {
