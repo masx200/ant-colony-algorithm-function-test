@@ -82,7 +82,7 @@ export function taboo_backtracking_path_construction(
         console.log("路径构建开始", route);
 
         route = Array.from(
-            constructonesteproute({
+            constructonesteproute({probabilityofacceptingasuboptimalsolution,
                 startnode,
                 countofnodes,
                 getbestlength,
