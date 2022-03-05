@@ -124,8 +124,8 @@ const probabilityofacceptingasuboptimalsolution=0.1
         const populationrelativeinformationentropy =
             population_relative_information_entropy(routes);
         randomselectionprobability =
-            Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) /
-            3;
+            Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2))/ 4
+            
         pheromoneDiffusionProbability = Math.sqrt(
             1 - Math.pow(populationrelativeinformationentropy, 2)
         );
