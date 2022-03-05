@@ -2,6 +2,7 @@ import { isEqual } from "lodash";
 import { assertSparseMatrixRowColumn } from "../matrixtools/assertSparseMatrixRowColumn";
 import { isSparseMatrix } from "../matrixtools/isSparseMatrix";
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
+import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixCreate } from "../matrixtools/SparseMatrixCreate";
 import { SparseMatrixOfArrays } from "../matrixtools/SparseMatrixOfArrays";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
@@ -10,6 +11,11 @@ import { asserttrue } from "./asserttrue";
 
 export function testsparsematrix() {
     console.log("test sparsematrix start");
+    const matrix3 = SparseMatrixCreate({
+        row: 3,
+        column: 2,
+        initializer: (i, j) => i + j,
+    });
     assertshouldcatcherror(() => {
         SparseMatrixOfArrays([]);
     });
@@ -111,6 +117,21 @@ export function testsparsematrix() {
             3
         );
     });
-
+    const matrix2 = SparseMatrixOfArrays([
+        [1, 2],
+        [3, 4],
+        [3, 4],
+    ]);
+    console.log(matrix2);
+    console.log(matrix2.entries());
+    SparseMatrixAssign(
+        matrix2,
+        SparseMatrixCreate({ row: 3, column: 2, initializer: (i, j) => i + j })
+    );
+    console.log(matrix2.entries());
+    console.log(matrix3.entries());
+    asserttrue(
+        isEqual(SparseMatrixToArrays(matrix2), SparseMatrixToArrays(matrix3))
+    );
     console.log("test sparsematrix end");
 }
