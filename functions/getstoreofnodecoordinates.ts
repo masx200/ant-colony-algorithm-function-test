@@ -21,7 +21,7 @@ function createdistancestore(
     const euclideandistancerecord = SparseMatrixSymmetryCreate({
         row,
         column: row,
-        default: -1,
+        // default: -1,
     });
     cachenodecoordinatestostore.set(nodecoordinates, euclideandistancerecord);
 

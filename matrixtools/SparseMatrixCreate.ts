@@ -10,7 +10,7 @@ export interface SparseMatrixOptions<
 > {
     row?: R;
     column?: C;
-    default?: number;
+    // default?: number;
     initializer?: (row: number, column: number) => number;
 }
 
@@ -39,7 +39,9 @@ export function SparseMatrixCreate<
         throw new Error(" row, column should greater than 0");
     }
     const valuesrecord = new Map<`${number},${number}`, number>();
-    const defaultvalue = opts?.default ?? 0;
+    const defaultvalue = 0;
+
+    //opts?.default ?? 0;
     function get(row: number, column: number): number {
         assertnotoutofbounds(row, column);
         return (
@@ -57,6 +59,9 @@ export function SparseMatrixCreate<
     function set(row: number, column: number, value: number): void {
         asserttrue(typeof value === "number");
         assertnotoutofbounds(row, column);
+        if (defaultvalue === value) {
+            return;
+        }
         valuesrecord.set(numberstostringkeynotsymmetry(row, column), value);
     }
     // console.log(valuesrecord);
