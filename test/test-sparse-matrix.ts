@@ -154,6 +154,7 @@ export function testsparsematrix() {
     );
     console.log(matrix2.entries());
     console.log(matrix3.entries());
+    console.log(SparseMatrixToArrays(matrix2), SparseMatrixToArrays(matrix3));
     asserttrue(
         isEqual(SparseMatrixToArrays(matrix2), SparseMatrixToArrays(matrix3))
     );
