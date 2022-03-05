@@ -154,7 +154,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
 
         const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
             row: countofnodes,
-            column: countofnodes,
+            //column: countofnodes,
             initializer: function (i, j) {
                 return globalbestroutesegments.some(([left, right]) => {
                     return (
@@ -168,7 +168,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         });
         const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
             row: countofnodes,
-            column: countofnodes,
+           // column: countofnodes,
             initializer: function (i, j) {
                 return iteratebestroutesegments.some(([left, right]) => {
                     return (
@@ -182,7 +182,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         });
         const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
             row: countofnodes,
-            column: countofnodes,
+          //  column: countofnodes,
         });
         if (
             !(
@@ -195,7 +195,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
                 deltapheromoneiterateworst,
                 SparseMatrixSymmetryCreate({
                     row: countofnodes,
-                    column: countofnodes,
+                  //  column: countofnodes,
                     initializer: function (i, j) {
                         return iterateworstroutesegments.some(
                             ([left, right]) => {
