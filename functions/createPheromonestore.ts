@@ -9,7 +9,7 @@ export function createPheromonestore<R extends number>(
 ): SparseMatrixSymmetry<R> {
     return SparseMatrixSymmetryCreate({
         row: scale,
-        column: scale,
+        // column: scale,
         // default: -1,
     });
 }

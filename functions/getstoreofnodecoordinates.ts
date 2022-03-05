@@ -1,7 +1,7 @@
 import { Nodecoordinates } from "./Nodecoordinates";
 import { cachenodecoordinatestostore } from "./cachenodecoordinatestostore";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+import { createdistancestore } from "./createdistancestore";
 
 // import { SparseMatrix } from "./SparseMatrix";
 
@@ -13,17 +13,4 @@ export function getstoreofnodecoordinates(
         cachenodecoordinatestostore.get(nodecoordinates) ??
         createdistancestore(nodecoordinates)
     );
-}
-function createdistancestore(
-    nodecoordinates: Nodecoordinates
-): SparseMatrixSymmetry<number> {
-    const row = nodecoordinates.length;
-    const euclideandistancerecord = SparseMatrixSymmetryCreate({
-        row,
-        column: row,
-        // default: -1,
-    });
-    cachenodecoordinatestostore.set(nodecoordinates, euclideandistancerecord);
-
-    return euclideandistancerecord;
 }

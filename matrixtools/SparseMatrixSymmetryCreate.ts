@@ -1,16 +1,23 @@
 import { asserttrue } from "../test/asserttrue";
 import { matrixkeyiterator } from "./matrixkeyiterator";
-import { SparseMatrixCreate, SparseMatrixOptions } from "./SparseMatrixCreate";
+import { SparseMatrixCreate } from "./SparseMatrixCreate";
 import { SparseMatrixSymmetry } from "./SparseMatrixSymmetry";
+export interface SparseMatrixSymmetryOptions<R extends number = number> {
+    row: R;
+
+    // default?: number;
+    initializer?: (row: number, column: number) => number;
+}
 
 /**
  *
  * 创建稀疏二维矩阵对称式
  */
 export function SparseMatrixSymmetryCreate<R extends number = number>(
-    opts?: SparseMatrixOptions<R, R>
+    opts: SparseMatrixSymmetryOptions<R>
 ): SparseMatrixSymmetry<R> {
-    const { row = 1, column = opts?.row || 1 } = opts || {};
+    const { row } = opts;
+    const column = row;
     function assertnotoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
         if (
@@ -25,8 +32,8 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
     if (row !== column) {
         throw new Error("Symmetry Matrix , row, column should equal");
     }
-    const { initializer, ...rest } = opts || {};
-    const matrix = SparseMatrixCreate(rest);
+    const { initializer } = opts;
+    const matrix = SparseMatrixCreate({ row, column });
     const defaultvalue = 0;
 
     // opts?.default ?? 0;

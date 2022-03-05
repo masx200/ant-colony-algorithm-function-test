@@ -120,8 +120,12 @@ export function testsparsematrix() {
         )
     );
 
-    console.log(SparseMatrixCreate());
-    assertSparseMatrixRowColumn(SparseMatrixCreate(), 1, 1);
+    console.log(SparseMatrixCreate({ row: 1, column: 1 }));
+    assertSparseMatrixRowColumn(
+        SparseMatrixCreate({ row: 1, column: 1 }),
+        1,
+        1
+    );
     assertSparseMatrixRowColumn(
         SparseMatrixCreate({ row: 2, column: 3 }),
         2,

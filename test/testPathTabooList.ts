@@ -1,5 +1,6 @@
 import { isEqual } from "lodash";
 import { createPathTabooList } from "../functions/createPathTabooList";
+import { isPathTabooList } from "../functions/isPathTabooList";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
@@ -7,6 +8,7 @@ export function testPathTabooList() {
     console.log("test PathTabooList start");
 
     const ptl = createPathTabooList(10);
+    asserttrue(isPathTabooList(ptl));
     assertshouldcatcherror(() => {
         createPathTabooList(0);
     });

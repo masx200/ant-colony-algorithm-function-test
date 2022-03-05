@@ -1,6 +1,6 @@
 import { numberstostringkeynotsymmetry } from "../functions/numberstostringkeynotsymmetry";
 import { matrixkeyiterator } from "./matrixkeyiterator";
-import { SparseMatrixKey } from "./SparseMatrixKey";
+import { SparseMatrixSymbol } from "./SparseMatrixSymbol";
 import { SparseMatrix } from "./SparseMatrix";
 import { asserttrue } from "../test/asserttrue";
 
@@ -8,8 +8,8 @@ export interface SparseMatrixOptions<
     R extends number = number,
     C extends number = number
 > {
-    row?: R;
-    column?: C;
+    row: R;
+    column: C;
     // default?: number;
     initializer?: (row: number, column: number) => number;
 }
@@ -18,8 +18,8 @@ export interface SparseMatrixOptions<
 export function SparseMatrixCreate<
     R extends number = number,
     C extends number = number
->(opts?: SparseMatrixOptions<R, C>): SparseMatrix<R, C> {
-    const { row = 1, column = 1, initializer } = opts || {};
+>(opts: SparseMatrixOptions<R, C>): SparseMatrix<R, C> {
+    const { row, column, initializer } = opts;
     function assertnotoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
         if (
@@ -90,7 +90,7 @@ export function SparseMatrixCreate<
 
     const obj: SparseMatrix<R, C> = {
         at,
-        [SparseMatrixKey]: true,
+        [SparseMatrixSymbol]: true,
         row: row as R,
         column: column as C,
         // clear: () => valuesrecord.clear(),

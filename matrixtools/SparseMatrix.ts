@@ -1,4 +1,4 @@
-import { SparseMatrixKey } from "./SparseMatrixKey";
+import { SparseMatrixSymbol } from "./SparseMatrixSymbol";
 
 /* 稀疏二维矩阵 非对称式*/
 export type SparseMatrix<
@@ -18,4 +18,4 @@ export type SparseMatrix<
     // clear: () => void;
     has: (row: number, column: number) => boolean;
     // delete: (row: number, column: number) => boolean;
-} & { row: R; column: C } & { [SparseMatrixKey]: true };
+} & { row: R; column: C } & { [SparseMatrixSymbol]: true };
