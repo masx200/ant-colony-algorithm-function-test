@@ -2,7 +2,7 @@ import { asserttrue } from "../test/asserttrue";
 import { SparseMatrixMap } from "./SparseMatrixMap";
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 
-export function SparseMatrixAdd<R extends number, C extends number>(
+export function SparseMatrixMax<R extends number, C extends number>(
     matrix1: SparseTwoDimensionalMatrix<R, C>,
     ...matrixs: SparseTwoDimensionalMatrix<R, C>[]
 ) {
@@ -14,7 +14,7 @@ export function SparseMatrixAdd<R extends number, C extends number>(
     );
     return matrixs.reduce((a, m) => {
         return SparseMatrixMap(a, (v, i, j) => {
-            return v + m.get(i, j);
+            return Math.max(v + m.get(i, j));
         });
     }, matrix1);
 }
