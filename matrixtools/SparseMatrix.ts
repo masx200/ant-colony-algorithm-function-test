@@ -9,6 +9,7 @@ export type SparseMatrix<
     keys: () => [number, number][];
     entries: () => [number, number, number][];
     get: (row: number, column: number) => number;
+    at: (row: number, column: number) => number;
     set: (row: number, column: number, value: number) => void;
     [Symbol.toStringTag]: string;
     // size(): number;

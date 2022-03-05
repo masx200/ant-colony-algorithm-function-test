@@ -1,3 +1,4 @@
+import { asserttrue } from "../test/asserttrue";
 import { matrixkeyiterator } from "./matrixkeyiterator";
 import { SparseMatrixCreate, SparseMatrixOptions } from "./SparseMatrixCreate";
 import { SparseMatrixSymmetry } from "./SparseMatrixSymmetry";
@@ -38,10 +39,11 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
 
     function set(row: number, column: number, value: number): void {
         checkoutofbounds(row, column);
+        asserttrue(typeof value === "number");
         matrix.set(Math.min(row, column), Math.max(row, column), value);
     }
     // console.log(SparseMatrix);
-    function values() {
+    function values(): number[] {
         return Array.from(matrix.values());
     }
     function keys(): [number, number][] {

@@ -2,6 +2,7 @@ import { numberstostringkeynotsymmetry } from "../functions/numberstostringkeyno
 import { matrixkeyiterator } from "./matrixkeyiterator";
 import { SparseMatrixKey } from "./SparseMatrixKey";
 import { SparseMatrix } from "./SparseMatrix";
+import { asserttrue } from "../test/asserttrue";
 
 export interface SparseMatrixOptions<
     R extends number = number,
@@ -28,6 +29,8 @@ export function SparseMatrixCreate<
             inputcolumn < 0
         ) {
             throw new Error("row or column out of bounds");
+        } else {
+            return true;
         }
     }
     if (!(row > 0 && column > 0)) {
@@ -42,8 +45,15 @@ export function SparseMatrixCreate<
             defaultvalue
         );
     }
+    const at = (inputrow: number, inputcolumn: number) => {
+        return get(
+            inputrow < 0 ? row - inputrow : inputrow,
+            inputcolumn < 0 ? column - inputcolumn : column
+        );
+    };
 
     function set(row: number, column: number, value: number): void {
+        asserttrue(typeof value === "number");
         checkoutofbounds(row, column);
         valuesrecord.set(numberstostringkeynotsymmetry(row, column), value);
     }
@@ -68,6 +78,7 @@ export function SparseMatrixCreate<
         valuesrecord.has(numberstostringkeynotsymmetry(row, column));
 
     const obj: SparseMatrix<R, C> = {
+        at,
         [SparseMatrixKey]: true,
         row: row as R,
         column: column as C,
@@ -92,6 +103,8 @@ export function SparseMatrixCreate<
             const value = initializer(i, j);
             if (typeof value === "number") {
                 obj.set(i, j, value);
+            } else {
+                throw new Error("invalid return value");
             }
         }
     }
