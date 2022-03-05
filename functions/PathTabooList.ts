@@ -2,7 +2,7 @@ import { PathTabooListSymbol } from "./PathTabooListSymbol";
 
 /**
  * 路径禁忌列表  类似于Set*/
-export type PathTabooList<N extends number> = {
+export type PathTabooList<N extends number=number> = {
     [PathTabooListSymbol]: true;
     size(): number;
     countofnodes: N;
