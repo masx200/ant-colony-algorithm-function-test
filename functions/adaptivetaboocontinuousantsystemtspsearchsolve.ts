@@ -16,7 +16,7 @@ import { population_relative_information_entropy } from "./population-relative-i
 
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
 
-export type Mytspsearchoptions = {
+export type Mytspsearchoptions = {probabilityofacceptingasuboptimalsolution:number,
     getbestroute: () => number[];
     /**信息素强度*/
     pheromoneintensityQ: number;
@@ -43,9 +43,9 @@ export type Mytspsearchoptions = {
 export function adaptivetaboocontinuousantsystemtspsearchsolve(
     opts: Mytspsearchoptions
 ) {
-const probabilityofacceptingasuboptimalsolution=0.1
+//const probabilityofacceptingasuboptimalsolution=0.1
     // console.log(opts);
-    const {
+    const {probabilityofacceptingasuboptimalsolution,
         pheromoneintensityQ,
         pheromonevolatilitycoefficientR,
         setbestroute,
