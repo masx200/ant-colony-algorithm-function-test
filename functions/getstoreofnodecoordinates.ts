@@ -1,8 +1,10 @@
 import { Nodecoordinates } from "./Nodecoordinates";
 import { cachenodecoordinatestostore } from "./cachenodecoordinatestostore";
-import { SparseMatrixSymmetryCreate } from "./SparseMatrixSymmetryCreate";
+import { SparseTwoDimensionalMatrixSymmetry } from "../matrixtools/SparseTwoDimensionalMatrixSymmetry";
+import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+
 // import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
-import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
+
 /* 获得缓存节点坐标和距离的数组的稀疏二维对称矩阵 */
 export function getstoreofnodecoordinates(
     nodecoordinates: Nodecoordinates
@@ -12,7 +14,7 @@ export function getstoreofnodecoordinates(
         createdistancestore(nodecoordinates)
     );
 }
-function createdistancestore(nodecoordinates: Nodecoordinates) {
+function createdistancestore(nodecoordinates: Nodecoordinates): SparseTwoDimensionalMatrixSymmetry<number> {
     const row = nodecoordinates.length;
     const euclideandistancerecord = SparseMatrixSymmetryCreate({
         row,

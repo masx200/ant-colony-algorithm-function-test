@@ -8,7 +8,7 @@ import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrix
  */
 export function SparseMatrixSymmetryCreate<R extends number>(
     opts: SparseMatrixOptions<R, R>
-): SparseTwoDimensionalMatrixSymmetry<R, R> {
+): SparseTwoDimensionalMatrixSymmetry<R> {
     const { row, column } = opts;
     function checkoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
@@ -59,7 +59,7 @@ export function SparseMatrixSymmetryCreate<R extends number>(
         SparseTwoDimensionalMatrix.has(row, column) ||
         SparseTwoDimensionalMatrix.has(column, row);
 
-    const obj: SparseTwoDimensionalMatrixSymmetry<R, R> = {
+    const obj: SparseTwoDimensionalMatrixSymmetry<R> = {
         row,
         column,
         delete: (row: number, column: number) => {

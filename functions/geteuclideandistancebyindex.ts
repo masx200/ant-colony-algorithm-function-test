@@ -1,7 +1,8 @@
+import { SparseTwoDimensionalMatrixSymmetry } from "../matrixtools/SparseTwoDimensionalMatrixSymmetry";
 import { euclideandistance } from "./euclideandistance";
 import { getstoreofnodecoordinates } from "./getstoreofnodecoordinates";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { SparseTwoDimensionalMatrixSymmetry } from "./SparseTwoDimensionalMatrixSymmetry";
+
 // import { numberstostringkeysymmetry } from "./numberstostringkeysymmetry";
 /* 使用节点坐标获得欧式距离 */
 export function geteuclideandistancebyindex(

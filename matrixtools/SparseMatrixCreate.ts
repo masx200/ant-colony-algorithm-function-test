@@ -1,7 +1,9 @@
+import { numberstostringkeynotsymmetry } from "../functions/numberstostringkeynotsymmetry";
+import { stringkeytonumbers } from "../functions/stringkeytonumbers";
 import { matrixkeyiterator } from "./matrixkeyiterator";
-import { numberstostringkeynotsymmetry } from "./numberstostringkeynotsymmetry";
+
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
-import { stringkeytonumbers } from "./stringkeytonumbers";
+
 export interface SparseMatrixOptions<
     R extends number = number,
     C extends number = number
