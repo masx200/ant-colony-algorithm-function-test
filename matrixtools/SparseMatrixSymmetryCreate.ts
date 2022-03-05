@@ -11,7 +11,7 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
     opts?: SparseMatrixOptions<R, R>
 ): SparseMatrixSymmetry<R> {
     const { row = 1, column = opts?.row || 1 } = opts || {};
-    function checkoutofbounds(inputrow: number, inputcolumn: number) {
+    function assertnotoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
         if (
             inputrow > row - 1 ||
@@ -29,7 +29,7 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
     const matrix = SparseMatrixCreate(rest);
     const defaultvalue = opts?.default ?? 0;
     function get(row: number, column: number): number {
-        checkoutofbounds(row, column);
+        assertnotoutofbounds(row, column);
         return matrix.has(row, column)
             ? matrix.get(row, column)
             : matrix.has(column, row)
@@ -38,7 +38,7 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
     }
 
     function set(row: number, column: number, value: number): void {
-        checkoutofbounds(row, column);
+        assertnotoutofbounds(row, column);
         asserttrue(typeof value === "number");
         matrix.set(Math.min(row, column), Math.max(row, column), value);
     }

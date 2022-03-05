@@ -20,7 +20,7 @@ export function SparseMatrixCreate<
     C extends number = number
 >(opts?: SparseMatrixOptions<R, C>): SparseMatrix<R, C> {
     const { row = 1, column = 1, initializer } = opts || {};
-    function checkoutofbounds(inputrow: number, inputcolumn: number) {
+    function assertnotoutofbounds(inputrow: number, inputcolumn: number) {
         //序号应该从0开始到row-1结束
         if (
             inputrow > row - 1 ||
@@ -39,7 +39,7 @@ export function SparseMatrixCreate<
     const valuesrecord = new Map<`${number},${number}`, number>();
     const defaultvalue = opts?.default ?? 0;
     function get(row: number, column: number): number {
-        checkoutofbounds(row, column);
+        assertnotoutofbounds(row, column);
         return (
             valuesrecord.get(numberstostringkeynotsymmetry(row, column)) ??
             defaultvalue
@@ -54,7 +54,7 @@ export function SparseMatrixCreate<
 
     function set(row: number, column: number, value: number): void {
         asserttrue(typeof value === "number");
-        checkoutofbounds(row, column);
+        assertnotoutofbounds(row, column);
         valuesrecord.set(numberstostringkeynotsymmetry(row, column), value);
     }
     // console.log(valuesrecord);
