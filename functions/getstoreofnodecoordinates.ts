@@ -14,7 +14,9 @@ export function getstoreofnodecoordinates(
         createdistancestore(nodecoordinates)
     );
 }
-function createdistancestore(nodecoordinates: Nodecoordinates): SparseTwoDimensionalMatrixSymmetry<number> {
+function createdistancestore(
+    nodecoordinates: Nodecoordinates
+): SparseTwoDimensionalMatrixSymmetry<number> {
     const row = nodecoordinates.length;
     const euclideandistancerecord = SparseMatrixSymmetryCreate({
         row,

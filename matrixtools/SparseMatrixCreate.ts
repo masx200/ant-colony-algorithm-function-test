@@ -1,7 +1,5 @@
 import { numberstostringkeynotsymmetry } from "../functions/numberstostringkeynotsymmetry";
-import { stringkeytonumbers } from "../functions/stringkeytonumbers";
 import { matrixkeyiterator } from "./matrixkeyiterator";
-
 import { SparseTwoDimensionalMatrix } from "./SparseTwoDimensionalMatrix";
 
 export interface SparseMatrixOptions<
@@ -48,16 +46,20 @@ export function SparseMatrixCreate<R extends number, C extends number>(
         valuesrecord.set(numberstostringkeynotsymmetry(row, column), value);
     }
     // console.log(valuesrecord);
-    function values() {
-        return Array.from(valuesrecord.values());
+    function values(): number[] {
+        return Array.from(keys()).map(([left, right]) => {
+            return get(left, right);
+        });
+        // return Array.from(valuesrecord.values());
     }
     function keys(): [number, number][] {
-        return Array.from(valuesrecord.keys()).map(stringkeytonumbers);
+        return Array.from(matrixkeyiterator(row, column));
+        // return Array.from(valuesrecord.keys()).map(stringkeytonumbers);
     }
 
     function entries(): [number, number, number][] {
-        return Array.from(valuesrecord.entries()).map(([key, value]) => {
-            return [...stringkeytonumbers(key), value];
+        return Array.from(keys()).map(([left, right]) => {
+            return [left, right, get(left, right)];
         });
     }
     const has = (row: number, column: number) =>
@@ -66,19 +68,19 @@ export function SparseMatrixCreate<R extends number, C extends number>(
     const obj = {
         row,
         column,
-        clear: () => valuesrecord.clear(),
+        // clear: () => valuesrecord.clear(),
         has,
-        size: () => valuesrecord.size,
+        // size: () => valuesrecord.size,
         values,
         keys,
         entries,
         get,
         set,
-        delete: (row: number, column: number) => {
-            return valuesrecord.delete(
-                numberstostringkeynotsymmetry(row, column)
-            );
-        },
+        // delete: (row: number, column: number) => {
+        //     return valuesrecord.delete(
+        //         numberstostringkeynotsymmetry(row, column)
+        //     );
+        // },
         [Symbol.toStringTag]: "SparseTwoDimensionalMatrix",
     };
 

@@ -9,8 +9,8 @@ export type SparseTwoDimensionalMatrix<
     get: (row: number, column: number) => number;
     set: (row: number, column: number, value: number) => void;
     [Symbol.toStringTag]: string;
-    size(): number;
-    clear: () => void;
+    // size(): number;
+    // clear: () => void;
     has: (row: number, column: number) => boolean;
-    delete: (row: number, column: number) => boolean;
+    // delete: (row: number, column: number) => boolean;
 } & { row: R; column: C };

@@ -62,15 +62,15 @@ export function SparseMatrixSymmetryCreate<R extends number>(
     const obj: SparseTwoDimensionalMatrixSymmetry<R> = {
         row,
         column,
-        delete: (row: number, column: number) => {
-            return SparseTwoDimensionalMatrix.delete(
-                Math.min(row, column),
-                Math.max(row, column)
-            );
-        },
+        // delete: (row: number, column: number) => {
+        //     return SparseTwoDimensionalMatrix.delete(
+        //         Math.min(row, column),
+        //         Math.max(row, column)
+        //     );
+        // },
         has,
-        clear: SparseTwoDimensionalMatrix.clear,
-        size: SparseTwoDimensionalMatrix.size,
+        // clear: SparseTwoDimensionalMatrix.clear,
+        // size: SparseTwoDimensionalMatrix.size,
         symmetry: true,
         values,
         keys,
