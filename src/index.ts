@@ -2,6 +2,7 @@ import { nodecoordinates10 } from "../test/nodecoordinates10";
 import { nodecoordinates21 } from "../test/nodecoordinates21";
 import { nodecoordinates30 } from "../test/nodecoordinates30";
 import { nodecoordinates6 } from "../test/nodecoordinates6";
+import "core-js/actual/array/at";
 import { testGreedyalgorithmtosolvetsp } from "../test/testGreedyalgorithmtosolvetsp";
 addEventListener("load", () => {
     console.time();

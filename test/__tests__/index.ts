@@ -1,3 +1,4 @@
+import "core-js/actual/array/at";
 import { test_issubroutecycle } from "../test-issubroutecycle";
 import { test_population_relative_information_entropy } from "../test-population-relative-information-entropy";
 import { testcheckcurrentsegmentsintersectnextsegment } from "../testcheckcurrentsegmentsintersectnextsegment";
