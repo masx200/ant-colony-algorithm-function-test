@@ -50,6 +50,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         getbestlength,
         getbestroute,
     } = opts;
+    let pheromoneDiffusionProbability=0
     /**
      * 迭代的次数
      */
@@ -114,8 +115,13 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
             population_relative_information_entropy(routes);
         randomselectionprobability = Math.sqrt(
             1 - Math.pow(populationrelativeinformationentropy, 2)
+        ) / 3;
+        pheromoneDiffusionProbability = Math.sqrt(
+            1 - Math.pow(populationrelativeinformationentropy, 2)
         );
-
+        console.log("种群相对信息熵", populationrelativeinformationentropy);
+        console.log("随机选择概率", randomselectionprobability);
+        console.log("信息素扩散概率", pheromoneDiffusionProbability);
         const globalbestroute = getbestroute();
         const globalbestlength = getbestlength();
         const iterateworstlength = Math.min(...lengths);
