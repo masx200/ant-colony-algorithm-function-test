@@ -21,7 +21,7 @@ import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
-    const randomselectionprobability = 0.2;
+    const randomselectionprobability = 0.15;
     // const { length } = nodecoordinates;
     const countofnodes = nodecoordinates.length;
     const pathTabooList =
