@@ -1,12 +1,12 @@
 import { createmychart } from "../functions/createmychart";
 import { drawlinechart } from "../functions/drawlinechart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
-import { greedyconstructroute } from "./greedyconstructroute";
+import { testgreedyconstructroute } from "./test-greedyconstructroute";
 export function testGreedyalgorithmtosolvetsp(
     nodecoordinates: Nodecoordinates
 ) {
     const { greedypath /*  totallength */ } =
-        greedyconstructroute(nodecoordinates);
+        testgreedyconstructroute(nodecoordinates);
 
     const linechardata = [...greedypath, greedypath[0]].map(
         (v) => nodecoordinates[v]

@@ -5,7 +5,7 @@ import { asserttrue } from "./asserttrue";
 import { cachebestrouteofnodecoordinates } from "../functions/cachebestrouteofnodecoordinates";
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 
-export function greedyconstructroute(nodecoordinates: Nodecoordinates): {
+export function testgreedyconstructroute(nodecoordinates: Nodecoordinates): {
     greedypath: number[];
     totallength: number;
 } {
