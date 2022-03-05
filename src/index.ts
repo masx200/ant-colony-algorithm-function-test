@@ -1,8 +1,8 @@
-import { nodecoordinates10 } from "./nodecoordinates10";
-import { nodecoordinates21 } from "./nodecoordinates21";
-import { nodecoordinates30 } from "./nodecoordinates30";
-import { nodecoordinates6 } from "./nodecoordinates6";
-import { testGreedyalgorithmtosolvetsp } from "./testGreedyalgorithmtosolvetsp";
+import { nodecoordinates10 } from "../test/nodecoordinates10";
+import { nodecoordinates21 } from "../test/nodecoordinates21";
+import { nodecoordinates30 } from "../test/nodecoordinates30";
+import { nodecoordinates6 } from "../test/nodecoordinates6";
+import { testGreedyalgorithmtosolvetsp } from "../test/testGreedyalgorithmtosolvetsp";
 addEventListener("load", () => {
     console.time();
     // import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";

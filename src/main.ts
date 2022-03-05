@@ -2,7 +2,7 @@ import "../functions/echarts-line";
 
 import "./style.css";
 import "./mytestinsert";
-import "../test/index";
+import "./index";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `<h1>禁忌路径构建测试</h1>`;
