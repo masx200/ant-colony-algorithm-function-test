@@ -42,11 +42,12 @@ export function SparseMatrixCreate<
     const defaultvalue = 0;
 
     //opts?.default ?? 0;
-    function get(row: number, column: number): number {
-        assertnotoutofbounds(row, column);
+    function get(inputrow: number, inputcolumn: number): number {
+        assertnotoutofbounds(inputrow, inputcolumn);
         return (
-            valuesrecord.get(numberstostringkeynotsymmetry(row, column)) ??
-            defaultvalue
+            valuesrecord.get(
+                numberstostringkeynotsymmetry(inputrow, inputcolumn)
+            ) ?? defaultvalue
         );
     }
     const at = (inputrow: number, inputcolumn: number) => {
@@ -56,13 +57,16 @@ export function SparseMatrixCreate<
         );
     };
 
-    function set(row: number, column: number, value: number): void {
+    function set(inputrow: number, inputcolumn: number, value: number): void {
         asserttrue(typeof value === "number");
-        assertnotoutofbounds(row, column);
-        if (defaultvalue === value) {
+        assertnotoutofbounds(inputrow, inputcolumn);
+        if (defaultvalue === value && get(inputrow, inputcolumn) === value) {
             return;
         }
-        valuesrecord.set(numberstostringkeynotsymmetry(row, column), value);
+        valuesrecord.set(
+            numberstostringkeynotsymmetry(inputrow, inputcolumn),
+            value
+        );
     }
     // console.log(valuesrecord);
     function values(): number[] {
