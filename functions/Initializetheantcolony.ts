@@ -1,7 +1,5 @@
 import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { closedtotalpathlength } from "./closed-total-path-length";
-
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";
 
@@ -23,11 +21,11 @@ export function Initializetheantcolony(opts: InitializeOptions) {
         pheromonestore,
     } = opts;
     // console.log(opts);
-    const greedypath =
+    const { route: greedypath, totallength } =
         Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
     console.log("贪心算法得到的路径是", greedypath);
 
-    const totallength = closedtotalpathlength(greedypath, nodecoordinates);
+    // const totallength = closedtotalpathlength(greedypath, nodecoordinates);
     console.log("贪心算法得出的路径长度", totallength);
     if (totallength < getbestlength()) {
         setbestpathlength(totallength);

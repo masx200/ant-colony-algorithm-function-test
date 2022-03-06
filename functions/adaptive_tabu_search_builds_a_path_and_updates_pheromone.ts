@@ -73,6 +73,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    console.log(" 信息素更新计算开始");
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
@@ -103,6 +104,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
             deltapheromone
         )
     );
+    console.log(" 信息素更新结束");
     console.log({ oldpheromonestore, nextpheromonestore });
     //信息素更新
     SparseMatrixAssign(pheromonestore, nextpheromonestore);

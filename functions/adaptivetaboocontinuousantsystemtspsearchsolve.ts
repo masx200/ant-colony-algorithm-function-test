@@ -151,6 +151,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
             cycleroutetosegments(iterateworstroute);
         const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
         const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+        console.log(" 信息素更新计算开始");
         const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
             row: countofnodes,
             //column: countofnodes,
@@ -232,6 +233,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
                 )
             )
         );
+        console.log(" 信息素更新结束");
         console.log({ oldpheromonestore, nextpheromonestore });
         //信息素更新
         SparseMatrixAssign(pheromonestore, nextpheromonestore);
