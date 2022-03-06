@@ -12,6 +12,8 @@ import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 
 export type PathConstructOptions = Constants & {
+    /**搜索循环次数比例 */
+    searchloopcountratio: number;
     getbestlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
@@ -29,7 +31,7 @@ export type PathConstructOptions = Constants & {
     // countofnodes: number;
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
-    probabilityofacceptingasuboptimalsolution: number;
+    // probabilityofacceptingasuboptimalsolution: number;
     pheromonestore: SparseMatrixSymmetry;
 };
 /**禁忌回溯路径构建 */
@@ -42,7 +44,8 @@ export function taboo_backtracking_path_construction(
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
-        probabilityofacceptingasuboptimalsolution,
+        searchloopcountratio,
+        // probabilityofacceptingasuboptimalsolution,
         randomselectionprobability,
         getbestlength,
         //  parameterrandomization,
@@ -62,7 +65,11 @@ export function taboo_backtracking_path_construction(
         betazero,
         pathTabooList,
     } = opts;
+
     const countofnodes = nodecoordinates.length;
+    /**单次搜索最多循环次数 */
+    const maximumnumberofloopsforasinglesearch =
+        countofnodes * searchloopcountratio;
     const getpheromone = (left: number, right: number) => {
         return pheromonestore.get(left, right);
     };
@@ -81,7 +88,11 @@ export function taboo_backtracking_path_construction(
     while (route.length !== countofnodes) {
         trycount++;
         console.log("路径构建开始", route);
-
+        //接受次优解的概率;
+        let probabilityofacceptingasuboptimalsolution = Math.max(
+            0,
+            Math.min(1, 1 - trycount / maximumnumberofloopsforasinglesearch)
+        );
         route = Array.from(
             constructonesteproute({
                 probabilityofacceptingasuboptimalsolution,

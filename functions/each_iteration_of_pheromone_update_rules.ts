@@ -6,7 +6,7 @@ import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyN
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 
-/**每轮迭代信息素更新规则 */
+/**每轮路径搜索完后的迭代信息素更新规则 */
 export function each_iteration_of_pheromone_update_rules({
     countofnodes,
     globalbestroutesegments,
@@ -17,7 +17,7 @@ export function each_iteration_of_pheromone_update_rules({
     iterateworstroutesegments,
     pheromoneintensityQ,
     pheromonestore,
-    pheromonevolatilitycoefficientR,
+    pheromonevolatilitycoefficientR2,
 }: {
     countofnodes: number;
     globalbestroutesegments: [number, number][];
@@ -28,7 +28,7 @@ export function each_iteration_of_pheromone_update_rules({
     iterateworstroutesegments: [number, number][];
     pheromoneintensityQ: number;
     pheromonestore: SparseMatrixSymmetry<number>;
-    pheromonevolatilitycoefficientR: number;
+    pheromonevolatilitycoefficientR2: number;
 }) {
     console.log(" 信息素更新计算开始");
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
@@ -99,11 +99,11 @@ export function each_iteration_of_pheromone_update_rules({
         SparseMatrixMultiplyNumber(1 / 2, oldpheromonestore),
         SparseMatrixAdd(
             SparseMatrixMultiplyNumber(
-                1 - pheromonevolatilitycoefficientR,
+                1 - pheromonevolatilitycoefficientR2,
                 oldpheromonestore
             ),
             SparseMatrixMultiplyNumber(
-                pheromonevolatilitycoefficientR,
+                pheromonevolatilitycoefficientR2,
                 deltapheromone
             )
         )

@@ -7,6 +7,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { closedtotalpathlength } from "./closed-total-path-length";
 /**构建一步路径,并返回下一次的路径 */
 export function constructonesteproute({
+    // searchloopcountratio,
     probabilityofacceptingasuboptimalsolution,
     startnode,
     getdistancebyserialnumber,
@@ -23,6 +24,8 @@ export function constructonesteproute({
     intersectionfilter,
     getpheromone,
 }: {
+    /**搜索循环次数比例 */
+    // searchloopcountratio: number;
     /**接受次优解的概率*/
     probabilityofacceptingasuboptimalsolution: number;
     getdistancebyserialnumber: (left: number, right: number) => number;
@@ -42,6 +45,9 @@ export function constructonesteproute({
     getpheromone: (left: number, right: number) => number;
     filterforbiddenbeforepick: FilterForbiddenBeforePick;
 }): number[] {
+    /**单次搜索最多循环次数 */
+    // const maximumnumberofloopsforasinglesearch =
+    //     countofnodes * searchloopcountratio;
     let route = getroute();
     if (route.length > countofnodes || route.length < 1) {
         throw Error("route accident");

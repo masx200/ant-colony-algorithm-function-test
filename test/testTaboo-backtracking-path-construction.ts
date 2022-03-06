@@ -22,7 +22,9 @@ import { creategetdistancebyindex } from "../functions/creategetdistancebyindex"
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
-    const probabilityofacceptingasuboptimalsolution = 0.2;
+    /**搜索循环次数比例 */
+    const searchloopcountratio = 500;
+    // const probabilityofacceptingasuboptimalsolution = 0.2;
     const randomselectionprobability = 0.15;
     // const { length } = nodecoordinates;
     const countofnodes = nodecoordinates.length;
@@ -52,7 +54,8 @@ export function test_taboo_backtracking_path_construction(
         );
     }
     const route = taboo_backtracking_path_construction({
-        probabilityofacceptingasuboptimalsolution,
+        searchloopcountratio,
+        // probabilityofacceptingasuboptimalsolution,
         randomselectionprobability,
         getbestlength,
         pathTabooList,

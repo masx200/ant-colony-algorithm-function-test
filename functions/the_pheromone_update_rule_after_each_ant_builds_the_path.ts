@@ -15,14 +15,14 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     globalbestlength,
     pheromoneintensityQ,
     pheromonestore,
-    pheromonevolatilitycoefficientR,
+    pheromonevolatilitycoefficientR1,
 }: {
     countofnodes: number;
     globalbestroutesegments: [number, number][];
     globalbestlength: number;
     pheromoneintensityQ: number;
     pheromonestore: SparseMatrixSymmetry<number>;
-    pheromonevolatilitycoefficientR: number;
+    pheromonevolatilitycoefficientR1: number;
 }) {
     console.log(" 信息素更新计算开始");
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
@@ -47,11 +47,11 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     const oldpheromonestore = SparseMatrixFrom(pheromonestore);
     const nextpheromonestore = SparseMatrixAdd(
         SparseMatrixMultiplyNumber(
-            1 - pheromonevolatilitycoefficientR,
+            1 - pheromonevolatilitycoefficientR1,
             oldpheromonestore
         ),
         SparseMatrixMultiplyNumber(
-            pheromonevolatilitycoefficientR,
+            pheromonevolatilitycoefficientR1,
             deltapheromone
         )
     );

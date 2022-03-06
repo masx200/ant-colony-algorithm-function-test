@@ -7,12 +7,15 @@ import { PathTabooList } from "./PathTabooList";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 
 export type Mytspsearchoptions = {
-    probabilityofacceptingasuboptimalsolution: number;
+    searchloopcountratio: number;
+    // probabilityofacceptingasuboptimalsolution: number;
     getbestroute: () => number[];
     /**信息素强度*/
     pheromoneintensityQ: number;
-    /**信息素挥发系数 */
-    pheromonevolatilitycoefficientR: number;
+    /**局部信息素挥发系数 */
+    pheromonevolatilitycoefficientR1: number;
+    /**全局信息素挥发系数 */
+    pheromonevolatilitycoefficientR2: number;
     setbestroute: (route: number[]) => void;
     setbestlength: (a: number) => void;
     getbestlength: () => number;
@@ -37,9 +40,11 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
     //const probabilityofacceptingasuboptimalsolution=0.1
     // console.log(opts);
     const {
-        probabilityofacceptingasuboptimalsolution,
+        searchloopcountratio,
+        // probabilityofacceptingasuboptimalsolution,
         pheromoneintensityQ,
-        pheromonevolatilitycoefficientR,
+        pheromonevolatilitycoefficientR1,
+        pheromonevolatilitycoefficientR2,
         setbestroute,
         setbestlength,
         pathTabooList,
@@ -77,11 +82,12 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
             .map(() => {
                 return adaptive_tabu_search_builds_a_path_and_updates_pheromone(
                     {
+                        searchloopcountratio,
                         pheromoneintensityQ,
-                        pheromonevolatilitycoefficientR,
+                        pheromonevolatilitycoefficientR1,
                         nodecoordinates,
                         alphazero,
-                        probabilityofacceptingasuboptimalsolution,
+                        // probabilityofacceptingasuboptimalsolution,
                         betazero,
                         randomselectionprobability,
                         getbestlength,
@@ -156,7 +162,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
             iterateworstroutesegments,
             pheromoneintensityQ,
             pheromonestore,
-            pheromonevolatilitycoefficientR,
+            pheromonevolatilitycoefficientR2,
         });
         if (Math.random() < pheromoneDiffusionProbability) {
             //信息素扩散
