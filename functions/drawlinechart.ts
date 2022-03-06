@@ -20,9 +20,11 @@ import { ECOption, getcharsizeofwindow } from "./echarts-line";
 /* 使用echarts画折线图 */
 export function drawlinechart(
     data: Array<[number, number]>,
-    mychart: echarts.ECharts
+    mychart: echarts.ECharts,
+    titletext: string
 ) {
     const option: ECOption = {
+        title: { text: titletext },
         xAxis: {},
         yAxis: {},
         series: [
