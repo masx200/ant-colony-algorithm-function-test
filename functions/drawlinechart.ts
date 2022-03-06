@@ -25,8 +25,8 @@ export function drawlinechart(
 ) {
     const option: ECOption = {
         title: { text: titletext },
-        xAxis: {},
-        yAxis: {},
+        xAxis: { min: "dataMin", max: "dataMax" },
+        yAxis: { min: "dataMin", max: "dataMax" },
         series: [
             {
                 label: {
