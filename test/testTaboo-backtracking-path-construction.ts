@@ -17,6 +17,7 @@ import { asserttrue } from "./asserttrue";
 import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoordinatestopathTabooList";
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
+import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
@@ -71,7 +72,11 @@ export function test_taboo_backtracking_path_construction(
         // filterforbiddenbeforepick,
     });
     console.log("禁忌回溯算法得到的路径是", route);
-    const totallength = closedtotalpathlength(route, nodecoordinates);
+    const totallength = closedtotalpathlength({
+        // countofnodes: route.length,
+        path: route,
+        getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+    });
     console.log("禁忌回溯算法得出的路径长度", totallength);
 
     if (

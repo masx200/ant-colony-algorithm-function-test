@@ -1,6 +1,6 @@
 import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegmentsintersectnextsegment";
 import { Nodecoordinates } from "./Nodecoordinates";
-
+/**判断路径当中是否有交叉点 */
 export function intersectionfilterfun(
     //countofnodes: number,
     currentroute: number[],

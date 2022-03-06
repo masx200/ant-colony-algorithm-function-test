@@ -1,5 +1,6 @@
 // import { pickRandom } from "mathjs";
 import { closedtotalpathlength } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
 import { Nodecoordinates } from "./Nodecoordinates";
 
@@ -25,7 +26,11 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
             nodecoordinates,
             start
         );
-        const routelength = closedtotalpathlength(route, nodecoordinates);
+        const routelength = closedtotalpathlength({
+            // countofnodes: route.length,
+            path: route,
+            getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+        });
         return { routelength, route };
     });
     const bestlengthsandroutes = greedypathsandlengths.reduce(

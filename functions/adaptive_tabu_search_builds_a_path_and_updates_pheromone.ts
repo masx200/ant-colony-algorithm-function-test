@@ -1,13 +1,14 @@
 import { pickRandom } from "mathjs";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { closedtotalpathlength } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
-
+/**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     pheromoneintensityQ,
     pheromonevolatilitycoefficientR,
@@ -57,7 +58,11 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         pheromonestore,
         startnode,
     });
-    const totallength = closedtotalpathlength(route, nodecoordinates);
+    const totallength = closedtotalpathlength({
+        // countofnodes: route.length,
+        path: route,
+        getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+    });
 
     const bestlength = getbestlength();
     if (bestlength && bestlength >= totallength) {

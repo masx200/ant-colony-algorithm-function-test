@@ -98,9 +98,33 @@ export function constructonesteproute({
             getdistancebyserialnumber,
         });
         asserttrue(!pathTabooList.has([...route, nextnode]));
+        //先判断交叉点,然后判断路径长度是否大于最短路径
+        if (
+            route.length >= 3 &&
+            intersectionfilter(
+                Array.from(route),
+
+                nextnode,
+                nodecoordinates
+            )
+        ) {
+            pathTabooList.add([...route, nextnode]);
+            //深度搜索
+            route = route.slice();
+            console.warn("路径构建失败,遇到交叉点,禁忌此路径", [
+                ...route,
+                nextnode,
+            ]);
+            // debugger;
+            return route;
+        }
         if (
             route.length >= 2 &&
-            closedtotalpathlength(route, nodecoordinates) > getbestlength()
+            closedtotalpathlength({
+                // countofnodes: route.length,
+                path: route,
+                getdistancebyindex: getdistancebyserialnumber,
+            }) > getbestlength()
         ) {
             if (Math.random() < probabilityofacceptingasuboptimalsolution) {
                 console.warn(
@@ -122,24 +146,6 @@ export function constructonesteproute({
                 // debugger;
                 // return route;
             }
-        } else if (
-            route.length >= 3 &&
-            intersectionfilter(
-                Array.from(route),
-
-                nextnode,
-                nodecoordinates
-            )
-        ) {
-            pathTabooList.add([...route, nextnode]);
-            //深度搜索
-            route = route.slice();
-            console.warn("路径构建失败,遇到交叉点,禁忌此路径", [
-                ...route,
-                nextnode,
-            ]);
-            // debugger;
-            return route;
         } else {
             route = [...route, nextnode];
             console.log("路径构建正常经过节点", route);
