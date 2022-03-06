@@ -22,7 +22,6 @@ export function closedtotalpathlength(
             const distance = getdistancebyindex(left, right);
             assertnumber(distance);
             return distance;
-            }
-        )
+        })
     );
 }

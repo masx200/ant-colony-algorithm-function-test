@@ -15,7 +15,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     pheromonevolatilitycoefficientR1,
     nodecoordinates,
     alphazero,
-    // probabilityofacceptingasuboptimalsolution,
+
     betazero,
     randomselectionprobability,
     getbestlength,
@@ -30,7 +30,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     pheromonevolatilitycoefficientR1: number;
     nodecoordinates: Nodecoordinates;
     alphazero: number;
-    // probabilityofacceptingasuboptimalsolution: number;
+
     betazero: number;
     randomselectionprobability: number;
     getbestlength: () => number;
@@ -52,7 +52,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     const route = taboo_backtracking_path_construction({
         searchloopcountratio,
         alphazero,
-        // probabilityofacceptingasuboptimalsolution,
+
         betazero,
         randomselectionprobability,
         getbestlength,

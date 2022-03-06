@@ -31,7 +31,7 @@ export type PathConstructOptions = Constants & {
     // countofnodes: number;
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
-    // probabilityofacceptingasuboptimalsolution: number;
+
     pheromonestore: SparseMatrixSymmetry;
 };
 /**禁忌回溯路径构建 */
@@ -45,7 +45,7 @@ export function taboo_backtracking_path_construction(
         picknextnodeRoulette;
     const {
         searchloopcountratio,
-        // probabilityofacceptingasuboptimalsolution,
+
         randomselectionprobability,
         getbestlength,
         //  parameterrandomization,
@@ -96,7 +96,7 @@ export function taboo_backtracking_path_construction(
         //接受次优解的概率;
         let probabilityofacceptingasuboptimalsolution = Math.max(
             0,
-            Math.min(1, 1 - trycount / maximumnumberofloopsforasinglesearch)
+            Math.min(1, trycount / maximumnumberofloopsforasinglesearch)
         );
         route = Array.from(
             constructonesteproute({

@@ -6,9 +6,9 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 
-export type Mytspsearchoptions = {
+export type AdaptiveTSPSearchOptions = {
     searchloopcountratio: number;
-    // probabilityofacceptingasuboptimalsolution: number;
+
     getbestroute: () => number[];
     /**信息素强度*/
     pheromoneintensityQ: number;
@@ -35,13 +35,12 @@ export type Mytspsearchoptions = {
 };
 /* 令蚁群算法开始迭代 多少轮次搜索 */
 export function adaptivetaboocontinuousantsystemtspsearchsolve(
-    opts: Mytspsearchoptions
+    opts: AdaptiveTSPSearchOptions
 ) {
-    //const probabilityofacceptingasuboptimalsolution=0.1
     // console.log(opts);
     const {
         searchloopcountratio,
-        // probabilityofacceptingasuboptimalsolution,
+
         pheromoneintensityQ,
         pheromonevolatilitycoefficientR1,
         pheromonevolatilitycoefficientR2,
@@ -87,7 +86,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
                         pheromonevolatilitycoefficientR1,
                         nodecoordinates,
                         alphazero,
-                        // probabilityofacceptingasuboptimalsolution,
+
                         betazero,
                         randomselectionprobability,
                         getbestlength,
