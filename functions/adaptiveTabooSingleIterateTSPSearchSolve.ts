@@ -34,7 +34,7 @@ export type AdaptiveTSPSearchOptions = {
     // numberofstagnantiterations: number;
 };
 /* 令蚁群算法开始迭代 一次轮次搜索 */
-export function adaptiveTabooSingleTterateTSPSearchSolve(
+export function adaptiveTabooSingleIterateTSPSearchSolve(
     opts: AdaptiveTSPSearchOptions
 ) {
     // console.log(opts);
