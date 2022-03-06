@@ -41,17 +41,34 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
             );
         });
         */
-        let nextnode = -1;
-        let mindistance = Infinity;
-        for (let [nodeindex, distance] of restnodes.map((value) => [
-            value,
-            geteuclideandistancebyindex(currentnode, value, nodecoordinates),
-        ])) {
-            if (distance < mindistance) {
-                mindistance = distance;
-                nextnode = nodeindex;
-            }
-        }
+
+        const nextnodesanddistances: {
+            nextnode: number;
+            distance: number;
+        }[] = restnodes.map((value) => {
+            return {
+                nextnode: value,
+                distance: geteuclideandistancebyindex(
+                    currentnode,
+                    value,
+                    nodecoordinates
+                ),
+            };
+        });
+        const bestnextnodeanddistance: {
+            nextnode: number;
+            distance: number;
+        } = nextnodesanddistances.reduce((previous, current) => {
+            return previous.distance < current.distance ? previous : current;
+        }, nextnodesanddistances[0]);
+        const nextnode = bestnextnodeanddistance.nextnode;
+        // const mindistance = bestnextnodeanddistance.distance;
+        // for (let [nodeindex, distance] of) {
+        //     if (distance < mindistance) {
+        //         mindistance = distance;
+        //         nextnode = nodeindex;
+        //     }
+        // }
         if (typeof nextnode !== "number" || nextnode === -1) {
             throw new Error("Accident");
         }

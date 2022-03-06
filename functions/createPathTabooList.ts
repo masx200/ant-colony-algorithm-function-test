@@ -64,7 +64,7 @@ export function createPathTabooList<N extends number = number>(
             if (!set) {
                 return false;
             }
-            
+
             for (let value of Array.from(set)) {
                 if (route.length === countofnodes) {
                     /* 回环路径 */
