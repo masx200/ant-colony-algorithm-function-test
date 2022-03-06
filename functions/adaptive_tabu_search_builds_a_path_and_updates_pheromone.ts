@@ -8,7 +8,7 @@ import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
-    // searchloopcountratio,
+    searchloopcountratio,
     pheromoneintensityQ,
     pheromonevolatilitycoefficientR1,
     nodecoordinates,
@@ -23,7 +23,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     setbestroute,
     getbestroute,
 }: {
-    // searchloopcountratio: number;
+    searchloopcountratio: number;
     pheromoneintensityQ: number;
     pheromonevolatilitycoefficientR1: number;
     nodecoordinates: Nodecoordinates;
@@ -48,7 +48,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     // const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
 
     const route = taboo_backtracking_path_construction({
-        // searchloopcountratio,
+        searchloopcountratio,
         alphazero,
 
         betazero,

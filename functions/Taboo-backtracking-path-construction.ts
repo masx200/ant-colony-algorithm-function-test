@@ -1,5 +1,6 @@
 import { pickRandom } from "mathjs";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
+import { asserttrue } from "../test/asserttrue";
 import { Constants } from "./Constants";
 import { constructonesteproute } from "./constructonesteproute";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
@@ -15,7 +16,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 
 export type PathConstructOptions = Constants & {
     /**搜索循环次数比例 */
-    // searchloopcountratio: number;
+    searchloopcountratio: number;
     getbestlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
@@ -46,7 +47,7 @@ export function taboo_backtracking_path_construction(
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
-        // searchloopcountratio,
+        searchloopcountratio,
 
         randomselectionprobability,
         getbestlength,
@@ -89,15 +90,15 @@ export function taboo_backtracking_path_construction(
     function getroute() {
         return Array.from(route);
     }
+    /**循环次数 */
     let trycount = 0;
     const starttime = Number(new Date());
-    while (route.length !== countofnodes) {
+    while (
+        route.length !== countofnodes &&
+        trycount <= countofnodes * searchloopcountratio
+    ) {
         trycount++;
-        console.log(
-            `第${trycount}次`,
-            "路径构建开始",
-            route
-        );
+        console.log(`第${trycount}次`, "路径构建开始", route);
         //接受次优解的概率;
         // let probabilityofacceptingasuboptimalsolution = Math.max(
         //     0,
@@ -125,6 +126,22 @@ export function taboo_backtracking_path_construction(
         // debugger;
         /* 路径长度检查 */
     }
+
+    if (route.length !== countofnodes) {
+        console.warn(
+            "构建路径超出循环次数,使用完全随机方式构建剩余的路径",
+            route
+        );
+
+        while (route.length !== countofnodes) {
+            const restcities = inputindexs.filter(
+                (city) => !route.includes(city)
+            );
+            const nextnode = getnumberfromarrayofnmber(pickRandom(restcities));
+            route = [...route, nextnode];
+        }
+    }
+    asserttrue(route.length == countofnodes);
     console.log("路径一条构建完成,循环次数", trycount);
     const endtime = Number(new Date());
     console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
