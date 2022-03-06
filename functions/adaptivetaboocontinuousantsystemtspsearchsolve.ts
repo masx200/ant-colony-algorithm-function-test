@@ -1,12 +1,7 @@
-import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
-import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
-import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
-import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
-import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
 import { cycleroutetosegments } from "./cycleroutetosegments";
+import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
@@ -151,92 +146,18 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
             cycleroutetosegments(iterateworstroute);
         const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
         const globalbestroutesegments = cycleroutetosegments(globalbestroute);
-        console.log(" 信息素更新计算开始");
-        const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
-            row: countofnodes,
-            //column: countofnodes,
-            initializer: function (i, j) {
-                return globalbestroutesegments.some(([left, right]) => {
-                    return (
-                        (i === left && j === right) ||
-                        (j === left && i === right)
-                    );
-                })
-                    ? 1 / globalbestlength
-                    : 0;
-            },
-        });
-        const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
-            row: countofnodes,
-            // column: countofnodes,
-            initializer: function (i, j) {
-                return iteratebestroutesegments.some(([left, right]) => {
-                    return (
-                        (i === left && j === right) ||
-                        (j === left && i === right)
-                    );
-                })
-                    ? 1 / iteratebestlength
-                    : 0;
-            },
-        });
-        const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
-            row: countofnodes,
-            //  column: countofnodes,
-        });
-        if (
-            !(
-                iteratebestlength === iterateworstlength ||
-                iterateworstlength === globalbestlength
-            )
-        ) {
-            //最差和最好不一样，相当于有最差
-            SparseMatrixAssign(
-                deltapheromoneiterateworst,
-                SparseMatrixSymmetryCreate({
-                    row: countofnodes,
-                    //  column: countofnodes,
-                    initializer: function (i, j) {
-                        return iterateworstroutesegments.some(
-                            ([left, right]) => {
-                                return (
-                                    (i === left && j === right) ||
-                                    (j === left && i === right)
-                                );
-                            }
-                        )
-                            ? -1 / iterateworstlength
-                            : 0;
-                    },
-                })
-            );
-        }
-        const deltapheromone = SparseMatrixMultiplyNumber(
+        each_iteration_of_pheromone_update_rules({
+            countofnodes,
+            globalbestroutesegments,
+            globalbestlength,
+            iteratebestroutesegments,
+            iteratebestlength,
+            iterateworstlength,
+            iterateworstroutesegments,
             pheromoneintensityQ,
-            SparseMatrixAdd(
-                deltapheromoneglobalbest,
-                deltapheromoneiteratebest,
-                deltapheromoneiterateworst
-            )
-        );
-        const oldpheromonestore = SparseMatrixFrom(pheromonestore);
-        const nextpheromonestore = SparseMatrixMax(
-            SparseMatrixMultiplyNumber(1 / 2, oldpheromonestore),
-            SparseMatrixAdd(
-                SparseMatrixMultiplyNumber(
-                    1 - pheromonevolatilitycoefficientR,
-                    oldpheromonestore
-                ),
-                SparseMatrixMultiplyNumber(
-                    pheromonevolatilitycoefficientR,
-                    deltapheromone
-                )
-            )
-        );
-        console.log(" 信息素更新结束");
-        console.log({ oldpheromonestore, nextpheromonestore });
-        //信息素更新
-        SparseMatrixAssign(pheromonestore, nextpheromonestore);
+            pheromonestore,
+            pheromonevolatilitycoefficientR,
+        });
         if (Math.random() < pheromoneDiffusionProbability) {
             //信息素扩散
         }
