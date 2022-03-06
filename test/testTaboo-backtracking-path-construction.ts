@@ -117,7 +117,7 @@ export function test_taboo_backtracking_path_construction(
     drawlinechart(
         linechardata,
         mychart,
-        `城市数:${nodecoordinates.length},路径长度${totallength}`
+        `城市数:${nodecoordinates.length},路径长度:${totallength}`
     );
     console.log("test_taboo_backtracking_path_construction end");
     console.log("禁忌列表", pathTabooList, pathTabooList.size());

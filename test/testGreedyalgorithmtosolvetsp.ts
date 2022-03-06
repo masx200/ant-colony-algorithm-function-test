@@ -17,6 +17,6 @@ export function testGreedyalgorithmtosolvetsp(
     drawlinechart(
         linechardata,
         mychart,
-        `城市数:${nodecoordinates.length},路径长度${totallength}`
+        `城市数:${nodecoordinates.length},路径长度:${totallength}`
     );
 }
