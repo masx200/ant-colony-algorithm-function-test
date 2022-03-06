@@ -70,6 +70,7 @@ export function taboo_backtracking_path_construction(
     /**单次搜索最多循环次数 */
     const maximumnumberofloopsforasinglesearch =
         countofnodes * searchloopcountratio;
+    console.log("单次搜索最多循环次数", maximumnumberofloopsforasinglesearch);
     const getpheromone = (left: number, right: number) => {
         return pheromonestore.get(left, right);
     };
