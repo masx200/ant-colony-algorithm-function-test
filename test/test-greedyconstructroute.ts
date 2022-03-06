@@ -4,7 +4,9 @@ import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyal
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "./asserttrue";
 
-export function testgreedyconstructroute(nodecoordinates: Nodecoordinates): {
+export function testgreedyconstructroutebest(
+    nodecoordinates: Nodecoordinates
+): {
     greedypath: number[];
     totallength: number;
 } {

@@ -1,9 +1,10 @@
 import "../functions/echarts-line";
-
-import "./style.css";
-import "./mytestinsert";
+import { appcontainer } from "./appcontainer";
+import { beforeinitialize } from "./beforeinitialize";
 import "./index";
-const app = document.querySelector<HTMLDivElement>("#app")!;
+// import "./mytestinsert";
+import "./style.css";
 
-app.innerHTML = `<h1>禁忌路径构建测试</h1>`;
+appcontainer.innerHTML = `<h1>禁忌路径构建测试</h1>`;
 document.title = "ant-colony-algorithm-function-test";
+beforeinitialize();

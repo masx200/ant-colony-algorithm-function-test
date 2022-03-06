@@ -3,13 +3,18 @@ import { nodecoordinates21 } from "../test/nodecoordinates21";
 import { nodecoordinates30 } from "../test/nodecoordinates30";
 import { nodecoordinates6 } from "../test/nodecoordinates6";
 import "core-js/actual/array/at";
-import { testGreedyalgorithmtosolvetsp } from "../test/testGreedyalgorithmtosolvetsp";
+import { testGreedyrandomtosolvetsp } from "../test/testGreedyrandomtosolvetsp";
+// import { testGreedyalgorithmtosolvetsp } from "../test/testGreedyalgorithmtosolvetsp";
 addEventListener("load", () => {
     console.time();
+    testGreedyrandomtosolvetsp(nodecoordinates6);
+    testGreedyrandomtosolvetsp(nodecoordinates10);
+    testGreedyrandomtosolvetsp(nodecoordinates21);
+    testGreedyrandomtosolvetsp(nodecoordinates30);
     // import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";
     // console.log("hello world");
 
-    testGreedyalgorithmtosolvetsp(nodecoordinates30);
+    // testGreedyalgorithmtosolvetsp(nodecoordinates30);
     // test_taboo_backtracking_path_construction(nodecoordinates6);
 
     // (() => {
@@ -25,11 +30,11 @@ addEventListener("load", () => {
     //     drawlinechart(linechardata, mychart);
     // })();
 
-    testGreedyalgorithmtosolvetsp(nodecoordinates6);
+    // testGreedyalgorithmtosolvetsp(nodecoordinates6);
     // test_taboo_backtracking_path_construction(nodecoordinates6);
-    testGreedyalgorithmtosolvetsp(nodecoordinates10);
+    // testGreedyalgorithmtosolvetsp(nodecoordinates10);
     // test_taboo_backtracking_path_construction(nodecoordinates10);
-    testGreedyalgorithmtosolvetsp(nodecoordinates21);
+    // testGreedyalgorithmtosolvetsp(nodecoordinates21);
     // test_taboo_backtracking_path_construction(nodecoordinates21);
     console.timeEnd();
 });

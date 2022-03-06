@@ -18,6 +18,7 @@ import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoord
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
+import { cacheechartscontainers } from "../src/clearallecharts";
 
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
@@ -113,12 +114,13 @@ export function test_taboo_backtracking_path_construction(
     const linechardata = [...route, route[0]].map((v) => nodecoordinates[v]);
     console.log("禁忌回溯算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
-    const mychart = createmychart();
+    const { myChart, container } = createmychart();
     drawlinechart(
         linechardata,
-        mychart,
+        myChart,
         `城市数:${nodecoordinates.length},路径长度:${totallength}`
     );
+    cacheechartscontainers.add(container);
     console.log("test_taboo_backtracking_path_construction end");
     console.log("禁忌列表", pathTabooList, pathTabooList.size());
 }
