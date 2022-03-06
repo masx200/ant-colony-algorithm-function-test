@@ -1,24 +1,21 @@
+import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 import { cachebestrouteofnodecoordinates } from "../functions/cachebestrouteofnodecoordinates";
-
-import { pickRandom } from "mathjs";
+import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoordinatestopathTabooList";
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { createmychart } from "../functions/createmychart";
+import { createPathTabooList } from "../functions/createPathTabooList";
 import { createPheromonestore } from "../functions/createPheromonestore";
 import { drawlinechart } from "../functions/drawlinechart";
-
-// import { filterforbiddenbeforepick } from "../functions/filterforbiddenbeforepick";
-import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 // import { intersectionfilter } from "../functions/intersectionfilter";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
-import { createPathTabooList } from "../functions/createPathTabooList";
 // import { picknextnodeRoulette } from "../functions/pick-next-node-Roulette";
 import { taboo_backtracking_path_construction } from "../functions/Taboo-backtracking-path-construction";
-import { asserttrue } from "./asserttrue";
-import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoordinatestopathTabooList";
-import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
-import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { cacheechartscontainers } from "../src/clearallecharts";
+import { asserttrue } from "./asserttrue";
+
+
 
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
@@ -45,10 +42,10 @@ export function test_taboo_backtracking_path_construction(
     console.log("test_taboo_backtracking_path_construction start");
     console.log("禁忌回溯要解决的问题的坐标是", nodecoordinates);
 
-    const inputindexs = Array(nodecoordinates.length)
-        .fill(0)
-        .map((_v, i) => i);
-    const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
+    // const inputindexs = Array(nodecoordinates.length)
+    //     .fill(0)
+    //     .map((_v, i) => i);
+    // const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
     function getbestlength(): number {
         return (
             cachebestlengthofnodecoordinates.get(nodecoordinates) || Infinity
@@ -66,7 +63,7 @@ export function test_taboo_backtracking_path_construction(
         nodecoordinates,
         // intersectionfilter,
         //   parameterrandomization,
-        startnode,
+        // startnode,
         //     ,
         //     ,
         alphazero,

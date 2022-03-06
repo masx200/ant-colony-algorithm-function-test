@@ -1,9 +1,11 @@
+import { pickRandom } from "mathjs";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { Constants } from "./Constants";
 import { constructonesteproute } from "./constructonesteproute";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { filterforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
+import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { intersectionfilterfun } from "./intersectionfilterfun";
 import { Nodecoordinates } from "./Nodecoordinates";
@@ -21,7 +23,7 @@ export type PathConstructOptions = Constants & {
     /**选择下一个节点使用轮盘选择法 */
     // picknextnode(args: PickNextNodeRouletteOptions): number;
     pathTabooList: PathTabooList;
-    startnode: number;
+    // startnode: number;
     /**过滤禁忌表当中的节点 */
     // filterforbiddenbeforepick: FilterForbiddenBeforePick;
     // parameterrandomization: boolean;
@@ -49,7 +51,7 @@ export function taboo_backtracking_path_construction(
         randomselectionprobability,
         getbestlength,
         //  parameterrandomization,
-        startnode,
+        // startnode,
         //   countofnodes,
         //   filterforbiddenbeforepick,
         // intersectionfilter,
@@ -79,7 +81,10 @@ export function taboo_backtracking_path_construction(
     };
 
     // const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
-
+    const inputindexs = Array(nodecoordinates.length)
+        .fill(0)
+        .map((_v, i) => i);
+    const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
     let route: number[] = [startnode];
     function getroute() {
         return Array.from(route);
@@ -101,7 +106,7 @@ export function taboo_backtracking_path_construction(
         route = Array.from(
             constructonesteproute({
                 probabilityofacceptingasuboptimalsolution,
-                startnode,
+                // startnode,
                 countofnodes,
                 getbestlength,
                 filterforbiddenbeforepick,

@@ -5,11 +5,13 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { closedtotalpathlength } from "./closed-total-path-length";
+import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
+import { pickRandom } from "mathjs";
 /**构建一步路径,并返回下一次的路径 */
 export function constructonesteproute({
     // searchloopcountratio,
     probabilityofacceptingasuboptimalsolution,
-    startnode,
+    // startnode,
     getdistancebyserialnumber,
     getbestlength,
     randomselectionprobability,
@@ -38,13 +40,17 @@ export function constructonesteproute({
 
     betazero: number;
     picknextnode: (args: PickNextNodeRouletteOptions) => number;
-    startnode: number;
+    // startnode: number;
     pathTabooList: PathTabooList;
     countofnodes: number;
     getroute: () => number[];
     getpheromone: (left: number, right: number) => number;
     filterforbiddenbeforepick: FilterForbiddenBeforePick;
 }): number[] {
+    const inputindexs = Array(nodecoordinates.length)
+        .fill(0)
+        .map((_v, i) => i);
+    const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
     /**单次搜索最多循环次数 */
     // const maximumnumberofloopsforasinglesearch =
     //     countofnodes * searchloopcountratio;
@@ -78,9 +84,9 @@ export function constructonesteproute({
         /* 退回上一步 */
         // route = route.slice(0, route.length - 1);
         //无路可走开始广度搜索吧
-        route = [startnode];
+        /* route = */
         // debugger;
-        return route;
+        return [startnode];
     } else {
         // debugger;
         if (filterednodes.length === 0) {

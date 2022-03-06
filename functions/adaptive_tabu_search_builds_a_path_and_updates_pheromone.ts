@@ -1,9 +1,7 @@
-import { pickRandom } from "mathjs";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycleroutetosegments } from "./cycleroutetosegments";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
@@ -44,10 +42,10 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     totallength: number;
 } {
     const countofnodes = nodecoordinates.length;
-    const inputindexs = Array(nodecoordinates.length)
-        .fill(0)
-        .map((_v, i) => i);
-    const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
+    // const inputindexs = Array(nodecoordinates.length)
+    //     .fill(0)
+    //     .map((_v, i) => i);
+    // const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
 
     const route = taboo_backtracking_path_construction({
         searchloopcountratio,
@@ -59,7 +57,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         nodecoordinates,
         pathTabooList,
         pheromonestore,
-        startnode,
+        // startnode,
     });
     const totallength = closedtotalpathlength({
         // countofnodes: route.length,
