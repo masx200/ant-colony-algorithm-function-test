@@ -4,11 +4,13 @@ import { nodecoordinates30 } from "../test/nodecoordinates30";
 import { nodecoordinates6 } from "../test/nodecoordinates6";
 import "core-js/actual/array/at";
 import { testGreedyrandomtosolvetsp } from "../test/testGreedyrandomtosolvetsp";
+import { nodecoordinates16 } from "../test/nodecoordinates16";
 // import { testGreedyalgorithmtosolvetsp } from "../test/testGreedyalgorithmtosolvetsp";
 addEventListener("load", () => {
     console.time();
     testGreedyrandomtosolvetsp(nodecoordinates6);
     testGreedyrandomtosolvetsp(nodecoordinates10);
+    testGreedyrandomtosolvetsp(nodecoordinates16);
     testGreedyrandomtosolvetsp(nodecoordinates21);
     testGreedyrandomtosolvetsp(nodecoordinates30);
     // import { test_taboo_backtracking_path_construction } from "./testTaboo-backtracking-path-construction";

@@ -1,4 +1,5 @@
 import { nodecoordinates10 } from "../test/nodecoordinates10";
+import { nodecoordinates16 } from "../test/nodecoordinates16";
 import { nodecoordinates21 } from "../test/nodecoordinates21";
 import { nodecoordinates30 } from "../test/nodecoordinates30";
 import { nodecoordinates6 } from "../test/nodecoordinates6";
@@ -42,6 +43,21 @@ export function beforeinitialize() {
         });
         console.log(button10);
     });
+    const button16 = inserttestbuttton(appcontainer, "初始化16", (button) => {
+        console.log(button);
+        allinitbuttons
+            .filter((a) => button != a)
+            .forEach((b) => (b.disabled = true));
+        clearallecharts();
+        // test_taboo_backtracking_path_construction(nodecoordinates10);
+        testGreedyalgorithmtosolvetsp(nodecoordinates16);
+        button.disabled = true;
+        const button16 = inserttestbuttton(appcontainer, "测试16", (button) => {
+            console.log(button);
+            test_taboo_backtracking_path_construction(nodecoordinates16);
+        });
+        console.log(button16);
+    });
     const button21 = inserttestbuttton(appcontainer, "初始化21", (button) => {
         console.log(button);
         allinitbuttons
@@ -72,7 +88,7 @@ export function beforeinitialize() {
         });
         console.log(button30);
     });
-    const allinitbuttons = [button10, button21, button30, button6];
+    const allinitbuttons = [button10, button21, button30, button6, button16];
     // document.body.appendChild(document.createElement("hr"));
     console.log(button6);
     console.log(button10);
