@@ -94,17 +94,14 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         deltapheromoneglobalbest
     );
     const oldpheromonestore = SparseMatrixFrom(pheromonestore);
-    const nextpheromonestore = SparseMatrixMax(
-        SparseMatrixMultiplyNumber(1 / 2, oldpheromonestore),
-        SparseMatrixAdd(
-            SparseMatrixMultiplyNumber(
-                1 - pheromonevolatilitycoefficientR,
-                oldpheromonestore
-            ),
-            SparseMatrixMultiplyNumber(
-                pheromonevolatilitycoefficientR,
-                deltapheromone
-            )
+    const nextpheromonestore = SparseMatrixAdd(
+        SparseMatrixMultiplyNumber(
+            1 - pheromonevolatilitycoefficientR,
+            oldpheromonestore
+        ),
+        SparseMatrixMultiplyNumber(
+            pheromonevolatilitycoefficientR,
+            deltapheromone
         )
     );
     console.log({ oldpheromonestore, nextpheromonestore });
