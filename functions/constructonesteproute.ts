@@ -105,7 +105,7 @@ export function constructonesteproute({
             if (Math.random() < probabilityofacceptingasuboptimalsolution) {
                 console.warn(
                     "接受次优解，路径片段长度已经大于最优路径长度，路径构建经过节点",
-                    route
+                    [...route, nextnode]
                 );
                 return [...route, nextnode];
             } else {

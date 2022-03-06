@@ -36,19 +36,32 @@ export function picknextnodeRoulette(
     //    ? random( ,  )
     //   : alphazero;
     const randomselection = Math.random() < randomselectionprobability;
-    const weights: number[] = randomselection
-        ? []
-        : availablenextnodes.map(
-              (nextnode) =>
-                  Math.pow(getpheromone(nextnode, currentnode), alpha) /
-                  Math.pow(
-                      getdistancebyserialnumber(nextnode, currentnode),
-                      beta
-                  )
-          );
+    // const weights: number[] = randomselection
+    //     ? []
+    //     : availablenextnodes.map(
+    //           (nextnode) =>
+    //               Math.pow(getpheromone(nextnode, currentnode), alpha) /
+    //               Math.pow(
+    //                   getdistancebyserialnumber(nextnode, currentnode),
+    //                   beta
+    //               )
+    //       );
     const result = randomselection
         ? getnumberfromarrayofnmber(pickRandom(availablenextnodes, 1))
-        : getnumberfromarrayofnmber(pickRandom(availablenextnodes, 1, weights));
+        : getnumberfromarrayofnmber(
+              pickRandom(
+                  availablenextnodes,
+                  1,
+                  availablenextnodes.map(
+                      (nextnode) =>
+                          Math.pow(getpheromone(nextnode, currentnode), alpha) /
+                          Math.pow(
+                              getdistancebyserialnumber(nextnode, currentnode),
+                              beta
+                          )
+                  )
+              )
+          );
     // debugger;
     return result;
 }
