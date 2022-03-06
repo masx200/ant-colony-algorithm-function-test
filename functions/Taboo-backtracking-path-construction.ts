@@ -29,7 +29,7 @@ export type PathConstructOptions = Constants & {
     // countofnodes: number;
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
-probabilityofacceptingasuboptimalsolution:number,
+    probabilityofacceptingasuboptimalsolution: number;
     pheromonestore: SparseMatrixSymmetry;
 };
 /**禁忌回溯路径构建 */
@@ -41,7 +41,8 @@ export function taboo_backtracking_path_construction(
     const intersectionfilter: IntersectionFilter = intersectionfilterfun;
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
-    const {probabilityofacceptingasuboptimalsolution,
+    const {
+        probabilityofacceptingasuboptimalsolution,
         randomselectionprobability,
         getbestlength,
         //  parameterrandomization,
@@ -82,7 +83,8 @@ export function taboo_backtracking_path_construction(
         console.log("路径构建开始", route);
 
         route = Array.from(
-            constructonesteproute({probabilityofacceptingasuboptimalsolution,
+            constructonesteproute({
+                probabilityofacceptingasuboptimalsolution,
                 startnode,
                 countofnodes,
                 getbestlength,

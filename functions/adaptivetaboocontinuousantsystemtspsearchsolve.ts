@@ -1,22 +1,18 @@
-import { pickRandom } from "mathjs";
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
 import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { asserttrue } from "../test/asserttrue";
-import { closedtotalpathlength } from "./closed-total-path-length";
+import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
 import { cycleroutetosegments } from "./cycleroutetosegments";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 
-import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
-
-export type Mytspsearchoptions = {probabilityofacceptingasuboptimalsolution:number,
+export type Mytspsearchoptions = {
+    probabilityofacceptingasuboptimalsolution: number;
     getbestroute: () => number[];
     /**信息素强度*/
     pheromoneintensityQ: number;
@@ -43,9 +39,10 @@ export type Mytspsearchoptions = {probabilityofacceptingasuboptimalsolution:numb
 export function adaptivetaboocontinuousantsystemtspsearchsolve(
     opts: Mytspsearchoptions
 ) {
-//const probabilityofacceptingasuboptimalsolution=0.1
+    //const probabilityofacceptingasuboptimalsolution=0.1
     // console.log(opts);
-    const {probabilityofacceptingasuboptimalsolution,
+    const {
+        probabilityofacceptingasuboptimalsolution,
         pheromoneintensityQ,
         pheromonevolatilitycoefficientR,
         setbestroute,
@@ -77,40 +74,32 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         numberofiterations < maxnumberofiterations ||
         numberofstagnantsearch < numberofstagnantiterations
     ) {
-        const routesandlengths = Array(numberofants)
+        const routesandlengths: {
+            route: number[];
+            totallength: number;
+        }[] = Array(numberofants)
             .fill(0)
             .map(() => {
-                const inputindexs = Array(nodecoordinates.length)
-                    .fill(0)
-                    .map((_v, i) => i);
-                const startnode = getnumberfromarrayofnmber(
-                    pickRandom(inputindexs)
+                return adaptive_tabu_search_builds_a_path_and_updates_pheromone(
+                    {
+                        pheromoneintensityQ,
+                        pheromonevolatilitycoefficientR,
+                        nodecoordinates,
+                        alphazero,
+                        probabilityofacceptingasuboptimalsolution,
+                        betazero,
+                        randomselectionprobability,
+                        getbestlength,
+                        pathTabooList,
+                        pheromonestore,
+                        setbestlength,
+                        setbestroute,
+                        getbestroute,
+                    }
                 );
-
-                const route = taboo_backtracking_path_construction({
-                    alphazero,
-                  probabilityofacceptingasuboptimalsolution,  betazero,
-                    randomselectionprobability,
-                    getbestlength,
-                    nodecoordinates,
-                    pathTabooList,
-                    pheromonestore,
-                    startnode,
-                });
-                const totallength = closedtotalpathlength(
-                    route,
-                    nodecoordinates
-                );
-
-                const bestlength = getbestlength();
-                if (bestlength && bestlength >= totallength) {
-                    setbestlength(totallength);
-                    setbestroute(route);
-                }
-                return { route, totallength };
             });
         const routes = routesandlengths.map(({ route }) => route);
-        const lengths = routesandlengths.map(({ totallength }) => totallength);
+        // const lengths = routesandlengths.map(({ totallength }) => totallength);
         if (
             routesandlengths.every(
                 ({ totallength }) => totallength === lastlength
@@ -124,8 +113,9 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         const populationrelativeinformationentropy =
             population_relative_information_entropy(routes);
         randomselectionprobability =
-            Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2))/ 4
-            
+            Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) /
+            4;
+
         pheromoneDiffusionProbability = Math.sqrt(
             1 - Math.pow(populationrelativeinformationentropy, 2)
         );
@@ -134,32 +124,33 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         console.log("信息素扩散概率", pheromoneDiffusionProbability);
         const globalbestroute = getbestroute();
         const globalbestlength = getbestlength();
-      
 
-/*
-
-  const iterateworstlength = Math.min(...lengths);
-        const worstindex = lengths.findIndex(
-            (totallength) => totallength === iterateworstlength
+        const worstlengthandroute = routesandlengths.reduce(
+            (previous, current) => {
+                return previous.totallength > current.totallength
+                    ? previous
+                    : current;
+            },
+            routesandlengths[0]
         );
-        asserttrue(worstindex >= 0);
-        const iterateworstroute = routes[worstindex];
-        asserttrue(Boolean(iterateworstroute));
-        const iteratebestlength = Math.min(...lengths);
-        const bestindex = lengths.findIndex(
-            (totallength) => totallength === iteratebestlength
+        const iterateworstlength = worstlengthandroute.totallength;
+        const iterateworstroute = worstlengthandroute.route;
+
+        const iteratebestlengthandroute = routesandlengths.reduce(
+            (previous, current) => {
+                return previous.totallength < current.totallength
+                    ? previous
+                    : current;
+            },
+            routesandlengths[0]
         );
-        asserttrue(bestindex >= 0);
-        const iteratebestroute = routes[bestindex];
-        asserttrue(Boolean(iteratebestroute));
+        const iteratebestlength = iteratebestlengthandroute.totallength;
+        const iteratebestroute = iteratebestlengthandroute.route;
 
-*/
-
-        const globalbestroutesegments = cycleroutetosegments(globalbestroute);
         const iterateworstroutesegments =
             cycleroutetosegments(iterateworstroute);
         const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
-
+        const globalbestroutesegments = cycleroutetosegments(globalbestroute);
         const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
             row: countofnodes,
             //column: countofnodes,
@@ -176,7 +167,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         });
         const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
             row: countofnodes,
-           // column: countofnodes,
+            // column: countofnodes,
             initializer: function (i, j) {
                 return iteratebestroutesegments.some(([left, right]) => {
                     return (
@@ -190,7 +181,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
         });
         const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
             row: countofnodes,
-          //  column: countofnodes,
+            //  column: countofnodes,
         });
         if (
             !(
@@ -203,7 +194,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
                 deltapheromoneiterateworst,
                 SparseMatrixSymmetryCreate({
                     row: countofnodes,
-                  //  column: countofnodes,
+                    //  column: countofnodes,
                     initializer: function (i, j) {
                         return iterateworstroutesegments.some(
                             ([left, right]) => {

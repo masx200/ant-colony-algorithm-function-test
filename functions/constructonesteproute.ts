@@ -7,7 +7,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { closedtotalpathlength } from "./closed-total-path-length";
 /**构建一步路径,并返回下一次的路径 */
 export function constructonesteproute({
-probabilityofacceptingasuboptimalsolution,
+    probabilityofacceptingasuboptimalsolution,
     startnode,
     getdistancebyserialnumber,
     getbestlength,
@@ -23,8 +23,8 @@ probabilityofacceptingasuboptimalsolution,
     intersectionfilter,
     getpheromone,
 }: {
-/**接受次优解的概率*/
-probabilityofacceptingasuboptimalsolution:number,
+    /**接受次优解的概率*/
+    probabilityofacceptingasuboptimalsolution: number;
     getdistancebyserialnumber: (left: number, right: number) => number;
     intersectionfilter: IntersectionFilter;
     nodecoordinates: Nodecoordinates;
@@ -100,31 +100,28 @@ probabilityofacceptingasuboptimalsolution:number,
         asserttrue(!pathTabooList.has([...route, nextnode]));
         if (
             route.length >= 2 &&
-            closedtotalpathlength(route, nodecoordinates) >
-                getbestlength()
+            closedtotalpathlength(route, nodecoordinates) > getbestlength()
         ) {
-          if(Math.random()<probabilityofacceptingasuboptimalsolution){
-console.warn("接受次优解，路径片段长度已经大于最优路径长度，路径构建经过节点", route);
-return  [...route, nextnode];
-            
-            
-}else{
+            if (Math.random() < probabilityofacceptingasuboptimalsolution) {
+                console.warn(
+                    "接受次优解，路径片段长度已经大于最优路径长度，路径构建经过节点",
+                    route
+                );
+                return [...route, nextnode];
+            } else {
+                /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
+                pathTabooList.add([...route, nextnode]);
+                console.warn(
+                    "路径构建失败,路径片段长度已经大于最优路径长度,禁忌此路径",
+                    [...route, nextnode]
+                );
+                //广度搜索
+                return [startnode];
 
-
-
-  /* .在构建路径过程中,如果当前路径片段总长度已经大于最优解的长度,则停止此路径搜索,并把路径片段加入路径禁忌列表中. */
-            pathTabooList.add([...route, nextnode]);
-            console.warn(
-                "路径构建失败,路径片段长度已经大于最优路径长度,禁忌此路径",
-                [...route, nextnode]
-            );
-            //广度搜索
-            return [startnode];
-
-            //route = route.slice();
-            // debugger;
-           // return route;
-}
+                //route = route.slice();
+                // debugger;
+                // return route;
+            }
         } else if (
             route.length >= 3 &&
             intersectionfilter(

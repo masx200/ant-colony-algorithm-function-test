@@ -30,7 +30,7 @@ export function testgetPheromonessetPheromones() {
     // asserttrue(Pheromonestore.delete(11, 11));
     // asserttrue(!Pheromonestore.delete(11, 11));
     asserttrue(Pheromonestore.has(11, 11));
-   asserttrue (SparseMatrixToArrays(Pheromonestore).length===13);
+    asserttrue(SparseMatrixToArrays(Pheromonestore).length === 13);
     asserttrue(getPheromone(1, 10) === 9);
     asserttrue(getPheromone(12, 10) === 8);
     asserttrue(getPheromone(10, 1) === 9);
