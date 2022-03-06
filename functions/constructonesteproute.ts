@@ -132,6 +132,10 @@ export function constructonesteproute({
                 getdistancebyindex: getdistancebyserialnumber,
             }) > getbestlength()
         ) {
+            console.log(
+                "接受次优解的概率为",
+                probabilityofacceptingasuboptimalsolution
+            );
             if (Math.random() < probabilityofacceptingasuboptimalsolution) {
                 console.warn(
                     "接受次优解，路径片段长度已经大于最优路径长度，路径构建经过节点",
