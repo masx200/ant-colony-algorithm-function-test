@@ -1,4 +1,5 @@
 import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegmentsintersectnextsegment";
+import { haverepetitions } from "./haverepetitions";
 import { Nodecoordinates } from "./Nodecoordinates";
 /**判断路径当中是否有交叉点 */
 export function intersectionfilterfun(
@@ -64,8 +65,4 @@ export function intersectionfilterfun(
         // debugger;
         return result;
     }
-}
-function haverepetitions(arr: number[]): boolean {
-    const set = new Set(arr);
-    return set.size != arr.length;
 }

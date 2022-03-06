@@ -95,10 +95,14 @@ export function taboo_backtracking_path_construction(
     const starttime = Number(new Date());
     while (
         route.length !== countofnodes &&
-        trycount <= countofnodes * searchloopcountratio
+        trycount < countofnodes * searchloopcountratio
     ) {
         trycount++;
-        console.log(`第${trycount}次`, "路径构建开始", route);
+        console.log(
+            `第${trycount}次/${countofnodes * searchloopcountratio}`,
+            "路径构建开始",
+            route
+        );
         //接受次优解的概率;
         // let probabilityofacceptingasuboptimalsolution = Math.max(
         //     0,

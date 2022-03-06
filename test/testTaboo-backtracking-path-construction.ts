@@ -15,8 +15,6 @@ import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 import { cacheechartscontainers } from "../src/clearallecharts";
 import { asserttrue } from "./asserttrue";
 
-
-
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
