@@ -10,7 +10,7 @@ import { pickRandom } from "mathjs";
 /**构建一步路径,并返回下一次的路径 */
 export function constructonesteproute({
     // searchloopcountratio,
-    probabilityofacceptingasuboptimalsolution,
+    // probabilityofacceptingasuboptimalsolution,
     // startnode,
     getdistancebyserialnumber,
     getbestlength,
@@ -29,7 +29,7 @@ export function constructonesteproute({
     /**搜索循环次数比例 */
     // searchloopcountratio: number;
     /**接受次优解的概率*/
-    probabilityofacceptingasuboptimalsolution: number;
+    // probabilityofacceptingasuboptimalsolution: number;
     getdistancebyserialnumber: (left: number, right: number) => number;
     intersectionfilter: IntersectionFilter;
     nodecoordinates: Nodecoordinates;
@@ -147,10 +147,10 @@ export function constructonesteproute({
                 [...route, nextnode]
             );
             //广度搜索
-            console.log(
-                "接受次优解的概率为",
-                probabilityofacceptingasuboptimalsolution
-            );
+            // console.log(
+            //     "接受次优解的概率为",
+            //     probabilityofacceptingasuboptimalsolution
+            // );
             return [startnode];
             // }
             // {

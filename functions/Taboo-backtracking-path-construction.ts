@@ -99,13 +99,13 @@ export function taboo_backtracking_path_construction(
             route
         );
         //接受次优解的概率;
-        let probabilityofacceptingasuboptimalsolution = Math.max(
-            0,
-            Math.min(1, trycount / maximumnumberofloopsforasinglesearch)
-        );
+        // let probabilityofacceptingasuboptimalsolution = Math.max(
+        //     0,
+        //     Math.min(1, trycount / maximumnumberofloopsforasinglesearch)
+        // );
         route = Array.from(
             constructonesteproute({
-                probabilityofacceptingasuboptimalsolution,
+                // probabilityofacceptingasuboptimalsolution,
                 // startnode,
                 countofnodes,
                 getbestlength,
