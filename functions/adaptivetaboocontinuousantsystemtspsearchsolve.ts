@@ -7,7 +7,7 @@ import { PathTabooList } from "./PathTabooList";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 
 export type AdaptiveTSPSearchOptions = {
-    searchloopcountratio: number;
+    // searchloopcountratio: number;
 
     getbestroute: () => number[];
     /**信息素强度*/
@@ -39,7 +39,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
 ) {
     // console.log(opts);
     const {
-        searchloopcountratio,
+        // searchloopcountratio,
 
         pheromoneintensityQ,
         pheromonevolatilitycoefficientR1,
@@ -81,7 +81,7 @@ export function adaptivetaboocontinuousantsystemtspsearchsolve(
             .map(() => {
                 return adaptive_tabu_search_builds_a_path_and_updates_pheromone(
                     {
-                        searchloopcountratio,
+                        // searchloopcountratio,
                         pheromoneintensityQ,
                         pheromonevolatilitycoefficientR1,
                         nodecoordinates,

@@ -21,7 +21,7 @@ export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
 ) {
     /**搜索循环次数比例 */
-    const searchloopcountratio = 200;
+    // const searchloopcountratio = 200;
 
     const randomselectionprobability = 0.15;
     // const { length } = nodecoordinates;
@@ -52,7 +52,7 @@ export function test_taboo_backtracking_path_construction(
         );
     }
     const route = taboo_backtracking_path_construction({
-        searchloopcountratio,
+        // searchloopcountratio,
 
         randomselectionprobability,
         getbestlength,

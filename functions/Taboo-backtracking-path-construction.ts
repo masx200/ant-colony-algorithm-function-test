@@ -15,7 +15,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 
 export type PathConstructOptions = Constants & {
     /**搜索循环次数比例 */
-    searchloopcountratio: number;
+    // searchloopcountratio: number;
     getbestlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
@@ -46,7 +46,7 @@ export function taboo_backtracking_path_construction(
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
-        searchloopcountratio,
+        // searchloopcountratio,
 
         randomselectionprobability,
         getbestlength,
@@ -70,9 +70,9 @@ export function taboo_backtracking_path_construction(
 
     const countofnodes = nodecoordinates.length;
     /**单次搜索最多循环次数 */
-    const maximumnumberofloopsforasinglesearch =
-        countofnodes * searchloopcountratio;
-    console.log("单次搜索最多循环次数", maximumnumberofloopsforasinglesearch);
+    // const maximumnumberofloopsforasinglesearch =
+    //     countofnodes * searchloopcountratio;
+    // console.log("单次搜索最多循环次数", maximumnumberofloopsforasinglesearch);
     const getpheromone = (left: number, right: number) => {
         return pheromonestore.get(left, right);
     };
@@ -94,7 +94,7 @@ export function taboo_backtracking_path_construction(
     while (route.length !== countofnodes) {
         trycount++;
         console.log(
-            `第${trycount}/${maximumnumberofloopsforasinglesearch}次`,
+            `第${trycount}次`,
             "路径构建开始",
             route
         );
