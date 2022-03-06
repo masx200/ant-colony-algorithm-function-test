@@ -13,6 +13,9 @@ export function beforeinitialize() {
     // document.body.appendChild(document.createElement("hr"));
 
     const button6 = inserttestbuttton(appcontainer, "初始化6", (button) => {
+        allinitbuttons
+            .filter((a) => button != a)
+            .forEach((b) => (b.disabled = true));
         clearallecharts();
         console.log(button);
         // test_taboo_backtracking_path_construction(nodecoordinates6);
@@ -26,6 +29,9 @@ export function beforeinitialize() {
     });
     const button10 = inserttestbuttton(appcontainer, "初始化10", (button) => {
         console.log(button);
+        allinitbuttons
+            .filter((a) => button != a)
+            .forEach((b) => (b.disabled = true));
         clearallecharts();
         // test_taboo_backtracking_path_construction(nodecoordinates10);
         testGreedyalgorithmtosolvetsp(nodecoordinates10);
@@ -38,6 +44,9 @@ export function beforeinitialize() {
     });
     const button21 = inserttestbuttton(appcontainer, "初始化21", (button) => {
         console.log(button);
+        allinitbuttons
+            .filter((a) => button != a)
+            .forEach((b) => (b.disabled = true));
         clearallecharts();
         // test_taboo_backtracking_path_construction(nodecoordinates21);
         testGreedyalgorithmtosolvetsp(nodecoordinates21);
@@ -50,6 +59,9 @@ export function beforeinitialize() {
     });
     const button30 = inserttestbuttton(appcontainer, "初始化30", (button) => {
         console.log(button);
+        allinitbuttons
+            .filter((a) => button != a)
+            .forEach((b) => (b.disabled = true));
         clearallecharts();
         // test_taboo_backtracking_path_construction(nodecoordinates30);
         testGreedyalgorithmtosolvetsp(nodecoordinates30);
@@ -60,6 +72,7 @@ export function beforeinitialize() {
         });
         console.log(button30);
     });
+    const allinitbuttons = [button10, button21, button30, button6];
     // document.body.appendChild(document.createElement("hr"));
     console.log(button6);
     console.log(button10);
