@@ -36,7 +36,10 @@ export type AdaptiveTSPSearchOptions = {
 /* 令蚁群算法开始迭代 一次轮次搜索 */
 export function adaptiveTabooSingleIterateTSPSearchSolve(
     opts: AdaptiveTSPSearchOptions
-) {
+): {
+    route: number[];
+    totallength: number;
+}[] {
     // console.log(opts);
     const {
         searchloopcountratio,
@@ -158,4 +161,8 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     // numberofiterations++;
     // lastlength = routesandlengths[0].totallength;
     // }
+    return routesandlengths as {
+        route: number[];
+        totallength: number;
+    }[];
 }
