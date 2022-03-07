@@ -13,7 +13,8 @@ export default defineComponent({
     components: { datatable },
     setup() {
         const disablemapswitching = ref(false);
-        const searchround = ref(1);
+        const searchrounds = ref(2);
+        const numberofeachround = ref(5);
         const selecteleref = ref<HTMLSelectElement>();
         const chartofbestref = ref<HTMLDivElement>();
         const chartoflatestref = ref<HTMLDivElement>();
@@ -59,18 +60,22 @@ export default defineComponent({
             // });
         });
         const runtsp = () => {
-            console.log("搜索轮次", searchround.value);
-            const roundofsearch = searchround.value;
-            if (roundofsearch > 0) {
+            console.log("搜索轮次", searchrounds.value);
+            console.log("每轮次数", numberofeachround.value);
+            const roundofsearch = searchrounds.value;
+            const numberofeachroundvalue = numberofeachround.value;
+            if (roundofsearch > 0 && numberofeachroundvalue > 0) {
                 disablemapswitching.value = true;
             } else {
-                searchround.value = 1;
+                searchrounds.value = 1;
+                numberofeachround.value = 1;
             }
         };
         return {
+            numberofeachround,
             disablemapswitching,
             runtsp,
-            searchround,
+            searchrounds,
             TSP_cities_data,
             submit,
             selecteleref,
