@@ -1,7 +1,7 @@
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
 import { pickRandom } from "mathjs";
-import { getalldistancesofnodes } from "../functions/getalldistancesofnodes";
+import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
@@ -13,7 +13,7 @@ import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
 import { Nodecoordinates } from "./Nodecoordinates";
 /**执行信息素扩散操作 */
-export function pheromoneDiffusion({
+export function pheromoneDiffusionCallback({
     pheromonestore,
     nodecoordinates,
     globalbestroutesegments,

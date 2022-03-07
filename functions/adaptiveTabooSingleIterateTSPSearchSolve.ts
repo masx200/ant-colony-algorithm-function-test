@@ -4,7 +4,7 @@ import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
-import { pheromoneDiffusion } from "./pheromoneDiffusion";
+import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 
 export type AdaptiveTSPSearchOptions = {
@@ -159,13 +159,11 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     if (Math.random() < pheromoneDiffusionProbability) {
         console.log("执行信息素扩散操作");
         //信息素扩散
-        globalbestroutesegments.forEach(
-            pheromoneDiffusion({
-                pheromonestore,
-                nodecoordinates,
-                globalbestroutesegments,
-            })
-        );
+        performPheromoneDiffusionOperations({
+            globalbestroutesegments,
+            pheromonestore,
+            nodecoordinates,
+        });
     }
     // numberofiterations++;
     // lastlength = routesandlengths[0].totallength;
@@ -175,3 +173,4 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         totallength: number;
     }[];
 }
+
