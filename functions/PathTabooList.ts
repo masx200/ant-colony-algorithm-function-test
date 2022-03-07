@@ -14,4 +14,3 @@ export type PathTabooList<N extends number = number> = {
     has(route: number[]): boolean;
     [Symbol.toStringTag]: string;
 };
-

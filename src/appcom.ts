@@ -12,6 +12,8 @@ import datatable from "./datatable.vue";
 export default defineComponent({
     components: { datatable },
     setup() {
+        const disablemapswitching = ref(false);
+        const searchround = ref(1);
         const selecteleref = ref<HTMLSelectElement>();
         const chartofbestref = ref<HTMLDivElement>();
         const chartoflatestref = ref<HTMLDivElement>();
@@ -53,10 +55,22 @@ export default defineComponent({
                 chartstore.best = bestchart;
             }
             // setTimeout(() => {
-                submit();
+            submit();
             // });
         });
+        const runtsp = () => {
+            console.log("搜索轮次", searchround.value);
+            const roundofsearch = searchround.value;
+            if (roundofsearch > 0) {
+                disablemapswitching.value = true;
+            } else {
+                searchround.value = 1;
+            }
+        };
         return {
+            disablemapswitching,
+            runtsp,
+            searchround,
             TSP_cities_data,
             submit,
             selecteleref,

@@ -1,7 +1,8 @@
 <template>
     <h1>禁忌路径构建测试</h1>
-    <h3>选择城市地图</h3>
-    <select ref="selecteleref">
+    <hr />
+    <h5>选择城市地图</h5>
+    <select ref="selecteleref"  :disabled='disablemapswitching'>
         <option
             v-for="item in TSP_cities_data"
             v-bind:key="item[0]"
@@ -10,8 +11,11 @@
             {{ item[0] }}
         </option>
     </select>
-    <button v-text="'确定'" @click="submit" />
-
+    <button v-text="'确定'" @click="submit" :disabled='disablemapswitching'/>
+    <hr />
+    <h5>搜索轮次</h5>
+    <input v-model="searchround" />
+    <button v-text="'运行'" @click="runtsp" />
     <hr />
     <div id="chartcontainer" style="">
         <div style="width: 500px; height: 500px" ref="chartofbestref"></div>
