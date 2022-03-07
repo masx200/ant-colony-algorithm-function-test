@@ -3,7 +3,9 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { pheromoneDiffusionCallback } from "./pheromoneDiffusionCallback";
 
 export function performPheromoneDiffusionOperations({
-    globalbestroutesegments, pheromonestore, nodecoordinates,
+    globalbestroutesegments,
+    pheromonestore,
+    nodecoordinates,
 }: {
     globalbestroutesegments: [number, number][];
     pheromonestore: SparseMatrixSymmetry<number>;

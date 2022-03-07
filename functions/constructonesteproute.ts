@@ -54,7 +54,7 @@ export function constructonesteproute({
     /**单次搜索最多循环次数 */
     // const maximumnumberofloopsforasinglesearch =
     //     countofnodes * searchloopcountratio;
-    let route = getroute();
+    const route = getroute();
     if (route.length > countofnodes || route.length < 1) {
         throw Error("route accident");
     }
@@ -122,13 +122,13 @@ export function constructonesteproute({
         ) {
             pathTabooList.add([...route, nextnode]);
             //深度搜索
-            route = route.slice();
+            // route = route.slice();
             console.warn("路径构建失败,遇到交叉点,禁忌此路径", [
                 ...route,
                 nextnode,
             ]);
             // debugger;
-            return route;
+            return route.slice();
         }
         if (
             //如果所有城市都经过了,则结束了,如果没走完所有城市,则计算部分城市的环路路径长度
@@ -175,9 +175,9 @@ export function constructonesteproute({
             // return route;
             // }
         } else {
-            route = [...route, nextnode];
-            console.log("路径构建正常经过节点", route);
-            return route;
+            // route = [...route, nextnode];
+            console.log("路径构建正常经过节点", [...route, nextnode]);
+            return [...route, nextnode];
         }
     }
 }
