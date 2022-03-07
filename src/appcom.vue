@@ -17,6 +17,7 @@
         <div style="width: 500px; height: 500px" ref="chartofbestref"></div>
         <div style="width: 500px; height: 500px" ref="chartoflatestref"></div>
     </div>
+    <datatable />
 </template>
 <script lang="ts" src="./appcom.ts"></script>
 <style scoped>

@@ -8,7 +8,9 @@ console.log(TSP_cities_data);
 //     HTMLElement,
 //     ReturnType<typeof createchartofcontainer>
 // >();
+import datatable from "./datatable.vue";
 export default defineComponent({
+    components: { datatable },
     setup() {
         const selecteleref = ref<HTMLSelectElement>();
         const chartofbestref = ref<HTMLDivElement>();
