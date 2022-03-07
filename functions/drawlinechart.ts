@@ -1,6 +1,5 @@
 import * as echarts from "echarts/core";
 import { ECOption } from "./echarts-line";
-import { getcharsizeofwindow } from "./getcharsizeofwindow";
 
 // 注册必须的组件
 // const option: ECOption = {
@@ -51,5 +50,5 @@ export function drawlinechart(
         // ...
     };
     mychart.setOption(option);
-    mychart.resize(getcharsizeofwindow());
+    mychart.resize(/* getcharsizeofwindow() */);
 }

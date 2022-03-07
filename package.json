@@ -7,7 +7,7 @@
         "dev": "vite -c vite.config.ts",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "format": "npx prettier --write *.json *.ts *.html */*.ts */*.css *.md *.js"
+        "format": "npx prettier --write *.json *.ts *.html */*.ts */*.css *.md *.js */*.vue"
     },
     "devDependencies": {
         "@babel/generator": "^7.17.3",
