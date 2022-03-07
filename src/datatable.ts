@@ -3,7 +3,7 @@ import { dataofoneroute } from "./dataofoneroute";
 const tablebody = computed<[number, number, number, number, string][]>(() => {
     return dataofoneroute.map((data, index) => {
         return [
-            index + 1,
+            index ,
             data.totallength,
             data.loops,
             data.timems / 1000,
