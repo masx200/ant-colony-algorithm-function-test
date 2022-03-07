@@ -52,9 +52,9 @@ export default defineComponent({
                 chartstore.latest = latestchart;
                 chartstore.best = bestchart;
             }
-            setTimeout(() => {
+            // setTimeout(() => {
                 submit();
-            });
+            // });
         });
         return {
             TSP_cities_data,
