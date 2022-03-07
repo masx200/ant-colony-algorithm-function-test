@@ -14,11 +14,4 @@ export type PathTabooList<N extends number = number> = {
     has(route: number[]): boolean;
     [Symbol.toStringTag]: string;
 };
-export function createandsetaset(
-    store: Map<number, Set<number[]>>,
-    route: number[]
-): Set<number[]> {
-    const set = new Set<number[]>();
-    store.set(route.length, set);
-    return set;
-}
+

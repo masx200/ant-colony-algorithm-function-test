@@ -1,7 +1,8 @@
 import { sum } from "lodash";
 import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
-import { PathTabooList, createandsetaset } from "./PathTabooList";
+import { PathTabooList } from "./PathTabooList";
+import { createandsetaset } from "./createandsetaset";
 import { PathTabooListSymbol } from "./PathTabooListSymbol";
 
 /**
@@ -51,7 +52,8 @@ export function createPathTabooList<N extends number = number>(
         ) {
             throw new Error("incorrect route:" + JSON.stringify(route));
         }
-        const set = store.get(route.length) ?? createandsetaset(store, route);
+        const set =
+            store.get(route.length) ?? createandsetaset(store, route.length);
         if (!has(route)) {
             set.add(route);
         }

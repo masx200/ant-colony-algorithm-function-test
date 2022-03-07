@@ -1,6 +1,8 @@
 import { isEqual } from "lodash";
 import { createPathTabooList } from "../functions/createPathTabooList";
 import { isPathTabooList } from "../functions/isPathTabooList";
+import { PathTabooListFrom } from "../functions/PathTabooListFrom";
+import { PathTabooListToJSON } from "../functions/PathTabooListToJSON";
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
@@ -8,6 +10,10 @@ export function testPathTabooList() {
     console.log("test PathTabooList start");
 
     const ptl = createPathTabooList(10);
+    const ptlclone = PathTabooListFrom(ptl);
+    asserttrue(!isEqual(ptlclone, ptl));
+    asserttrue(isPathTabooList(ptlclone));
+    asserttrue(ptlclone.countofnodes == 10);
     asserttrue(isPathTabooList(ptl));
     assertshouldcatcherror(() => {
         createPathTabooList(0);
@@ -60,6 +66,16 @@ export function testPathTabooList() {
     asserttrue(ptl.has([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
     asserttrue(ptl.has([2, 3, 4, 5, 6, 7, 8, 9, 0, 1]));
     asserttrue(isEqual(ptl.values(), [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]]));
+
+    const jsonofptl = PathTabooListToJSON(ptl);
+    console.log(jsonofptl);
+    asserttrue(
+        isEqual(jsonofptl, {
+            countofnodes: 10,
+            values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]],
+        })
+    );
+
     asserttrue(ptl.delete([2, 3, 4, 5, 6, 7, 8, 9, 0, 1]));
     asserttrue(ptl.size() === 0);
     console.log("test PathTabooList end");
