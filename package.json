@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "combinatorial-generators": "^1.0.1",
+        "comlink": "^4.3.1",
         "core-js": "^3.21.1",
         "echarts": "^5.3.0",
         "lodash": "^4.17.21",
