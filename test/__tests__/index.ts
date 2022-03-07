@@ -10,6 +10,7 @@ import { testPathTabooList } from "../testPathTabooList";
 import { testrobustsegmentintersect } from "../testrobustsegmentintersect";
 import { testgreedynodecoordinates6 } from "../testgreedynodecoordinates6";
 import { testsparsematrix } from "../test-sparse-matrix";
+
 it("main test functions", () => {
     testgetPheromonessetPheromones();
 

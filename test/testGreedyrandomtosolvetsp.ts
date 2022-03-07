@@ -6,7 +6,6 @@ import { drawlinechart } from "../functions/drawlinechart";
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "../functions/Greedyalgorithmtosolvetspwithselectedstart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
-import { cacheechartscontainers } from "../src/clearallecharts";
 
 export function testGreedyrandomtosolvetsp(nodecoordinates: Nodecoordinates) {
     const inputindexs = Array(nodecoordinates.length)
@@ -28,11 +27,11 @@ export function testGreedyrandomtosolvetsp(nodecoordinates: Nodecoordinates) {
     );
     console.log("贪心算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
-    const { myChart, container } = createmychart();
+    const { myChart /*  container */ } = createmychart();
     drawlinechart(
         linechardata,
         myChart,
         `城市数:${nodecoordinates.length},路径长度:${totallength}`
     );
-    cacheechartscontainers.add(container);
+    // cacheechartscontainers.add(container);
 }

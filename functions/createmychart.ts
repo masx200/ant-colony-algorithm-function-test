@@ -1,6 +1,6 @@
 import * as echarts from "echarts/core";
 import { debounce } from "lodash";
-import { getcharsizeofwindow } from "./echarts-line";
+import { getcharsizeofwindow } from "./getcharsizeofwindow";
 /* 创建echarts实例 */
 export function createmychart(): {
     myChart: echarts.ECharts;

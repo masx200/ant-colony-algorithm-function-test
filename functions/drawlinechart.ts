@@ -1,5 +1,6 @@
 import * as echarts from "echarts/core";
-import { ECOption, getcharsizeofwindow } from "./echarts-line";
+import { ECOption } from "./echarts-line";
+import { getcharsizeofwindow } from "./getcharsizeofwindow";
 
 // 注册必须的组件
 // const option: ECOption = {

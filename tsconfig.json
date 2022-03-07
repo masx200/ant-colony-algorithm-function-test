@@ -15,5 +15,5 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src", "test", "functions", "matrixtools"]
+    "include": ["src", "test", "functions", "matrixtools", "vue.d.ts"]
 }
