@@ -4,6 +4,7 @@ import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+import { asserttrue } from "../test/asserttrue";
 
 /**
  *
@@ -57,6 +58,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     );
     console.log(" 信息素更新结束");
     console.log({ oldpheromonestore, nextpheromonestore });
+    asserttrue(nextpheromonestore.values().every((a) => a > 0));
     //信息素更新
     SparseMatrixAssign(pheromonestore, nextpheromonestore);
 }

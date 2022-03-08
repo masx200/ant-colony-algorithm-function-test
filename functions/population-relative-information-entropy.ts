@@ -1,4 +1,5 @@
 import { sum } from "lodash";
+import { asserttrue } from "../test/asserttrue";
 import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
 
 /* 种群相对信息熵 */
@@ -48,13 +49,17 @@ export function population_relative_information_entropy(
     const sumfitnessvalues = sum(fitnessvalues);
     const fitnessweight = fitnessvalues.map((v) => v / sumfitnessvalues);
     // debugger;
-    const result =
+    /* 种群相对信息熵 1.0000000000000002 ????? */
+    const result = Math.min(
+        1,
         -sum(fitnessweight.map((fitness) => fitness * Math.log(fitness))) /
-        Math.log(routesnumber);
+            Math.log(routesnumber)
+    );
     // debugger;
     if (Number.isNaN(result)) {
         throw new Error("Accident ");
     }
-
+    // console.log(result);
+    asserttrue(result <= 1);
     return result;
 }

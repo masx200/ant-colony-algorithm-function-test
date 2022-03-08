@@ -5,6 +5,8 @@ import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
+import { asserttrue } from "../test/asserttrue";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function each_iteration_of_pheromone_update_rules({
@@ -109,7 +111,11 @@ export function each_iteration_of_pheromone_update_rules({
         )
     );
     console.log(" 信息素更新结束");
-    console.log({ oldpheromonestore, nextpheromonestore });
+    console.log({
+        oldpheromonestore: SparseMatrixToArrays(oldpheromonestore),
+        nextpheromonestore:SparseMatrixToArrays( nextpheromonestore),
+    });
+    asserttrue(nextpheromonestore.values().every((a) => a > 0));
     //信息素更新
     SparseMatrixAssign(pheromonestore, nextpheromonestore);
 }

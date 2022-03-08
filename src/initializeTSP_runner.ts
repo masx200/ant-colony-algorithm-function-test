@@ -44,5 +44,6 @@ export function initializeTSP_runner({
     runner.onfinishoneiteration(onresultchange);
     runner.onfinishoneroute(onresultchange);
     console.log(runner);
+    // debugger
     return runner;
 }

@@ -12,6 +12,7 @@ import { euclideandistance } from "./euclideandistance";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
 import { Nodecoordinates } from "./Nodecoordinates";
+import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 /**执行信息素扩散操作 */
 export function pheromoneDiffusionCallback({
     pheromonestore,
@@ -53,7 +54,12 @@ export function pheromoneDiffusionCallback({
             .sort((a, b) => /*从小到大排序*/ a.distance - b.distance)
             .slice(0, 50)
             .map((a) => a.city);
-        const selectedcitiesinsidecircle = pickRandom(nodesinsidecircle, 25);
+
+        /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
+        const selectedcitiesinsidecircle = pickRandom(
+            nodesinsidecircle,
+            Math.min(25, nodesinsidecircle.length)
+        );
         asserttrue(Array.isArray(selectedcitiesinsidecircle));
         const segmentsinsidecircle = [
             ...combinations(selectedcitiesinsidecircle, 2),
@@ -76,6 +82,7 @@ export function pheromoneDiffusionCallback({
             deltapheromonestore.set(cityA, cityB, -pheromoneZ * 0.5);
             const citiesandd1xd2 = segmentsinsidecircle.map(
                 ([cityC, cityD]) => {
+                    // debugger;
                     const pointF: [number, number] = [
                         (nodecoordinates[cityC][0] +
                             nodecoordinates[cityD][0]) /
@@ -136,9 +143,10 @@ export function pheromoneDiffusionCallback({
             );
             const oldpheromonestore = SparseMatrixFrom(pheromonestore);
             console.log({
-                oldpheromonestore,
-                pheromonestorenext,
+                oldpheromonestore: SparseMatrixToArrays(oldpheromonestore),
+                pheromonestorenext: SparseMatrixToArrays(pheromonestorenext),
             });
+            asserttrue(pheromonestorenext.values().every((a) => a > 0));
             SparseMatrixAssign(pheromonestore, pheromonestorenext);
         }
     };

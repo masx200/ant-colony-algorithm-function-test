@@ -7,6 +7,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+import { asserttrue } from "../test/asserttrue";
 
 export type AdaptiveTSPSearchOptions = {
     emitfinishoneroute: (data: DataOfFinishOneRoute) => void;
@@ -134,6 +135,9 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     console.log("种群相对信息熵", populationrelativeinformationentropy);
     console.log("随机选择概率", nextrandomselectionprobability);
     console.log("信息素扩散概率", pheromoneDiffusionProbability);
+    asserttrue(!Number.isNaN(populationrelativeinformationentropy));
+    asserttrue(!Number.isNaN(nextrandomselectionprobability));
+    asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
 
