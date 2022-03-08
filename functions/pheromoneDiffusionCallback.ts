@@ -6,7 +6,7 @@ import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixZeros } from "../matrixtools/SparseMatrixZeros";
+import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { asserttrue } from "../test/asserttrue";
 import { euclideandistance } from "./euclideandistance";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
@@ -67,9 +67,10 @@ export function pheromoneDiffusionCallback({
                 )
         );
         if (segmentsinsidecircle.length) {
-            const { row, column } = pheromonestore;
+            const { row, 
+ } = pheromonestore;
 
-            const deltapheromonestore = SparseMatrixZeros({ row, column });
+            const deltapheromonestore = SparseMatrixSymmetryCreate({ row, initializer:()=>0 });
             deltapheromonestore.set(cityA, cityB, -pheromoneZ * 0.5);
             const citiesandd1xd2 = segmentsinsidecircle.map(
                 ([cityC, cityD]) => {
