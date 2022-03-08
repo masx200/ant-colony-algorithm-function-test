@@ -34,7 +34,8 @@ width: min(100%,500px);
 }
 #chartcontainer {
     display: flex;
-
+max-height:100%;
+width:100%;
     align-items: center;
     align-content: center;
     justify-content: center;
