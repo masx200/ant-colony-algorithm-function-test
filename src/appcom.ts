@@ -122,7 +122,7 @@ export default defineComponent({
             const roundofsearch = searchrounds.value;
             const numberofeachroundvalue = numberofeachround.value;
             const element = selecteleref.value;
-            element && (element.selectedIndex = 0);
+            // element && (element.selectedIndex = 0);
             const nodecoordinates = TSP_cities_map.get(element?.value || "");
             if (
                 roundofsearch > 0 &&
