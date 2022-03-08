@@ -8,9 +8,13 @@ const finishalliterationsflag = Symbol();
 const finishonerouteflag = Symbol();
 const finishoneiterationflag = Symbol();
 interface TSPRunner {
-    onfinishalliterations: (callback: (data: DataOfFinishAllIteration) => void) => void;
+    onfinishalliterations: (
+        callback: (data: DataOfFinishAllIteration) => void
+    ) => void;
     runiterations: (iterations: number) => void;
-    onfinishoneiteration: (callback: (data: DataOfFinishOneIteration) => void) => void;
+    onfinishoneiteration: (
+        callback: (data: DataOfFinishOneIteration) => void
+    ) => void;
     onfinishoneroute: (callback: (data: DataOfFinishOneRoute) => void) => void;
     getlengthofstagnant: () => number;
     getnumberofiterations: () => number;
@@ -126,4 +130,7 @@ export function createTSPrunner({
 }
 export interface DataOfFinishOneRoute {}
 export interface DataOfFinishOneIteration {}
-export interface DataOfFinishAllIteration {}
+export interface DataOfFinishAllIteration {
+    globalbestroute: number[];
+    globalbestlength: number;
+}
