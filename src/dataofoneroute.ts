@@ -3,7 +3,7 @@ import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 export function clearDataOfOneRoute() {
     dataofoneroute.length = 0;
 }
-const dataofoneroute = reactive<DataOfFinishOneRoute[]>([]);
+export const dataofoneroute = reactive<DataOfFinishOneRoute[]>([]);
 export const oneroutetablebody = computed<
     [number, number, number, number, string][]
 >(() => {

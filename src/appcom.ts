@@ -1,4 +1,5 @@
 import { defineComponent, onMounted, reactive, ref } from "vue";
+import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { createchartofcontainer } from "./createchartofcontainer";
 import {
     oneiterationtablebody,
@@ -10,14 +11,15 @@ import { oneroutetablebody, oneroutetableheads } from "./dataofoneroute";
 //     ReturnType<typeof createchartofcontainer>
 // >();
 import datatable from "./datatable.vue";
+import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import {
     resultTableBody,
     resultTableHeads,
 } from "./resultTableHeads-resultTableBody";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_Start } from "./tsp-start";
-import { TSP_terminate } from "./TSP_terminate";
 import { TSP_cities_map } from "./TSP_cities_map";
+import { TSP_terminate } from "./TSP_terminate";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
 console.log(TSP_cities_data);
 export default defineComponent({
@@ -87,6 +89,33 @@ export default defineComponent({
             // });
             // });
         });
+        const onLatestRouteChange = (
+            route: number[],
+            nodecoordinates: Nodecoordinates
+        ) => {
+            const latestchart = chartstore.latest;
+            if (latestchart) {
+                drawrouteofnodecoordinates({
+                    route,
+                    nodecoordinates,
+                    chart: latestchart,
+                });
+            }
+        };
+        const onGlobalBestRouteChange = (
+            route: number[],
+            nodecoordinates: Nodecoordinates
+        ) => {
+            const chart = chartstore.best;
+            if (chart) {
+                drawrouteofnodecoordinates({
+                    route,
+                    nodecoordinates,
+                    chart: chart,
+                });
+            }
+        };
+
         const runtsp = () => {
             console.log("搜索轮次", searchrounds.value);
             console.log("每轮次数", numberofeachround.value);
@@ -101,18 +130,24 @@ export default defineComponent({
                 nodecoordinates
             ) {
                 disablemapswitching.value = true;
-
+                const numberofants = numberofeachroundvalue;
                 console.log(nodecoordinates);
-                TSP_Start(nodecoordinates);
+                TSP_Start({
+                    onGlobalBestRouteChange,
+                    nodecoordinates,
+                    numberofants,
+                    roundofsearch,
+                    onLatestRouteChange,
+                });
             } else {
                 searchrounds.value = 1;
                 numberofeachround.value = 1;
             }
         };
         function reset() {
-            const element = selecteleref.value;
-            element && (element.selectedIndex = 0);
-            const nodecoordinates = TSP_cities_map.get(element?.value || "");
+            // const element = selecteleref.value;
+            // element && (element.selectedIndex = 0);
+            // const nodecoordinates = TSP_cities_map.get(element?.value || "");
             TSP_terminate();
             disablemapswitching.value = false;
         }

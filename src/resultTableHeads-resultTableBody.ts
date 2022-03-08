@@ -4,7 +4,7 @@ export function clearDataOfResult() {
     dataofresult.value = undefined;
 }
 export const resultTableHeads = ["全局最优长度", "全局最优路径", "总共耗时秒"];
-const dataofresult = ref<DataOfFinishAllIteration>();
+export const dataofresult = ref<DataOfFinishAllIteration>();
 export const resultTableBody = computed(() => {
     const result = dataofresult.value;
     return result

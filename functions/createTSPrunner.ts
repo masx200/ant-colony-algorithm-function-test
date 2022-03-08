@@ -31,15 +31,19 @@ export interface TSPRunner {
     getglobalbestroute: () => number[];
     getcurrentsearchcount: () => number;
     pheromonestore: SparseMatrixSymmetry<number>;
-    betazero: number;
-    maxnumberofstagnant: number;
+
+    pathTabooList: PathTabooList<number>;
+    [Symbol.toStringTag]: string;
+    pheromonevolatilitycoefficientR2: number;
+    pheromonevolatilitycoefficientR1: number;
+    pheromoneintensityQ: number;
     nodecoordinates: Nodecoordinates;
     alphazero: number;
+    betazero: number;
     searchloopcountratio: number;
     numberofants: number;
     maxnumberofiterations: number;
-    pathTabooList: PathTabooList<number>;
-    [Symbol.toStringTag]: string;
+    maxnumberofstagnant: number;
 }
 
 export function createTSPrunner({
@@ -245,6 +249,9 @@ export function createTSPrunner({
         emitter.emit(finishalliterationsflag, data);
     };
     const result: TSPRunner = {
+        pheromonevolatilitycoefficientR2,
+        pheromonevolatilitycoefficientR1,
+        pheromoneintensityQ,
         gettotaltimems,
         onfinishalliterations,
         runiterations,

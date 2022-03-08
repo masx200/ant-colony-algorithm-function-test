@@ -3,7 +3,7 @@ import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration"
 export function clearDataOfOneIteration() {
     dataofoneiteration.length = 0;
 }
-const dataofoneiteration = reactive<DataOfFinishOneIteration[]>([]);
+export const dataofoneiteration = reactive<DataOfFinishOneIteration[]>([]);
 export const oneiterationtablebody = computed<
     [number, number, number, boolean, number, number, number, string][]
 >(() => {
