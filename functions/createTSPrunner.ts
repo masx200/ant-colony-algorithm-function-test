@@ -1,16 +1,19 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
+import { asserttrue } from "../test/asserttrue";
 import { createPathTabooList } from "./createPathTabooList";
 import { createPheromonestore } from "./createPheromonestore";
 import { DataOfFinishAllIteration } from "./DataOfFinishAllIteration";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 const finishalliterationsflag = Symbol();
 const finishonerouteflag = Symbol();
 const finishoneiterationflag = Symbol();
 export interface TSPRunner {
+    gettotaltimems: () => number;
     onfinishalliterations: (
         callback: (data: DataOfFinishAllIteration) => void
     ) => void;
@@ -24,7 +27,7 @@ export interface TSPRunner {
     getnumberofstagnant: () => number;
     getglobalbestlength: () => number;
     getglobalbestroute: () => number[];
-    getcurrentsearchindex: () => number;
+    getcurrentsearchcount: () => number;
     pheromonestore: SparseMatrixSymmetry<number>;
     betazero: number;
     maxnumberofstagnant: number;
@@ -53,12 +56,17 @@ export function createTSPrunner({
     maxnumberofiterations: number;
     maxnumberofstagnant: number;
 }): TSPRunner {
+    let totaltimems = 0;
+    const gettotaltimems = () => {
+        return totaltimems;
+    };
+
     const countofnodes = nodecoordinates.length;
     const pathtaboolist = createPathTabooList(countofnodes);
     const pheromonestore = createPheromonestore(countofnodes);
-    let currentsearchindex = 0;
-    const getcurrentsearchindex = () => {
-        return currentsearchindex;
+    let currentsearchcount = 0;
+    const getcurrentsearchcount = () => {
+        return currentsearchcount;
     };
     let globalbestroute: number[] = [];
     const getglobalbestroute = () => {
@@ -98,7 +106,19 @@ export function createTSPrunner({
     const emitfinishoneiteration = (data: DataOfFinishOneIteration) => {
         emitter.emit(finishoneiterationflag, data);
     };
-    const runiterations = (iterations: number) => {};
+    const runiterations = (iterations: number) => {
+        asserttrue(iterations > 0);
+        if (currentsearchcount === 0) {
+            const starttime = Number(new Date());
+            const { route, totallength } =
+                Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
+            const endtime = Number(new Date());
+            const countofloops = countofnodes * countofnodes;
+            const timems = endtime - starttime;
+            totaltimems += timems;
+            emitfinishoneroute({ route, totallength, timems, countofloops });
+        }
+    };
 
     const onfinishalliterations = (
         callback: (data: DataOfFinishAllIteration) => void
@@ -108,7 +128,8 @@ export function createTSPrunner({
     const emitfinishalliterations = (data: DataOfFinishAllIteration) => {
         emitter.emit(finishalliterationsflag, data);
     };
-    const result = {
+    const result: TSPRunner = {
+        gettotaltimems,
         onfinishalliterations,
         runiterations,
         onfinishoneiteration,
@@ -118,7 +139,7 @@ export function createTSPrunner({
         getnumberofstagnant,
         getglobalbestlength,
         getglobalbestroute,
-        getcurrentsearchindex,
+        getcurrentsearchcount,
         pheromonestore,
         betazero,
         maxnumberofstagnant,
@@ -131,4 +152,3 @@ export function createTSPrunner({
     };
     return result;
 }
-
