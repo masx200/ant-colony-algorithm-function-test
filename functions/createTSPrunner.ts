@@ -7,7 +7,7 @@ import { PathTabooList } from "./PathTabooList";
 const finishalliterationsflag = Symbol();
 const finishonerouteflag = Symbol();
 const finishoneiterationflag = Symbol();
-interface TSPRunner {
+export interface TSPRunner {
     onfinishalliterations: (
         callback: (data: DataOfFinishAllIteration) => void
     ) => void;
