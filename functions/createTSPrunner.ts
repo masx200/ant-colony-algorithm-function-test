@@ -52,15 +52,15 @@ export function createTSPrunner({
     maxnumberofiterations = 1000,
     maxnumberofstagnant = 30,
 }: {
-    pheromonevolatilitycoefficientR2: number;
-    pheromoneintensityQ: number;
+    pheromonevolatilitycoefficientR2?: number;
+    pheromoneintensityQ?: number;
     nodecoordinates: Nodecoordinates;
-    alphazero: number;
-    betazero: number;
-    searchloopcountratio: number;
-    numberofants: number;
-    maxnumberofiterations: number;
-    maxnumberofstagnant: number;
+    alphazero?: number;
+    betazero?: number;
+    searchloopcountratio?: number;
+    numberofants?: number;
+    maxnumberofiterations?: number;
+    maxnumberofstagnant?: number;
 }): TSPRunner {
     const pheromonevolatilitycoefficientR1 =
         1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
@@ -148,6 +148,9 @@ export function createTSPrunner({
             stagnantlength = totallength;
             globalbestlength = totallength;
             globalbestroute = route;
+//信息素初始化
+SparseMatrixFill(pheromonestore,1/countofnodes/totallength)
+
         }
         if (
             maxnumberofiterations > numberofiterations &&
