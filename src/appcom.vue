@@ -21,13 +21,17 @@
     <button v-text="'运行'" @click="runtsp" />
     <hr />
     <div id="chartcontainer" style="">
-        <div style="width: 500px; height: 500px" ref="chartofbestref"></div>
-        <div style="width: 500px; height: 500px" ref="chartoflatestref"></div>
+        <div class="singlechart" style="" ref="chartofbestref"></div>
+        <div class="singlechart" style="" ref="chartoflatestref"></div>
     </div>
     <datatable />
 </template>
 <script lang="ts" src="./appcom.ts"></script>
 <style scoped>
+.singlechart{
+width: min(100%,500px);
+ height: min(500px,100%);
+}
 #chartcontainer {
     display: flex;
 
