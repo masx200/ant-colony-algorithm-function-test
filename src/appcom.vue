@@ -23,21 +23,22 @@
     <div id="chartcontainer" style="">
         <div class="singlechart" style="" ref="chartofbestref"></div>
         <div class="singlechart" style="" ref="chartoflatestref"></div>
-    </div><hr />
+    </div>
+    <hr />
     <datatable />
 </template>
 <script lang="ts" src="./appcom.ts"></script>
 <style scoped>
-.singlechart{
-max-width:100%;
-width: 500px;
- height: 500px;
+.singlechart {
+    max-width: 100%;
+    width: 500px;
+    height: 500px;
 }
 #chartcontainer {
-max-width:100%;
+    max-width: 100%;
     display: flex;
-max-height:100%;
-width:100%;
+    max-height: 100%;
+    width: 100%;
     align-items: center;
     align-content: center;
     justify-content: center;

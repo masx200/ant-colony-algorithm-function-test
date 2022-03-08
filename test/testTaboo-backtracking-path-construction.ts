@@ -49,7 +49,7 @@ export function test_taboo_backtracking_path_construction(
             cachebestlengthofnodecoordinates.get(nodecoordinates) || Infinity
         );
     }
-    const {route}= taboo_backtracking_path_construction({
+    const { route } = taboo_backtracking_path_construction({
         searchloopcountratio,
 
         randomselectionprobability,

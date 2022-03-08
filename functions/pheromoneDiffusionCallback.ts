@@ -67,10 +67,12 @@ export function pheromoneDiffusionCallback({
                 )
         );
         if (segmentsinsidecircle.length) {
-            const { row, 
- } = pheromonestore;
+            const { row } = pheromonestore;
 
-            const deltapheromonestore = SparseMatrixSymmetryCreate({ row, initializer:()=>0 });
+            const deltapheromonestore = SparseMatrixSymmetryCreate({
+                row,
+                initializer: () => 0,
+            });
             deltapheromonestore.set(cityA, cityB, -pheromoneZ * 0.5);
             const citiesandd1xd2 = segmentsinsidecircle.map(
                 ([cityC, cityD]) => {

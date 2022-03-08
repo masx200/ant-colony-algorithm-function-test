@@ -149,9 +149,8 @@ export function createTSPrunner({
             stagnantlength = totallength;
             globalbestlength = totallength;
             globalbestroute = route;
-//信息素初始化
-SparseMatrixFill(pheromonestore,1/countofnodes/totallength)
-
+            //信息素初始化
+            SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
         }
         if (
             maxnumberofiterations > numberofiterations &&
