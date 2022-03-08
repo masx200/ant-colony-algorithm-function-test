@@ -20,12 +20,22 @@
 
     <button v-text="'运行'" @click="runtsp" />
     <hr />
+    <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
+    <hr />
     <div id="chartcontainer" style="">
         <div class="singlechart" style="" ref="chartofbestref"></div>
         <div class="singlechart" style="" ref="chartoflatestref"></div>
     </div>
     <hr />
-    <datatable />
+    <datatable
+        :tableheads="oneiterationtableheads"
+        :tablebody="oneiterationtablebody"
+    />
+    <hr />
+    <datatable
+        :tableheads="oneroutetableheads"
+        :tablebody="oneroutetablebody"
+    />
 </template>
 <script lang="ts" src="./appcom.ts"></script>
 <style scoped>

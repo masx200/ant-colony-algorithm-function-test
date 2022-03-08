@@ -1,21 +1,14 @@
-import { computed, defineComponent } from "vue";
-import { dataofoneroute } from "./dataofoneroute";
-const tablebody = computed<[number, number, number, number, string][]>(() => {
-    return dataofoneroute.map((data, index) => {
-        return [
-            index,
-            data.totallength,
-            data.countofloops,
-            data.timems / 1000,
-            JSON.stringify(data.route),
-        ];
-    });
-});
-console.log(dataofoneroute, tablebody);
-export default defineComponent({
-    setup() {
-        const tableheads = ["序号", "长度", "循环次数", "耗时秒", "路径"];
+import { defineComponent, PropType } from "vue";
 
+export default defineComponent({
+    props: {
+        tableheads: { type: Array as PropType<string[]>, required: true },
+        tablebody: {
+            required: true,
+            type: Array as PropType<Array<string | number | boolean>>,
+        },
+    },
+    setup({ tableheads, tablebody }) {
         return { tableheads, tablebody };
     },
 });

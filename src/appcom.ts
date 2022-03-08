@@ -1,14 +1,23 @@
 import { defineComponent, onMounted, reactive, ref } from "vue";
-import { TSP_cities_map } from "./TSP_cities_map";
 import { createchartofcontainer } from "./createchartofcontainer";
-import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
-const TSP_cities_data = Array.from(TSP_cities_map.entries());
-console.log(TSP_cities_data);
+import {
+    oneiterationtablebody,
+    oneiterationtableheads,
+} from "./dataofoneiteration";
+import { oneroutetablebody, oneroutetableheads } from "./dataofoneroute";
 // const containertoechart = new WeakMap<
 //     HTMLElement,
 //     ReturnType<typeof createchartofcontainer>
 // >();
 import datatable from "./datatable.vue";
+import {
+    resultTableBody,
+    resultTableHeads,
+} from "./resultTableHeads-resultTableBody";
+import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
+import { TSP_cities_map } from "./TSP_cities_map";
+const TSP_cities_data = Array.from(TSP_cities_map.entries());
+console.log(TSP_cities_data);
 export default defineComponent({
     components: { datatable },
     setup() {
@@ -49,6 +58,7 @@ export default defineComponent({
 
             const containerofbest = chartofbestref.value;
             const containeroflatest = chartoflatestref.value;
+            // setTimeout(() => {
             if (containerofbest && containeroflatest) {
                 const bestchart = createchartofcontainer(containerofbest);
                 const latestchart = createchartofcontainer(containeroflatest);
@@ -57,6 +67,7 @@ export default defineComponent({
             }
             // setTimeout(() => {
             submit();
+            // });
             // });
         });
         const runtsp = () => {
@@ -72,6 +83,12 @@ export default defineComponent({
             }
         };
         return {
+            resultTableHeads,
+            resultTableBody,
+            oneroutetableheads,
+            oneroutetablebody,
+            oneiterationtableheads,
+            oneiterationtablebody,
             numberofeachround,
             disablemapswitching,
             runtsp,
