@@ -1,5 +1,6 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
+import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
 import { asserttrue } from "../test/asserttrue";
 import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
 import { createpathTabooList } from "../pathTabooList/createPathTabooList";
