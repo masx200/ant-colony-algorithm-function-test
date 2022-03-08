@@ -29,10 +29,12 @@
 <script lang="ts" src="./appcom.ts"></script>
 <style scoped>
 .singlechart{
-width: min(100%,500px);
- height: min(500px,100%);
+max-width:100%;
+width: 500px;
+ height: 500px;
 }
 #chartcontainer {
+max-width:100%;
     display: flex;
 max-height:100%;
 width:100%;
