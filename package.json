@@ -20,6 +20,7 @@
         "vite": "^2.8.4"
     },
     "dependencies": {
+        "@masx200/event-emitter-target": "^1.1.9",
         "@vitejs/plugin-vue": "^2.2.4",
         "combinatorial-generators": "^1.0.1",
         "comlink": "^4.3.1",
