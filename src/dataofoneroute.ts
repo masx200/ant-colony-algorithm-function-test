@@ -1,5 +1,4 @@
 import { reactive } from "vue";
+import { DataOfFinishOneRoute } from "../functions/createTSPrunner";
 
-export const dataofoneroute = reactive<
-    { totallength: number; loops: number; timems: number; route: number[] }[]
->([]);
+export const dataofoneroute = reactive<DataOfFinishOneRoute[]>([]);

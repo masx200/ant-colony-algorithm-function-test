@@ -128,7 +128,12 @@ export function createTSPrunner({
     };
     return result;
 }
-export interface DataOfFinishOneRoute {}
+export interface DataOfFinishOneRoute {
+    timems: number;
+    route: number[];
+    totallength: number;
+    countofloops: number;
+}
 export interface DataOfFinishOneIteration {}
 export interface DataOfFinishAllIteration {
     globalbestroute: number[];

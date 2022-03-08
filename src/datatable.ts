@@ -5,7 +5,7 @@ const tablebody = computed<[number, number, number, number, string][]>(() => {
         return [
             index,
             data.totallength,
-            data.loops,
+            data.countofloops,
             data.timems / 1000,
             JSON.stringify(data.route),
         ];
