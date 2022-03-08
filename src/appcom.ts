@@ -15,6 +15,8 @@ import {
     resultTableHeads,
 } from "./resultTableHeads-resultTableBody";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
+import { TSP_Start } from "./tsp-start";
+import { TSP_terminate } from "./TSP_terminate";
 import { TSP_cities_map } from "./TSP_cities_map";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
 console.log(TSP_cities_data);
@@ -22,7 +24,7 @@ export default defineComponent({
     components: { datatable },
     setup() {
         const disablemapswitching = ref(false);
-        const searchrounds = ref(2);
+        const searchrounds = ref(5);
         const numberofeachround = ref(5);
         const selecteleref = ref<HTMLSelectElement>();
         const chartofbestref = ref<HTMLDivElement>();
@@ -41,10 +43,24 @@ export default defineComponent({
             const nodecoordinates = TSP_cities_map.get(element?.value || "");
             if (nodecoordinates) {
                 console.log(nodecoordinates);
-                const bestchart = chartstore.best;
-                if (bestchart) {
-                    showanddrawrandomgreedyoftsp(nodecoordinates, bestchart);
-                }
+                setTimeout(() => {
+                    const latestchart = chartstore.latest;
+                    if (latestchart) {
+                        showanddrawrandomgreedyoftsp(
+                            nodecoordinates,
+                            latestchart
+                        );
+                    }
+                });
+                setTimeout(() => {
+                    const bestchart = chartstore.best;
+                    if (bestchart) {
+                        showanddrawrandomgreedyoftsp(
+                            nodecoordinates,
+                            bestchart
+                        );
+                    }
+                });
             }
         };
         onMounted(() => {
@@ -62,6 +78,7 @@ export default defineComponent({
             if (containerofbest && containeroflatest) {
                 const bestchart = createchartofcontainer(containerofbest);
                 const latestchart = createchartofcontainer(containeroflatest);
+                console.log({ bestchart, latestchart });
                 chartstore.latest = latestchart;
                 chartstore.best = bestchart;
             }
@@ -75,14 +92,32 @@ export default defineComponent({
             console.log("每轮次数", numberofeachround.value);
             const roundofsearch = searchrounds.value;
             const numberofeachroundvalue = numberofeachround.value;
-            if (roundofsearch > 0 && numberofeachroundvalue > 0) {
+            const element = selecteleref.value;
+            element && (element.selectedIndex = 0);
+            const nodecoordinates = TSP_cities_map.get(element?.value || "");
+            if (
+                roundofsearch > 0 &&
+                numberofeachroundvalue > 0 &&
+                nodecoordinates
+            ) {
                 disablemapswitching.value = true;
+
+                console.log(nodecoordinates);
+                TSP_Start(nodecoordinates);
             } else {
                 searchrounds.value = 1;
                 numberofeachround.value = 1;
             }
         };
+        function reset() {
+            const element = selecteleref.value;
+            element && (element.selectedIndex = 0);
+            const nodecoordinates = TSP_cities_map.get(element?.value || "");
+            TSP_terminate();
+            disablemapswitching.value = false;
+        }
         return {
+            reset,
             resultTableHeads,
             resultTableBody,
             oneroutetableheads,

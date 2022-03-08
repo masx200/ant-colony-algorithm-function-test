@@ -1,7 +1,7 @@
 <template>
-    <h1>禁忌路径构建测试</h1>
+    <h1>蚁群禁忌路径构建测试</h1>
     <hr />
-    <h5>选择城市地图</h5>
+    <span>选择城市地图</span>
     <select ref="selecteleref" :disabled="disablemapswitching">
         <option
             v-for="item in TSP_cities_data"
@@ -12,20 +12,23 @@
         </option>
     </select>
     <button v-text="'确定'" @click="submit" :disabled="disablemapswitching" />
+    <button v-text="'重置'" @click="reset" />
     <hr />
-    <h5>每轮次数</h5>
+    <span>每轮次数</span>
     <input v-model="numberofeachround" :disabled="disablemapswitching" />
-    <h5>搜索轮次</h5>
+    <span>搜索轮次</span>
     <input v-model="searchrounds" />
 
     <button v-text="'运行'" @click="runtsp" />
     <hr />
-    <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
-    <hr />
+
     <div id="chartcontainer" style="">
         <div class="singlechart" style="" ref="chartofbestref"></div>
         <div class="singlechart" style="" ref="chartoflatestref"></div>
     </div>
+    <hr />
+    <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
+
     <hr />
     <datatable
         :tableheads="oneiterationtableheads"
