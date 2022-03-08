@@ -1,9 +1,9 @@
-import { PathTabooListSymbol } from "./PathTabooListSymbol";
+import { pathTabooListSymbol } from "./pathTabooListSymbol";
 
 /**
  * 路径禁忌列表  类似于Set*/
 export type PathTabooList<N extends number = number> = {
-    [PathTabooListSymbol]: true;
+    [pathTabooListSymbol]: true;
     size(): number;
     countofnodes: N;
     add(route: number[]): void;

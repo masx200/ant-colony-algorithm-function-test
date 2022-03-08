@@ -1,7 +1,7 @@
 import { pickRandom } from "mathjs";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { asserttrue } from "../test/asserttrue";
-import { Constants } from "./Constants";
+
 import { constructonesteproute } from "./constructonesteproute";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { filterforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
@@ -10,11 +10,14 @@ import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { intersectionfilterfun } from "./intersectionfilterfun";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 
-export type PathConstructOptions = Constants & {
+export type PathConstructOptions = {
+    alphazero: number;
+    betazero: number;
+    randomselectionprobability: number;
     /**搜索循环次数比例 */
     searchloopcountratio: number;
     getbestlength: () => number;
@@ -40,7 +43,10 @@ export type PathConstructOptions = Constants & {
 /**禁忌回溯路径构建 */
 export function taboo_backtracking_path_construction(
     opts: PathConstructOptions
-): number[] {
+): {
+    route: number[];
+    countofloops: number;
+} {
     const filterforbiddenbeforepick: FilterForbiddenBeforePick =
         filterforbiddenbeforepickfun;
     const intersectionfilter: IntersectionFilter = intersectionfilterfun;
@@ -81,7 +87,7 @@ export function taboo_backtracking_path_construction(
         return geteuclideandistancebyindex(left, right, nodecoordinates);
     };
 
-    // const pathTabooList: PathTabooList = createPathTabooList(countofnodes);
+    // const pathTabooList: pathTabooList = createpathTabooList(countofnodes);
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
@@ -153,5 +159,5 @@ export function taboo_backtracking_path_construction(
         "路径一条构建完成,平均每次循环消耗的时间毫秒",
         (endtime - starttime) / trycount
     );
-    return route;
+    return { route, countofloops: trycount };
 }

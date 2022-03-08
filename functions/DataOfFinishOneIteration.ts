@@ -1,9 +1,9 @@
 export interface DataOfFinishOneIteration {
     populationrelativeinformationentropy: number;
-    pheromoneDiffusion: boolean;
+    ispheromoneDiffusion: boolean;
     randomselectionprobability: number;
     pheromoneDiffusionProbability: number;
     optimallengthofthisround: number;
-    optimalrouteofthisround: number;
+    optimalrouteofthisround: number[];
     timems: number;
 }

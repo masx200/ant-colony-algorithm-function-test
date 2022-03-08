@@ -1,14 +1,15 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { asserttrue } from "../test/asserttrue";
-import { createPathTabooList } from "./createPathTabooList";
+import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
+import { createpathTabooList } from "../pathTabooList/createPathTabooList";
 import { createPheromonestore } from "./createPheromonestore";
 import { DataOfFinishAllIteration } from "./DataOfFinishAllIteration";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 const finishalliterationsflag = Symbol();
 const finishonerouteflag = Symbol();
 const finishoneiterationflag = Symbol();
@@ -36,10 +37,13 @@ export interface TSPRunner {
     searchloopcountratio: number;
     numberofants: number;
     maxnumberofiterations: number;
-    pathtaboolist: PathTabooList<number>;
+    pathTabooList: PathTabooList<number>;
+    [Symbol.toStringTag]: string;
 }
 
 export function createTSPrunner({
+    pheromonevolatilitycoefficientR2 = 0.1,
+    pheromoneintensityQ = 1,
     nodecoordinates,
     alphazero = 1,
     betazero = 5,
@@ -48,6 +52,8 @@ export function createTSPrunner({
     maxnumberofiterations = 1000,
     maxnumberofstagnant = 30,
 }: {
+    pheromonevolatilitycoefficientR2: number;
+    pheromoneintensityQ: number;
     nodecoordinates: Nodecoordinates;
     alphazero: number;
     betazero: number;
@@ -56,17 +62,33 @@ export function createTSPrunner({
     maxnumberofiterations: number;
     maxnumberofstagnant: number;
 }): TSPRunner {
+    const pheromonevolatilitycoefficientR1 =
+        1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
+
+    console.log({
+        numberofants,
+        pheromonevolatilitycoefficientR1,
+        pheromonevolatilitycoefficientR2,
+        pheromoneintensityQ,
+    });
+    let lastrandomselectionprobability = 0;
     let totaltimems = 0;
     const gettotaltimems = () => {
         return totaltimems;
     };
 
     const countofnodes = nodecoordinates.length;
-    const pathtaboolist = createPathTabooList(countofnodes);
+    const pathTabooList = createpathTabooList(countofnodes);
     const pheromonestore = createPheromonestore(countofnodes);
     let currentsearchcount = 0;
     const getcurrentsearchcount = () => {
         return currentsearchcount;
+    };
+    const setbestlength = (bestlength: number) => {
+        globalbestlength = bestlength;
+    };
+    const setbestroute = (route: number[]) => {
+        globalbestroute = route;
     };
     let globalbestroute: number[] = [];
     const getglobalbestroute = () => {
@@ -106,8 +128,8 @@ export function createTSPrunner({
     const emitfinishoneiteration = (data: DataOfFinishOneIteration) => {
         emitter.emit(finishoneiterationflag, data);
     };
-    const runiterations = (iterations: number) => {
-        asserttrue(iterations > 0);
+    let stagnantlength = Infinity;
+    const runoneiteration = () => {
         if (currentsearchcount === 0) {
             const starttime = Number(new Date());
             const { route, totallength } =
@@ -116,7 +138,98 @@ export function createTSPrunner({
             const countofloops = countofnodes * countofnodes;
             const timems = endtime - starttime;
             totaltimems += timems;
-            emitfinishoneroute({ route, totallength, timems, countofloops });
+            emitfinishoneroute({
+                route,
+                totallength,
+                timems,
+                countofloops,
+            });
+            currentsearchcount++;
+            stagnantlength = totallength;
+            globalbestlength = totallength;
+            globalbestroute = route;
+        }
+        if (
+            maxnumberofiterations > numberofiterations &&
+            maxnumberofstagnant / numberofants > numberofstagnant
+        ) {
+            const starttime = Number(new Date());
+
+            const {
+                nextrandomselectionprobability,
+                routesandlengths,
+                pheromoneDiffusionProbability,
+                populationrelativeinformationentropy,
+                ispheromoneDiffusion,
+                optimallengthofthisround,
+                optimalrouteofthisround,
+            } = adaptiveTabooSingleIterateTSPSearchSolve({
+                emitfinishoneroute,
+                setbestroute,
+                setbestlength,
+                getbestlength: getglobalbestlength,
+                getbestroute: getglobalbestroute,
+                pathTabooList,
+                pheromonestore,
+                nodecoordinates,
+                numberofants,
+                alphazero,
+                betazero,
+                lastrandomselectionprobability,
+                searchloopcountratio,
+                pheromonevolatilitycoefficientR2,
+                pheromonevolatilitycoefficientR1,
+                pheromoneintensityQ,
+            });
+
+            const endtime = Number(new Date());
+
+            if (
+                routesandlengths.every(
+                    ({ totallength }) => totallength === stagnantlength
+                )
+            ) {
+                numberofstagnant++;
+            } else {
+                numberofstagnant = 0;
+            }
+            stagnantlength = routesandlengths[0].totallength;
+            lastrandomselectionprobability = nextrandomselectionprobability;
+            // console.log({ routesandlengths });
+            const timems = endtime - starttime;
+            totaltimems += timems;
+            currentsearchcount += numberofants;
+            numberofiterations++;
+            emitfinishoneiteration({
+                pheromoneDiffusionProbability,
+                optimallengthofthisround,
+                optimalrouteofthisround,
+                populationrelativeinformationentropy,
+                ispheromoneDiffusion,
+                randomselectionprobability: nextrandomselectionprobability,
+                timems,
+            });
+        } else {
+            const timems = totaltimems;
+            emitfinishalliterations({
+                timems,
+                globalbestlength,
+                globalbestroute,
+            });
+        }
+    };
+    const runiterations = (iterations: number) => {
+        asserttrue(iterations > 0);
+
+        for (let i = 0; i < iterations; i++) {
+            if (
+                maxnumberofiterations > numberofiterations &&
+                maxnumberofstagnant / numberofants > numberofstagnant
+            ) {
+                runoneiteration();
+            } else {
+                break;
+            }
         }
     };
 
@@ -148,7 +261,8 @@ export function createTSPrunner({
         searchloopcountratio,
         numberofants,
         maxnumberofiterations,
-        pathtaboolist,
+        pathTabooList,
+        [Symbol.toStringTag]: "TSPRunner",
     };
     return result;
 }

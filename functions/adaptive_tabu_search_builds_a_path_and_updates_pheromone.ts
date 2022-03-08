@@ -3,11 +3,13 @@ import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
+import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
+    emitfinishoneroute,
     searchloopcountratio,
     pheromoneintensityQ,
     pheromonevolatilitycoefficientR1,
@@ -23,6 +25,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     setbestroute,
     getbestroute,
 }: {
+    emitfinishoneroute: (data: DataOfFinishOneRoute) => void;
     searchloopcountratio: number;
     pheromoneintensityQ: number;
     pheromonevolatilitycoefficientR1: number;
@@ -46,8 +49,8 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     //     .fill(0)
     //     .map((_v, i) => i);
     // const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
-
-    const route = taboo_backtracking_path_construction({
+    const starttime = Number(new Date());
+    const { route, countofloops } = taboo_backtracking_path_construction({
         searchloopcountratio,
         alphazero,
 
@@ -59,12 +62,14 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         pheromonestore,
         // startnode,
     });
+    const endtime = Number(new Date());
+    const timems = endtime - starttime;
     const totallength = closedtotalpathlength({
         // countofnodes: route.length,
         path: route,
         getdistancebyindex: creategetdistancebyindex(nodecoordinates),
     });
-
+    emitfinishoneroute({ totallength, route, countofloops, timems });
     const bestlength = getbestlength();
     if (bestlength && bestlength >= totallength) {
         setbestlength(totallength);

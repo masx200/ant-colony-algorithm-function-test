@@ -1,25 +1,26 @@
 import { isEqual } from "lodash";
-import { createPathTabooList } from "../functions/createPathTabooList";
-import { isPathTabooList } from "../functions/isPathTabooList";
-import { PathTabooListFrom } from "../functions/PathTabooListFrom";
-import { PathTabooListToJSON } from "../functions/PathTabooListToJSON";
+import { createpathTabooList } from "../pathTabooList/createPathTabooList";
+import { ispathTabooList } from "../pathTabooList/isPathTabooList";
+import { pathTabooListFrom } from "../pathTabooList/PathTabooListFrom";
+import { pathTabooListToJSON } from "../pathTabooList/PathTabooListToJSON";
+
 import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
-export function testPathTabooList() {
-    console.log("test PathTabooList start");
+export function testpathTabooList() {
+    console.log("test pathTabooList start");
 
-    const ptl = createPathTabooList(10);
-    const ptlclone = PathTabooListFrom(ptl);
+    const ptl = createpathTabooList(10);
+    const ptlclone = pathTabooListFrom(ptl);
     asserttrue(!isEqual(ptlclone, ptl));
-    asserttrue(isPathTabooList(ptlclone));
+    asserttrue(ispathTabooList(ptlclone));
     asserttrue(ptlclone.countofnodes == 10);
-    asserttrue(isPathTabooList(ptl));
+    asserttrue(ispathTabooList(ptl));
     assertshouldcatcherror(() => {
-        createPathTabooList(0);
+        createpathTabooList(0);
     });
     assertshouldcatcherror(() => {
-        createPathTabooList(1);
+        createpathTabooList(1);
     });
     console.log(ptl);
     asserttrue(ptl.size() === 0);
@@ -67,7 +68,7 @@ export function testPathTabooList() {
     asserttrue(ptl.has([2, 3, 4, 5, 6, 7, 8, 9, 0, 1]));
     asserttrue(isEqual(ptl.values(), [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]]));
 
-    const jsonofptl = PathTabooListToJSON(ptl);
+    const jsonofptl = pathTabooListToJSON(ptl);
     console.log(jsonofptl);
     asserttrue(
         isEqual(jsonofptl, {
@@ -78,5 +79,5 @@ export function testPathTabooList() {
 
     asserttrue(ptl.delete([2, 3, 4, 5, 6, 7, 8, 9, 0, 1]));
     asserttrue(ptl.size() === 0);
-    console.log("test PathTabooList end");
+    console.log("test pathTabooList end");
 }

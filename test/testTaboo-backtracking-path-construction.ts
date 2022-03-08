@@ -4,7 +4,7 @@ import { cachenodecoordinatestopathTabooList } from "../functions/cachenodecoord
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { createmychart } from "../functions/createmychart";
-import { createPathTabooList } from "../functions/createPathTabooList";
+import { createpathTabooList } from "../pathTabooList/createPathTabooList";
 import { createPheromonestore } from "../functions/createPheromonestore";
 import { drawlinechart } from "../functions/drawlinechart";
 // import { intersectionfilter } from "../functions/intersectionfilter";
@@ -49,7 +49,7 @@ export function test_taboo_backtracking_path_construction(
             cachebestlengthofnodecoordinates.get(nodecoordinates) || Infinity
         );
     }
-    const route = taboo_backtracking_path_construction({
+    const {route}= taboo_backtracking_path_construction({
         searchloopcountratio,
 
         randomselectionprobability,
@@ -123,7 +123,7 @@ function createptlandset(
     countofnodes: number,
     nodecoordinates: Nodecoordinates
 ) {
-    const ptl = createPathTabooList(countofnodes);
+    const ptl = createpathTabooList(countofnodes);
     cachenodecoordinatestopathTabooList.set(nodecoordinates, ptl);
     return ptl;
 }

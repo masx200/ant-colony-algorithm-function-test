@@ -3,7 +3,10 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": ["ESNext", "DOM"],
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
         "moduleResolution": "Node",
         "strict": true,
         "sourceMap": true,
@@ -15,5 +18,12 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src", "test", "functions", "matrixtools", "vue.d.ts"]
+    "include": [
+        "src",
+        "test",
+        "functions",
+        "matrixtools",
+        "vue.d.ts",
+        "pathTabooList",
+    ]
 }

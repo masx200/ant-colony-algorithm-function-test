@@ -3,11 +3,14 @@ import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adap
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
+import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 
 export type AdaptiveTSPSearchOptions = {
+    emitfinishoneroute: (data: DataOfFinishOneRoute) => void;
+    lastrandomselectionprobability: number;
     searchloopcountratio: number;
 
     getbestroute: () => number[];
@@ -38,13 +41,22 @@ export type AdaptiveTSPSearchOptions = {
 export function adaptiveTabooSingleIterateTSPSearchSolve(
     opts: AdaptiveTSPSearchOptions
 ): {
-    route: number[];
-    totallength: number;
-}[] {
+    nextrandomselectionprobability: number;
+    pheromoneDiffusionProbability: number;
+    optimallengthofthisround: number;
+    optimalrouteofthisround: number[];
+    ispheromoneDiffusion: boolean;
+    populationrelativeinformationentropy: number;
+    routesandlengths: {
+        route: number[];
+        totallength: number;
+    }[];
+} {
     // console.log(opts);
     const {
+        emitfinishoneroute,
         searchloopcountratio,
-
+        lastrandomselectionprobability,
         pheromoneintensityQ,
         pheromonevolatilitycoefficientR1,
         pheromonevolatilitycoefficientR2,
@@ -72,7 +84,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     const alphazero = 1;
     const betazero = 1;
     /** 随机选择概率*/
-    let randomselectionprobability = 0;
+    let nextrandomselectionprobability = 0;
     // while (
     //     numberofiterations < maxnumberofiterations ||
     //     numberofstagnantsearch < numberofstagnantiterations
@@ -84,6 +96,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         .fill(0)
         .map(() => {
             return adaptive_tabu_search_builds_a_path_and_updates_pheromone({
+                emitfinishoneroute,
                 searchloopcountratio,
                 pheromoneintensityQ,
                 pheromonevolatilitycoefficientR1,
@@ -91,7 +104,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
                 alphazero,
 
                 betazero,
-                randomselectionprobability,
+                randomselectionprobability: lastrandomselectionprobability,
                 getbestlength,
                 pathTabooList,
                 pheromonestore,
@@ -112,14 +125,14 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     /**种群相对信息熵 */
     const populationrelativeinformationentropy =
         population_relative_information_entropy(routes);
-    randomselectionprobability =
+    nextrandomselectionprobability =
         Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) / 4;
 
     pheromoneDiffusionProbability = Math.sqrt(
         1 - Math.pow(populationrelativeinformationentropy, 2)
     );
     console.log("种群相对信息熵", populationrelativeinformationentropy);
-    console.log("随机选择概率", randomselectionprobability);
+    console.log("随机选择概率", nextrandomselectionprobability);
     console.log("信息素扩散概率", pheromoneDiffusionProbability);
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
@@ -140,7 +153,8 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     );
     const iteratebestlength = iteratebestlengthandroute.totallength;
     const iteratebestroute = iteratebestlengthandroute.route;
-
+    const optimalrouteofthisround = iteratebestroute;
+    const optimallengthofthisround = iteratebestlength;
     const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
     const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
@@ -156,8 +170,10 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         pheromonestore,
         pheromonevolatilitycoefficientR2,
     });
+    let ispheromoneDiffusion = false;
     if (Math.random() < pheromoneDiffusionProbability) {
         console.log("执行信息素扩散操作");
+        ispheromoneDiffusion = true;
         //信息素扩散
         performPheromoneDiffusionOperations({
             globalbestroutesegments,
@@ -168,8 +184,13 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     // numberofiterations++;
     // lastlength = routesandlengths[0].totallength;
     // }
-    return routesandlengths as {
-        route: number[];
-        totallength: number;
-    }[];
+    return {
+        optimallengthofthisround,
+        optimalrouteofthisround,
+        ispheromoneDiffusion,
+        routesandlengths,
+        nextrandomselectionprobability,
+        populationrelativeinformationentropy,
+        pheromoneDiffusionProbability,
+    };
 }

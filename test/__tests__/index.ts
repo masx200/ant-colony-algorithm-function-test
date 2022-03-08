@@ -6,7 +6,7 @@ import { testclosedtotalpathlength } from "../testclosedtotalpathlength";
 import { testgeteuclideandistance } from "../testgeteuclideandistance";
 import { testgetPheromonessetPheromones } from "../testgetPheromonessetPheromones";
 import { testpathsequalinbothdirections } from "../testpathsequalinbothdirections";
-import { testPathTabooList } from "../testPathTabooList";
+import { testpathTabooList } from "../testPathTabooList";
 import { testrobustsegmentintersect } from "../testrobustsegmentintersect";
 import { testgreedynodecoordinates6 } from "../testgreedynodecoordinates6";
 import { testsparsematrix } from "../test-sparse-matrix";
@@ -23,7 +23,7 @@ it("main test functions", () => {
     test_population_relative_information_entropy();
 
     test_issubroutecycle();
-    testPathTabooList();
+    testpathTabooList();
     testcheckcurrentsegmentsintersectnextsegment();
     testclosedtotalpathlength();
     testgreedynodecoordinates6();

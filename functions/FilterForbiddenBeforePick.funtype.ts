@@ -1,4 +1,4 @@
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export type FilterForbiddenBeforePick = (
     // countofnodes: number,

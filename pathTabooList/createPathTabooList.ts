@@ -1,13 +1,13 @@
 import { sum } from "lodash";
-import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
-import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
+import { createandsetaset } from "../functions/createandsetaset";
+import { ispathsequalinbothdirectionswithcycle } from "../functions/ispathsequalinbothdirectionswithcycle";
+import { ispathsequalinbothdirectionswithoutcycle } from "../functions/ispathsequalinbothdirectionswithoutcycle";
 import { PathTabooList } from "./PathTabooList";
-import { createandsetaset } from "./createandsetaset";
-import { PathTabooListSymbol } from "./PathTabooListSymbol";
+import { pathTabooListSymbol } from "./pathTabooListSymbol";
 
 /**
  * 路径禁忌列表  */
-export function createPathTabooList<N extends number = number>(
+export function createpathTabooList<N extends number = number>(
     countofnodes: N
     //路径最多节点数,用于判断是否是环路
 ): PathTabooList<N> {
@@ -60,7 +60,7 @@ export function createPathTabooList<N extends number = number>(
     };
 
     return {
-        [PathTabooListSymbol]: true,
+        [pathTabooListSymbol]: true,
         delete: (route: number[]) => {
             const set = store.get(route.length);
             if (!set) {
@@ -100,6 +100,6 @@ export function createPathTabooList<N extends number = number>(
             return sizeofsets;
         },
         countofnodes,
-        [Symbol.toStringTag]: "PathTabooList",
+        [Symbol.toStringTag]: "pathTabooList",
     };
 }

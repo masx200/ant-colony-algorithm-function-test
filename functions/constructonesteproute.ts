@@ -2,7 +2,7 @@ import { asserttrue } from "../test/asserttrue";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";

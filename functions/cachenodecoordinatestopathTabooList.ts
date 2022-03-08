@@ -1,5 +1,5 @@
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "./PathTabooList";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export const cachenodecoordinatestopathTabooList = new WeakMap<
     Nodecoordinates,
