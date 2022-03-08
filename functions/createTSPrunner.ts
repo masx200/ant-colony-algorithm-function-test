@@ -2,6 +2,9 @@ import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { createPathTabooList } from "./createPathTabooList";
 import { createPheromonestore } from "./createPheromonestore";
+import { DataOfFinishAllIteration } from "./DataOfFinishAllIteration";
+import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
+import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "./PathTabooList";
 const finishalliterationsflag = Symbol();
@@ -128,14 +131,4 @@ export function createTSPrunner({
     };
     return result;
 }
-export interface DataOfFinishOneRoute {
-    timems: number;
-    route: number[];
-    totallength: number;
-    countofloops: number;
-}
-export interface DataOfFinishOneIteration {}
-export interface DataOfFinishAllIteration {
-    globalbestroute: number[];
-    globalbestlength: number;
-}
+

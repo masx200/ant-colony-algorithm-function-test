@@ -13,10 +13,11 @@
     </select>
     <button v-text="'确定'" @click="submit" :disabled="disablemapswitching" />
     <hr />
+    <h5>每轮次数</h5>
+    <input v-model="numberofeachround" :disabled="disablemapswitching" />
     <h5>搜索轮次</h5>
     <input v-model="searchrounds" />
-    <h5>每轮次数</h5>
-    <input v-model="numberofeachround" />
+
     <button v-text="'运行'" @click="runtsp" />
     <hr />
     <div id="chartcontainer" style="">
