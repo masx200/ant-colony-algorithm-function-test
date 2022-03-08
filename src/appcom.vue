@@ -23,7 +23,7 @@
     <div id="chartcontainer" style="">
         <div class="singlechart" style="" ref="chartofbestref"></div>
         <div class="singlechart" style="" ref="chartoflatestref"></div>
-    </div>
+    </div><hr />
     <datatable />
 </template>
 <script lang="ts" src="./appcom.ts"></script>
