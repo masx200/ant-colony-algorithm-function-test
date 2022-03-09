@@ -141,7 +141,7 @@ export default defineComponent({
             // element && (element.selectedIndex = 0);
             const nodecoordinates = TSP_cities_map.get(element?.value || "");
             if (
-                roundofsearch > 0 &&
+                roundofsearch > 1 &&
                 numberofeachroundvalue > 0 &&
                 nodecoordinates
             ) {
@@ -158,7 +158,7 @@ export default defineComponent({
                     onLatestRouteChange,
                 });
             } else {
-                searchrounds.value = 1;
+                searchrounds.value = 2;
                 numberofeachround.value = 1;
             }
         };

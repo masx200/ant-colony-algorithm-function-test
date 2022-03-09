@@ -12,6 +12,7 @@ import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtoso
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { createEventPair } from "./createEventPair";
+import { assertnumber } from "../test/assertnumber";
 
 export interface TSPRunner {
     onDataChange: (callback: (data: DataOfChange) => void) => void;
@@ -65,6 +66,8 @@ export function createTSPrunner({
     maxnumberofiterations?: number;
     maxnumberofstagnant?: number;
 }): TSPRunner {
+    assertnumber(numberofants);
+    asserttrue(numberofants >= 2);
     const pheromonevolatilitycoefficientR1 =
         1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
 
@@ -209,6 +212,7 @@ export function createTSPrunner({
         }
     };
     const runiterations = (iterations: number) => {
+        assertnumber(iterations);
         asserttrue(iterations > 0);
 
         for (let i = 0; i < iterations; i++) {
