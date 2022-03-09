@@ -15,9 +15,9 @@
     <button v-text="'重置'" @click="reset" />
     <hr />
     <span>每轮次数</span>
-    <input v-model="numberofeachround" :disabled="disablemapswitching" />
+    <input v-model.number="numberofeachround" :disabled="disablemapswitching" />
     <span>搜索轮次</span>
-    <input v-model="searchrounds" />
+    <input v-model.number="searchrounds" />
 
     <button v-text="'运行'" @click="runtsp" />
     <hr />

@@ -7,6 +7,7 @@ export function population_relative_information_entropy(
     routes: Array<number[]>
 ) {
     if (!(routes.length >= 2)) {
+        // debugger
         throw new Error("incorrect routes");
     }
     if (!(routes[0].length >= 2)) {

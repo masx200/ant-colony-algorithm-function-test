@@ -72,6 +72,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         getbestlength,
         getbestroute,
     } = opts;
+    asserttrue(typeof numberofants === "number");
     const countofnodes = nodecoordinates.length;
     let pheromoneDiffusionProbability = 0;
     /**
@@ -129,9 +130,8 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     nextrandomselectionprobability =
         Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) / 4;
 
-    pheromoneDiffusionProbability = Math.sqrt(
-        1 - Math.pow(populationrelativeinformationentropy, 2) 
-    )/2;
+    pheromoneDiffusionProbability =
+        Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) / 2;
     console.log("种群相对信息熵", populationrelativeinformationentropy);
     console.log("随机选择概率", nextrandomselectionprobability);
     console.log("信息素扩散概率", pheromoneDiffusionProbability);

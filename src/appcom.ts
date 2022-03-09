@@ -1,6 +1,7 @@
 import { EChartsType } from "echarts";
 import { defineComponent, onMounted, ref, shallowReactive } from "vue";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { assertnumber } from "../test/assertnumber";
 import { createchartofcontainer } from "./createchartofcontainer";
 import {
     oneiterationtablebody,
@@ -147,6 +148,8 @@ export default defineComponent({
                 disablemapswitching.value = true;
                 const numberofants = numberofeachroundvalue;
                 console.log(nodecoordinates);
+                assertnumber(numberofants);
+                assertnumber(roundofsearch);
                 TSP_Start({
                     onGlobalBestRouteChange,
                     nodecoordinates,
