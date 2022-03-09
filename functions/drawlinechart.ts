@@ -19,12 +19,16 @@ import { ECOption } from "./echarts-line";
 // };
 /* 使用echarts画折线图 */
 export function drawlinechart({
+    xAxis_min = "dataMin",
+    yAxis_min = "dataMin",
     data,
     // resize,
     // setOption,
     chart,
     titletext,
 }: {
+    xAxis_min?: string | number;
+    yAxis_min?: string | number;
     data: Array<[number, number]>;
     chart: EChartsType;
     titletext: string;
@@ -33,22 +37,24 @@ export function drawlinechart({
 }) {
     const option: ECOption = {
         title: { text: titletext },
-        xAxis: { min: "dataMin", max: "dataMax" },
-        yAxis: { min: "dataMin", max: "dataMax" },
+        xAxis: { min: xAxis_min, max: "dataMax" },
+        yAxis: { min: yAxis_min, max: "dataMax" },
         series: [
             {
                 label: {
-                    show: true,
-                    formatter(parm) {
-                        // console.log(parm.data);
-                        return (
-                            "(" + Array.from([parm.data].flat()).join(",") + ")"
-                        );
-                    },
+                    show: false,
                 },
                 emphasis: {
                     label: {
                         show: true,
+                        formatter(parm) {
+                            // console.log(parm.data);
+                            return (
+                                "(" +
+                                Array.from([parm.data].flat()).join(",") +
+                                ")"
+                            );
+                        },
                     },
                 },
                 data: data,

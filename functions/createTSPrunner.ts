@@ -31,7 +31,7 @@ export interface TSPRunner {
     //  getnumberofstagnant: () => number;
     getglobalbestlength: () => number;
     getglobalbestroute: () => number[];
-    getcurrentsearchcount: () => number;
+    getcurrent_search_count: () => number;
     pheromonestore: SparseMatrixSymmetry<number>;
 
     pathTabooList: PathTabooList<number>;
@@ -114,9 +114,9 @@ export function createTSPrunner({
     const countofnodes = nodecoordinates.length;
     const pathTabooList = createpathTabooList(countofnodes);
     const pheromonestore = createPheromonestore(countofnodes);
-    let currentsearchcount = 0;
-    const getcurrentsearchcount = () => {
-        return currentsearchcount;
+    let current_search_count = 0;
+    const getcurrent_search_count = () => {
+        return current_search_count;
     };
     const setbestlength = (bestlength: number) => {
         globalbestlength = bestlength;
@@ -145,14 +145,23 @@ export function createTSPrunner({
     //     return lengthofstagnant;
     //   };
     const emitter = EventEmitterTargetClass();
-    const { on: on_finish_one_route, emit: emitfinishoneroute } =
-        createEventPair<DataOfFinishOneRoute>(emitter);
-    const { on: on_finish_one_iteration, emit: emitfinishoneiteration } =
-        createEventPair<DataOfFinishOneIteration>(emitter);
-
+    const { on: on_finish_one_route, emit: emit_finish_one_route } =
+        createEventPair<Omit<DataOfFinishOneRoute, "current_search_count">>(
+            emitter
+        );
+    const { on: on_finish_one_iteration, emit: emit_finish_one_iteration } =
+        createEventPair<Omit<DataOfFinishOneIteration, "current_iterations">>(
+            emitter
+        );
+    on_finish_one_iteration(() => {
+        numberofiterations++;
+    });
+    on_finish_one_route(() => {
+        current_search_count++;
+    });
     //   let stagnantlength = Infinity;
     const runoneiteration = () => {
-        if (currentsearchcount === 0) {
+        if (current_search_count === 0) {
             const starttime = Number(new Date());
             const { route, totallength } =
                 Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
@@ -160,13 +169,14 @@ export function createTSPrunner({
             const countofloops = countofnodes * countofnodes;
             const timems = endtime - starttime;
             totaltimems += timems;
-            emitfinishoneroute({
+            emit_finish_one_route({
+                // current_search_count,
                 route,
                 totallength,
                 timems,
                 countofloops,
             });
-            currentsearchcount++;
+            // current_search_count++;
             //    stagnantlength = totallength;
             globalbestlength = totallength;
             globalbestroute = route;
@@ -183,12 +193,12 @@ export function createTSPrunner({
             nextrandomselectionprobability,
             //   routesandlengths,
             pheromoneDiffusionProbability,
-            populationrelativeinformationentropy,
+            population_relative_information_entropy,
             ispheromoneDiffusion,
             optimallengthofthisround,
             optimalrouteofthisround,
         } = adaptiveTabooSingleIterateTSPSearchSolve({
-            emitfinishoneroute,
+            emit_finish_one_route,
             setbestroute,
             setbestlength,
             getbestlength: getglobalbestlength,
@@ -221,11 +231,12 @@ export function createTSPrunner({
           */
         const timems = endtime - starttime;
         totaltimems += timems;
-        emitfinishoneiteration({
+        emit_finish_one_iteration({
+            // current_iterations: getnumberofiterations(),
             pheromoneDiffusionProbability,
             optimallengthofthisround,
             optimalrouteofthisround,
-            populationrelativeinformationentropy,
+            population_relative_information_entropy,
             ispheromoneDiffusion,
             randomselectionprobability: lastrandomselectionprobability,
             timems,
@@ -233,11 +244,11 @@ export function createTSPrunner({
         lastrandomselectionprobability = nextrandomselectionprobability;
         // console.log({ routesandlengths });
 
-        currentsearchcount += numberofants;
-        numberofiterations++;
+        // current_search_count += numberofants;
+        // numberofiterations++;
         // } else {
         // const timems = totaltimems;
-        //  emitfinishalliterations();
+        //  emit_finish_all_iterations();
         // }
     };
     const runiterations = (iterations: number) => {
@@ -254,16 +265,16 @@ export function createTSPrunner({
             //    break;
             //  }
         }
-        emitfinishalliterations();
+        emit_finish_all_iterations();
     };
     const { on: onDataChange, emit: emitDataChange } =
         createEventPair<DataOfChange>(emitter);
-    const { on: on_finish_all_iterations, emit: emitfinishalliterations } =
+    const { on: on_finish_all_iterations, emit: emit_finish_all_iterations } =
         createEventPair<undefined>(emitter);
     const dataChangeListener = () => {
         emitDataChange({
-            iterations: getnumberofiterations(),
-            currentsearchcount,
+            current_iterations: getnumberofiterations() - 1,
+            current_search_count: current_search_count - 1,
             timems: gettotaltimems(),
 
             globalbestroute: getglobalbestroute(),
@@ -273,6 +284,30 @@ export function createTSPrunner({
     on_finish_all_iterations(dataChangeListener);
     on_finish_one_iteration(dataChangeListener);
     on_finish_one_route(dataChangeListener);
+    const out_on_finish_one_route = (
+        listener: (data: DataOfFinishOneRoute) => void
+    ) => {
+        on_finish_one_route(
+            (data: Omit<DataOfFinishOneRoute, "current_search_count">) => {
+                listener({
+                    ...data,
+                    current_search_count: current_search_count - 1,
+                });
+            }
+        );
+    };
+    const out_on_finish_one_iteration = (
+        listener: (data: DataOfFinishOneIteration) => void
+    ) => {
+        on_finish_one_iteration(
+            (data: Omit<DataOfFinishOneIteration, "current_iterations">) => {
+                listener({
+                    ...data,
+                    current_iterations: numberofiterations - 1,
+                });
+            }
+        );
+    };
     const result: TSPRunner = {
         onDataChange,
         pheromonevolatilitycoefficientR2,
@@ -281,14 +316,14 @@ export function createTSPrunner({
         gettotaltimems,
         on_finish_all_iterations,
         runiterations,
-        on_finish_one_iteration,
-        on_finish_one_route,
+        on_finish_one_iteration: out_on_finish_one_iteration,
+        on_finish_one_route: out_on_finish_one_route,
         //    getlengthofstagnant,
         getnumberofiterations,
         //   getnumberofstagnant,
         getglobalbestlength,
         getglobalbestroute,
-        getcurrentsearchcount,
+        getcurrent_search_count,
         pheromonestore,
         betazero,
         //    maxnumberofstagnant,

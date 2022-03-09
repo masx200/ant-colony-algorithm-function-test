@@ -1,6 +1,7 @@
 import { TSPRunner } from "../functions/createTSPrunner";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { initializeTSP_runner } from "./initializeTSP_runner";
+import { TSP_RunnerRef } from "./TSP_workerRef";
 
 export function TSP_Start({
     onFinishIteration,
@@ -24,7 +25,7 @@ export function TSP_Start({
     roundofsearch: number;
     numberofants: number;
     nodecoordinates: Nodecoordinates;
-}): void {
+}): TSPRunner {
     console.log("TSP_Start", nodecoordinates);
     TSP_RunnerRef.value ||= initializeTSP_runner({
         onFinishIteration,
@@ -35,6 +36,6 @@ export function TSP_Start({
         numberofants,
     });
     TSP_RunnerRef.value?.runiterations(roundofsearch);
+    const runner = TSP_RunnerRef.value;
+    return runner;
 }
-export const TSP_workerRef: { value?: Worker | undefined } = {};
-export const TSP_RunnerRef: { value?: TSPRunner | undefined } = {};

@@ -10,7 +10,9 @@ import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
 
 export type AdaptiveTSPSearchOptions = {
-    emitfinishoneroute: (data: DataOfFinishOneRoute) => void;
+    emit_finish_one_route: (
+        data: Omit<DataOfFinishOneRoute, "current_search_count">
+    ) => void;
     lastrandomselectionprobability: number;
     searchloopcountratio: number;
 
@@ -47,7 +49,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     optimallengthofthisround: number;
     optimalrouteofthisround: number[];
     ispheromoneDiffusion: boolean;
-    populationrelativeinformationentropy: number;
+    population_relative_information_entropy: number;
     routesandlengths: {
         route: number[];
         totallength: number;
@@ -55,7 +57,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
 } {
     // console.log(opts);
     const {
-        emitfinishoneroute,
+        emit_finish_one_route,
         searchloopcountratio,
         lastrandomselectionprobability,
         pheromoneintensityQ,
@@ -74,7 +76,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     } = opts;
     asserttrue(typeof numberofants === "number");
     const countofnodes = nodecoordinates.length;
-    let pheromoneDiffusionProbability = 0;
+    // let pheromoneDiffusionProbability = 0;
     /**
      * 迭代的次数
      */
@@ -86,7 +88,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     const alphazero = 1;
     const betazero = 1;
     /** 随机选择概率*/
-    let nextrandomselectionprobability = 0;
+    // let nextrandomselectionprobability = 0;
     // while (
     //     numberofiterations < maxnumberofiterations ||
     //     numberofstagnantsearch < numberofstagnantiterations
@@ -98,7 +100,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         .fill(0)
         .map(() => {
             return adaptive_tabu_search_builds_a_path_and_updates_pheromone({
-                emitfinishoneroute,
+                emit_finish_one_route,
                 searchloopcountratio,
                 pheromoneintensityQ,
                 pheromonevolatilitycoefficientR1,
@@ -125,17 +127,21 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         numberofstagnantsearch = 0;
     } */
     /**种群相对信息熵 */
-    const populationrelativeinformationentropy =
+    const current_population_relative_information_entropy =
         population_relative_information_entropy(routes);
-    nextrandomselectionprobability =
-        Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) / 4;
+    const nextrandomselectionprobability =
+        Math.sqrt(
+            1 - Math.pow(current_population_relative_information_entropy, 2)
+        ) / 4;
 
-    pheromoneDiffusionProbability =
-        Math.sqrt(1 - Math.pow(populationrelativeinformationentropy, 2)) / 2;
-    console.log("种群相对信息熵", populationrelativeinformationentropy);
+    const pheromoneDiffusionProbability =
+        Math.sqrt(
+            1 - Math.pow(current_population_relative_information_entropy, 2)
+        ) / 2;
+    console.log("种群相对信息熵", population_relative_information_entropy);
     console.log("随机选择概率", nextrandomselectionprobability);
     console.log("信息素扩散概率", pheromoneDiffusionProbability);
-    asserttrue(!Number.isNaN(populationrelativeinformationentropy));
+    asserttrue(!Number.isNaN(population_relative_information_entropy));
     asserttrue(!Number.isNaN(nextrandomselectionprobability));
     asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
     const globalbestroute = getbestroute();
@@ -194,7 +200,8 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         ispheromoneDiffusion,
         routesandlengths,
         nextrandomselectionprobability,
-        populationrelativeinformationentropy,
+        population_relative_information_entropy:
+            current_population_relative_information_entropy,
         pheromoneDiffusionProbability,
     };
 }

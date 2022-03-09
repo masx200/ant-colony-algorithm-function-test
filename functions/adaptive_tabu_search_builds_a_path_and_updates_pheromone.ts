@@ -9,7 +9,7 @@ import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
-    emitfinishoneroute,
+    emit_finish_one_route,
     searchloopcountratio,
     pheromoneintensityQ,
     pheromonevolatilitycoefficientR1,
@@ -25,7 +25,9 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     setbestroute,
     getbestroute,
 }: {
-    emitfinishoneroute: (data: DataOfFinishOneRoute) => void;
+    emit_finish_one_route: (
+        data: Omit<DataOfFinishOneRoute, "current_search_count">
+    ) => void;
     searchloopcountratio: number;
     pheromoneintensityQ: number;
     pheromonevolatilitycoefficientR1: number;
@@ -69,7 +71,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         path: route,
         getdistancebyindex: creategetdistancebyindex(nodecoordinates),
     });
-    emitfinishoneroute({ totallength, route, countofloops, timems });
+    emit_finish_one_route({ totallength, route, countofloops, timems });
     const bestlength = getbestlength();
     if (bestlength && bestlength >= totallength) {
         setbestlength(totallength);

@@ -1,7 +1,9 @@
 import { computed, ComputedRef, ref } from "vue";
 import { DataOfChange } from "../functions/DataOfChange";
+import { dataOfAllResults } from "./onreceivedataofChange";
 export function clearDataOfResult() {
     dataofresult.value = undefined;
+    dataOfAllResults.length = 0;
 }
 export const resultTableHeads = [
     "全局最优长度",
@@ -22,8 +24,8 @@ export const resultTableBody: ComputedRef<
                   result.globalbestlength,
 
                   result.timems / 1000,
-                  result.currentsearchcount,
-                  result.iterations,
+                  result.current_search_count,
+                  result.current_iterations,
                   JSON.stringify(result.globalbestroute),
               ],
           ]

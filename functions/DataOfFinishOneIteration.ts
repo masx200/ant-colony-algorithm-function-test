@@ -1,5 +1,6 @@
 export interface DataOfFinishOneIteration {
-    populationrelativeinformationentropy: number;
+    current_iterations: number;
+    population_relative_information_entropy: number;
     ispheromoneDiffusion: boolean;
     randomselectionprobability: number;
     pheromoneDiffusionProbability: number;

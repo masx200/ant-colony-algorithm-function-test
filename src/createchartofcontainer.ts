@@ -29,5 +29,6 @@ export function createchartofcontainer(container: HTMLElement): /* {
     keys.forEach((key) => {
         Reflect.set(chart, key, Reflect.get(chart, key).bind(chart));
     });
+    console.log(chart);
     return chart;
 }

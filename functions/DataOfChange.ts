@@ -1,7 +1,7 @@
 export interface DataOfChange {
-    currentsearchcount: number;
+    current_search_count: number;
     globalbestroute: number[];
     globalbestlength: number;
     timems: number;
-    iterations: number;
+    current_iterations: number;
 }

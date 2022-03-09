@@ -176,7 +176,7 @@ export function constructonesteproute({
             // }
         } else {
             // route = [...route, nextnode];
-            console.log("路径构建正常经过节点", [...route, nextnode]);
+            // console.log("路径构建正常经过节点", [...route, nextnode]);
             return [...route, nextnode];
         }
     }

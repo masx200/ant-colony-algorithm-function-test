@@ -35,7 +35,7 @@
     </div>
     <hr />
     <div class="chartcontainer" style="">
-        <!-- 迭代轮次和信息熵的图表 -->
+        <!-- 迭代轮次和相对信息熵的图表 -->
         <div
             class="singlechart"
             style=""

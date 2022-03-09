@@ -10,7 +10,7 @@ export const oneiterationtablebody = computed<
     return dataofoneiteration.map((data, index) => {
         return [
             index,
-            data.populationrelativeinformationentropy,
+            data.population_relative_information_entropy,
             data.randomselectionprobability,
             data.ispheromoneDiffusion,
             data.pheromoneDiffusionProbability,

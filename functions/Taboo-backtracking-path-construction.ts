@@ -79,7 +79,7 @@ export function taboo_backtracking_path_construction(
     /**单次搜索最多循环次数 */
     // const maximumnumberofloopsforasinglesearch =
     //     countofnodes * searchloopcountratio;
-    // console.log("单次搜索最多循环次数", maximumnumberofloopsforasinglesearch);
+    // //console.log("单次搜索最多循环次数", maximumnumberofloopsforasinglesearch);
     const getpheromone = (left: number, right: number) => {
         return pheromonestore.get(left, right);
     };
@@ -98,17 +98,17 @@ export function taboo_backtracking_path_construction(
     }
     /**循环次数 */
     let trycount = 0;
-    const starttime = Number(new Date());
+    // const starttime = Number(new Date());
     while (
         route.length !== countofnodes &&
         trycount < countofnodes * searchloopcountratio
     ) {
         trycount++;
-        console.log(
-            `第${trycount}次/${countofnodes * searchloopcountratio}`,
-            "路径构建开始",
-            route
-        );
+        //console.log(
+        //     `第${trycount}次/${countofnodes * searchloopcountratio}`,
+        //     "路径构建开始",
+        //     route
+        // );
         //接受次优解的概率;
         // let probabilityofacceptingasuboptimalsolution = Math.max(
         //     0,
@@ -177,12 +177,12 @@ export function taboo_backtracking_path_construction(
         }
     }
     asserttrue(route.length == countofnodes);
-    console.log("路径一条构建完成,循环次数", trycount);
-    const endtime = Number(new Date());
-    console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
-    console.log(
-        "路径一条构建完成,平均每次循环消耗的时间毫秒",
-        (endtime - starttime) / trycount
-    );
+    //console.log("路径一条构建完成,循环次数", trycount);
+    // const endtime = Number(new Date());
+    //console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
+    //console.log(
+    //   "路径一条构建完成,平均每次循环消耗的时间毫秒",
+    //    (endtime - starttime) / trycount
+    //   );
     return { route, countofloops: trycount };
 }

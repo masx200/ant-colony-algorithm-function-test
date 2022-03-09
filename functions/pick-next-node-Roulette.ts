@@ -55,7 +55,7 @@ export function picknextnodeRoulette(
                   1,
                   availablenextnodes.map((nextnode) => {
                       const phermone = getpheromone(nextnode, currentnode);
-                      console.log("phermone", phermone);
+                      //console.log("phermone", phermone);
                       asserttrue(phermone > 0);
                       const weight =
                           Math.pow(phermone, alpha) /
@@ -63,7 +63,7 @@ export function picknextnodeRoulette(
                               getdistancebyserialnumber(nextnode, currentnode),
                               beta
                           );
-                      console.log("weight", weight);
+                      //console.log("weight", weight);
                       //   if (weight < 0) {
                       //       debugger;
                       //   }

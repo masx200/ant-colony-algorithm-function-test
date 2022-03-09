@@ -1,35 +1,40 @@
-import { EChartsType } from "echarts";
-import { defineComponent, onMounted, ref, shallowReactive } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
+import { drawlinechart } from "../functions/drawlinechart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { assertnumber } from "../test/assertnumber";
-import { createchartofcontainer } from "./createchartofcontainer";
 import {
+    dataofoneiteration,
     oneiterationtablebody,
     oneiterationtableheads,
 } from "./dataofoneiteration";
-import { oneroutetablebody, oneroutetableheads } from "./dataofoneroute";
+import {
+    dataofoneroute,
+    oneroutetablebody,
+    oneroutetableheads,
+} from "./dataofoneroute";
 // const containertoechart = new WeakMap<
 //     HTMLElement,
 //     EChartsType
 // >();
 import datatable from "./datatable.vue";
 import {
-    defaultsearchrounds,
     defaultnumberofants,
+    defaultsearchrounds,
     default_local_pheromone_volatilization_rate,
 } from "./defaultnumberofants";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
+import { dataOfAllResults } from "./onreceivedataofChange";
 import {
     resultTableBody,
     resultTableHeads,
 } from "./resultTableHeads-resultTableBody";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
-import { TSP_Start } from "./tsp-start";
 import { TSP_cities_map } from "./TSP_cities_map";
+import { TSP_Start } from "./TSP_Start";
 import { TSP_terminate } from "./TSP_terminate";
+import { use_escharts_container_pair } from "./use_escharts_container_pair";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
 console.log(TSP_cities_data);
-
 export default defineComponent({
     components: { datatable },
     setup() {
@@ -41,27 +46,39 @@ export default defineComponent({
         const searchrounds = ref(defaultsearchrounds);
         const numberofeachround = ref(defaultnumberofants);
         const selecteleref = ref<HTMLSelectElement>();
-        const container_of_best_chart = ref<HTMLDivElement>();
-        const container_of_latest_chart = ref<HTMLDivElement>();
-        const container_of_iteration_rounds_and_information_entropy_chart =
-            ref<HTMLDivElement>();
+        const { container: container_of_best_chart, chart: chart_store_best } =
+            use_escharts_container_pair();
+        const {
+            container: container_of_latest_chart,
+            chart: chart_store_latest,
+        } = use_escharts_container_pair();
+        // const container_of_best_chart = ref<HTMLDivElement>();
+        // const container_of_latest_chart = ref<HTMLDivElement>();
+        const {
+            container:
+                container_of_iteration_rounds_and_information_entropy_chart,
+            chart: iteration_rounds_and_information_entropy_chart,
+        } = use_escharts_container_pair();
+        const {
+            container: container_of_path_number_and_current_path_length_chart,
+            chart: path_number_and_current_path_length_chart,
+        } = use_escharts_container_pair();
+        const {
+            container: container_of_path_number_and_optimal_path_length_chart,
+            chart: path_number_and_optimal_path_length_chart,
+        } = use_escharts_container_pair();
 
-        const container_of_path_number_and_current_path_length_chart =
-            ref<HTMLDivElement>();
-        const container_of_path_number_and_optimal_path_length_chart =
-            ref<HTMLDivElement>();
+        // const chartstore: {
+        //     best: undefined | EChartsType;
+        //     //   resize: () => void;
 
-        const chartstore: {
-            best: undefined | EChartsType;
-            //   resize: () => void;
-
-            latest: undefined | EChartsType;
-            //   resize: () => void;
-        } = shallowReactive({
-            // } = shallowReactive({
-            best: undefined,
-            latest: undefined,
-        });
+        //     latest: undefined | EChartsType;
+        //     //   resize: () => void;
+        // } = shallowReactive({
+        //     // } = shallowReactive({
+        //     best: undefined,
+        //     latest: undefined,
+        // });
         const submit = () => {
             const element = selecteleref.value;
             console.log(element);
@@ -70,7 +87,7 @@ export default defineComponent({
             if (nodecoordinates) {
                 console.log(nodecoordinates);
                 setTimeout(() => {
-                    const latestchart = chartstore.latest;
+                    const latestchart = chart_store_latest.value;
                     if (latestchart) {
                         showanddrawrandomgreedyoftsp({
                             // resize: latestchart.resize,
@@ -80,7 +97,7 @@ export default defineComponent({
                     }
                 });
                 setTimeout(() => {
-                    const bestchart = chartstore.best;
+                    const bestchart = chart_store_best.value;
                     if (bestchart) {
                         showanddrawrandomgreedyoftsp({
                             // resize: bestchart.resize,
@@ -101,18 +118,21 @@ export default defineComponent({
             console.log(container_of_best_chart);
             console.log(container_of_latest_chart);
 
-            const containerofbest = container_of_best_chart.value;
-            const containeroflatest = container_of_latest_chart.value;
-            // setTimeout(() => {
-            if (containerofbest && containeroflatest) {
-                const bestchart = createchartofcontainer(containerofbest);
-                const latestchart = createchartofcontainer(containeroflatest);
-                console.log({ bestchart, latestchart });
-                chartstore.latest = latestchart;
-                chartstore.best = bestchart;
-            }
+            // const containerofbest = container_of_best_chart.value;
+            // const containeroflatest = container_of_latest_chart.value;
+            // // setTimeout(() => {
+            // if (containerofbest && containeroflatest) {
+            //     const bestchart = createchartofcontainer(containerofbest);
+            //     const latestchart = createchartofcontainer(containeroflatest);
+            //     console.log({ bestchart, latestchart });
+            //     chart_store_latest.value = latestchart;
+            //     chart_store_best.value = bestchart;
+            // }
             // setTimeout(() => {
             submit();
+            data_change_listener();
+            finish_one_iteration_listener();
+            finish_one_route_listener();
             // });
             // });
         });
@@ -120,7 +140,7 @@ export default defineComponent({
             route: number[],
             nodecoordinates: Nodecoordinates
         ) => {
-            const latestchart = chartstore.latest;
+            const latestchart = chart_store_latest.value;
             if (latestchart) {
                 drawrouteofnodecoordinates({
                     // resize: latestchart.resize,
@@ -137,7 +157,7 @@ export default defineComponent({
             route: number[],
             nodecoordinates: Nodecoordinates
         ) => {
-            const chart = chartstore.best;
+            const chart = chart_store_best.value;
             if (chart) {
                 drawrouteofnodecoordinates({
                     // resize: chart.resize,
@@ -147,10 +167,81 @@ export default defineComponent({
                 });
             }
         };
+        onMounted(() => {
+            watch(dataOfAllResults, () => {
+                data_change_listener();
+            });
+            watch(dataofoneiteration, () => {
+                finish_one_iteration_listener();
+            });
+            watch(dataofoneroute, () => {
+                finish_one_route_listener();
+            });
+        });
+        const data_change_listener = () => {
+            const titletext = "路径序号和最优路径长度";
+            const chart = path_number_and_optimal_path_length_chart.value;
+            // debugger
+            if (chart) {
+                console.log("dataOfAllResults", dataOfAllResults);
+                const data: [number, number][] = dataOfAllResults.map((a) => [
+                    a.current_search_count,
+                    a.globalbestlength,
+                ]);
+                console.log(data);
+
+                drawlinechart({
+                    xAxis_min: 0,
+                    yAxis_min: 0,
+                    titletext,
+                    data: data,
+                    chart: chart,
+                });
+            }
+        };
+        const finish_one_iteration_listener = () => {
+            const titletext = "迭代轮次和相对信息熵";
+            const chart = iteration_rounds_and_information_entropy_chart.value;
+            if (chart) {
+                console.log("dataofoneiteration", dataofoneiteration);
+                const data: [number, number][] = dataofoneiteration.map((a) => [
+                    a.current_iterations,
+                    a.population_relative_information_entropy,
+                ]);
+                console.log(data);
+                drawlinechart({
+                    xAxis_min: 0,
+                    yAxis_min: 0,
+                    titletext,
+                    data: data,
+                    chart: chart,
+                });
+            }
+        };
+
+        const finish_one_route_listener = () => {
+            const titletext = "路径序号和当前路径长度";
+            const chart = path_number_and_current_path_length_chart.value;
+            if (chart) {
+                console.log("dataofoneroute", dataofoneroute);
+                const data: [number, number][] = dataofoneroute.map((a) => [
+                    a.current_search_count,
+                    a.totallength,
+                ]);
+                console.log(data);
+                drawlinechart({
+                    xAxis_min: 0,
+                    yAxis_min: 0,
+                    titletext,
+                    data: data,
+                    chart: chart,
+                });
+            }
+        };
 
         const runtsp = () => {
             console.log("搜索轮次", searchrounds.value);
-            console.log("每轮次数", numberofeachround.value);
+            console.log("蚂蚁数量", numberofeachround.value);
             const roundofsearch = searchrounds.value;
             const numberofeachroundvalue = numberofeachround.value;
             const element = selecteleref.value;
@@ -171,7 +262,7 @@ export default defineComponent({
                 assertnumber(roundofsearch);
                 assertnumber(pheromonevolatilitycoefficientR1);
                 is_running.value = true;
-                TSP_Start({
+                const runner = TSP_Start({
                     onFinishIteration,
                     pheromonevolatilitycoefficientR1,
                     onGlobalBestRouteChange,
@@ -180,6 +271,10 @@ export default defineComponent({
                     roundofsearch,
                     onLatestRouteChange,
                 });
+                console.log(runner);
+                runner.on_finish_one_iteration(finish_one_iteration_listener);
+                runner.on_finish_one_route(finish_one_route_listener);
+                runner.onDataChange(data_change_listener);
             } else {
                 local_pheromone_volatilization_rate.value =
                     default_local_pheromone_volatilization_rate;
