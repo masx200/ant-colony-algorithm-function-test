@@ -2,7 +2,7 @@
     <h1>蚁群禁忌路径构建测试</h1>
     <hr />
     <span>选择城市地图</span>
-    <select ref="selecteleref" :disabled="disablemapswitching">
+    <select ref="selecteleref" :disabled="disablemapswitching" @change="submit">
         <option
             v-for="item in TSP_cities_data"
             v-bind:key="item[0]"
@@ -11,12 +11,12 @@
             {{ item[0] }}
         </option>
     </select>
-    <button v-text="'确定'" @click="submit" :disabled="disablemapswitching" />
+    
     <button v-text="'重置'" @click="reset" />
     <hr />
-    <span>每轮次数</span>
+    <span>蚂蚁数量</span>
     <input v-model.number="numberofeachround" :disabled="disablemapswitching" />
-    <span>搜索轮次</span>
+    <span>迭代轮次</span>
     <input v-model.number="searchrounds" />
 
     <button v-text="'运行'" @click="runtsp" />
