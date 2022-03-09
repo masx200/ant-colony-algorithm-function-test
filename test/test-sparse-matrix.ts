@@ -427,6 +427,23 @@ export function testsparsematrix() {
             )
         )
     );
-
+    asserttrue(
+        SparseMatrixEquals(
+            SparseMatrixOfArrays([
+                [3, 3],
+                [3, 3],
+            ]),
+            SparseMatrixMax(
+                SparseMatrixOfArrays([
+                    [1, 0],
+                    [0, 3],
+                ]),
+                SparseMatrixOfArrays([
+                    [3, 3],
+                    [3, 0],
+                ])
+            )
+        )
+    );
     console.log("test sparsematrix end");
 }

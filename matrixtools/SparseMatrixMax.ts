@@ -15,7 +15,7 @@ export function SparseMatrixMax<R extends number, C extends number>(
     );
     return matrixs.reduce((a, m) => {
         return SparseMatrixMap(a, (v, i, j) => {
-            return Math.max(v + m.get(i, j));
+            return Math.max(v, m.get(i, j));
         });
     }, matrix1);
 }
