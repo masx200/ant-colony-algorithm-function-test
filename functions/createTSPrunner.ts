@@ -23,9 +23,9 @@ export interface TSPRunner {
         callback: (data: DataOfFinishOneIteration) => void
     ) => void;
     onfinishoneroute: (callback: (data: DataOfFinishOneRoute) => void) => void;
-    getlengthofstagnant: () => number;
+  //  getlengthofstagnant: () => number;
     getnumberofiterations: () => number;
-    getnumberofstagnant: () => number;
+  //  getnumberofstagnant: () => number;
     getglobalbestlength: () => number;
     getglobalbestroute: () => number[];
     getcurrentsearchcount: () => number;
@@ -41,11 +41,12 @@ export interface TSPRunner {
     betazero: number;
     searchloopcountratio: number;
     numberofants: number;
-    maxnumberofiterations: number;
-    maxnumberofstagnant: number;
+ //   maxnumberofiterations: number;
+  //  maxnumberofstagnant: number;
 }
 
 export function createTSPrunner({
+	pheromonevolatilitycoefficientR1 = 0.01,
     pheromonevolatilitycoefficientR2 = 0.1,
     pheromoneintensityQ = 1,
     nodecoordinates,
@@ -53,9 +54,10 @@ export function createTSPrunner({
     betazero = 5,
     searchloopcountratio = 100,
     numberofants = 10,
-    maxnumberofiterations = 1000,
-    maxnumberofstagnant = 30,
+  //  maxnumberofiterations = 1000,
+  //  maxnumberofstagnant = 30,
 }: {
+	pheromonevolatilitycoefficientR1?: number
     pheromonevolatilitycoefficientR2?: number;
     pheromoneintensityQ?: number;
     nodecoordinates: Nodecoordinates;
@@ -63,14 +65,18 @@ export function createTSPrunner({
     betazero?: number;
     searchloopcountratio?: number;
     numberofants?: number;
-    maxnumberofiterations?: number;
-    maxnumberofstagnant?: number;
+  //  maxnumberofiterations?: number;
+   // maxnumberofstagnant?: number;
 }): TSPRunner {
     assertnumber(numberofants);
     asserttrue(numberofants >= 2);
-    const pheromonevolatilitycoefficientR1 =
+  /*  const pheromonevolatilitycoefficientR1 =
         1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
-
+*/
+asserttrue(pheromonevolatilitycoefficientR1 ===
+        1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants))
+        
+        
     console.log({
         numberofants,
         pheromonevolatilitycoefficientR1,
@@ -104,25 +110,25 @@ export function createTSPrunner({
     const getglobalbestlength = () => {
         return globalbestlength;
     };
-    let numberofstagnant = 0;
-    const getnumberofstagnant = () => {
-        return numberofstagnant;
-    };
+ //   let numberofstagnant = 0;
+  //  const getnumberofstagnant = () => {
+  //      return numberofstagnant;
+  //  };
     let numberofiterations = 0;
     const getnumberofiterations = () => {
         return numberofiterations;
     };
-    let lengthofstagnant = Infinity;
-    const getlengthofstagnant = () => {
-        return lengthofstagnant;
-    };
+    //let lengthofstagnant = Infinity;
+    //const getlengthofstagnant = () => {
+   //     return lengthofstagnant;
+ //   };
     const emitter = EventEmitterTargetClass();
     const { on: onfinishoneroute, emit: emitfinishoneroute } =
         createEventPair<DataOfFinishOneRoute>(emitter);
     const { on: onfinishoneiteration, emit: emitfinishoneiteration } =
         createEventPair<DataOfFinishOneIteration>(emitter);
 
-    let stagnantlength = Infinity;
+ //   let stagnantlength = Infinity;
     const runoneiteration = () => {
         if (currentsearchcount === 0) {
             const starttime = Number(new Date());
@@ -139,7 +145,7 @@ export function createTSPrunner({
                 countofloops,
             });
             currentsearchcount++;
-            stagnantlength = totallength;
+        //    stagnantlength = totallength;
             globalbestlength = totallength;
             globalbestroute = route;
             //信息素初始化
@@ -255,20 +261,20 @@ emitfinishalliterations();
         runiterations,
         onfinishoneiteration,
         onfinishoneroute,
-        getlengthofstagnant,
+    //    getlengthofstagnant,
         getnumberofiterations,
-        getnumberofstagnant,
+     //   getnumberofstagnant,
         getglobalbestlength,
         getglobalbestroute,
         getcurrentsearchcount,
         pheromonestore,
         betazero,
-        maxnumberofstagnant,
+    //    maxnumberofstagnant,
         nodecoordinates,
         alphazero,
         searchloopcountratio,
         numberofants,
-        maxnumberofiterations,
+    //    maxnumberofiterations,
         pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",
     };
