@@ -46,8 +46,7 @@ export interface TSPRunner {
 }
 
 export function createTSPrunner({
-	pheromonevolatilitycoefficientR1 ,
-    pheromonevolatilitycoefficientR2 ,
+	
     pheromoneintensityQ = 1,
     nodecoordinates,
     alphazero = 1,
@@ -56,6 +55,7 @@ export function createTSPrunner({
     numberofants = 10,
   //  maxnumberofiterations = 1000,
   //  maxnumberofstagnant = 30,
+...rest
 }: {
 	pheromonevolatilitycoefficientR1?: number
     pheromonevolatilitycoefficientR2?: number;
@@ -71,9 +71,9 @@ export function createTSPrunner({
     assertnumber(numberofants);
     asserttrue(numberofants >= 2);
 
-pheromonevolatilitycoefficientR1||= 1 - Math.pow(1 - pheromonevolatilitycoefficientR2??0.1, 1 / numberofants);
+const pheromonevolatilitycoefficientR1||= 1 - Math.pow(1 - rest.pheromonevolatilitycoefficientR2??0.1, 1 / numberofants);
 
-pheromonevolatilitycoefficientR2||= 1 - Math.pow(1 - pheromonevolatilitycoefficientR1??0.01,  numberofants);
+const pheromonevolatilitycoefficientR2||= 1 - Math.pow(1 - rest.pheromonevolatilitycoefficientR1??0.01,  numberofants);
 
 
   /*  const pheromonevolatilitycoefficientR1 =
