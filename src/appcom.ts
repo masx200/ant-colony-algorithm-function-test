@@ -142,7 +142,7 @@ export default defineComponent({
             const nodecoordinates = TSP_cities_map.get(element?.value || "");
             if (
                 roundofsearch > 0 &&
-                numberofeachroundvalue >=2 &&
+                numberofeachroundvalue >= 2 &&
                 nodecoordinates
             ) {
                 disablemapswitching.value = true;

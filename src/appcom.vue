@@ -11,7 +11,7 @@
             {{ item[0] }}
         </option>
     </select>
-    
+
     <button v-text="'重置'" @click="reset" />
     <hr />
     <span>蚂蚁数量</span>

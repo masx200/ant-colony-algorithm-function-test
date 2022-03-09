@@ -23,9 +23,9 @@ export interface TSPRunner {
         callback: (data: DataOfFinishOneIteration) => void
     ) => void;
     onfinishoneroute: (callback: (data: DataOfFinishOneRoute) => void) => void;
-  //  getlengthofstagnant: () => number;
+    //  getlengthofstagnant: () => number;
     getnumberofiterations: () => number;
-  //  getnumberofstagnant: () => number;
+    //  getnumberofstagnant: () => number;
     getglobalbestlength: () => number;
     getglobalbestroute: () => number[];
     getcurrentsearchcount: () => number;
@@ -41,23 +41,22 @@ export interface TSPRunner {
     betazero: number;
     searchloopcountratio: number;
     numberofants: number;
- //   maxnumberofiterations: number;
-  //  maxnumberofstagnant: number;
+    //   maxnumberofiterations: number;
+    //  maxnumberofstagnant: number;
 }
 
 export function createTSPrunner({
-	
     pheromoneintensityQ = 1,
     nodecoordinates,
     alphazero = 1,
     betazero = 5,
     searchloopcountratio = 100,
     numberofants = 10,
-  //  maxnumberofiterations = 1000,
-  //  maxnumberofstagnant = 30,
-...rest
+    //  maxnumberofiterations = 1000,
+    //  maxnumberofstagnant = 30,
+    ...rest
 }: {
-	pheromonevolatilitycoefficientR1?: number
+    pheromonevolatilitycoefficientR1?: number;
     pheromonevolatilitycoefficientR2?: number;
     pheromoneintensityQ?: number;
     nodecoordinates: Nodecoordinates;
@@ -65,24 +64,36 @@ export function createTSPrunner({
     betazero?: number;
     searchloopcountratio?: number;
     numberofants?: number;
-  //  maxnumberofiterations?: number;
-   // maxnumberofstagnant?: number;
+    //  maxnumberofiterations?: number;
+    // maxnumberofstagnant?: number;
 }): TSPRunner {
     assertnumber(numberofants);
     asserttrue(numberofants >= 2);
 
-const pheromonevolatilitycoefficientR1= rest?.pheromonevolatilitycoefficientR1?? (1 - Math.pow(1 - rest?.pheromonevolatilitycoefficientR2??0.1, 1 / numberofants));
+    const pheromonevolatilitycoefficientR1 =
+        rest?.pheromonevolatilitycoefficientR1 ??
+        1 -
+            Math.pow(
+                1 - (rest?.pheromonevolatilitycoefficientR2 ?? 0.1),
+                1 / numberofants
+            );
 
-const pheromonevolatilitycoefficientR2=  rest?.pheromonevolatilitycoefficientR2??(1 - Math.pow(1 - rest?.pheromonevolatilitycoefficientR1??0.01,  numberofants));
+    const pheromonevolatilitycoefficientR2 =
+        rest?.pheromonevolatilitycoefficientR2 ??
+        1 -
+            Math.pow(
+                1 - (rest?.pheromonevolatilitycoefficientR1 ?? 0.01),
+                numberofants
+            );
 
-
-  /*  const pheromonevolatilitycoefficientR1 =
+    /*  const pheromonevolatilitycoefficientR1 =
         1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
 */
-asserttrue(pheromonevolatilitycoefficientR1 ===
-        1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants))
-        
-        
+    asserttrue(
+        pheromonevolatilitycoefficientR1 ===
+            1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants)
+    );
+
     console.log({
         numberofants,
         pheromonevolatilitycoefficientR1,
@@ -116,25 +127,25 @@ asserttrue(pheromonevolatilitycoefficientR1 ===
     const getglobalbestlength = () => {
         return globalbestlength;
     };
- //   let numberofstagnant = 0;
-  //  const getnumberofstagnant = () => {
-  //      return numberofstagnant;
-  //  };
+    //   let numberofstagnant = 0;
+    //  const getnumberofstagnant = () => {
+    //      return numberofstagnant;
+    //  };
     let numberofiterations = 0;
     const getnumberofiterations = () => {
         return numberofiterations;
     };
     //let lengthofstagnant = Infinity;
     //const getlengthofstagnant = () => {
-   //     return lengthofstagnant;
- //   };
+    //     return lengthofstagnant;
+    //   };
     const emitter = EventEmitterTargetClass();
     const { on: onfinishoneroute, emit: emitfinishoneroute } =
         createEventPair<DataOfFinishOneRoute>(emitter);
     const { on: onfinishoneiteration, emit: emitfinishoneiteration } =
         createEventPair<DataOfFinishOneIteration>(emitter);
 
- //   let stagnantlength = Infinity;
+    //   let stagnantlength = Infinity;
     const runoneiteration = () => {
         if (currentsearchcount === 0) {
             const starttime = Number(new Date());
@@ -151,48 +162,48 @@ asserttrue(pheromonevolatilitycoefficientR1 ===
                 countofloops,
             });
             currentsearchcount++;
-        //    stagnantlength = totallength;
+            //    stagnantlength = totallength;
             globalbestlength = totallength;
             globalbestroute = route;
             //信息素初始化
             SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
         }
-      //  if (
+        //  if (
         //    maxnumberofiterations > numberofiterations &&
-       //     maxnumberofstagnant / numberofants > numberofstagnant
-      //  ) {
-            const starttime = Number(new Date());
+        //     maxnumberofstagnant / numberofants > numberofstagnant
+        //  ) {
+        const starttime = Number(new Date());
 
-            const {
-                nextrandomselectionprobability,
-             //   routesandlengths,
-                pheromoneDiffusionProbability,
-                populationrelativeinformationentropy,
-                ispheromoneDiffusion,
-                optimallengthofthisround,
-                optimalrouteofthisround,
-            } = adaptiveTabooSingleIterateTSPSearchSolve({
-                emitfinishoneroute,
-                setbestroute,
-                setbestlength,
-                getbestlength: getglobalbestlength,
-                getbestroute: getglobalbestroute,
-                pathTabooList,
-                pheromonestore,
-                nodecoordinates,
-                numberofants,
-                alphazero,
-                betazero,
-                lastrandomselectionprobability,
-                searchloopcountratio,
-                pheromonevolatilitycoefficientR2,
-                pheromonevolatilitycoefficientR1,
-                pheromoneintensityQ,
-            });
+        const {
+            nextrandomselectionprobability,
+            //   routesandlengths,
+            pheromoneDiffusionProbability,
+            populationrelativeinformationentropy,
+            ispheromoneDiffusion,
+            optimallengthofthisround,
+            optimalrouteofthisround,
+        } = adaptiveTabooSingleIterateTSPSearchSolve({
+            emitfinishoneroute,
+            setbestroute,
+            setbestlength,
+            getbestlength: getglobalbestlength,
+            getbestroute: getglobalbestroute,
+            pathTabooList,
+            pheromonestore,
+            nodecoordinates,
+            numberofants,
+            alphazero,
+            betazero,
+            lastrandomselectionprobability,
+            searchloopcountratio,
+            pheromonevolatilitycoefficientR2,
+            pheromonevolatilitycoefficientR1,
+            pheromoneintensityQ,
+        });
 
-            const endtime = Number(new Date());
+        const endtime = Number(new Date());
 
-          /*  if (
+        /*  if (
                 routesandlengths.every(
                     ({ totallength }) => totallength === stagnantlength
                 )
@@ -203,42 +214,42 @@ asserttrue(pheromonevolatilitycoefficientR1 ===
             }
             stagnantlength = routesandlengths[0].totallength;
           */
-  const timems = endtime - starttime;
-            totaltimems += timems;
-            emitfinishoneiteration({
-                pheromoneDiffusionProbability,
-                optimallengthofthisround,
-                optimalrouteofthisround,
-                populationrelativeinformationentropy,
-                ispheromoneDiffusion,
-                randomselectionprobability: lastrandomselectionprobability,
-                timems,
-            });
-            lastrandomselectionprobability = nextrandomselectionprobability;
-            // console.log({ routesandlengths });
+        const timems = endtime - starttime;
+        totaltimems += timems;
+        emitfinishoneiteration({
+            pheromoneDiffusionProbability,
+            optimallengthofthisround,
+            optimalrouteofthisround,
+            populationrelativeinformationentropy,
+            ispheromoneDiffusion,
+            randomselectionprobability: lastrandomselectionprobability,
+            timems,
+        });
+        lastrandomselectionprobability = nextrandomselectionprobability;
+        // console.log({ routesandlengths });
 
-            currentsearchcount += numberofants;
-            numberofiterations++;
-       // } else {
-            // const timems = totaltimems;
-          //  emitfinishalliterations();
-       // }
+        currentsearchcount += numberofants;
+        numberofiterations++;
+        // } else {
+        // const timems = totaltimems;
+        //  emitfinishalliterations();
+        // }
     };
     const runiterations = (iterations: number) => {
         assertnumber(iterations);
         asserttrue(iterations > 0);
 
         for (let i = 0; i < iterations; i++) {
-          //  if (
-           //     maxnumberofiterations > numberofiterations &&
-             //   maxnumberofstagnant / numberofants > numberofstagnant
-         //   ) {
-                runoneiteration();
-          //  } else {
+            //  if (
+            //     maxnumberofiterations > numberofiterations &&
+            //   maxnumberofstagnant / numberofants > numberofstagnant
+            //   ) {
+            runoneiteration();
+            //  } else {
             //    break;
-          //  }
+            //  }
         }
-emitfinishalliterations();
+        emitfinishalliterations();
     };
     const { on: onDataChange, emit: emitDataChange } =
         createEventPair<DataOfChange>(emitter);
@@ -267,20 +278,20 @@ emitfinishalliterations();
         runiterations,
         onfinishoneiteration,
         onfinishoneroute,
-    //    getlengthofstagnant,
+        //    getlengthofstagnant,
         getnumberofiterations,
-     //   getnumberofstagnant,
+        //   getnumberofstagnant,
         getglobalbestlength,
         getglobalbestroute,
         getcurrentsearchcount,
         pheromonestore,
         betazero,
-    //    maxnumberofstagnant,
+        //    maxnumberofstagnant,
         nodecoordinates,
         alphazero,
         searchloopcountratio,
         numberofants,
-    //    maxnumberofiterations,
+        //    maxnumberofiterations,
         pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",
     };
