@@ -7,12 +7,14 @@ import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
 import { DataOfChange } from "../functions/DataOfChange";
 
 export function initializeTSP_runner({
+    onFinshIteration,
     nodecoordinates,
     numberofants,
     onGlobalBestRouteChange,
     onLatestRouteChange,
     pheromonevolatilitycoefficientR1,
 }: {
+    onFinshIteration: () => void;
     pheromonevolatilitycoefficientR1: number;
     nodecoordinates: Nodecoordinates;
     numberofants: number;
@@ -39,6 +41,7 @@ export function initializeTSP_runner({
         onGlobalBestRouteChange(globalbestroute, nodecoordinates);
     };
     runner.onfinishalliterations(onreceivefinishofAllIteration);
+    runner.onfinishalliterations(onFinshIteration);
     runner.onfinishoneiteration(onreceivedataofoneIteration);
     runner.onfinishoneroute(onreceivedataofoneroute);
     runner.onfinishoneroute(({ route }) => {

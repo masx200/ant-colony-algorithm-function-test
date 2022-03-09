@@ -33,6 +33,7 @@ console.log(TSP_cities_data);
 export default defineComponent({
     components: { datatable },
     setup() {
+        const is_running = ref(false);
         const local_pheromone_volatilization_rate = ref(
             default_local_pheromone_volatilization_rate
         );
@@ -121,6 +122,9 @@ export default defineComponent({
                 });
             }
         };
+        const onFinshIteration = () => {
+            is_running.value = false;
+        };
         const onGlobalBestRouteChange = (
             route: number[],
             nodecoordinates: Nodecoordinates
@@ -158,7 +162,9 @@ export default defineComponent({
                 assertnumber(numberofants);
                 assertnumber(roundofsearch);
                 assertnumber(pheromonevolatilitycoefficientR1);
+                is_running.value = true;
                 TSP_Start({
+                    onFinshIteration,
                     pheromonevolatilitycoefficientR1,
                     onGlobalBestRouteChange,
                     nodecoordinates,
@@ -172,6 +178,7 @@ export default defineComponent({
                 searchrounds.value = defaultsearchrounds;
                 numberofeachround.value = defaultnumberofants;
                 disablemapswitching.value = false;
+                is_running.value = false;
             }
         };
         function reset() {
@@ -180,8 +187,10 @@ export default defineComponent({
             // const nodecoordinates = TSP_cities_map.get(element?.value || "");
             TSP_terminate();
             disablemapswitching.value = false;
+            is_running.value = false;
         }
         return {
+            is_running,
             local_pheromone_volatilization_rate,
             reset,
             resultTableHeads,

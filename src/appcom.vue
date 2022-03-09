@@ -24,7 +24,7 @@
     <span>迭代轮次</span>
     <input v-model.number="searchrounds" />
 
-    <button v-text="'运行'" @click="runtsp" />
+    <button v-text="'运行'" @click="runtsp" :disabled="is_running" />
     <hr />
 
     <div id="chartcontainer" style="">

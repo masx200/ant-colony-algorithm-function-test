@@ -13,6 +13,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { createEventPair } from "./createEventPair";
 import { assertnumber } from "../test/assertnumber";
+import { float64equal } from "./float64equal";
 
 export interface TSPRunner {
     onDataChange: (callback: (data: DataOfChange) => void) => void;
@@ -89,17 +90,19 @@ export function createTSPrunner({
     /*  const pheromonevolatilitycoefficientR1 =
         1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
 */
-    asserttrue(
-        pheromonevolatilitycoefficientR1 ===
-            1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants)
-    );
-
     console.log({
         numberofants,
         pheromonevolatilitycoefficientR1,
         pheromonevolatilitycoefficientR2,
         pheromoneintensityQ,
     });
+    asserttrue(
+        float64equal(
+            pheromonevolatilitycoefficientR1,
+            1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants)
+        )
+    );
+
     let lastrandomselectionprobability = 0;
     let totaltimems = 0;
     const gettotaltimems = () => {
@@ -258,7 +261,7 @@ export function createTSPrunner({
     const dataChangeListener = () => {
         emitDataChange({
             iterations: getnumberofiterations(),
-
+            currentsearchcount,
             timems: gettotaltimems(),
 
             globalbestroute: getglobalbestroute(),

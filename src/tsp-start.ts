@@ -3,6 +3,7 @@ import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { initializeTSP_runner } from "./initializeTSP_runner";
 
 export function TSP_Start({
+    onFinshIteration,
     onGlobalBestRouteChange,
     onLatestRouteChange,
     roundofsearch,
@@ -10,6 +11,7 @@ export function TSP_Start({
     numberofants,
     pheromonevolatilitycoefficientR1,
 }: {
+    onFinshIteration: () => void;
     pheromonevolatilitycoefficientR1: number;
     onGlobalBestRouteChange: (
         globalbestroute: number[],
@@ -25,6 +27,7 @@ export function TSP_Start({
 }): void {
     console.log("TSP_Start", nodecoordinates);
     TSP_RunnerRef.value ||= initializeTSP_runner({
+        onFinshIteration,
         pheromonevolatilitycoefficientR1,
         onGlobalBestRouteChange,
         onLatestRouteChange,
