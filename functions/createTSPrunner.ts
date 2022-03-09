@@ -71,9 +71,9 @@ export function createTSPrunner({
     assertnumber(numberofants);
     asserttrue(numberofants >= 2);
 
-const pheromonevolatilitycoefficientR1||= 1 - Math.pow(1 - rest.pheromonevolatilitycoefficientR2??0.1, 1 / numberofants);
+const pheromonevolatilitycoefficientR1= rest.pheromonevolatilitycoefficientR1?? (1 - Math.pow(1 - rest.pheromonevolatilitycoefficientR2??0.1, 1 / numberofants));
 
-const pheromonevolatilitycoefficientR2||= 1 - Math.pow(1 - rest.pheromonevolatilitycoefficientR1??0.01,  numberofants);
+const pheromonevolatilitycoefficientR2=  rest.pheromonevolatilitycoefficientR2??(1 - Math.pow(1 - rest.pheromonevolatilitycoefficientR1??0.01,  numberofants));
 
 
   /*  const pheromonevolatilitycoefficientR1 =
