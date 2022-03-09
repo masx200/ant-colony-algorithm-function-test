@@ -41,8 +41,15 @@ export default defineComponent({
         const searchrounds = ref(defaultsearchrounds);
         const numberofeachround = ref(defaultnumberofants);
         const selecteleref = ref<HTMLSelectElement>();
-        const chartofbestref = ref<HTMLDivElement>();
-        const chartoflatestref = ref<HTMLDivElement>();
+        const container_of_best_chart = ref<HTMLDivElement>();
+        const container_of_latest_chart = ref<HTMLDivElement>();
+        const container_of_iteration_rounds_and_information_entropy_chart =
+            ref<HTMLDivElement>();
+        const container_of_path_number_and_current_path_length_chart =
+            ref<HTMLDivElement>();
+        const container_of_path_number_and_optimal_path_length_chart =
+            ref<HTMLDivElement>();
+
         const chartstore: {
             best: undefined | EChartsType;
             //   resize: () => void;
@@ -90,11 +97,11 @@ export default defineComponent({
             element && (element.selectedIndex = 0);
 
             // console.log(containertoechart);
-            console.log(chartofbestref);
-            console.log(chartoflatestref);
+            console.log(container_of_best_chart);
+            console.log(container_of_latest_chart);
 
-            const containerofbest = chartofbestref.value;
-            const containeroflatest = chartoflatestref.value;
+            const containerofbest = container_of_best_chart.value;
+            const containeroflatest = container_of_latest_chart.value;
             // setTimeout(() => {
             if (containerofbest && containeroflatest) {
                 const bestchart = createchartofcontainer(containerofbest);
@@ -190,6 +197,7 @@ export default defineComponent({
             is_running.value = false;
         }
         return {
+            container_of_iteration_rounds_and_information_entropy_chart,
             is_running,
             local_pheromone_volatilization_rate,
             reset,
@@ -200,14 +208,16 @@ export default defineComponent({
             oneiterationtableheads,
             oneiterationtablebody,
             numberofeachround,
+            container_of_path_number_and_current_path_length_chart,
             disablemapswitching,
+            container_of_path_number_and_optimal_path_length_chart,
             runtsp,
             searchrounds,
             TSP_cities_data,
             submit,
             selecteleref,
-            chartofbestref,
-            chartoflatestref,
+            container_of_best_chart,
+            container_of_latest_chart,
         };
     },
 });

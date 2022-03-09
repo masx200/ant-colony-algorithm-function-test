@@ -27,9 +27,32 @@
     <button v-text="'运行'" @click="runtsp" :disabled="is_running" />
     <hr />
 
-    <div id="chartcontainer" style="">
-        <div class="singlechart" style="" ref="chartofbestref"></div>
-        <div class="singlechart" style="" ref="chartoflatestref"></div>
+    <div class="chartcontainer" style="">
+        <!-- 全局最优解的图 -->
+        <div class="singlechart" style="" ref="container_of_best_chart"></div>
+        <!-- 最近一条路径的图 -->
+        <div class="singlechart" style="" ref="container_of_latest_chart"></div>
+    </div>
+    <hr />
+    <div class="chartcontainer" style="">
+        <!-- 迭代轮次和信息熵的图表 -->
+        <div
+            class="singlechart"
+            style=""
+            ref="container_of_iteration_rounds_and_information_entropy_chart"
+        ></div>
+        <!-- 路径序号和当前路径长度的图表 -->
+        <div
+            class="singlechart"
+            style=""
+            ref="container_of_path_number_and_current_path_length_chart"
+        ></div>
+        <!-- 路径序号和最优路径长度的图表 -->
+        <div
+            class="singlechart"
+            style=""
+            ref="container_of_path_number_and_optimal_path_length_chart"
+        ></div>
     </div>
     <hr />
     <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
@@ -51,8 +74,9 @@
     max-width: 100%;
     width: 500px;
     height: 500px;
+    max-height: 100%;
 }
-#chartcontainer {
+.chartcontainer {
     max-width: 100%;
     display: flex;
     max-height: 100%;
