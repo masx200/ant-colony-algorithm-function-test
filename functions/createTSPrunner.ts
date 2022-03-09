@@ -159,7 +159,7 @@ asserttrue(pheromonevolatilitycoefficientR1 ===
 
             const {
                 nextrandomselectionprobability,
-                routesandlengths,
+             //   routesandlengths,
                 pheromoneDiffusionProbability,
                 populationrelativeinformationentropy,
                 ispheromoneDiffusion,
