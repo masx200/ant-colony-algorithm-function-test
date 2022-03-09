@@ -63,6 +63,7 @@ export function SparseMatrixCreate<
         if (defaultvalue === value && get(inputrow, inputcolumn) === value) {
             return;
         }
+        asserttrue(!Number.isNaN(value));
         valuesrecord.set(
             numberstostringkeynotsymmetry(inputrow, inputcolumn),
             value
@@ -113,7 +114,7 @@ export function SparseMatrixCreate<
         for (let [i, j] of matrixkeyiterator(row, column)) {
             const value = initializer(i, j);
             if (typeof value === "number") {
-                obj.set(i, j, value);
+                set(i, j, value);
             } else {
                 throw new Error("invalid return value");
             }

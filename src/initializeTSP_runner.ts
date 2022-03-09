@@ -4,7 +4,9 @@ import {
     onreceivedataofoneIteration,
     onreceivedataofoneroute,
 } from "./onreceivedataofoneroute";
-import { onreceivedataofAllIteration } from "./onreceivedataofAllIteration";
+import { onreceivedataofChange } from "./onreceivedataofChange";
+import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
+import { DataOfChange } from "../functions/DataOfChange";
 
 export function initializeTSP_runner({
     nodecoordinates,
@@ -24,25 +26,23 @@ export function initializeTSP_runner({
     ) => void;
 }): TSPRunner {
     const runner = createTSPrunner({ nodecoordinates, numberofants });
-    const onresultchange = () => {
-        const timems = runner.gettotaltimems();
-        const globalbestlength = runner.getglobalbestlength();
-        const globalbestroute = runner.getglobalbestroute();
-        onreceivedataofAllIteration({
-            timems,
-            globalbestroute,
-            globalbestlength,
-        });
+    const onresultchange = (data: DataOfChange) => {
+        onreceivedataofChange(data);
+        // const { timems } = data;
+        // const { globalbestlength } = data;
+        const { globalbestroute } = data;
+
         onGlobalBestRouteChange(globalbestroute, nodecoordinates);
     };
-    runner.onfinishalliterations(onreceivedataofAllIteration);
+    runner.onfinishalliterations(onreceivefinishofAllIteration);
     runner.onfinishoneiteration(onreceivedataofoneIteration);
     runner.onfinishoneroute(onreceivedataofoneroute);
     runner.onfinishoneroute(({ route }) => {
         onLatestRouteChange(route, nodecoordinates);
     });
-    runner.onfinishoneiteration(onresultchange);
-    runner.onfinishoneroute(onresultchange);
+    runner.onDataChange(onresultchange);
+    // runner.onfinishoneiteration(onresultchange);
+    // runner.onfinishoneroute(onresultchange);
     console.log(runner);
     // debugger
     return runner;

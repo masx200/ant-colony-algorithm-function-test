@@ -113,7 +113,7 @@ export function each_iteration_of_pheromone_update_rules({
     console.log(" 信息素更新结束");
     console.log({
         oldpheromonestore: SparseMatrixToArrays(oldpheromonestore),
-        nextpheromonestore:SparseMatrixToArrays( nextpheromonestore),
+        nextpheromonestore: SparseMatrixToArrays(nextpheromonestore),
     });
     asserttrue(nextpheromonestore.values().every((a) => a > 0));
     //信息素更新

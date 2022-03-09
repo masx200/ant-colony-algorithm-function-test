@@ -5,20 +5,18 @@ import { asserttrue } from "../test/asserttrue";
 import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
 import { createpathTabooList } from "../pathTabooList/createPathTabooList";
 import { createPheromonestore } from "./createPheromonestore";
-import { DataOfFinishAllIteration } from "./DataOfFinishAllIteration";
+import { DataOfChange } from "./DataOfChange";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
-const finishalliterationsflag = Symbol();
-const finishonerouteflag = Symbol();
-const finishoneiterationflag = Symbol();
+import { createEventPair } from "./createEventPair";
+
 export interface TSPRunner {
+    onDataChange: (callback: (data: DataOfChange) => void) => void;
     gettotaltimems: () => number;
-    onfinishalliterations: (
-        callback: (data: DataOfFinishAllIteration) => void
-    ) => void;
+    onfinishalliterations: (callback: (data: undefined) => void) => void;
     runiterations: (iterations: number) => void;
     onfinishoneiteration: (
         callback: (data: DataOfFinishOneIteration) => void
@@ -116,23 +114,11 @@ export function createTSPrunner({
         return lengthofstagnant;
     };
     const emitter = EventEmitterTargetClass();
+    const { on: onfinishoneroute, emit: emitfinishoneroute } =
+        createEventPair<DataOfFinishOneRoute>(emitter);
+    const { on: onfinishoneiteration, emit: emitfinishoneiteration } =
+        createEventPair<DataOfFinishOneIteration>(emitter);
 
-    const onfinishoneroute = (
-        callback: (data: DataOfFinishOneRoute) => void
-    ) => {
-        emitter.on(finishonerouteflag, callback);
-    };
-    const emitfinishoneroute = (data: DataOfFinishOneRoute) => {
-        emitter.emit(finishonerouteflag, data);
-    };
-    const onfinishoneiteration = (
-        callback: (data: DataOfFinishOneIteration) => void
-    ) => {
-        emitter.on(finishoneiterationflag, callback);
-    };
-    const emitfinishoneiteration = (data: DataOfFinishOneIteration) => {
-        emitter.emit(finishoneiterationflag, data);
-    };
     let stagnantlength = Infinity;
     const runoneiteration = () => {
         if (currentsearchcount === 0) {
@@ -217,12 +203,8 @@ export function createTSPrunner({
                 timems,
             });
         } else {
-            const timems = totaltimems;
-            emitfinishalliterations({
-                timems,
-                globalbestlength,
-                globalbestroute,
-            });
+            // const timems = totaltimems;
+            emitfinishalliterations();
         }
     };
     const runiterations = (iterations: number) => {
@@ -239,16 +221,25 @@ export function createTSPrunner({
             }
         }
     };
+    const { on: onDataChange, emit: emitDataChange } =
+        createEventPair<DataOfChange>(emitter);
+    const { on: onfinishalliterations, emit: emitfinishalliterations } =
+        createEventPair<undefined>(emitter);
+    const dataChangeListener = () => {
+        emitDataChange({
+            iterations: getnumberofiterations(),
 
-    const onfinishalliterations = (
-        callback: (data: DataOfFinishAllIteration) => void
-    ) => {
-        emitter.on(finishalliterationsflag, callback);
+            timems: gettotaltimems(),
+
+            globalbestroute: getglobalbestroute(),
+            globalbestlength: getglobalbestlength(),
+        });
     };
-    const emitfinishalliterations = (data: DataOfFinishAllIteration) => {
-        emitter.emit(finishalliterationsflag, data);
-    };
+    onfinishalliterations(dataChangeListener);
+    onfinishoneiteration(dataChangeListener);
+    onfinishoneroute(dataChangeListener);
     const result: TSPRunner = {
+        onDataChange,
         pheromonevolatilitycoefficientR2,
         pheromonevolatilitycoefficientR1,
         pheromoneintensityQ,

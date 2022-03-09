@@ -6,6 +6,7 @@
         "test": "jest",
         "dev": "vite -c vite.config.ts",
         "build": "tsc && vite build",
+        "check-type": "tsc",
         "preview": "vite preview",
         "format": "npx prettier --write *.json *.ts *.html */*.ts */*.css *.md *.js */*.vue"
     },
