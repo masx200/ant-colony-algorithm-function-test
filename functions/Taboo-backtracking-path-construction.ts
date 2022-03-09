@@ -139,15 +139,40 @@ export function taboo_backtracking_path_construction(
 
     if (route.length !== countofnodes) {
         console.warn(
-            "构建路径超出循环次数,使用完全随机方式构建剩余的路径",
+            "构建路径超出循环次数,使用贪心算法方式构建剩余的路径",
             route
         );
 
         while (route.length !== countofnodes) {
-            const restcities = inputindexs.filter(
+            const currentnode = route.slice(-1)[0];
+            const restnodes = inputindexs.filter(
                 (city) => !route.includes(city)
             );
-            const nextnode = getnumberfromarrayofnmber(pickRandom(restcities));
+            // const nextnode = getnumberfromarrayofnmber(pickRandom(restcities)
+
+            // );
+            const nextnodesanddistances: {
+                nextnode: number;
+                distance: number;
+            }[] = restnodes.map((value) => {
+                return {
+                    nextnode: value,
+                    distance: geteuclideandistancebyindex(
+                        currentnode,
+                        value,
+                        nodecoordinates
+                    ),
+                };
+            });
+            const bestnextnodeanddistance: {
+                nextnode: number;
+                distance: number;
+            } = nextnodesanddistances.reduce((previous, current) => {
+                return previous.distance < current.distance
+                    ? previous
+                    : current;
+            }, nextnodesanddistances[0]);
+            const nextnode = bestnextnodeanddistance.nextnode;
             route = [...route, nextnode];
         }
     }
