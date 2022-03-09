@@ -21,8 +21,11 @@
         "vite": "^2.8.4"
     },
     "dependencies": {
+        "@babel/core": "^7.17.5",
         "@masx200/event-emitter-target": "^1.1.9",
+        "@rollup/plugin-babel": "^5.3.1",
         "@vitejs/plugin-vue": "^2.2.4",
+        "babel-plugin-clean-code": "^0.0.3",
         "combinatorial-generators": "^1.0.1",
         "comlink": "^4.3.1",
         "core-js": "^3.21.1",
@@ -31,6 +34,7 @@
         "mathjs": "^10.1.1",
         "mocha": "^9.2.1",
         "robust-segment-intersect": "^1.0.1",
+        "terser": "^5.12.0",
         "vue": "^3.2.31"
     }
 }
