@@ -1,11 +1,9 @@
-import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-import { dataofoneiteration } from "./dataofoneiteration";
-import { dataofoneroute } from "./dataofoneroute";
+import { dataofoneroute, oneroutetablebody } from "./dataofoneroute";
 
 export function onreceivedataofoneroute(data: DataOfFinishOneRoute) {
+    console.log("onreceivedataofoneroute");
     dataofoneroute.push(data);
-}
-export function onreceivedataofoneIteration(data: DataOfFinishOneIteration) {
-    dataofoneiteration.push(data);
+    console.log(dataofoneroute);
+    console.log(oneroutetablebody);
 }

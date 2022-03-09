@@ -5,21 +5,23 @@ export function clearDataOfResult() {
 }
 export const resultTableHeads = [
     "全局最优长度",
-    "全局最优路径",
+
     "总共耗时秒",
     "总迭代次数",
+    "全局最优路径",
 ];
 export const dataofresult = ref<DataOfChange>();
-export const resultTableBody: ComputedRef<[number, string, number, number][]> =
+export const resultTableBody: ComputedRef<[number, number, number, string][]> =
     computed(() => {
         const result = dataofresult.value;
         return result
             ? [
                   [
                       result.globalbestlength,
-                      JSON.stringify(result.globalbestroute),
+
                       result.timems / 1000,
                       result.iterations,
+                      JSON.stringify(result.globalbestroute),
                   ],
               ]
             : [];

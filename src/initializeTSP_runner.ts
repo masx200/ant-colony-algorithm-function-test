@@ -1,9 +1,7 @@
 import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
-import {
-    onreceivedataofoneIteration,
-    onreceivedataofoneroute,
-} from "./onreceivedataofoneroute";
+import { onreceivedataofoneroute } from "./onreceivedataofoneroute";
+import { onreceivedataofoneIteration } from "./onreceivedataofoneIteration";
 import { onreceivedataofChange } from "./onreceivedataofChange";
 import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
 import { DataOfChange } from "../functions/DataOfChange";

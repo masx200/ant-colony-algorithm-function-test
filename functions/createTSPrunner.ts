@@ -187,21 +187,22 @@ export function createTSPrunner({
                 numberofstagnant = 0;
             }
             stagnantlength = routesandlengths[0].totallength;
-            lastrandomselectionprobability = nextrandomselectionprobability;
-            // console.log({ routesandlengths });
             const timems = endtime - starttime;
             totaltimems += timems;
-            currentsearchcount += numberofants;
-            numberofiterations++;
             emitfinishoneiteration({
                 pheromoneDiffusionProbability,
                 optimallengthofthisround,
                 optimalrouteofthisround,
                 populationrelativeinformationentropy,
                 ispheromoneDiffusion,
-                randomselectionprobability: nextrandomselectionprobability,
+                randomselectionprobability: lastrandomselectionprobability,
                 timems,
             });
+            lastrandomselectionprobability = nextrandomselectionprobability;
+            // console.log({ routesandlengths });
+
+            currentsearchcount += numberofants;
+            numberofiterations++;
         } else {
             // const timems = totaltimems;
             emitfinishalliterations();
