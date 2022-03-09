@@ -11,7 +11,9 @@ export function initializeTSP_runner({
     numberofants,
     onGlobalBestRouteChange,
     onLatestRouteChange,
+    pheromonevolatilitycoefficientR1,
 }: {
+    pheromonevolatilitycoefficientR1: number;
     nodecoordinates: Nodecoordinates;
     numberofants: number;
     onGlobalBestRouteChange: (
@@ -23,7 +25,11 @@ export function initializeTSP_runner({
         nodecoordinates: Nodecoordinates
     ) => void;
 }): TSPRunner {
-    const runner = createTSPrunner({ nodecoordinates, numberofants });
+    const runner = createTSPrunner({
+        pheromonevolatilitycoefficientR1,
+        nodecoordinates,
+        numberofants,
+    });
     const onresultchange = (data: DataOfChange) => {
         onreceivedataofChange(data);
         // const { timems } = data;

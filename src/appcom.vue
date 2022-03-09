@@ -14,6 +14,11 @@
 
     <button v-text="'重置'" @click="reset" />
     <hr />
+    <span>局部信息素挥发率</span>
+    <input
+        v-model.number="local_pheromone_volatilization_rate"
+        :disabled="disablemapswitching"
+    />
     <span>蚂蚁数量</span>
     <input v-model.number="numberofeachround" :disabled="disablemapswitching" />
     <span>迭代轮次</span>

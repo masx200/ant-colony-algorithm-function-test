@@ -16,6 +16,7 @@ import datatable from "./datatable.vue";
 import {
     defaultsearchrounds,
     defaultnumberofants,
+    default_local_pheromone_volatilization_rate,
 } from "./defaultnumberofants";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import {
@@ -32,6 +33,9 @@ console.log(TSP_cities_data);
 export default defineComponent({
     components: { datatable },
     setup() {
+        const local_pheromone_volatilization_rate = ref(
+            default_local_pheromone_volatilization_rate
+        );
         const disablemapswitching = ref(false);
         const searchrounds = ref(defaultsearchrounds);
         const numberofeachround = ref(defaultnumberofants);
@@ -140,7 +144,10 @@ export default defineComponent({
             const element = selecteleref.value;
             // element && (element.selectedIndex = 0);
             const nodecoordinates = TSP_cities_map.get(element?.value || "");
+            const pheromonevolatilitycoefficientR1 =
+                local_pheromone_volatilization_rate.value;
             if (
+                pheromonevolatilitycoefficientR1 > 0 &&
                 roundofsearch > 0 &&
                 numberofeachroundvalue >= 2 &&
                 nodecoordinates
@@ -150,7 +157,9 @@ export default defineComponent({
                 console.log(nodecoordinates);
                 assertnumber(numberofants);
                 assertnumber(roundofsearch);
+                assertnumber(pheromonevolatilitycoefficientR1);
                 TSP_Start({
+                    pheromonevolatilitycoefficientR1,
                     onGlobalBestRouteChange,
                     nodecoordinates,
                     numberofants,
@@ -158,8 +167,10 @@ export default defineComponent({
                     onLatestRouteChange,
                 });
             } else {
-                searchrounds.value = 1;
-                numberofeachround.value = 2;
+                local_pheromone_volatilization_rate.value =
+                    default_local_pheromone_volatilization_rate;
+                searchrounds.value = defaultsearchrounds;
+                numberofeachround.value = defaultnumberofants;
                 disablemapswitching.value = false;
             }
         };
@@ -171,6 +182,7 @@ export default defineComponent({
             disablemapswitching.value = false;
         }
         return {
+            local_pheromone_volatilization_rate,
             reset,
             resultTableHeads,
             resultTableBody,

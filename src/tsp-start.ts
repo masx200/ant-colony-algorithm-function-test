@@ -8,7 +8,9 @@ export function TSP_Start({
     roundofsearch,
     nodecoordinates,
     numberofants,
+    pheromonevolatilitycoefficientR1,
 }: {
+    pheromonevolatilitycoefficientR1: number;
     onGlobalBestRouteChange: (
         globalbestroute: number[],
         nodecoordinates: Nodecoordinates
@@ -23,6 +25,7 @@ export function TSP_Start({
 }): void {
     console.log("TSP_Start", nodecoordinates);
     TSP_RunnerRef.value ||= initializeTSP_runner({
+        pheromonevolatilitycoefficientR1,
         onGlobalBestRouteChange,
         onLatestRouteChange,
         nodecoordinates,
