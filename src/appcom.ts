@@ -160,6 +160,7 @@ export default defineComponent({
             } else {
                 searchrounds.value = 2;
                 numberofeachround.value = 1;
+                disablemapswitching.value = false;
             }
         };
         function reset() {
