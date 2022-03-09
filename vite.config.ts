@@ -5,6 +5,7 @@ export default defineConfig({
     root: path.resolve(__dirname, "src"),
     plugins: [vuePlugin()],
     build: {
+        emptyOutDir: true,
         outDir: path.resolve(__dirname, "dist"),
         target: "es2018",
         terserOptions: {
