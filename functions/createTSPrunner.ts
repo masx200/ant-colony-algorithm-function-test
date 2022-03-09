@@ -145,10 +145,10 @@ export function createTSPrunner({
             //信息素初始化
             SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
         }
-        if (
-            maxnumberofiterations > numberofiterations &&
-            maxnumberofstagnant / numberofants > numberofstagnant
-        ) {
+      //  if (
+        //    maxnumberofiterations > numberofiterations &&
+       //     maxnumberofstagnant / numberofants > numberofstagnant
+      //  ) {
             const starttime = Number(new Date());
 
             const {
@@ -180,7 +180,7 @@ export function createTSPrunner({
 
             const endtime = Number(new Date());
 
-            if (
+          /*  if (
                 routesandlengths.every(
                     ({ totallength }) => totallength === stagnantlength
                 )
@@ -190,7 +190,8 @@ export function createTSPrunner({
                 numberofstagnant = 0;
             }
             stagnantlength = routesandlengths[0].totallength;
-            const timems = endtime - starttime;
+          */
+  const timems = endtime - starttime;
             totaltimems += timems;
             emitfinishoneiteration({
                 pheromoneDiffusionProbability,
@@ -206,25 +207,26 @@ export function createTSPrunner({
 
             currentsearchcount += numberofants;
             numberofiterations++;
-        } else {
+       // } else {
             // const timems = totaltimems;
-            emitfinishalliterations();
-        }
+          //  emitfinishalliterations();
+       // }
     };
     const runiterations = (iterations: number) => {
         assertnumber(iterations);
         asserttrue(iterations > 0);
 
         for (let i = 0; i < iterations; i++) {
-            if (
-                maxnumberofiterations > numberofiterations &&
-                maxnumberofstagnant / numberofants > numberofstagnant
-            ) {
+          //  if (
+           //     maxnumberofiterations > numberofiterations &&
+             //   maxnumberofstagnant / numberofants > numberofstagnant
+         //   ) {
                 runoneiteration();
-            } else {
-                break;
-            }
+          //  } else {
+            //    break;
+          //  }
         }
+emitfinishalliterations();
     };
     const { on: onDataChange, emit: emitDataChange } =
         createEventPair<DataOfChange>(emitter);
