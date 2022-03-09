@@ -1,18 +1,19 @@
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
-import { pickRandom } from "mathjs";
-import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 import { asserttrue } from "../test/asserttrue";
+import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
 import { euclideandistance } from "./euclideandistance";
+import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
+import { haverepetitions } from "./haverepetitions";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 /**执行信息素扩散操作 */
 export function pheromoneDiffusionCallback({
     pheromonestore,
@@ -56,11 +57,14 @@ export function pheromoneDiffusionCallback({
             .map((a) => a.city);
 
         /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
-        const selectedcitiesinsidecircle = pickRandom(
+        const selectedcitiesinsidecircle = copyArrayAndShuffle(
+            nodesinsidecircle
+        ).slice(0, 25); /* pickRandom(
             nodesinsidecircle,
             Math.min(25, nodesinsidecircle.length)
-        );
+        ); */
         asserttrue(Array.isArray(selectedcitiesinsidecircle));
+        asserttrue(!haverepetitions(selectedcitiesinsidecircle));
         const segmentsinsidecircle = [
             ...combinations(selectedcitiesinsidecircle, 2),
         ].filter(
@@ -131,6 +135,7 @@ export function pheromoneDiffusionCallback({
                     return { cityC, cityD, pheromonedelta };
                 }
             );
+            // debugger;
             pheromonedeltaofcities.forEach(
                 ({ cityC, cityD, pheromonedelta }) => {
                     deltapheromonestore.set(cityC, cityD, pheromonedelta);

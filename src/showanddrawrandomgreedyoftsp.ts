@@ -1,15 +1,19 @@
+import { EChartsType } from "echarts";
 import { pickRandom } from "mathjs";
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "../functions/Greedyalgorithmtosolvetspwithselectedstart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
-import { createchartofcontainer } from "./createchartofcontainer";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 
-export function showanddrawrandomgreedyoftsp(
-    nodecoordinates: Nodecoordinates,
-
-    chart: ReturnType<typeof createchartofcontainer>
-) {
+export function showanddrawrandomgreedyoftsp({
+    nodecoordinates,
+    chart,
+    // resize,
+}: {
+    nodecoordinates: Nodecoordinates;
+    chart: EChartsType;
+    // resize: () => void;
+}) {
     console.log(nodecoordinates, chart);
 
     const inputindexs = Array(nodecoordinates.length)
@@ -22,5 +26,5 @@ export function showanddrawrandomgreedyoftsp(
         start
     );
     // const greedypath = route;
-    drawrouteofnodecoordinates({ route, nodecoordinates, chart });
+    drawrouteofnodecoordinates({/*  resize, */ route, nodecoordinates, chart });
 }

@@ -1,4 +1,4 @@
-import * as echarts from "echarts/core";
+import { EChartsType } from "echarts";
 import { ECOption } from "./echarts-line";
 
 // 注册必须的组件
@@ -18,11 +18,19 @@ import { ECOption } from "./echarts-line";
 //     // ...
 // };
 /* 使用echarts画折线图 */
-export function drawlinechart(
-    data: Array<[number, number]>,
-    mychart: echarts.ECharts,
-    titletext: string
-) {
+export function drawlinechart({
+    data,
+    // resize,
+    // setOption,
+    chart,
+    titletext,
+}: {
+    data: Array<[number, number]>;
+    chart: EChartsType;
+    titletext: string;
+    // resize: EChartsType["resize"];
+    // setOption: EChartsType["setOption"];
+}) {
     const option: ECOption = {
         title: { text: titletext },
         xAxis: { min: "dataMin", max: "dataMax" },
@@ -49,6 +57,9 @@ export function drawlinechart(
         ],
         // ...
     };
-    mychart.setOption(option);
-    mychart.resize(/* getcharsizeofwindow() */);
+    // setOption(option);
+    chart.setOption(option);
+    chart.resize()
+    // resize();
+    // chart.resize(/* getcharsizeofwindow() */);
 }

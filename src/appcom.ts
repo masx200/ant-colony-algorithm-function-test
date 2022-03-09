@@ -1,20 +1,21 @@
-import { defineComponent, onMounted, reactive, ref } from "vue";
+import { EChartsType } from "echarts";
+import { defineComponent, onMounted, ref, shallowReactive } from "vue";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { createchartofcontainer } from "./createchartofcontainer";
 import {
     oneiterationtablebody,
-    oneiterationtableheads,
+    oneiterationtableheads
 } from "./dataofoneiteration";
 import { oneroutetablebody, oneroutetableheads } from "./dataofoneroute";
 // const containertoechart = new WeakMap<
 //     HTMLElement,
-//     ReturnType<typeof createchartofcontainer>
+//     EChartsType
 // >();
 import datatable from "./datatable.vue";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import {
     resultTableBody,
-    resultTableHeads,
+    resultTableHeads
 } from "./resultTableHeads-resultTableBody";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_Start } from "./tsp-start";
@@ -32,9 +33,13 @@ export default defineComponent({
         const chartofbestref = ref<HTMLDivElement>();
         const chartoflatestref = ref<HTMLDivElement>();
         const chartstore: {
-            best: undefined | ReturnType<typeof createchartofcontainer>;
-            latest: undefined | ReturnType<typeof createchartofcontainer>;
-        } = reactive({
+            best: undefined | EChartsType;
+            //   resize: () => void;
+
+            latest: undefined | EChartsType;
+            //   resize: () => void;
+        } = shallowReactive({
+            // } = shallowReactive({
             best: undefined,
             latest: undefined,
         });
@@ -48,19 +53,21 @@ export default defineComponent({
                 setTimeout(() => {
                     const latestchart = chartstore.latest;
                     if (latestchart) {
-                        showanddrawrandomgreedyoftsp(
+                        showanddrawrandomgreedyoftsp({
+                            // resize: latestchart.resize,
                             nodecoordinates,
-                            latestchart
-                        );
+                            chart: latestchart,
+                        });
                     }
                 });
                 setTimeout(() => {
                     const bestchart = chartstore.best;
                     if (bestchart) {
-                        showanddrawrandomgreedyoftsp(
+                        showanddrawrandomgreedyoftsp({
+                            // resize: bestchart.resize,
                             nodecoordinates,
-                            bestchart
-                        );
+                            chart: bestchart,
+                        });
                     }
                 });
             }
@@ -96,6 +103,7 @@ export default defineComponent({
             const latestchart = chartstore.latest;
             if (latestchart) {
                 drawrouteofnodecoordinates({
+                    // resize: latestchart.resize,
                     route,
                     nodecoordinates,
                     chart: latestchart,
@@ -109,6 +117,7 @@ export default defineComponent({
             const chart = chartstore.best;
             if (chart) {
                 drawrouteofnodecoordinates({
+                    // resize: chart.resize,
                     route,
                     nodecoordinates,
                     chart: chart,
