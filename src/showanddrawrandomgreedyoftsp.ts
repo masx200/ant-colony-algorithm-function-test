@@ -8,8 +8,8 @@ import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 export function showanddrawrandomgreedyoftsp({
     nodecoordinates,
     chart,
-    // resize,
-}: {
+}: // resize,
+{
     nodecoordinates: Nodecoordinates;
     chart: EChartsType;
     // resize: () => void;
@@ -26,5 +26,9 @@ export function showanddrawrandomgreedyoftsp({
         start
     );
     // const greedypath = route;
-    drawrouteofnodecoordinates({/*  resize, */ route, nodecoordinates, chart });
+    drawrouteofnodecoordinates({
+        /*  resize, */ route,
+        nodecoordinates,
+        chart,
+    });
 }

@@ -109,7 +109,7 @@ export function test_taboo_backtracking_path_construction(
     const linechardata = [...route, route[0]].map((v) => nodecoordinates[v]);
     console.log("禁忌回溯算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
-    const { chart /* container *//* , resize */ } = createchart();
+    const { chart /* container */ /* , resize */ } = createchart();
     drawlinechart({
         // resize,
         data: linechardata,

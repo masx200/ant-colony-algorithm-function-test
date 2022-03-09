@@ -4,7 +4,7 @@ import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { createchartofcontainer } from "./createchartofcontainer";
 import {
     oneiterationtablebody,
-    oneiterationtableheads
+    oneiterationtableheads,
 } from "./dataofoneiteration";
 import { oneroutetablebody, oneroutetableheads } from "./dataofoneroute";
 // const containertoechart = new WeakMap<
@@ -15,7 +15,7 @@ import datatable from "./datatable.vue";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import {
     resultTableBody,
-    resultTableHeads
+    resultTableHeads,
 } from "./resultTableHeads-resultTableBody";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_Start } from "./tsp-start";

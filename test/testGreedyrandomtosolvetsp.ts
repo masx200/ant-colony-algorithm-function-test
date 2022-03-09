@@ -27,7 +27,7 @@ export function testGreedyrandomtosolvetsp(nodecoordinates: Nodecoordinates) {
     );
     console.log("贪心算法路径结果画图坐标", linechardata);
     console.log("test drawlinechart");
-    const { chart /*  container *//* , resize } */ } = createchart();
+    const { chart /*  container */ /* , resize } */ } = createchart();
     drawlinechart({
         // resize,
         data: linechardata,

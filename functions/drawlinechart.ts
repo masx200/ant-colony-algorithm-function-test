@@ -59,7 +59,7 @@ export function drawlinechart({
     };
     // setOption(option);
     chart.setOption(option);
-    chart.resize()
+    chart.resize();
     // resize();
     // chart.resize(/* getcharsizeofwindow() */);
 }

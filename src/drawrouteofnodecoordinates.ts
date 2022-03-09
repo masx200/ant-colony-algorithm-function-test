@@ -8,8 +8,8 @@ export function drawrouteofnodecoordinates({
     route,
     nodecoordinates,
     chart,
-    // resize,
-}: {
+}: // resize,
+{
     // resize: () => void;
     route: number[];
     nodecoordinates: Nodecoordinates;
