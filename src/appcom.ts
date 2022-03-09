@@ -12,6 +12,10 @@ import { oneroutetablebody, oneroutetableheads } from "./dataofoneroute";
 //     EChartsType
 // >();
 import datatable from "./datatable.vue";
+import {
+    defaultsearchrounds,
+    defaultnumberofants,
+} from "./defaultnumberofants";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import {
     resultTableBody,
@@ -23,12 +27,13 @@ import { TSP_cities_map } from "./TSP_cities_map";
 import { TSP_terminate } from "./TSP_terminate";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
 console.log(TSP_cities_data);
+
 export default defineComponent({
     components: { datatable },
     setup() {
         const disablemapswitching = ref(false);
-        const searchrounds = ref(5);
-        const numberofeachround = ref(5);
+        const searchrounds = ref(defaultsearchrounds);
+        const numberofeachround = ref(defaultnumberofants);
         const selecteleref = ref<HTMLSelectElement>();
         const chartofbestref = ref<HTMLDivElement>();
         const chartoflatestref = ref<HTMLDivElement>();
@@ -73,6 +78,7 @@ export default defineComponent({
             }
         };
         onMounted(() => {
+            reset();
             console.log(selecteleref);
             const element = selecteleref.value;
             element && (element.selectedIndex = 0);
