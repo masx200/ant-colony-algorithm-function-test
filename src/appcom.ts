@@ -141,8 +141,8 @@ export default defineComponent({
             // element && (element.selectedIndex = 0);
             const nodecoordinates = TSP_cities_map.get(element?.value || "");
             if (
-                roundofsearch > 1 &&
-                numberofeachroundvalue > 0 &&
+                roundofsearch > 0 &&
+                numberofeachroundvalue >=2 &&
                 nodecoordinates
             ) {
                 disablemapswitching.value = true;
@@ -158,8 +158,8 @@ export default defineComponent({
                     onLatestRouteChange,
                 });
             } else {
-                searchrounds.value = 2;
-                numberofeachround.value = 1;
+                searchrounds.value = 1;
+                numberofeachround.value = 2;
                 disablemapswitching.value = false;
             }
         };
