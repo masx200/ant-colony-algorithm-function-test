@@ -7,14 +7,14 @@ import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
 import { DataOfChange } from "../functions/DataOfChange";
 
 export function initializeTSP_runner({
-    onFinshIteration,
+    onFinishIteration,
     nodecoordinates,
     numberofants,
     onGlobalBestRouteChange,
     onLatestRouteChange,
     pheromonevolatilitycoefficientR1,
 }: {
-    onFinshIteration: () => void;
+    onFinishIteration: () => void;
     pheromonevolatilitycoefficientR1: number;
     nodecoordinates: Nodecoordinates;
     numberofants: number;
@@ -32,7 +32,7 @@ export function initializeTSP_runner({
         nodecoordinates,
         numberofants,
     });
-    const onresultchange = (data: DataOfChange) => {
+    const onDataChange = (data: DataOfChange) => {
         onreceivedataofChange(data);
         // const { timems } = data;
         // const { globalbestlength } = data;
@@ -40,16 +40,16 @@ export function initializeTSP_runner({
 
         onGlobalBestRouteChange(globalbestroute, nodecoordinates);
     };
-    runner.onfinishalliterations(onreceivefinishofAllIteration);
-    runner.onfinishalliterations(onFinshIteration);
-    runner.onfinishoneiteration(onreceivedataofoneIteration);
-    runner.onfinishoneroute(onreceivedataofoneroute);
-    runner.onfinishoneroute(({ route }) => {
+    runner.on_finish_all_iterations(onreceivefinishofAllIteration);
+    runner.on_finish_all_iterations(onFinishIteration);
+    runner.on_finish_one_iteration(onreceivedataofoneIteration);
+    runner.on_finish_one_route(onreceivedataofoneroute);
+    runner.on_finish_one_route(({ route }) => {
         onLatestRouteChange(route, nodecoordinates);
     });
-    runner.onDataChange(onresultchange);
-    // runner.onfinishoneiteration(onresultchange);
-    // runner.onfinishoneroute(onresultchange);
+    runner.onDataChange(onDataChange);
+    // runner.on_finish_one_iteration(onDataChange);
+    // runner.on_finish_one_route(onDataChange);
     console.log(runner);
     // debugger
     return runner;

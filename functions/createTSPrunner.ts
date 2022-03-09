@@ -18,12 +18,14 @@ import { float64equal } from "./float64equal";
 export interface TSPRunner {
     onDataChange: (callback: (data: DataOfChange) => void) => void;
     gettotaltimems: () => number;
-    onfinishalliterations: (callback: (data: undefined) => void) => void;
+    on_finish_all_iterations: (callback: (data: undefined) => void) => void;
     runiterations: (iterations: number) => void;
-    onfinishoneiteration: (
+    on_finish_one_iteration: (
         callback: (data: DataOfFinishOneIteration) => void
     ) => void;
-    onfinishoneroute: (callback: (data: DataOfFinishOneRoute) => void) => void;
+    on_finish_one_route: (
+        callback: (data: DataOfFinishOneRoute) => void
+    ) => void;
     //  getlengthofstagnant: () => number;
     getnumberofiterations: () => number;
     //  getnumberofstagnant: () => number;
@@ -143,9 +145,9 @@ export function createTSPrunner({
     //     return lengthofstagnant;
     //   };
     const emitter = EventEmitterTargetClass();
-    const { on: onfinishoneroute, emit: emitfinishoneroute } =
+    const { on: on_finish_one_route, emit: emitfinishoneroute } =
         createEventPair<DataOfFinishOneRoute>(emitter);
-    const { on: onfinishoneiteration, emit: emitfinishoneiteration } =
+    const { on: on_finish_one_iteration, emit: emitfinishoneiteration } =
         createEventPair<DataOfFinishOneIteration>(emitter);
 
     //   let stagnantlength = Infinity;
@@ -256,7 +258,7 @@ export function createTSPrunner({
     };
     const { on: onDataChange, emit: emitDataChange } =
         createEventPair<DataOfChange>(emitter);
-    const { on: onfinishalliterations, emit: emitfinishalliterations } =
+    const { on: on_finish_all_iterations, emit: emitfinishalliterations } =
         createEventPair<undefined>(emitter);
     const dataChangeListener = () => {
         emitDataChange({
@@ -268,19 +270,19 @@ export function createTSPrunner({
             globalbestlength: getglobalbestlength(),
         });
     };
-    onfinishalliterations(dataChangeListener);
-    onfinishoneiteration(dataChangeListener);
-    onfinishoneroute(dataChangeListener);
+    on_finish_all_iterations(dataChangeListener);
+    on_finish_one_iteration(dataChangeListener);
+    on_finish_one_route(dataChangeListener);
     const result: TSPRunner = {
         onDataChange,
         pheromonevolatilitycoefficientR2,
         pheromonevolatilitycoefficientR1,
         pheromoneintensityQ,
         gettotaltimems,
-        onfinishalliterations,
+        on_finish_all_iterations,
         runiterations,
-        onfinishoneiteration,
-        onfinishoneroute,
+        on_finish_one_iteration,
+        on_finish_one_route,
         //    getlengthofstagnant,
         getnumberofiterations,
         //   getnumberofstagnant,

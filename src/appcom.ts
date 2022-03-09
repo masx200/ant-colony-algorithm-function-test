@@ -45,6 +45,7 @@ export default defineComponent({
         const container_of_latest_chart = ref<HTMLDivElement>();
         const container_of_iteration_rounds_and_information_entropy_chart =
             ref<HTMLDivElement>();
+
         const container_of_path_number_and_current_path_length_chart =
             ref<HTMLDivElement>();
         const container_of_path_number_and_optimal_path_length_chart =
@@ -129,7 +130,7 @@ export default defineComponent({
                 });
             }
         };
-        const onFinshIteration = () => {
+        const onFinishIteration = () => {
             is_running.value = false;
         };
         const onGlobalBestRouteChange = (
@@ -171,7 +172,7 @@ export default defineComponent({
                 assertnumber(pheromonevolatilitycoefficientR1);
                 is_running.value = true;
                 TSP_Start({
-                    onFinshIteration,
+                    onFinishIteration,
                     pheromonevolatilitycoefficientR1,
                     onGlobalBestRouteChange,
                     nodecoordinates,
