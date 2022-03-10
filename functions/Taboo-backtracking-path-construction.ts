@@ -4,7 +4,6 @@ import { asserttrue } from "../test/asserttrue";
 
 import { constructonesteproute } from "./constructonesteproute";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
-import { filterforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
@@ -13,6 +12,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
+import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 
 export type PathConstructOptions = {
     alphazero: number;
@@ -29,7 +29,7 @@ export type PathConstructOptions = {
     pathTabooList: PathTabooList;
     // startnode: number;
     /**过滤禁忌表当中的节点 */
-    // filterforbiddenbeforepick: FilterForbiddenBeforePick;
+
     // parameterrandomization: boolean;
 
     /* 通过序号获得信息素 */
@@ -47,8 +47,8 @@ export function taboo_backtracking_path_construction(
     route: number[];
     countofloops: number;
 } {
-    const filterforbiddenbeforepick: FilterForbiddenBeforePick =
-        filterforbiddenbeforepickfun;
+    const filternotforbiddenbeforepick: FilterForbiddenBeforePick =
+        filternotforbiddenbeforepickfun;
     const intersectionfilter: IntersectionFilter = intersectionfilterfun;
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
@@ -60,7 +60,7 @@ export function taboo_backtracking_path_construction(
         //  parameterrandomization,
         // startnode,
         //   countofnodes,
-        //   filterforbiddenbeforepick,
+
         // intersectionfilter,
         nodecoordinates,
         // picknextnode,
@@ -120,7 +120,7 @@ export function taboo_backtracking_path_construction(
                 // startnode,
                 countofnodes,
                 getbestlength,
-                filterforbiddenbeforepick,
+                filternotforbiddenbeforepick,
                 getdistancebyserialnumber,
                 getpheromone,
                 getroute,

@@ -20,7 +20,7 @@ export function constructonesteproute({
     picknextnode,
     getroute,
     countofnodes,
-    filterforbiddenbeforepick,
+    filternotforbiddenbeforepick,
     pathTabooList,
     nodecoordinates,
     intersectionfilter,
@@ -45,7 +45,7 @@ export function constructonesteproute({
     countofnodes: number;
     getroute: () => number[];
     getpheromone: (left: number, right: number) => number;
-    filterforbiddenbeforepick: FilterForbiddenBeforePick;
+    filternotforbiddenbeforepick: FilterForbiddenBeforePick;
 }): number[] {
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
@@ -66,14 +66,13 @@ export function constructonesteproute({
     );
     // debugger;
     /* 找出禁忌表中不包含的路径 */
-    const selectednodes = Array.from(availablenodes).filter(
-        (value) =>
-            !filterforbiddenbeforepick(
-                // countofnodes,
-                Array.from(route),
-                pathTabooList,
-                value
-            )
+    const selectednodes = Array.from(availablenodes).filter((value) =>
+        filternotforbiddenbeforepick(
+            // countofnodes,
+            Array.from(route),
+            pathTabooList,
+            value
+        )
     );
 
     const filterednodes = selectednodes;
