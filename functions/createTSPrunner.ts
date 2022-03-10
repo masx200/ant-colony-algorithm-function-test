@@ -145,20 +145,30 @@ export function createTSPrunner({
     //     return lengthofstagnant;
     //   };
     const emitter = EventEmitterTargetClass();
-    const { on: on_finish_one_route, emit: emit_finish_one_route } =
+    const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =
         createEventPair<Omit<DataOfFinishOneRoute, "current_search_count">>(
             emitter
         );
-    const { on: on_finish_one_iteration, emit: emit_finish_one_iteration } =
+const emit_finish_one_route=(data:Omit<DataOfFinishOneRoute, "current_search_count">)=>{
+
+inner_emit_finish_one_route(data)
+current_search_count++;
+}
+    const { on: on_finish_one_iteration, emit: inner_emit_finish_one_iteration } =
         createEventPair<Omit<DataOfFinishOneIteration, "current_iterations">>(
             emitter
         );
-    on_finish_one_iteration(() => {
+const emit_finish_one_route=(data:Omit<DataOfFinishOneIteration, "current_iterations">)=>{
+
+inner_emit_finish_one_iteration(data)
+numberofiterations++;
+}
+    /*on_finish_one_iteration(() => {
         numberofiterations++;
     });
     on_finish_one_route(() => {
         current_search_count++;
-    });
+    });*/
     //   let stagnantlength = Infinity;
     const runoneiteration = () => {
         if (current_search_count === 0) {
@@ -273,8 +283,8 @@ export function createTSPrunner({
         createEventPair<undefined>(emitter);
     const dataChangeListener = () => {
         emitDataChange({
-            current_iterations: getnumberofiterations() - 1,
-            current_search_count: current_search_count - 1,
+            current_iterations: getnumberofiterations() ,
+            current_search_count: current_search_count ,
             timems: gettotaltimems(),
 
             globalbestroute: getglobalbestroute(),
@@ -291,7 +301,7 @@ export function createTSPrunner({
             (data: Omit<DataOfFinishOneRoute, "current_search_count">) => {
                 listener({
                     ...data,
-                    current_search_count: current_search_count - 1,
+                    current_search_count: current_search_count ,
                 });
             }
         );
@@ -303,7 +313,7 @@ export function createTSPrunner({
             (data: Omit<DataOfFinishOneIteration, "current_iterations">) => {
                 listener({
                     ...data,
-                    current_iterations: numberofiterations - 1,
+                    current_iterations: numberofiterations ,
                 });
             }
         );
