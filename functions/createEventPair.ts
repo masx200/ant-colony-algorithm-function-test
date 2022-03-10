@@ -3,7 +3,7 @@ import { EventEmitterTarget } from "@masx200/event-emitter-target";
 export function createEventPair<T = undefined>(
     emitter: EventEmitterTarget
 ): { off: (callback: (data: T) => void) => void
-    emit: (data?: T | undefined) => void;
+    emit: (data: T |undefined=undefined) => void;
     on: (callback: (data: T) => void) => void;
     event_name: symbol;
 } {
@@ -14,7 +14,7 @@ export function createEventPair<T = undefined>(
 const off = (callback: (data: T) => void) => {
         emitter.off(event_name, callback);
     };
-    const emit = (data?: T) => {
+    const emit = (data: T |undefined=undefined) => {
         emitter.emit(event_name, data);
     };
     return { emit: emit, on, event_name ,off};
