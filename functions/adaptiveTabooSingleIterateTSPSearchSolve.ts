@@ -169,6 +169,9 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     each_iteration_of_pheromone_update_rules({
+        nodecoordinates,
+        iteratebestroute,
+        globalbestroute,
         countofnodes,
         globalbestroutesegments,
         globalbestlength,

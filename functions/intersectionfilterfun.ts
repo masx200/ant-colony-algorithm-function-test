@@ -2,13 +2,17 @@ import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegments
 import { haverepetitions } from "./haverepetitions";
 import { Nodecoordinates } from "./Nodecoordinates";
 /**判断路径当中是否有交叉点 */
-export function intersectionfilterfun(
-    //countofnodes: number,
-    currentroute: number[],
+export function intersectionfilterfun({
+    currentroute,
+    nextnode,
+    nodecoordinates,
+}: //countofnodes: number,
+{
+    currentroute: number[];
 
-    nextnode: number,
-    nodecoordinates: Nodecoordinates
-): boolean {
+    nextnode: number;
+    nodecoordinates: Nodecoordinates;
+}): boolean {
     const countofnodes = nodecoordinates.length;
     const currentsegments: [number, number][] = currentroute
         .slice(0, currentroute.length - 1)

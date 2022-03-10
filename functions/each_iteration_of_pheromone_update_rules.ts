@@ -7,9 +7,15 @@ import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 import { asserttrue } from "../test/asserttrue";
+import { intersectionfilterfun } from "./intersectionfilterfun";
+import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
+import { Nodecoordinates } from "./Nodecoordinates";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function each_iteration_of_pheromone_update_rules({
+    nodecoordinates,
+    globalbestroute,
+    iteratebestroute,
     countofnodes,
     globalbestroutesegments,
     globalbestlength,
@@ -21,6 +27,9 @@ export function each_iteration_of_pheromone_update_rules({
     pheromonestore,
     pheromonevolatilitycoefficientR2,
 }: {
+    nodecoordinates: Nodecoordinates;
+    globalbestroute: number[];
+    iteratebestroute: number[];
     countofnodes: number;
     globalbestroutesegments: [number, number][];
     globalbestlength: number;
@@ -33,31 +42,43 @@ export function each_iteration_of_pheromone_update_rules({
     pheromonevolatilitycoefficientR2: number;
 }) {
     console.log(" 信息素更新计算开始");
+    /* 最优路径不能有交叉点 */
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
-        initializer: function (i, j) {
-            return globalbestroutesegments.some(([left, right]) => {
-                return (
-                    (i === left && j === right) || (j === left && i === right)
-                );
-            })
-                ? 1 / globalbestlength
-                : 0;
-        },
+        initializer: intersection_filter_with_cycle_route({
+            cycleroute: globalbestroute,
+
+            nodecoordinates,
+        })
+            ? undefined
+            : (i, j) =>
+                  globalbestroutesegments.some(
+                      ([left, right]) =>
+                          (i === left && j === right) ||
+                          (j === left && i === right)
+                  )
+                      ? 1 / globalbestlength
+                      : 0,
     });
+    /* 最优路径不能有交叉点 */
     const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         // column: countofnodes,
-        initializer: function (i, j) {
-            return iteratebestroutesegments.some(([left, right]) => {
-                return (
-                    (i === left && j === right) || (j === left && i === right)
-                );
-            })
-                ? 1 / iteratebestlength
-                : 0;
-        },
+        initializer: intersection_filter_with_cycle_route({
+            cycleroute: iteratebestroute,
+
+            nodecoordinates,
+        })
+            ? undefined
+            : (i, j) =>
+                  iteratebestroutesegments.some(
+                      ([left, right]) =>
+                          (i === left && j === right) ||
+                          (j === left && i === right)
+                  )
+                      ? 1 / iteratebestlength
+                      : 0,
     });
     /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({

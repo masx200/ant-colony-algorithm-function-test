@@ -112,12 +112,12 @@ export function constructonesteproute({
         //先判断交叉点,然后判断路径长度是否大于最短路径
         if (
             route.length >= 3 &&
-            intersectionfilter(
-                Array.from(route),
+            intersectionfilter({
+                currentroute: Array.from(route),
 
                 nextnode,
-                nodecoordinates
-            )
+                nodecoordinates,
+            })
         ) {
             pathTabooList.add([...route, nextnode]);
             //深度搜索
