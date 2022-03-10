@@ -17,5 +17,5 @@ const off = (callback: (data: T) => void) => {
     const emit = (data?: T) => {
         emitter.emit(event_name, data);
     };
-    return { emit: emit, on, event_name ，off};
+    return { emit: emit, on, event_name ,off};
 }
