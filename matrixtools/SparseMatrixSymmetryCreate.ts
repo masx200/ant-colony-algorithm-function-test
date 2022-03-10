@@ -91,7 +91,7 @@ export function SparseMatrixSymmetryCreate<R extends number = number>(
         for (let [i, j] of matrixkeyiterator(row, column)) {
             const value = initializer(i, j);
             if (typeof value === "number") {
-                obj.set(i, j, value);
+                set(i, j, value);
             }
         }
     }
