@@ -59,35 +59,49 @@ export function each_iteration_of_pheromone_update_rules({
                 : 0;
         },
     });
+    /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
         row: countofnodes,
-        //  column: countofnodes,
-    });
-    if (
-        !(
+        initializer: !(
             iteratebestlength === iterateworstlength ||
             iterateworstlength === globalbestlength
         )
-    ) {
-        //最差和最好不一样，相当于有最差
-        SparseMatrixAssign(
-            deltapheromoneiterateworst,
-            SparseMatrixSymmetryCreate({
-                row: countofnodes,
-                //  column: countofnodes,
-                initializer: function (i, j) {
-                    return iterateworstroutesegments.some(([left, right]) => {
-                        return (
-                            (i === left && j === right) ||
-                            (j === left && i === right)
-                        );
-                    })
-                        ? -1 / iterateworstlength
-                        : 0;
-                },
-            })
-        );
-    }
+            ? (i, j) =>
+                  iterateworstroutesegments.some(
+                      ([left, right]) =>
+                          (i === left && j === right) ||
+                          (j === left && i === right)
+                  )
+                      ? -1 / iterateworstlength
+                      : 0
+            : undefined,
+        //  column: countofnodes,
+    });
+    // if (
+    //     !(
+    //         iteratebestlength === iterateworstlength ||
+    //         iterateworstlength === globalbestlength
+    //     )
+    // ) {
+    //     //最差和最好不一样，相当于有最差
+    //     SparseMatrixAssign(
+    //         deltapheromoneiterateworst,
+    //         SparseMatrixSymmetryCreate({
+    //             row: countofnodes,
+    //             //  column: countofnodes,
+    //             initializer: function (i, j) {
+    //                 return iterateworstroutesegments.some(([left, right]) => {
+    //                     return (
+    //                         (i === left && j === right) ||
+    //                         (j === left && i === right)
+    //                     );
+    //                 })
+    //                     ? -1 / iterateworstlength
+    //                     : 0;
+    //             },
+    //         })
+    //     );
+    // }
     const deltapheromone = SparseMatrixMultiplyNumber(
         pheromoneintensityQ,
         SparseMatrixAdd(
