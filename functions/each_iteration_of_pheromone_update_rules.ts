@@ -7,7 +7,6 @@ import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 import { asserttrue } from "../test/asserttrue";
-import { intersectionfilterfun } from "./intersectionfilterfun";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 import { Nodecoordinates } from "./Nodecoordinates";
 
