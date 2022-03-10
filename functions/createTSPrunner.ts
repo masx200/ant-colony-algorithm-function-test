@@ -14,6 +14,8 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { createEventPair } from "./createEventPair";
 import { assertnumber } from "../test/assertnumber";
 import { float64equal } from "./float64equal";
+import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
+import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 
 export interface TSPRunner {
     onDataChange: (callback: (data: DataOfChange) => void) => void;
@@ -146,23 +148,26 @@ export function createTSPrunner({
     //   };
     const emitter = EventEmitterTargetClass();
     const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =
-        createEventPair<Omit<DataOfFinishOneRoute, "current_search_count">>(
-            emitter
-        );
-const emit_finish_one_route=(data:Omit<DataOfFinishOneRoute, "current_search_count">)=>{
-
-inner_emit_finish_one_route(data)
-current_search_count++;
-}
-    const { on: on_finish_one_iteration, emit: inner_emit_finish_one_iteration } =
-        createEventPair<Omit<DataOfFinishOneIteration, "current_iterations">>(
-            emitter
-        );
-const emit_finish_one_iteration=(data:Omit<DataOfFinishOneIteration, "current_iterations">)=>{
-
-inner_emit_finish_one_iteration(data)
-numberofiterations++;
-}
+        createEventPair<DataOfFinishOneRoute>(emitter);
+    const emit_finish_one_route = (
+        data: Omit<DataOfFinishOneRoute, "current_search_count">
+    ) => {
+        inner_emit_finish_one_route({ ...data, current_search_count });
+        current_search_count++;
+    };
+    const {
+        on: on_finish_one_iteration,
+        emit: inner_emit_finish_one_iteration,
+    } = createEventPair<DataOfFinishOneIteration>(emitter);
+    const emit_finish_one_iteration = (
+        data: Omit<DataOfFinishOneIteration, "current_iterations">
+    ) => {
+        inner_emit_finish_one_iteration({
+            ...data,
+            current_iterations: numberofiterations,
+        });
+        numberofiterations++;
+    };
     /*on_finish_one_iteration(() => {
         numberofiterations++;
     });
@@ -281,10 +286,18 @@ numberofiterations++;
         createEventPair<DataOfChange>(emitter);
     const { on: on_finish_all_iterations, emit: emit_finish_all_iterations } =
         createEventPair<undefined>(emitter);
-    const dataChangeListener = () => {
+    const dataChangeListener = (
+        data: DataOfFinishOneIteration | DataOfFinishOneRoute | undefined
+    ) => {
+        const current_iterations = isDataOfFinishOneIteration(data)
+            ? data?.current_iterations
+            : getnumberofiterations();
+        const current_search_count = isDataOfFinishOneRoute(data)
+            ? data.current_search_count
+            : getcurrent_search_count();
         emitDataChange({
-            current_iterations: getnumberofiterations() ,
-            current_search_count: current_search_count ,
+            current_iterations: current_iterations,
+            current_search_count: current_search_count,
             timems: gettotaltimems(),
 
             globalbestroute: getglobalbestroute(),
@@ -297,26 +310,22 @@ numberofiterations++;
     const out_on_finish_one_route = (
         listener: (data: DataOfFinishOneRoute) => void
     ) => {
-        on_finish_one_route(
-            (data: Omit<DataOfFinishOneRoute, "current_search_count">) => {
-                listener({
-                    ...data,
-                    current_search_count: current_search_count ,
-                });
-            }
-        );
+        on_finish_one_route((data: DataOfFinishOneRoute) => {
+            listener({
+                ...data,
+                // current_search_count: current_search_count,
+            });
+        });
     };
     const out_on_finish_one_iteration = (
         listener: (data: DataOfFinishOneIteration) => void
     ) => {
-        on_finish_one_iteration(
-            (data: Omit<DataOfFinishOneIteration, "current_iterations">) => {
-                listener({
-                    ...data,
-                    current_iterations: numberofiterations ,
-                });
-            }
-        );
+        on_finish_one_iteration((data: DataOfFinishOneIteration) => {
+            listener({
+                ...data,
+                // current_iterations: numberofiterations,
+            });
+        });
     };
     const result: TSPRunner = {
         onDataChange,
@@ -347,3 +356,4 @@ numberofiterations++;
     };
     return result;
 }
+
