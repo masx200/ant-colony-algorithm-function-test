@@ -55,7 +55,7 @@ export function createTSPrunner({
     nodecoordinates,
     alphazero = 1,
     betazero = 5,
-    searchloopcountratio = 100,
+    searchloopcountratio = 40,
     numberofants = 10,
     //  maxnumberofiterations = 1000,
     //  maxnumberofstagnant = 30,
