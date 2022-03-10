@@ -158,7 +158,7 @@ current_search_count++;
         createEventPair<Omit<DataOfFinishOneIteration, "current_iterations">>(
             emitter
         );
-const emit_finish_one_route=(data:Omit<DataOfFinishOneIteration, "current_iterations">)=>{
+const emit_finish_one_iteration=(data:Omit<DataOfFinishOneIteration, "current_iterations">)=>{
 
 inner_emit_finish_one_iteration(data)
 numberofiterations++;
