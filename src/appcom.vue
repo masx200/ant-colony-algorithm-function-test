@@ -87,12 +87,12 @@
     flex-wrap: nowrap;
 }
 @media screen and (max-width: 1000px) {
-    #chartcontainer {
+    .chartcontainer {
         flex-direction: column;
     }
 }
 @media screen and (min-width: 1000px) {
-    #chartcontainer {
+    .chartcontainer {
         flex-direction: row;
     }
 }
