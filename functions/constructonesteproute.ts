@@ -109,6 +109,11 @@ export function constructonesteproute({
             getdistancebyserialnumber,
         });
         asserttrue(!pathTabooList.has([...route, nextnode]));
+
+        if (route.length + 1 === countofnodes) {
+            //已经完成一条路径退出循环
+            return [...route, nextnode];
+        }
         //先判断交叉点,然后判断路径长度是否大于最短路径
         if (
             route.length >= 3 &&
@@ -127,7 +132,7 @@ export function constructonesteproute({
                 nextnode,
             ]);
             // debugger;
-            return route.slice();
+            return route;
         }
         if (
             //如果所有城市都经过了,则结束了,如果没走完所有城市,则计算部分城市的环路路径长度

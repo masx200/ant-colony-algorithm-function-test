@@ -78,6 +78,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
             nodecoordinates,
         })
     ) {
+        //存在交叉点
         pathTabooList.add(route);
     }
     const bestlength = getbestlength();
