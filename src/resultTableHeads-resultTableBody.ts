@@ -1,5 +1,6 @@
 import { computed, ComputedRef, ref } from "vue";
 import { DataOfGlobalBest } from "../functions/DataOfGlobalBest";
+import { dataofoneiteration } from "./dataofoneiteration";
 import { dataOfAllResults } from "./onreceiveDataOfGlobalBest";
 export function clearDataOfResult() {
     dataofresult.value = undefined;
@@ -25,7 +26,7 @@ export const resultTableBody: ComputedRef<
 
                   result.total_time_ms / 1000,
                   result.current_search_count,
-                  result.current_iterations,
+                  dataofoneiteration.length,
                   JSON.stringify(result.globalbestroute),
               ],
           ]

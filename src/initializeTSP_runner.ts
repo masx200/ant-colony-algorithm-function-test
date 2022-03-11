@@ -47,7 +47,7 @@ export async function initializeTSP_runner({
         numberofants,
     });
     console.log(runner);
-    await runner.on_finish_one_iteration(onreceivedataofoneIteration);
+
     // runner.on_finish_one_route(onreceivedataofoneroute);
     await runner.on_finish_one_route((data) => {
         onreceivedataofoneroute(data);
@@ -59,7 +59,10 @@ export async function initializeTSP_runner({
     // runner.onDataChange(onDataChange);
     // runner.on_finish_one_iteration(onDataChange);
     // runner.on_finish_one_route(onDataChange);
-
+    await runner.on_finish_one_iteration((data) => {
+        onreceivedataofoneIteration(data);
+        // onreceiveDataOfGlobalBest(data);
+    });
     // debugger
     return runner;
 }

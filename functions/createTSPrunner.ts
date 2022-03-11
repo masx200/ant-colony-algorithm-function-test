@@ -293,26 +293,26 @@ export function createTSPrunner({
     // on_finish_all_iterations(dataChangeListener);
     // on_finish_one_iteration(dataChangeListener);
     // on_finish_one_route(dataChangeListener);
-    const out_on_finish_one_route = (
-        listener: (data: DataOfFinishOneRoute) => void
-    ) => {
-        on_finish_one_route((data: DataOfFinishOneRoute) => {
-            listener({
-                ...data,
-                // current_search_count: current_search_count,
-            });
-        });
-    };
-    const out_on_finish_one_iteration = (
-        listener: (data: DataOfFinishOneIteration) => void
-    ) => {
-        on_finish_one_iteration((data: DataOfFinishOneIteration) => {
-            listener({
-                ...data,
-                // current_iterations: numberofiterations,
-            });
-        });
-    };
+    // const out_on_finish_one_route = (
+    //     listener: (data: DataOfFinishOneRoute) => void
+    // ) => {
+    //     on_finish_one_route((data: DataOfFinishOneRoute) => {
+    //         listener({
+    //             ...data,
+    //             // current_search_count: current_search_count,
+    //         });
+    //     });
+    // };
+    // const out_on_finish_one_iteration = (
+    //     listener: (data: DataOfFinishOneIteration) => void
+    // ) => {
+    //     on_finish_one_iteration((data: DataOfFinishOneIteration) => {
+    //         listener({
+    //             ...data,
+    //             // current_iterations: numberofiterations,
+    //         });
+    //     });
+    // };
     const result: TSPRunner = {
         // onDataChange,
         pheromonevolatilitycoefficientR2,
@@ -321,8 +321,8 @@ export function createTSPrunner({
         gettotaltimems,
         // on_finish_all_iterations,
         runIterations,
-        on_finish_one_iteration: out_on_finish_one_iteration,
-        on_finish_one_route: out_on_finish_one_route,
+        on_finish_one_iteration: on_finish_one_iteration,
+        on_finish_one_route: on_finish_one_route,
         //    getlengthofstagnant,
         getnumberofiterations,
         //   getnumberofstagnant,
