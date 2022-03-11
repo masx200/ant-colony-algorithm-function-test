@@ -26,6 +26,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     pheromonevolatilitycoefficientR1: number;
 }) {
     console.log(" 信息素更新计算开始");
+    //TODO 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
@@ -39,6 +40,9 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
                 : 0;
         },
     });
+    //TODO 如果此次搜索到的路径长度大于最优解长度,将此路径视为最差路径.
+    //Tworst表示最差路径的片段的集合,Lworst表示最差路径的长度.
+    //TODO 注意:最差路径不得与最优路径相同,这用于所有蚂蚁走同一条路的极端情况,如果最差路径与最优路径相同,则视为没有最差路径.
     //局部信息素更新
     const deltapheromone = SparseMatrixMultiplyNumber(
         pheromoneintensityQ,
