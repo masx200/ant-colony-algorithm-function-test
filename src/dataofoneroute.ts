@@ -9,7 +9,7 @@ export const oneroutetablebody = computed<
 >(() => {
     return dataofoneroute.map((data, index) => {
         return [
-            index,
+            index+1,
             data.totallength,
             data.countofloops,
             data.globalbestlength,

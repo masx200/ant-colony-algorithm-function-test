@@ -190,7 +190,7 @@ export default defineComponent({
                 console.log(data);
 
                 drawlinechart({
-                    xAxis_min: 0,
+                    // xAxis_min: 0,
                     yAxis_min: 0,
                     titletext,
                     data: data,
@@ -209,7 +209,7 @@ export default defineComponent({
                 ]);
                 console.log(data);
                 drawlinechart({
-                    xAxis_min: 0,
+                    // xAxis_min: 0,
                     yAxis_min: 0,
                     titletext,
                     data: data,
@@ -229,7 +229,7 @@ export default defineComponent({
                 ]);
                 console.log(data);
                 drawlinechart({
-                    xAxis_min: 0,
+                    // xAxis_min: 0,
                     yAxis_min: 0,
                     titletext,
                     data: data,
