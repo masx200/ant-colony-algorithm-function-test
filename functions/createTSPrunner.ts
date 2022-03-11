@@ -157,6 +157,8 @@ export function createTSPrunner({
     const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =
         createEventPair<DataOfFinishOneRoute>(emitter);
     const emit_finish_one_route = (data: PureDataOfFinishOneRoute) => {
+        totaltimems += data.timems;
+        current_search_count++;
         inner_emit_finish_one_route({
             globalbestlength:
                 globalbestlength === Infinity
@@ -168,8 +170,6 @@ export function createTSPrunner({
             current_iterations: numberofiterations,
             total_time_ms: totaltimems,
         });
-        totaltimems += data.timems;
-        current_search_count++;
     };
     const {
         on: on_finish_one_iteration,
@@ -178,11 +178,11 @@ export function createTSPrunner({
     const emit_finish_one_iteration = (
         data: Omit<DataOfFinishOneIteration, "current_iterations">
     ) => {
+        numberofiterations++;
         inner_emit_finish_one_iteration({
             ...data,
             current_iterations: numberofiterations,
         });
-        numberofiterations++;
     };
     /*on_finish_one_iteration(() => {
         numberofiterations++;
