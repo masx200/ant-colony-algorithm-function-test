@@ -62,7 +62,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     const deltapheromoneiteratecurrent = SparseMatrixSymmetryCreate({
         row: countofnodes,
         initializer: intersection_filter_with_cycle_route({
-            cycleroute:current_route ,
+            cycleroute: current_route,
 
             nodecoordinates,
         })

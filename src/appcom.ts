@@ -30,7 +30,8 @@ import {
 } from "./resultTableHeads-resultTableBody";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_cities_map } from "./TSP_cities_map";
-import { TSP_Start } from "./TSP_Start";
+import { tsp_runner_run_async } from "./tsp_runner_run_async";
+import { TSP_before_Start } from "./TSP_Start";
 import { TSP_terminate } from "./TSP_terminate";
 import { use_escharts_container_pair } from "./use_escharts_container_pair";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
@@ -150,9 +151,7 @@ export default defineComponent({
                 });
             }
         };
-        const onFinishIteration = () => {
-            is_running.value = false;
-        };
+
         const onGlobalBestRouteChange = (
             route: number[],
             nodecoordinates: Nodecoordinates
@@ -239,7 +238,7 @@ export default defineComponent({
             }
         };
 
-        const runtsp = () => {
+        const runtsp = async () => {
             console.log("搜索轮次", searchrounds.value);
             console.log("蚂蚁数量", numberofeachround.value);
             const roundofsearch = searchrounds.value;
@@ -262,18 +261,23 @@ export default defineComponent({
                 assertnumber(roundofsearch);
                 assertnumber(pheromonevolatilitycoefficientR1);
                 is_running.value = true;
-                const runner = TSP_Start({
-                    onFinishIteration,
+                // const onFinishIteration = () => {
+                //
+                // };
+                const runner = TSP_before_Start({
+                    // onFinishIteration,
                     pheromonevolatilitycoefficientR1,
                     onGlobalBestRouteChange,
                     nodecoordinates,
                     numberofants,
-                    roundofsearch,
+                    // roundofsearch,
                     onLatestRouteChange,
                 });
                 console.log(runner);
                 runner.on_finish_one_iteration(finish_one_iteration_listener);
                 runner.on_finish_one_route(finish_one_route_listener);
+                await tsp_runner_run_async(runner, roundofsearch);
+                is_running.value = false;
                 // runner.onDataChange(data_change_listener);
             } else {
                 local_pheromone_volatilization_rate.value =

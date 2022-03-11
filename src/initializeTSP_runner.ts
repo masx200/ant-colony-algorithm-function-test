@@ -3,18 +3,18 @@ import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { onreceivedataofoneroute } from "./onreceivedataofoneroute";
 import { onreceivedataofoneIteration } from "./onreceivedataofoneIteration";
 import { onreceiveDataOfGlobalBest } from "./onreceiveDataOfGlobalBest";
-import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
+// import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
 // import { DataOfGlobalBest } from "../functions/DataOfGlobalBest";
 
 export function initializeTSP_runner({
-    onFinishIteration,
+    // onFinishIteration,
     nodecoordinates,
     numberofants,
     onGlobalBestRouteChange,
     onLatestRouteChange,
     pheromonevolatilitycoefficientR1,
 }: {
-    onFinishIteration: () => void;
+    // onFinishIteration: () => void;
     pheromonevolatilitycoefficientR1: number;
     nodecoordinates: Nodecoordinates;
     numberofants: number;
@@ -40,8 +40,8 @@ export function initializeTSP_runner({
 
     //     onGlobalBestRouteChange(globalbestroute, nodecoordinates);
     // };
-    runner.on_finish_all_iterations(onreceivefinishofAllIteration);
-    runner.on_finish_all_iterations(onFinishIteration);
+    // runner.on_finish_all_iterations(onreceivefinishofAllIteration);
+    // runner.on_finish_all_iterations(onFinishIteration);
     runner.on_finish_one_iteration(onreceivedataofoneIteration);
     runner.on_finish_one_route(onreceivedataofoneroute);
     runner.on_finish_one_route((data) => {

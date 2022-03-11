@@ -24,7 +24,7 @@ import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 export interface TSPRunner {
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
     gettotaltimems: () => number;
-    on_finish_all_iterations: (callback: (data: undefined) => void) => void;
+    // on_finish_all_iterations: (callback: (data: undefined) => void) => void;
     runiterations: (iterations: number) => void;
     on_finish_one_iteration: (
         callback: (data: DataOfFinishOneIteration) => void
@@ -265,12 +265,12 @@ export function createTSPrunner({
             //    break;
             //  }
         }
-        emit_finish_all_iterations();
+        // emit_finish_all_iterations();
     };
     // const { on: onDataChange, emit: emitDataChange } =
     //     createEventPair<DataOfGlobalBest>(emitter);
-    const { on: on_finish_all_iterations, emit: emit_finish_all_iterations } =
-        createEventPair<undefined>(emitter);
+    // const { on: on_finish_all_iterations, emit: emit_finish_all_iterations } =
+    //     createEventPair<undefined>(emitter);
     // const dataChangeListener = (
     //     data: DataOfFinishOneIteration | DataOfFinishOneRoute | undefined
     // ) => {
@@ -318,7 +318,7 @@ export function createTSPrunner({
         pheromonevolatilitycoefficientR1,
         pheromoneintensityQ,
         gettotaltimems,
-        on_finish_all_iterations,
+        // on_finish_all_iterations,
         runiterations,
         on_finish_one_iteration: out_on_finish_one_iteration,
         on_finish_one_route: out_on_finish_one_route,
@@ -339,7 +339,6 @@ export function createTSPrunner({
         pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",
     };
-    return result;
 
     function first_search_route() {
         const starttime = Number(new Date());
@@ -362,4 +361,5 @@ export function createTSPrunner({
         //信息素初始化
         SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
     }
+    return result;
 }
