@@ -9,7 +9,7 @@ export const oneiterationtablebody = computed<
 >(() => {
     return dataofoneiteration.map((data, index) => {
         return [
-            index+1,
+            index + 1,
             data.population_relative_information_entropy,
             data.randomselectionprobability,
             data.ispheromoneDiffusion,

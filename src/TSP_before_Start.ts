@@ -1,9 +1,10 @@
-import { TSPRunner } from "../functions/createTSPrunner";
+// import { TSPRunner } from "../functions/createTSPrunner";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { initializeTSP_runner } from "./initializeTSP_runner";
 import { TSP_RunnerRef } from "./TSP_workerRef";
+import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
-export function TSP_before_Start({
+export async function TSP_before_Start({
     // onFinishIteration,
     onGlobalBestRouteChange,
     onLatestRouteChange,
@@ -25,9 +26,9 @@ export function TSP_before_Start({
     // roundofsearch: number;
     numberofants: number;
     nodecoordinates: Nodecoordinates;
-}): TSPRunner {
+}): Promise<TSP_Worker_Remote> {
     console.log("TSP_before_Start", nodecoordinates);
-    TSP_RunnerRef.value ||= initializeTSP_runner({
+    TSP_RunnerRef.value ||= await initializeTSP_runner({
         // onFinishIteration,
         pheromonevolatilitycoefficientR1,
         onGlobalBestRouteChange,

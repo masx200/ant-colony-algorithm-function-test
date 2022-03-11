@@ -1,12 +1,11 @@
-import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
+// import { TSPRunner } from "../functions/createTSPrunner";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
-import { onreceivedataofoneroute } from "./onreceivedataofoneroute";
-import { onreceivedataofoneIteration } from "./onreceivedataofoneIteration";
+import { create_TSP_Worker_comlink } from "./create_TSP_Worker_comlink";
 import { onreceiveDataOfGlobalBest } from "./onreceiveDataOfGlobalBest";
-// import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
-// import { DataOfGlobalBest } from "../functions/DataOfGlobalBest";
-
-export function initializeTSP_runner({
+import { onreceivedataofoneIteration } from "./onreceivedataofoneIteration";
+import { onreceivedataofoneroute } from "./onreceivedataofoneroute";
+import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
+export async function initializeTSP_runner({
     // onFinishIteration,
     nodecoordinates,
     numberofants,
@@ -26,12 +25,12 @@ export function initializeTSP_runner({
         latestroute: number[],
         nodecoordinates: Nodecoordinates
     ) => void;
-}): TSPRunner {
-    const runner = createTSPrunner({
-        pheromonevolatilitycoefficientR1,
-        nodecoordinates,
-        numberofants,
-    });
+}): Promise<TSP_Worker_Remote> {
+    // const runner = createTSPrunner({
+    //     pheromonevolatilitycoefficientR1,
+    //     nodecoordinates,
+    //     numberofants,
+    // });
     // const onDataChange = (data: DataOfGlobalBest) => {
     //     onreceiveDataOfGlobalBest(data);
     //     // const { timems } = data;
@@ -42,9 +41,15 @@ export function initializeTSP_runner({
     // };
     // runner.on_finish_all_iterations(onreceivefinishofAllIteration);
     // runner.on_finish_all_iterations(onFinishIteration);
+    const runner = await create_TSP_Worker_comlink({
+        pheromonevolatilitycoefficientR1,
+        nodecoordinates,
+        numberofants,
+    });
     runner.on_finish_one_iteration(onreceivedataofoneIteration);
-    runner.on_finish_one_route(onreceivedataofoneroute);
+    // runner.on_finish_one_route(onreceivedataofoneroute);
     runner.on_finish_one_route((data) => {
+        onreceivedataofoneroute(data);
         const { route } = data;
         onLatestRouteChange(route, nodecoordinates);
         onGlobalBestRouteChange(data.globalbestroute, nodecoordinates);

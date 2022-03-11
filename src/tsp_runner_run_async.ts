@@ -1,12 +1,12 @@
-import { TSPRunner } from "../functions/createTSPrunner";
+// import { TSPRunner } from "../functions/createTSPrunner";
 import { requestAnimationFrame_async } from "./requestAnimationFrame_async";
 
 export async function tsp_runner_run_async(
-    runner: TSPRunner,
+    runner: { runOneIteration: () => Promise<void> },
     roundofsearch: number
 ): Promise<void> {
     for (let i = 0; i < roundofsearch; i++) {
-        runner.runIterations(1);
+        await runner.runOneIteration();
         await requestAnimationFrame_async();
     }
 }

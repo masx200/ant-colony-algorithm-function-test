@@ -31,7 +31,7 @@ import {
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
-import { TSP_before_Start } from "./TSP_Start";
+import { TSP_before_Start } from "./TSP_before_Start";
 import { TSP_terminate } from "./TSP_terminate";
 import { use_escharts_container_pair } from "./use_escharts_container_pair";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
@@ -264,7 +264,7 @@ export default defineComponent({
                 // const onFinishIteration = () => {
                 //
                 // };
-                const runner = TSP_before_Start({
+                const runner = await TSP_before_Start({
                     // onFinishIteration,
                     pheromonevolatilitycoefficientR1,
                     onGlobalBestRouteChange,
