@@ -12,7 +12,7 @@ const TSP_cords = [
     nodecoordinates12,
     nodecoordinates21,
     nodecoordinates30,
-];
+].sort((a, b) => a.length - b.length);
 TSP_cords.forEach((nodecoordinates, i) => {
     TSP_cities_map.set(
         `序号:${i},规模:${nodecoordinates.length}`,
