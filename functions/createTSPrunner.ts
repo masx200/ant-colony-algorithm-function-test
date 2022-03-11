@@ -16,6 +16,7 @@ import { assertnumber } from "../test/assertnumber";
 import { float64equal } from "./float64equal";
 import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
+import { defaultnumberofants, default_local_pheromone_volatilization_rate } from "../src/defaultnumberofants";
 
 export interface TSPRunner {
     onDataChange: (callback: (data: DataOfChange) => void) => void;
@@ -56,7 +57,7 @@ export function createTSPrunner({
     alphazero = 1,
     betazero = 5,
     searchloopcountratio = 40,
-    numberofants = 10,
+    numberofants = defaultnumberofants,
     //  maxnumberofiterations = 1000,
     //  maxnumberofstagnant = 30,
     ...rest
@@ -87,7 +88,9 @@ export function createTSPrunner({
         rest?.pheromonevolatilitycoefficientR2 ??
         1 -
             Math.pow(
-                1 - (rest?.pheromonevolatilitycoefficientR1 ?? 0.01),
+                1 -
+                    (rest?.pheromonevolatilitycoefficientR1 ??
+                        default_local_pheromone_volatilization_rate),
                 numberofants
             );
 
