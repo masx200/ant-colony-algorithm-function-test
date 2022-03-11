@@ -1,16 +1,21 @@
 import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
 import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
 import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
+import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { asserttrue } from "../test/asserttrue";
+import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
+import { Nodecoordinates } from "./Nodecoordinates";
 
 /**
  *
  * 每只蚂蚁构建完路径后的信息素更新规则
  */
 export function the_pheromone_update_rule_after_each_ant_builds_the_path({
+    globalbestroute,
+    nodecoordinates,
     countofnodes,
     globalbestroutesegments,
     globalbestlength,
@@ -18,6 +23,8 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     pheromonestore,
     pheromonevolatilitycoefficientR1,
 }: {
+    globalbestroute: number[];
+    nodecoordinates: Nodecoordinates;
     countofnodes: number;
     globalbestroutesegments: [number, number][];
     globalbestlength: number;
@@ -30,15 +37,20 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
-        initializer: function (i, j) {
-            return globalbestroutesegments.some(([left, right]) => {
-                return (
-                    (i === left && j === right) || (j === left && i === right)
-                );
-            })
-                ? 1 / globalbestlength
-                : 0;
-        },
+        initializer: intersection_filter_with_cycle_route({
+            cycleroute: globalbestroute,
+
+            nodecoordinates,
+        })
+            ? undefined
+            : (i, j) =>
+                  globalbestroutesegments.some(
+                      ([left, right]) =>
+                          (i === left && j === right) ||
+                          (j === left && i === right)
+                  )
+                      ? 1 / globalbestlength
+                      : 0,
     });
     //TODO 如果此次搜索到的路径长度大于最优解长度,将此路径视为最差路径.
     //Tworst表示最差路径的片段的集合,Lworst表示最差路径的长度.
@@ -50,14 +62,17 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
         deltapheromoneglobalbest
     );
     const oldpheromonestore = SparseMatrixFrom(pheromonestore);
-    const nextpheromonestore = SparseMatrixAdd(
-        SparseMatrixMultiplyNumber(
-            1 - pheromonevolatilitycoefficientR1,
-            oldpheromonestore
-        ),
-        SparseMatrixMultiplyNumber(
-            pheromonevolatilitycoefficientR1,
-            deltapheromone
+    const nextpheromonestore = SparseMatrixMax(
+        SparseMatrixMultiplyNumber(1 / 2, oldpheromonestore),
+        SparseMatrixAdd(
+            SparseMatrixMultiplyNumber(
+                1 - pheromonevolatilitycoefficientR1,
+                oldpheromonestore
+            ),
+            SparseMatrixMultiplyNumber(
+                pheromonevolatilitycoefficientR1,
+                deltapheromone
+            )
         )
     );
     console.log(" 信息素更新结束");
