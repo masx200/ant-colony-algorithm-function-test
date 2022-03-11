@@ -19,6 +19,7 @@ export function createpathTabooList<N extends number = number>(
         const sets = [...store.values()];
         return sets.map((s) => [...s.keys()]).flat();
     };
+    //TODO:缓存性能优化
     const has = (route: number[]): boolean => {
         const set = store.get(route.length);
         if (!set) {
