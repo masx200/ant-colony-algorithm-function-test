@@ -6,7 +6,7 @@ export async function tsp_runner_run_async(
     roundofsearch: number
 ): Promise<void> {
     for (let i = 0; i < roundofsearch; i++) {
-        runner.runiterations(1);
+        runner.runIterations(1);
         await requestAnimationFrame_async();
     }
 }

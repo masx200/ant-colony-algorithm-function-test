@@ -35,7 +35,7 @@ export function TSP_before_Start({
         nodecoordinates,
         numberofants,
     });
-    // TSP_RunnerRef.value?.runiterations(roundofsearch);
+    // TSP_RunnerRef.value?.runIterations(roundofsearch);
     const runner = TSP_RunnerRef.value;
     return runner;
 }

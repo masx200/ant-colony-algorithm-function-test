@@ -22,11 +22,11 @@ import {
 } from "../src/defaultnumberofants";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 export interface TSPRunner {
-    runoneiteration: () => void;
+    runOneIteration: () => void;
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
     gettotaltimems: () => number;
     // on_finish_all_iterations: (callback: (data: undefined) => void) => void;
-    runiterations: (iterations: number) => void;
+    runIterations: (iterations: number) => void;
     on_finish_one_iteration: (
         callback: (data: DataOfFinishOneIteration) => void
     ) => void;
@@ -191,7 +191,7 @@ export function createTSPrunner({
         current_search_count++;
     });*/
     //   let stagnantlength = Infinity;
-    const runoneiteration = () => {
+    const runOneIteration = () => {
         if (current_search_count === 0) {
             first_search_route();
         }
@@ -252,7 +252,7 @@ export function createTSPrunner({
         //  emit_finish_all_iterations();
         // }
     };
-    const runiterations = (iterations: number) => {
+    const runIterations = (iterations: number) => {
         assertnumber(iterations);
         asserttrue(iterations > 0);
 
@@ -261,7 +261,7 @@ export function createTSPrunner({
             //     maxnumberofiterations > numberofiterations &&
             //   maxnumberofstagnant / numberofants > numberofstagnant
             //   ) {
-            runoneiteration();
+            runOneIteration();
             //  } else {
             //    break;
             //  }
@@ -320,7 +320,7 @@ export function createTSPrunner({
         pheromoneintensityQ,
         gettotaltimems,
         // on_finish_all_iterations,
-        runiterations,
+        runIterations,
         on_finish_one_iteration: out_on_finish_one_iteration,
         on_finish_one_route: out_on_finish_one_route,
         //    getlengthofstagnant,
@@ -339,7 +339,7 @@ export function createTSPrunner({
         //    maxnumberofiterations,
         pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",
-        runoneiteration,
+        runOneIteration,
     };
 
     function first_search_route() {
