@@ -82,6 +82,11 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+
+    //TODO  如果路径长度比最优解得到的结果更差,禁忌此路径
+    //TODO  如果路径中存在交叉点,禁忌此路径
+    //TODO  尝试3-opt优化,如果得到更优的解,禁忌旧路径,赋值新路径
+
     the_pheromone_update_rule_after_each_ant_builds_the_path({
         countofnodes,
         globalbestroutesegments,
