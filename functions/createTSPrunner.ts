@@ -16,7 +16,10 @@ import { assertnumber } from "../test/assertnumber";
 import { float64equal } from "./float64equal";
 import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
-import { defaultnumberofants, default_local_pheromone_volatilization_rate } from "../src/defaultnumberofants";
+import {
+    defaultnumberofants,
+    default_local_pheromone_volatilization_rate,
+} from "../src/defaultnumberofants";
 
 export interface TSPRunner {
     onDataChange: (callback: (data: DataOfChange) => void) => void;
