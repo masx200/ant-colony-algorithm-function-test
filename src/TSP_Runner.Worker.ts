@@ -1,5 +1,4 @@
 import * as comlink from "comlink";
-import { windowEndpoint } from "comlink";
 import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
@@ -49,4 +48,4 @@ const API: TSP_Worker_API = {
     on_finish_one_iteration,
     on_finish_one_route,
 };
-comlink.expose(API, windowEndpoint(self));
+comlink.expose(API);

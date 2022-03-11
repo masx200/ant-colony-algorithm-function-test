@@ -46,9 +46,10 @@ export async function initializeTSP_runner({
         nodecoordinates,
         numberofants,
     });
-    runner.on_finish_one_iteration(onreceivedataofoneIteration);
+    console.log(runner);
+    await runner.on_finish_one_iteration(onreceivedataofoneIteration);
     // runner.on_finish_one_route(onreceivedataofoneroute);
-    runner.on_finish_one_route((data) => {
+    await runner.on_finish_one_route((data) => {
         onreceivedataofoneroute(data);
         const { route } = data;
         onLatestRouteChange(route, nodecoordinates);
@@ -58,7 +59,7 @@ export async function initializeTSP_runner({
     // runner.onDataChange(onDataChange);
     // runner.on_finish_one_iteration(onDataChange);
     // runner.on_finish_one_route(onDataChange);
-    console.log(runner);
+
     // debugger
     return runner;
 }

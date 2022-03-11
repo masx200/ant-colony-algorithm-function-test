@@ -34,6 +34,10 @@ export async function create_TSP_Worker_comlink({
         runner.on_finish_one_route(comlink.proxy(callback));
     };
 
-    const remote = { ...runner, on_finish_one_route, on_finish_one_iteration };
+    const remote = Object.create(runner, {
+        on_finish_one_route: { value: on_finish_one_route },
+        on_finish_one_iteration: { value: on_finish_one_iteration },
+    });
+    console.log(runner,remote);
     return remote as TSP_Worker_Remote;
 }
