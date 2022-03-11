@@ -86,8 +86,10 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     //TODO  如果路径长度比最优解得到的结果更差,禁忌此路径
     //TODO  如果路径中存在交叉点,禁忌此路径
     //TODO  尝试3-opt优化,如果得到更优的解,禁忌旧路径,赋值新路径
-
+    //TODO 如果此次搜索到的路径长度大于最优解长度,将此路径视为最差路径.
     the_pheromone_update_rule_after_each_ant_builds_the_path({
+        nodecoordinates,
+        globalbestroute,
         countofnodes,
         globalbestroutesegments,
         globalbestlength,
