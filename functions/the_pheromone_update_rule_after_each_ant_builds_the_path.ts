@@ -39,7 +39,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     pheromonestore: SparseMatrixSymmetry<number>;
     pheromonevolatilitycoefficientR1: number;
 }) {
-    console.log(" 信息素更新计算开始");
+    console.log("局部信息素更新计算开始");
     // const current_is_best = current_length === globalbestlength;
 
     const current_route_segments = cycleroutetosegments(current_route);
@@ -48,29 +48,31 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
-        initializer: intersection_filter_with_cycle_route({
-            cycleroute: globalbestroute,
+        initializer:
+            intersection_filter_with_cycle_route({
+                cycleroute: globalbestroute,
 
-            nodecoordinates,
-        })
-            ? undefined
-            : globalBestMatrixInitializer(
-                  globalbestroutesegments,
-                  globalbestlength
-              ),
+                nodecoordinates,
+            }) && Math.random() < 0.5
+                ? undefined
+                : globalBestMatrixInitializer(
+                      globalbestroutesegments,
+                      globalbestlength
+                  ),
     });
     const deltapheromoneiteratecurrent = SparseMatrixSymmetryCreate({
         row: countofnodes,
-        initializer: intersection_filter_with_cycle_route({
-            cycleroute: current_route,
+        initializer:
+            !intersection_filter_with_cycle_route({
+                cycleroute: current_route,
 
-            nodecoordinates,
-        })
-            ? undefined
-            : iterateBestMatrixInitializer(
-                  current_route_segments,
-                  current_length
-              ),
+                nodecoordinates,
+            }) || Math.random() < 0.5
+                ? iterateBestMatrixInitializer(
+                      current_route_segments,
+                      current_length
+                  )
+                : undefined,
     });
     //
     //

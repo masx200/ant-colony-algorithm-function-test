@@ -43,36 +43,38 @@ export function each_iteration_of_pheromone_update_rules({
     pheromonestore: SparseMatrixSymmetry<number>;
     pheromonevolatilitycoefficientR2: number;
 }) {
-    console.log(" 信息素更新计算开始");
+    console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
     const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
-        initializer: intersection_filter_with_cycle_route({
-            cycleroute: globalbestroute,
+        initializer:
+            intersection_filter_with_cycle_route({
+                cycleroute: globalbestroute,
 
-            nodecoordinates,
-        })
-            ? undefined
-            : globalBestMatrixInitializer(
-                  globalbestroutesegments,
-                  globalbestlength
-              ),
+                nodecoordinates,
+            }) && Math.random() < 0.5
+                ? undefined
+                : globalBestMatrixInitializer(
+                      globalbestroutesegments,
+                      globalbestlength
+                  ),
     });
     /* 最优路径不能有交叉点 */
     const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
         row: countofnodes,
         // column: countofnodes,
-        initializer: intersection_filter_with_cycle_route({
-            cycleroute: iteratebestroute,
+        initializer:
+            intersection_filter_with_cycle_route({
+                cycleroute: iteratebestroute,
 
-            nodecoordinates,
-        })
-            ? undefined
-            : iterateBestMatrixInitializer(
-                  iteratebestroutesegments,
-                  iteratebestlength
-              ),
+                nodecoordinates,
+            }) && Math.random() < 0.5
+                ? undefined
+                : iterateBestMatrixInitializer(
+                      iteratebestroutesegments,
+                      iteratebestlength
+                  ),
     });
     /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
