@@ -23,9 +23,9 @@ export const resultTableBody: ComputedRef<
               [
                   result.globalbestlength,
 
-                  result.timems / 1000,
-                  result.current_search_count,
-                  result.current_iterations,
+                  result.total_time_ms / 1000,
+                  result.current_search_count+1,
+                  result.current_iterations+1,
                   JSON.stringify(result.globalbestroute),
               ],
           ]

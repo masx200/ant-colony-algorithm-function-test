@@ -160,6 +160,10 @@ function pheromoneDiffusionCallback({
                     deltapheromonestore.set(cityD, cityC, pheromonedelta);
                 }
             );
+            console.log(
+                "deltapheromone",
+                SparseMatrixToArrays(deltapheromonestore)
+            );
             const pheromonestorenext = SparseMatrixAdd(
                 SparseMatrixFrom(pheromonestore),
                 deltapheromonestore

@@ -97,6 +97,7 @@ export function each_iteration_of_pheromone_update_rules({
             deltapheromoneiterateworst
         )
     );
+    console.log("deltapheromone", SparseMatrixToArrays(deltapheromone));
     const oldpheromonestore = SparseMatrixFrom(pheromonestore);
     const nextpheromonestore = SparseMatrixMax(
         SparseMatrixMultiplyNumber(1 / 2, oldpheromonestore),

@@ -40,7 +40,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     pheromonevolatilitycoefficientR1: number;
 }) {
     console.log(" 信息素更新计算开始");
-    const current_is_best = current_length === globalbestlength;
+    // const current_is_best = current_length === globalbestlength;
 
     const current_route_segments = cycleroutetosegments(current_route);
 
@@ -61,7 +61,11 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     });
     const deltapheromoneiteratecurrent = SparseMatrixSymmetryCreate({
         row: countofnodes,
-        initializer: current_is_best
+        initializer: intersection_filter_with_cycle_route({
+            cycleroute:current_route ,
+
+            nodecoordinates,
+        })
             ? undefined
             : iterateBestMatrixInitializer(
                   current_route_segments,
@@ -80,6 +84,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
             deltapheromoneiteratecurrent
         )
     );
+    console.log("deltapheromone", SparseMatrixToArrays(deltapheromone));
     const oldpheromonestore = SparseMatrixFrom(pheromonestore);
     const nextpheromonestore = SparseMatrixAdd(
         SparseMatrixMultiplyNumber(

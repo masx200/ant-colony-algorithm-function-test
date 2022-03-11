@@ -8,7 +8,7 @@ import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusion
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
-import { Emit_Finish_One_Route } from "./createTSPrunner";
+import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
 
 export type AdaptiveTSPSearchOptions = {
     emit_finish_one_route: Emit_Finish_One_Route;

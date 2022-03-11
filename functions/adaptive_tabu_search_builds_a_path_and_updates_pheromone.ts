@@ -8,7 +8,7 @@ import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
-import { Emit_Finish_One_Route } from "./createTSPrunner";
+import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     emit_finish_one_route,
@@ -71,7 +71,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         path: route,
         getdistancebyindex: creategetdistancebyindex(nodecoordinates),
     });
-    emit_finish_one_route({ totallength, route, countofloops, timems });
+
     if (
         intersection_filter_with_cycle_route({
             cycleroute: route,
@@ -88,7 +88,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     } else {
         pathTabooList.add(route);
     }
-
+    emit_finish_one_route({ totallength, route, countofloops, timems });
     //
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();

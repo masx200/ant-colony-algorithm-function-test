@@ -20,15 +20,7 @@ import {
     defaultnumberofants,
     default_local_pheromone_volatilization_rate,
 } from "../src/defaultnumberofants";
-export type PureDataOfFinishOneRoute = Omit<
-    DataOfFinishOneRoute,
-    | "current_search_count"
-    | "current_iterations"
-    | "globalbestroute"
-    | "globalbestlength"
->;
-
-export type Emit_Finish_One_Route = (data: PureDataOfFinishOneRoute) => void;
+import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 export interface TSPRunner {
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
     gettotaltimems: () => number;
@@ -67,7 +59,7 @@ export function createTSPrunner({
     nodecoordinates,
     alphazero = 1,
     betazero = 5,
-    searchloopcountratio = 40,
+    searchloopcountratio = 30,
     numberofants = defaultnumberofants,
     //  maxnumberofiterations = 1000,
     //  maxnumberofstagnant = 30,
@@ -165,12 +157,17 @@ export function createTSPrunner({
         createEventPair<DataOfFinishOneRoute>(emitter);
     const emit_finish_one_route = (data: PureDataOfFinishOneRoute) => {
         inner_emit_finish_one_route({
-            globalbestlength: globalbestlength===Infinity?data.totallength:globalbestlength,
+            globalbestlength:
+                globalbestlength === Infinity
+                    ? data.totallength
+                    : globalbestlength,
             globalbestroute,
             ...data,
             current_search_count,
             current_iterations: numberofiterations,
+            total_time_ms: totaltimems,
         });
+        totaltimems += data.timems;
         current_search_count++;
     };
     const {
@@ -195,25 +192,7 @@ export function createTSPrunner({
     //   let stagnantlength = Infinity;
     const runoneiteration = () => {
         if (current_search_count === 0) {
-            const starttime = Number(new Date());
-            const { route, totallength } =
-                Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
-            const endtime = Number(new Date());
-            const countofloops = countofnodes * countofnodes;
-            const timems = endtime - starttime;
-            totaltimems += timems;
-            emit_finish_one_route({
-                route,
-                totallength,
-                timems,
-                countofloops,
-            });
-            // current_search_count++;
-            //    stagnantlength = totallength;
-            globalbestlength = totallength;
-            globalbestroute = route;
-            //信息素初始化
-            SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
+            first_search_route();
         }
         //  if (
         //    maxnumberofiterations > numberofiterations &&
@@ -250,19 +229,8 @@ export function createTSPrunner({
 
         const endtime = Number(new Date());
 
-        /*  if (
-                routesandlengths.every(
-                    ({ totallength }) => totallength === stagnantlength
-                )
-            ) {
-                numberofstagnant++;
-            } else {
-                numberofstagnant = 0;
-            }
-            stagnantlength = routesandlengths[0].totallength;
-          */
         const timems = endtime - starttime;
-        totaltimems += timems;
+        // totaltimems += timems;
         emit_finish_one_iteration({
             // current_iterations: getnumberofiterations(),
             pheromoneDiffusionProbability,
@@ -372,4 +340,26 @@ export function createTSPrunner({
         [Symbol.toStringTag]: "TSPRunner",
     };
     return result;
+
+    function first_search_route() {
+        const starttime = Number(new Date());
+        const { route, totallength } =
+            Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
+        const endtime = Number(new Date());
+        const countofloops = countofnodes * countofnodes;
+        const timems = endtime - starttime;
+        // totaltimems += timems;
+        // current_search_count++;
+        //    stagnantlength = totallength;
+        globalbestlength = totallength;
+        globalbestroute = route;
+        emit_finish_one_route({
+            route,
+            totallength,
+            timems,
+            countofloops,
+        });
+        //信息素初始化
+        SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
+    }
 }
