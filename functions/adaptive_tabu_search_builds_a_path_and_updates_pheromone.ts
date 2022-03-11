@@ -7,6 +7,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     emit_finish_one_route,
@@ -72,10 +73,21 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         getdistancebyindex: creategetdistancebyindex(nodecoordinates),
     });
     emit_finish_one_route({ totallength, route, countofloops, timems });
+    if (
+        intersection_filter_with_cycle_route({
+            cycleroute: route,
+            nodecoordinates,
+        })
+    ) {
+        pathTabooList.add(route);
+    }
     const bestlength = getbestlength();
     if (bestlength && bestlength >= totallength) {
+        //找到更优解,赋值最优解
         setbestlength(totallength);
         setbestroute(route);
+    } else {
+        pathTabooList.add(route);
     }
 
     //
@@ -83,11 +95,13 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     const globalbestlength = getbestlength();
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
 
-    //TODO  如果路径长度比最优解得到的结果更差,禁忌此路径
-    //TODO  如果路径中存在交叉点,禁忌此路径
+    //  如果路径长度比最优解得到的结果更差,禁忌此路径
+    //  如果路径中存在交叉点,禁忌此路径
     //TODO  尝试3-opt优化,如果得到更优的解,禁忌旧路径,赋值新路径
-    //TODO 如果此次搜索到的路径长度大于最优解长度,将此路径视为最差路径.
+    //如果此次搜索到的路径长度大于最优解长度,将此路径视为最差路径.
     the_pheromone_update_rule_after_each_ant_builds_the_path({
+        current_length: totallength,
+        current_route: route,
         nodecoordinates,
         globalbestroute,
         countofnodes,

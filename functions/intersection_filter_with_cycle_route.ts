@@ -7,7 +7,8 @@ import { robustsegmentintersect } from "./robust-segment-intersect";
 
 /**判断环路路径当中是否有交叉点 */
 export function intersection_filter_with_cycle_route({
-    cycleroute, nodecoordinates,
+    cycleroute,
+    nodecoordinates,
 }: {
     cycleroute: number[];
 

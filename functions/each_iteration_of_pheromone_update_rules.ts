@@ -7,7 +7,10 @@ import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
 import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
 import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
 import { asserttrue } from "../test/asserttrue";
+import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
+import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
+import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
 import { Nodecoordinates } from "./Nodecoordinates";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
@@ -51,14 +54,10 @@ export function each_iteration_of_pheromone_update_rules({
             nodecoordinates,
         })
             ? undefined
-            : (i, j) =>
-                  globalbestroutesegments.some(
-                      ([left, right]) =>
-                          (i === left && j === right) ||
-                          (j === left && i === right)
-                  )
-                      ? 1 / globalbestlength
-                      : 0,
+            : globalBestMatrixInitializer(
+                  globalbestroutesegments,
+                  globalbestlength
+              ),
     });
     /* 最优路径不能有交叉点 */
     const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
@@ -70,14 +69,10 @@ export function each_iteration_of_pheromone_update_rules({
             nodecoordinates,
         })
             ? undefined
-            : (i, j) =>
-                  iteratebestroutesegments.some(
-                      ([left, right]) =>
-                          (i === left && j === right) ||
-                          (j === left && i === right)
-                  )
-                      ? 1 / iteratebestlength
-                      : 0,
+            : iterateBestMatrixInitializer(
+                  iteratebestroutesegments,
+                  iteratebestlength
+              ),
     });
     /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
@@ -86,42 +81,14 @@ export function each_iteration_of_pheromone_update_rules({
             iteratebestlength === iterateworstlength ||
             iterateworstlength === globalbestlength
         )
-            ? (i, j) =>
-                  iterateworstroutesegments.some(
-                      ([left, right]) =>
-                          (i === left && j === right) ||
-                          (j === left && i === right)
-                  )
-                      ? -1 / iterateworstlength
-                      : 0
+            ? iterateWorstMatrixInitializer(
+                  iterateworstroutesegments,
+                  iterateworstlength
+              )
             : undefined,
         //  column: countofnodes,
     });
-    // if (
-    //     !(
-    //         iteratebestlength === iterateworstlength ||
-    //         iterateworstlength === globalbestlength
-    //     )
-    // ) {
-    //     //最差和最好不一样，相当于有最差
-    //     SparseMatrixAssign(
-    //         deltapheromoneiterateworst,
-    //         SparseMatrixSymmetryCreate({
-    //             row: countofnodes,
-    //             //  column: countofnodes,
-    //             initializer: function (i, j) {
-    //                 return iterateworstroutesegments.some(([left, right]) => {
-    //                     return (
-    //                         (i === left && j === right) ||
-    //                         (j === left && i === right)
-    //                     );
-    //                 })
-    //                     ? -1 / iterateworstlength
-    //                     : 0;
-    //             },
-    //         })
-    //     );
-    // }
+
     const deltapheromone = SparseMatrixMultiplyNumber(
         pheromoneintensityQ,
         SparseMatrixAdd(
