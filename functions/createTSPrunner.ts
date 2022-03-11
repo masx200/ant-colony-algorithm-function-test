@@ -22,6 +22,7 @@ import {
 } from "../src/defaultnumberofants";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 export interface TSPRunner {
+    runoneiteration: () => void;
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
     gettotaltimems: () => number;
     // on_finish_all_iterations: (callback: (data: undefined) => void) => void;
@@ -338,6 +339,7 @@ export function createTSPrunner({
         //    maxnumberofiterations,
         pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",
+        runoneiteration,
     };
 
     function first_search_route() {
