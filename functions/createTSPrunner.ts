@@ -5,7 +5,7 @@ import { asserttrue } from "../test/asserttrue";
 import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
 import { createpathTabooList } from "../pathTabooList/createPathTabooList";
 import { createPheromonestore } from "./createPheromonestore";
-import { DataOfChange } from "./DataOfChange";
+// import { DataOfGlobalBest } from "./DataOfGlobalBest";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
@@ -14,15 +14,23 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { createEventPair } from "./createEventPair";
 import { assertnumber } from "../test/assertnumber";
 import { float64equal } from "./float64equal";
-import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
-import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
+// import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
+// import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
     defaultnumberofants,
     default_local_pheromone_volatilization_rate,
 } from "../src/defaultnumberofants";
+export type PureDataOfFinishOneRoute = Omit<
+    DataOfFinishOneRoute,
+    | "current_search_count"
+    | "current_iterations"
+    | "globalbestroute"
+    | "globalbestlength"
+>;
 
+export type Emit_Finish_One_Route = (data: PureDataOfFinishOneRoute) => void;
 export interface TSPRunner {
-    onDataChange: (callback: (data: DataOfChange) => void) => void;
+    // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
     gettotaltimems: () => number;
     on_finish_all_iterations: (callback: (data: undefined) => void) => void;
     runiterations: (iterations: number) => void;
@@ -155,10 +163,14 @@ export function createTSPrunner({
     const emitter = EventEmitterTargetClass();
     const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =
         createEventPair<DataOfFinishOneRoute>(emitter);
-    const emit_finish_one_route = (
-        data: Omit<DataOfFinishOneRoute, "current_search_count">
-    ) => {
-        inner_emit_finish_one_route({ ...data, current_search_count });
+    const emit_finish_one_route = (data: PureDataOfFinishOneRoute) => {
+        inner_emit_finish_one_route({
+            globalbestlength: globalbestlength===Infinity?data.totallength:globalbestlength,
+            globalbestroute,
+            ...data,
+            current_search_count,
+            current_iterations: numberofiterations,
+        });
         current_search_count++;
     };
     const {
@@ -191,7 +203,6 @@ export function createTSPrunner({
             const timems = endtime - starttime;
             totaltimems += timems;
             emit_finish_one_route({
-                // current_search_count,
                 route,
                 totallength,
                 timems,
@@ -288,31 +299,31 @@ export function createTSPrunner({
         }
         emit_finish_all_iterations();
     };
-    const { on: onDataChange, emit: emitDataChange } =
-        createEventPair<DataOfChange>(emitter);
+    // const { on: onDataChange, emit: emitDataChange } =
+    //     createEventPair<DataOfGlobalBest>(emitter);
     const { on: on_finish_all_iterations, emit: emit_finish_all_iterations } =
         createEventPair<undefined>(emitter);
-    const dataChangeListener = (
-        data: DataOfFinishOneIteration | DataOfFinishOneRoute | undefined
-    ) => {
-        const current_iterations = isDataOfFinishOneIteration(data)
-            ? data?.current_iterations
-            : getnumberofiterations();
-        const current_search_count = isDataOfFinishOneRoute(data)
-            ? data.current_search_count
-            : getcurrent_search_count();
-        emitDataChange({
-            current_iterations: current_iterations,
-            current_search_count: current_search_count,
-            timems: gettotaltimems(),
+    // const dataChangeListener = (
+    //     data: DataOfFinishOneIteration | DataOfFinishOneRoute | undefined
+    // ) => {
+    //     const current_iterations = isDataOfFinishOneIteration(data)
+    //         ? data?.current_iterations
+    //         : getnumberofiterations();
+    //     const current_search_count = isDataOfFinishOneRoute(data)
+    //         ? data.current_search_count
+    //         : getcurrent_search_count();
+    //     emitDataChange({
+    //         current_iterations: current_iterations,
+    //         current_search_count: current_search_count,
+    //         timems: gettotaltimems(),
 
-            globalbestroute: getglobalbestroute(),
-            globalbestlength: getglobalbestlength(),
-        });
-    };
-    on_finish_all_iterations(dataChangeListener);
-    on_finish_one_iteration(dataChangeListener);
-    on_finish_one_route(dataChangeListener);
+    //         globalbestroute: getglobalbestroute(),
+    //         globalbestlength: getglobalbestlength(),
+    //     });
+    // };
+    // on_finish_all_iterations(dataChangeListener);
+    // on_finish_one_iteration(dataChangeListener);
+    // on_finish_one_route(dataChangeListener);
     const out_on_finish_one_route = (
         listener: (data: DataOfFinishOneRoute) => void
     ) => {
@@ -334,7 +345,7 @@ export function createTSPrunner({
         });
     };
     const result: TSPRunner = {
-        onDataChange,
+        // onDataChange,
         pheromonevolatilitycoefficientR2,
         pheromonevolatilitycoefficientR1,
         pheromoneintensityQ,

@@ -1,12 +1,12 @@
 import { reactive } from "vue";
-import { DataOfChange } from "../functions/DataOfChange";
+import { DataOfGlobalBest } from "../functions/DataOfGlobalBest";
 import {
     dataofresult,
     resultTableBody,
 } from "./resultTableHeads-resultTableBody";
-export const dataOfAllResults = reactive<DataOfChange[]>([]);
-export function onreceivedataofChange(data: DataOfChange) {
-    console.log("onreceivedataofChange");
+export const dataOfAllResults = reactive<DataOfGlobalBest[]>([]);
+export function onreceiveDataOfGlobalBest(data: DataOfGlobalBest) {
+    console.log("onreceiveDataOfGlobalBest");
     dataofresult.value = data;
     dataOfAllResults.push(data);
     console.log(dataofresult);

@@ -6,13 +6,12 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 import { population_relative_information_entropy } from "./population-relative-information-entropy";
-import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+// import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
+import { Emit_Finish_One_Route } from "./createTSPrunner";
 
 export type AdaptiveTSPSearchOptions = {
-    emit_finish_one_route: (
-        data: Omit<DataOfFinishOneRoute, "current_search_count">
-    ) => void;
+    emit_finish_one_route: Emit_Finish_One_Route;
     lastrandomselectionprobability: number;
     searchloopcountratio: number;
 

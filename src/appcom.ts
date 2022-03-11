@@ -23,7 +23,7 @@ import {
     default_local_pheromone_volatilization_rate,
 } from "./defaultnumberofants";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
-import { dataOfAllResults } from "./onreceivedataofChange";
+import { dataOfAllResults } from "./onreceiveDataOfGlobalBest";
 import {
     resultTableBody,
     resultTableHeads,
@@ -274,7 +274,7 @@ export default defineComponent({
                 console.log(runner);
                 runner.on_finish_one_iteration(finish_one_iteration_listener);
                 runner.on_finish_one_route(finish_one_route_listener);
-                runner.onDataChange(data_change_listener);
+                // runner.onDataChange(data_change_listener);
             } else {
                 local_pheromone_volatilization_rate.value =
                     default_local_pheromone_volatilization_rate;

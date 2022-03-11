@@ -5,13 +5,14 @@ export function clearDataOfOneRoute() {
 }
 export const dataofoneroute = reactive<DataOfFinishOneRoute[]>([]);
 export const oneroutetablebody = computed<
-    [number, number, number, number, string][]
+    [number, number, number, number, number, string][]
 >(() => {
     return dataofoneroute.map((data, index) => {
         return [
             index,
             data.totallength,
             data.countofloops,
+            data.globalbestlength,
             data.timems / 1000,
             JSON.stringify(data.route),
         ];
@@ -19,10 +20,12 @@ export const oneroutetablebody = computed<
 });
 export const oneroutetableheads = [
     "序号",
-    "长度",
+    "当前长度",
     "循环次数",
+
+    "全局最优长度",
     "耗时秒",
-    "路径",
+    "当前路径",
 ];
 
 console.log(dataofoneroute, oneroutetablebody);

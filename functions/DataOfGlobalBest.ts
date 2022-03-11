@@ -1,4 +1,4 @@
-export interface DataOfChange {
+export interface DataOfGlobalBest {
     current_search_count: number;
     globalbestroute: number[];
     globalbestlength: number;

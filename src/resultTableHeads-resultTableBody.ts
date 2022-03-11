@@ -1,6 +1,6 @@
 import { computed, ComputedRef, ref } from "vue";
-import { DataOfChange } from "../functions/DataOfChange";
-import { dataOfAllResults } from "./onreceivedataofChange";
+import { DataOfGlobalBest } from "../functions/DataOfGlobalBest";
+import { dataOfAllResults } from "./onreceiveDataOfGlobalBest";
 export function clearDataOfResult() {
     dataofresult.value = undefined;
     dataOfAllResults.length = 0;
@@ -13,7 +13,7 @@ export const resultTableHeads = [
     "总迭代次数",
     "全局最优路径",
 ];
-export const dataofresult = ref<DataOfChange>();
+export const dataofresult = ref<DataOfGlobalBest>();
 export const resultTableBody: ComputedRef<
     [number, number, number, number, string][]
 > = computed(() => {

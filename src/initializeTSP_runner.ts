@@ -2,9 +2,9 @@ import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { onreceivedataofoneroute } from "./onreceivedataofoneroute";
 import { onreceivedataofoneIteration } from "./onreceivedataofoneIteration";
-import { onreceivedataofChange } from "./onreceivedataofChange";
+import { onreceiveDataOfGlobalBest } from "./onreceiveDataOfGlobalBest";
 import { onreceivefinishofAllIteration } from "./onreceivefinishofAllIteration";
-import { DataOfChange } from "../functions/DataOfChange";
+// import { DataOfGlobalBest } from "../functions/DataOfGlobalBest";
 
 export function initializeTSP_runner({
     onFinishIteration,
@@ -32,22 +32,25 @@ export function initializeTSP_runner({
         nodecoordinates,
         numberofants,
     });
-    const onDataChange = (data: DataOfChange) => {
-        onreceivedataofChange(data);
-        // const { timems } = data;
-        // const { globalbestlength } = data;
-        const { globalbestroute } = data;
+    // const onDataChange = (data: DataOfGlobalBest) => {
+    //     onreceiveDataOfGlobalBest(data);
+    //     // const { timems } = data;
+    //     // const { globalbestlength } = data;
+    //     const { globalbestroute } = data;
 
-        onGlobalBestRouteChange(globalbestroute, nodecoordinates);
-    };
+    //     onGlobalBestRouteChange(globalbestroute, nodecoordinates);
+    // };
     runner.on_finish_all_iterations(onreceivefinishofAllIteration);
     runner.on_finish_all_iterations(onFinishIteration);
     runner.on_finish_one_iteration(onreceivedataofoneIteration);
     runner.on_finish_one_route(onreceivedataofoneroute);
-    runner.on_finish_one_route(({ route }) => {
+    runner.on_finish_one_route((data) => {
+        const { route } = data;
         onLatestRouteChange(route, nodecoordinates);
+        onGlobalBestRouteChange(data.globalbestroute, nodecoordinates);
+        onreceiveDataOfGlobalBest(data);
     });
-    runner.onDataChange(onDataChange);
+    // runner.onDataChange(onDataChange);
     // runner.on_finish_one_iteration(onDataChange);
     // runner.on_finish_one_route(onDataChange);
     console.log(runner);

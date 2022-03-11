@@ -6,8 +6,9 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
-import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+// import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
+import { Emit_Finish_One_Route } from "./createTSPrunner";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     emit_finish_one_route,
@@ -26,9 +27,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     setbestroute,
     getbestroute,
 }: {
-    emit_finish_one_route: (
-        data: Omit<DataOfFinishOneRoute, "current_search_count">
-    ) => void;
+    emit_finish_one_route: Emit_Finish_One_Route;
     searchloopcountratio: number;
     pheromoneintensityQ: number;
     pheromonevolatilitycoefficientR1: number;
