@@ -7,11 +7,18 @@ export default defineConfig(({ mode, command }) => {
     return {
         root: path.resolve(__dirname, "src"),
         plugins: [
-            vuePlugin(),
-            getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
             mode === "production" &&
                 command === "build" &&
-                babel({ plugins: ["babel-plugin-clean-code"] }),
+                babel({
+                    extensions: [".ts", ".js"],
+                    plugins: [
+                        "babel-plugin-clean-code",
+                        "@babel/plugin-syntax-typescript",
+                    ],
+                }),
+            vuePlugin(),
+
+            getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
         ].filter(Boolean),
         build: {
             emptyOutDir: true,
