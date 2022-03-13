@@ -104,6 +104,7 @@ export function createpathTabooList<N extends number = number>(
         if (result) {
             cacheset.add(JSON.stringify(route));
             console.log("cacheset.size", cacheset.size);
+            console.log("oldptl.size", oldptl.size());
         }
         return result;
     }
@@ -116,6 +117,7 @@ export function createpathTabooList<N extends number = number>(
         oldptl.delete(route);
         cacheset.delete(JSON.stringify(route));
         console.log("cacheset.size", cacheset.size);
+        console.log("oldptl.size", oldptl.size());
         cacheset.forEach((s) => {
             const value = JSON.parse(s);
 
@@ -133,9 +135,17 @@ export function createpathTabooList<N extends number = number>(
         oldptl.clear();
         cacheset.clear();
         console.log("cacheset.size", cacheset.size);
+        console.log("oldptl.size", oldptl.size());
+    }
+    function cachedadd(route: number[]) {
+        cacheset.add(JSON.stringify(route));
+        oldptl.add(route);
+        console.log("cacheset.size", cacheset.size);
+        console.log("oldptl.size", oldptl.size());
     }
     return {
         ...oldptl,
+        add: cachedadd,
         has: cachedhas,
         delete: cachedelete,
         clear: cacheclear,
