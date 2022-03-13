@@ -14,7 +14,6 @@ import { SparseMatrixGetRow } from "../matrixtools/SparseMatrixGetRow";
 import { SparseMatrixIdentity } from "../matrixtools/SparseMatrixIdentity";
 import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
 import { SparseMatrixMin } from "../matrixtools/SparseMatrixMin";
-import { SparseMatrixMultiplyMatrix } from "../matrixtools/SparseMatrixMultiplyMatrix";
 import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
 import { SparseMatrixOfArrays } from "../matrixtools/SparseMatrixOfArrays";
 import { SparseMatrixOnes } from "../matrixtools/SparseMatrixOnes";
@@ -358,7 +357,7 @@ export function testsparsematrix() {
     );
     console.log(
         SparseMatrixToArrays(
-            SparseMatrixMultiplyMatrix(
+            SparseMatrixContinuousMultiplication(
                 SparseMatrixOfArrays([
                     [1, 2],
                     [3, 4],
@@ -397,7 +396,7 @@ export function testsparsematrix() {
     );
     asserttrue(
         SparseMatrixEquals(
-            SparseMatrixMultiplyMatrix(
+            SparseMatrixContinuousMultiplication(
                 SparseMatrixOfArrays([
                     [1, 2],
                     [3, 4],
