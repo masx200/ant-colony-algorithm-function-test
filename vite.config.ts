@@ -4,8 +4,9 @@ import { defineConfig } from "vite";
 import babel from "@rollup/plugin-babel";
 export default defineConfig(({ mode, command }) => {
     console.log(mode, command);
+    const isdrop = mode === "production" && command === "build";
     return {
-        esbuild: { drop: ["console", "debugger"] },
+        esbuild: { drop: isdrop ? ["console", "debugger"] : undefined },
         root: path.resolve(__dirname, "src"),
         plugins: [
             vuePlugin(),
@@ -22,9 +23,9 @@ export default defineConfig(({ mode, command }) => {
                             camel2DashComponentName: false, // default: true
                         },
                     ],
-                    "babel-plugin-clean-code",
+                    isdrop && "babel-plugin-clean-code",
                     "@babel/plugin-syntax-typescript",
-                ],
+                ].filter(Boolean),
             }),
 
             // getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
