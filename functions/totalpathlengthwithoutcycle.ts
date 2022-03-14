@@ -1,4 +1,4 @@
-import { sum } from "mathjs";
+import { sum } from "lodash";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { Nodecoordinates } from "./Nodecoordinates";
 

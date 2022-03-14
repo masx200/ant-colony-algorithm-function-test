@@ -1,4 +1,4 @@
-import { sum } from "mathjs";
+import { sum } from "lodash";
 import { assertnumber } from "../test/assertnumber";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 /* 闭合总路径长度 首尾相连 */
