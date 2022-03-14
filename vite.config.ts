@@ -13,6 +13,7 @@ export default defineConfig(({ mode, command }) => {
             // mode === "production" &&
             //     command === "build" &&
             babel({
+                exclude: [/node_modules/],
                 extensions: [".ts", ".js"],
                 plugins: [
                     [
