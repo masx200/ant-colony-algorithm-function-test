@@ -194,6 +194,7 @@ export function createTSPrunner({
     const runOneIteration = () => {
         if (current_search_count === 0) {
             greedy_first_search_route({
+                pathTabooList,
                 nodecoordinates,
                 countofnodes,
                 setbestlength,

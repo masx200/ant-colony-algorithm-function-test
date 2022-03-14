@@ -2,15 +2,18 @@ import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtoso
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export function greedy_first_search_route({
     nodecoordinates,
+    pathTabooList,
     countofnodes,
     setbestlength,
     setbestroute,
     emit_finish_one_route,
     pheromonestore,
 }: {
+    pathTabooList: PathTabooList;
     nodecoordinates: Nodecoordinates;
     countofnodes: number;
     setbestlength: (bestlength: number) => void;
@@ -19,8 +22,10 @@ export function greedy_first_search_route({
     pheromonestore: MatrixSymmetry<number>;
 }) {
     const starttime = Number(new Date());
-    const { route, totallength } =
-        Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
+    const { route, totallength } = Greedyalgorithmtosolvetspwithallstartbest(
+        nodecoordinates,
+        pathTabooList
+    );
     const endtime = Number(new Date());
     const countofloops = countofnodes * countofnodes;
     const timems = endtime - starttime;

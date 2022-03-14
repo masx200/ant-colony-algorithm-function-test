@@ -1,4 +1,5 @@
 // import { pickRandom } from "mathjs";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
@@ -9,7 +10,8 @@ import { Nodecoordinates } from "./Nodecoordinates";
 尝试所有起点找到最优的一个
 */
 export function Greedyalgorithmtosolvetspwithallstartbest(
-    nodecoordinates: Nodecoordinates
+    nodecoordinates: Nodecoordinates,
+    pathTabooList: PathTabooList
 ): { route: number[]; totallength: number } {
     // const { length } = nodecoordinates;
     const inputindexs = Array(nodecoordinates.length)
@@ -62,5 +64,11 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
     if (!Array.isArray(result)) {
         throw new Error("Accident");
     }
+    /* 其他非最优解添加到禁忌表 */
+    greedypathsandlengths.forEach(({ route, routelength }) => {
+        if (bestlength < routelength) {
+            pathTabooList.add(route);
+        }
+    });
     return { route: result, totallength: bestlength };
 }

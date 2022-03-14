@@ -85,9 +85,16 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     const { route: best_route_of_3_opt, totallength: best_length_of_3_opt } =
         getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
     //  尝试3-opt优化,如果得到更优的解,禁忌旧路径,赋值新路径
+    /* 其他非最优解添加到禁忌表 */
+    routesAndLengths.forEach(({ route, totallength }) => {
+        if (best_length_of_3_opt < totallength) {
+            pathTabooList.add(route);
+        }
+    });
     if (best_length_of_3_opt < old_totallength) {
         pathTabooList.add(oldRoute);
     }
+
     const route = best_route_of_3_opt;
     const endtime = Number(new Date());
     const timems = endtime - starttime;
