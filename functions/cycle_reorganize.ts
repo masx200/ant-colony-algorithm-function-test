@@ -1,5 +1,5 @@
 /* 回环路径重新组织顺序 */
-export function cyclereoganize(route: number[], startwith: number): number[] {
+export function cycle_reorganize(route: number[], startwith: number): number[] {
     if (!route.includes(startwith)) {
         throw new Error("incorrect startwith or route");
     }

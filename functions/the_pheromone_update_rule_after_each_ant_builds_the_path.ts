@@ -1,5 +1,12 @@
-
-import { MatrixSymmetry, MatrixSymmetryCreate, MatrixMultiplyNumber, MatrixAdd, MatrixToArrays, MatrixFrom, MatrixAssign } from "@masx200/sparse-2d-matrix";
+import {
+    MatrixSymmetry,
+    MatrixSymmetryCreate,
+    MatrixMultiplyNumber,
+    MatrixAdd,
+    MatrixToArrays,
+    MatrixFrom,
+    MatrixAssign,
+} from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";

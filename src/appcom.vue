@@ -1,5 +1,5 @@
 <template>
-    <h1>自适应奖惩蚁群禁忌路径构建测试</h1>
+    <h1>自适应奖惩蚁群禁忌路径构建测试+3-opt</h1>
     <hr />
     <span>选择城市地图</span>
     <select ref="selecteleref" :disabled="disablemapswitching" @change="submit">

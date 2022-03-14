@@ -1,4 +1,3 @@
-
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { euclideandistance } from "./euclideandistance";
 import { Nodecoordinates } from "./Nodecoordinates";

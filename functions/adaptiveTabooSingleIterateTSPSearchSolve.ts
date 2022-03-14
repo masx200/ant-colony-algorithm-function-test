@@ -1,4 +1,3 @@
-
 import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
@@ -10,6 +9,7 @@ import { population_relative_information_entropy } from "./population-relative-i
 import { asserttrue } from "../test/asserttrue";
 import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 
 export type AdaptiveTSPSearchOptions = {
     emit_finish_one_route: Emit_Finish_One_Route;
@@ -153,14 +153,16 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     const iterateworstlength = worstlengthandroute.totallength;
     const iterateworstroute = worstlengthandroute.route;
 
-    const iteratebestlengthandroute = routesandlengths.reduce(
-        (previous, current) => {
-            return previous.totallength < current.totallength
-                ? previous
-                : current;
-        },
-        routesandlengths[0]
-    );
+    const iteratebestlengthandroute =
+        getbestRouteOfSeriesRoutesAndLengths(routesandlengths);
+    //     routesandlengths.reduce(
+    //     (previous, current) => {
+    //         return previous.totallength < current.totallength
+    //             ? previous
+    //             : current;
+    //     },
+    //     routesandlengths[0]
+    // );
     const iteratebestlength = iteratebestlengthandroute.totallength;
     const iteratebestroute = iteratebestlengthandroute.route;
     const optimalrouteofthisround = iteratebestroute;

@@ -1,6 +1,7 @@
 // import { pickRandom } from "mathjs";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
+import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
 import { Nodecoordinates } from "./Nodecoordinates";
 
@@ -33,16 +34,23 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
         });
         return { routelength, route };
     });
-    const bestlengthsandroutes = greedypathsandlengths.reduce(
-        (previous, current) => {
-            return previous.routelength < current.routelength
-                ? previous
-                : current;
-        },
-        greedypathsandlengths[0]
+    const bestlengthsandroutes = getbestRouteOfSeriesRoutesAndLengths(
+        greedypathsandlengths.map(({ route, routelength }) => ({
+            route,
+            totallength: routelength,
+        }))
     );
 
-    const bestlength = bestlengthsandroutes.routelength;
+    //     greedypathsandlengths.reduce(
+    //     (previous, current) => {
+    //         return previous.routelength < current.routelength
+    //             ? previous
+    //             : current;
+    //     },
+    //     greedypathsandlengths[0]
+    // );
+
+    const bestlength = bestlengthsandroutes.totallength;
     const result = bestlengthsandroutes.route;
     // for (let [routelength, route] of) {
     //     if (routelength < bestlength) {

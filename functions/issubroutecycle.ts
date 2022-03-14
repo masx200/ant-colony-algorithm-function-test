@@ -1,4 +1,4 @@
-import { cyclereoganize } from "./cyclereoganize";
+import { cycle_reorganize } from "./cycle_reorganize";
 import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
 import { issubroutenotcyclewithreverse } from "./issubroutenotcyclewithreverse";
 import { reversearray } from "./reversearray";
@@ -38,11 +38,11 @@ export function issubroutecycle(
     ) {
         return (
             issubroutenotcyclewithreverse(
-                cyclereoganize(parentroute, childroute[0]),
+                cycle_reorganize(parentroute, childroute[0]),
                 childroute
             ) ||
             issubroutenotcyclewithreverse(
-                cyclereoganize(parentroute, childroute.slice(-1)[0]),
+                cycle_reorganize(parentroute, childroute.slice(-1)[0]),
                 reversearray(childroute)
             )
         );

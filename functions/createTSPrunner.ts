@@ -1,26 +1,26 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
-
-import { asserttrue } from "../test/asserttrue";
-import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { createpathTabooList } from "../pathTabooList/createPathTabooList";
-import { createPheromonestore } from "./createPheromonestore";
-// import { DataOfGlobalBest } from "./DataOfGlobalBest";
-import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
-import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
-import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
-import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
-import { createEventPair } from "./createEventPair";
-import { assertnumber } from "../test/assertnumber";
-import { float64equal } from "./float64equal";
 // import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
     defaultnumberofants,
     default_local_pheromone_volatilization_rate,
 } from "../src/defaultnumberofants";
+import { assertnumber } from "../test/assertnumber";
+import { asserttrue } from "../test/asserttrue";
+import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
+import { createEventPair } from "./createEventPair";
+import { createPheromonestore } from "./createPheromonestore";
+// import { DataOfGlobalBest } from "./DataOfGlobalBest";
+import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
+import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+import { float64equal } from "./float64equal";
+import { greedy_first_search_route } from "./greedy_first_search_route";
+import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+
 export interface TSPRunner {
     runOneIteration: () => void;
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
@@ -193,7 +193,14 @@ export function createTSPrunner({
     //   let stagnantlength = Infinity;
     const runOneIteration = () => {
         if (current_search_count === 0) {
-            first_search_route();
+            greedy_first_search_route({
+                nodecoordinates,
+                countofnodes,
+                setbestlength,
+                setbestroute,
+                emit_finish_one_route,
+                pheromonestore,
+            });
         }
         //  if (
         //    maxnumberofiterations > numberofiterations &&
@@ -268,51 +275,7 @@ export function createTSPrunner({
         }
         // emit_finish_all_iterations();
     };
-    // const { on: onDataChange, emit: emitDataChange } =
-    //     createEventPair<DataOfGlobalBest>(emitter);
-    // const { on: on_finish_all_iterations, emit: emit_finish_all_iterations } =
-    //     createEventPair<undefined>(emitter);
-    // const dataChangeListener = (
-    //     data: DataOfFinishOneIteration | DataOfFinishOneRoute | undefined
-    // ) => {
-    //     const current_iterations = isDataOfFinishOneIteration(data)
-    //         ? data?.current_iterations
-    //         : getnumberofiterations();
-    //     const current_search_count = isDataOfFinishOneRoute(data)
-    //         ? data.current_search_count
-    //         : getcurrent_search_count();
-    //     emitDataChange({
-    //         current_iterations: current_iterations,
-    //         current_search_count: current_search_count,
-    //         timems: gettotaltimems(),
 
-    //         globalbestroute: getglobalbestroute(),
-    //         globalbestlength: getglobalbestlength(),
-    //     });
-    // };
-    // on_finish_all_iterations(dataChangeListener);
-    // on_finish_one_iteration(dataChangeListener);
-    // on_finish_one_route(dataChangeListener);
-    // const out_on_finish_one_route = (
-    //     listener: (data: DataOfFinishOneRoute) => void
-    // ) => {
-    //     on_finish_one_route((data: DataOfFinishOneRoute) => {
-    //         listener({
-    //             ...data,
-    //             // current_search_count: current_search_count,
-    //         });
-    //     });
-    // };
-    // const out_on_finish_one_iteration = (
-    //     listener: (data: DataOfFinishOneIteration) => void
-    // ) => {
-    //     on_finish_one_iteration((data: DataOfFinishOneIteration) => {
-    //         listener({
-    //             ...data,
-    //             // current_iterations: numberofiterations,
-    //         });
-    //     });
-    // };
     const result: TSPRunner = {
         // onDataChange,
         pheromonevolatilitycoefficientR2,
@@ -342,26 +305,5 @@ export function createTSPrunner({
         runOneIteration,
     };
 
-    function first_search_route() {
-        const starttime = Number(new Date());
-        const { route, totallength } =
-            Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
-        const endtime = Number(new Date());
-        const countofloops = countofnodes * countofnodes;
-        const timems = endtime - starttime;
-        // totaltimems += timems;
-        // current_search_count++;
-        //    stagnantlength = totallength;
-        globalbestlength = totallength;
-        globalbestroute = route;
-        emit_finish_one_route({
-            route,
-            totallength,
-            timems,
-            countofloops,
-        });
-        //信息素初始化
-        MatrixFill(pheromonestore, 1 / countofnodes / totallength);
-    }
     return result;
 }

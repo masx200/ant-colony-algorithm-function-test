@@ -1,7 +1,9 @@
 // import { stringkeytonumbers } from "./stringkeytonumbers";
 
-import { MatrixSymmetry, MatrixSymmetryCreate } from "@masx200/sparse-2d-matrix";
-
+import {
+    MatrixSymmetry,
+    MatrixSymmetryCreate,
+} from "@masx200/sparse-2d-matrix";
 
 /* 创建信息素仓库 */
 export function createPheromonestore<R extends number>(

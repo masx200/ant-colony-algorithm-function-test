@@ -12,7 +12,6 @@ import { Nodecoordinates } from "../functions/Nodecoordinates";
 // import { picknextnodeRoulette } from "../functions/pick-next-node-Roulette";
 import { taboo_backtracking_path_construction } from "../functions/Taboo-backtracking-path-construction";
 
-
 import { asserttrue } from "./asserttrue";
 import { MatrixFill } from "@masx200/sparse-2d-matrix";
 

@@ -1,4 +1,11 @@
-import { MatrixSymmetry, MatrixSymmetryCreate, MatrixToArrays, MatrixAdd, MatrixFrom, MatrixAssign } from "@masx200/sparse-2d-matrix";
+import {
+    MatrixSymmetry,
+    MatrixSymmetryCreate,
+    MatrixToArrays,
+    MatrixAdd,
+    MatrixFrom,
+    MatrixAssign,
+} from "@masx200/sparse-2d-matrix";
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
 

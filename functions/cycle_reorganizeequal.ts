@@ -1,19 +1,5 @@
 import { isEqual } from "lodash";
-import { cyclereoganize } from "./cyclereoganize";
-
-// function reverseequal(left: Array<number>, right: Array<number>): boolean {
-//     if (!left.length) {
-//         return false;
-//     }
-//     if (!right.length) {
-//         return false;
-//     }
-//     return (
-//         isEqual(left, right) ||
-//         cyclereorganizeequal(left, right) ||
-//         cyclereorganizeequal(reversearray(left), right)
-//     );
-// }
+import { cycle_reorganize } from "./cycle_reorganize";
 
 /* 回环路径重新排列判断相等 */
 export function cyclereorganizeequal(
@@ -35,6 +21,6 @@ export function cyclereorganizeequal(
     //     .slice(firstindexinright)
     //     .concat(right.slice(0, firstindexinright));
     // console.log(left, right, reorganizedright);
-    const reorganizedright = cyclereoganize(right, left[0]);
+    const reorganizedright = cycle_reorganize(right, left[0]);
     return isEqual(left, right) || isEqual(left, reorganizedright);
 }
