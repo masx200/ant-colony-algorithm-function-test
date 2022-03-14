@@ -1,6 +1,7 @@
 import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
 import { cachebestrouteofnodecoordinates } from "../functions/cachebestrouteofnodecoordinates";
-import { Greedyalgorithmtosolvetspwithallstartbest } from "../functions/Greedyalgorithmtosolvetspwithallstartbest";
+import { construct_all_greed_routes_and_lengths } from "../functions/construct_all_greed_routes_and_lengths";
+import { getbestRouteOfSeriesRoutesAndLengths } from "../functions/getbestRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "./asserttrue";
 
@@ -13,9 +14,15 @@ export function testgreedyconstructroutebest(
     console.log("贪心算法测试开始");
 
     console.log("贪心算法要解决的问题的坐标是", nodecoordinates);
-
+    const greedypathsandlengths =
+        construct_all_greed_routes_and_lengths(nodecoordinates);
     const { route: greedypath, totallength } =
-        Greedyalgorithmtosolvetspwithallstartbest(nodecoordinates);
+        getbestRouteOfSeriesRoutesAndLengths(
+            greedypathsandlengths.map(({ route, routelength }) => ({
+                route,
+                totallength: routelength,
+            }))
+        );
     console.log("贪心算法得到的路径是", greedypath);
 
     // const totallength = closedtotalpathlength(greedypath, nodecoordinates);
