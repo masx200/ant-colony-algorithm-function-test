@@ -24,7 +24,7 @@ export default defineConfig(({ mode, command }) => {
                         },
                     ],
                     isdrop && "babel-plugin-clean-code",
-                    "@babel/plugin-syntax-typescript",
+                    // "@babel/plugin-syntax-typescript",
                 ].filter(Boolean),
             }),
 
