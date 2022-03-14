@@ -6,7 +6,10 @@ export default defineConfig(({ mode, command }) => {
     console.log(mode, command);
     const isdrop = mode === "production" && command === "build";
     return {
-        esbuild: { drop: isdrop ? ["console", "debugger"] : undefined },
+        esbuild: {
+            legalComments: "none",
+            drop: isdrop ? ["console", "debugger"] : undefined,
+        },
         root: path.resolve(__dirname, "src"),
         plugins: [
             vuePlugin(),
