@@ -3,7 +3,7 @@
     "private": true,
     "version": "1.13.0",
     "scripts": {
-        "tsp2json": "ts-node ./bin/tsp2json.ts",
+        "tsp2json": "node ./bin/tsp2json.js",
         "test": "jest",
         "dev": "vite -c vite.config.ts",
         "build": "tsc && vite build",
