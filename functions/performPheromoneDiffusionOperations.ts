@@ -1,11 +1,7 @@
+import { MatrixSymmetry, MatrixSymmetryCreate, MatrixToArrays, MatrixAdd, MatrixFrom, MatrixAssign } from "@masx200/sparse-2d-matrix";
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
-import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
-import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
-import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
-import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
+
 import { asserttrue } from "../test/asserttrue";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
 import { euclideandistance } from "./euclideandistance";
@@ -21,7 +17,7 @@ export function performPheromoneDiffusionOperations({
     nodecoordinates,
 }: {
     globalbestroutesegments: [number, number][];
-    pheromonestore: SparseMatrixSymmetry<number>;
+    pheromonestore: MatrixSymmetry<number>;
     nodecoordinates: Nodecoordinates;
 }): void {
     globalbestroutesegments.forEach(
@@ -38,7 +34,7 @@ function pheromoneDiffusionCallback({
     nodecoordinates,
     globalbestroutesegments,
 }: {
-    pheromonestore: SparseMatrixSymmetry<number>;
+    pheromonestore: MatrixSymmetry<number>;
     nodecoordinates: Nodecoordinates;
     globalbestroutesegments: [number, number][];
 }): (
@@ -97,7 +93,7 @@ function pheromoneDiffusionCallback({
         if (segmentsinsidecircle.length) {
             const { row } = pheromonestore;
 
-            const deltapheromonestore = SparseMatrixSymmetryCreate({
+            const deltapheromonestore = MatrixSymmetryCreate({
                 row,
                 initializer: () => 0,
             });
@@ -160,21 +156,18 @@ function pheromoneDiffusionCallback({
                     deltapheromonestore.set(cityD, cityC, pheromonedelta);
                 }
             );
-            console.log(
-                "deltapheromone",
-                SparseMatrixToArrays(deltapheromonestore)
-            );
-            const pheromonestorenext = SparseMatrixAdd(
-                SparseMatrixFrom(pheromonestore),
+            console.log("deltapheromone", MatrixToArrays(deltapheromonestore));
+            const pheromonestorenext = MatrixAdd(
+                MatrixFrom(pheromonestore),
                 deltapheromonestore
             );
-            const oldpheromonestore = SparseMatrixFrom(pheromonestore);
+            const oldpheromonestore = MatrixFrom(pheromonestore);
             console.log({
-                oldpheromonestore: SparseMatrixToArrays(oldpheromonestore),
-                pheromonestorenext: SparseMatrixToArrays(pheromonestorenext),
+                oldpheromonestore: MatrixToArrays(oldpheromonestore),
+                pheromonestorenext: MatrixToArrays(pheromonestorenext),
             });
             asserttrue(pheromonestorenext.values().every((a) => a > 0));
-            SparseMatrixAssign(pheromonestore, pheromonestorenext);
+            MatrixAssign(pheromonestore, pheromonestorenext);
         }
     };
 }

@@ -1,12 +1,13 @@
 import { Nodecoordinates } from "./Nodecoordinates";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
+
 import { euclideandistance } from "./euclideandistance";
+import { MatrixSymmetryCreate } from "@masx200/sparse-2d-matrix";
 
 export function createsymmetrymatrixdistancestore(
     nodecoordinates: Nodecoordinates
 ) {
     const row = nodecoordinates.length;
-    return SparseMatrixSymmetryCreate({
+    return MatrixSymmetryCreate({
         row,
         // column: row,
         // default: -1,

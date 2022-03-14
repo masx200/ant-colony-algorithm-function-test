@@ -1,11 +1,5 @@
-import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
-import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
-import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
-import { SparseMatrixMax } from "../matrixtools/SparseMatrixMax";
-import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
-import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
+
+import { MatrixSymmetry, MatrixSymmetryCreate, MatrixMultiplyNumber, MatrixAdd, MatrixToArrays, MatrixFrom, MatrixMax, MatrixAssign } from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
@@ -40,12 +34,12 @@ export function each_iteration_of_pheromone_update_rules({
     iterateworstlength: number;
     iterateworstroutesegments: [number, number][];
     pheromoneintensityQ: number;
-    pheromonestore: SparseMatrixSymmetry<number>;
+    pheromonestore: MatrixSymmetry<number>;
     pheromonevolatilitycoefficientR2: number;
 }) {
     console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
-    const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
+    const deltapheromoneglobalbest = MatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
         initializer:
@@ -61,7 +55,7 @@ export function each_iteration_of_pheromone_update_rules({
                   ),
     });
     /* 最优路径不能有交叉点 */
-    const deltapheromoneiteratebest = SparseMatrixSymmetryCreate({
+    const deltapheromoneiteratebest = MatrixSymmetryCreate({
         row: countofnodes,
         // column: countofnodes,
         initializer:
@@ -77,7 +71,7 @@ export function each_iteration_of_pheromone_update_rules({
                   ),
     });
     /* 最差不能和最好的相同 */
-    const deltapheromoneiterateworst = SparseMatrixSymmetryCreate({
+    const deltapheromoneiterateworst = MatrixSymmetryCreate({
         row: countofnodes,
         initializer: !(
             iteratebestlength === iterateworstlength ||
@@ -91,24 +85,24 @@ export function each_iteration_of_pheromone_update_rules({
         //  column: countofnodes,
     });
 
-    const deltapheromone = SparseMatrixMultiplyNumber(
+    const deltapheromone = MatrixMultiplyNumber(
         pheromoneintensityQ,
-        SparseMatrixAdd(
+        MatrixAdd(
             deltapheromoneglobalbest,
             deltapheromoneiteratebest,
             deltapheromoneiterateworst
         )
     );
-    console.log("deltapheromone", SparseMatrixToArrays(deltapheromone));
-    const oldpheromonestore = SparseMatrixFrom(pheromonestore);
-    const nextpheromonestore = SparseMatrixMax(
-        SparseMatrixMultiplyNumber(1 / 2, oldpheromonestore),
-        SparseMatrixAdd(
-            SparseMatrixMultiplyNumber(
+    console.log("deltapheromone", MatrixToArrays(deltapheromone));
+    const oldpheromonestore = MatrixFrom(pheromonestore);
+    const nextpheromonestore = MatrixMax(
+        MatrixMultiplyNumber(1 / 2, oldpheromonestore),
+        MatrixAdd(
+            MatrixMultiplyNumber(
                 1 - pheromonevolatilitycoefficientR2,
                 oldpheromonestore
             ),
-            SparseMatrixMultiplyNumber(
+            MatrixMultiplyNumber(
                 pheromonevolatilitycoefficientR2,
                 deltapheromone
             )
@@ -116,10 +110,10 @@ export function each_iteration_of_pheromone_update_rules({
     );
     console.log(" 信息素更新结束");
     console.log({
-        oldpheromonestore: SparseMatrixToArrays(oldpheromonestore),
-        nextpheromonestore: SparseMatrixToArrays(nextpheromonestore),
+        oldpheromonestore: MatrixToArrays(oldpheromonestore),
+        nextpheromonestore: MatrixToArrays(nextpheromonestore),
     });
     asserttrue(nextpheromonestore.values().every((a) => a > 0));
     //信息素更新
-    SparseMatrixAssign(pheromonestore, nextpheromonestore);
+    MatrixAssign(pheromonestore, nextpheromonestore);
 }

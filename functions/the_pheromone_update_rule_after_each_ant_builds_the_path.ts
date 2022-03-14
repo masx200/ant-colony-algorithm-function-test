@@ -1,10 +1,5 @@
-import { SparseMatrixAdd } from "../matrixtools/SparseMatrixAdd";
-import { SparseMatrixAssign } from "../matrixtools/SparseMatrixAssign";
-import { SparseMatrixFrom } from "../matrixtools/SparseMatrixFrom";
-import { SparseMatrixMultiplyNumber } from "../matrixtools/SparseMatrixMultiplyNumber";
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixSymmetryCreate } from "../matrixtools/SparseMatrixSymmetryCreate";
-import { SparseMatrixToArrays } from "../matrixtools/SparseMatrixToArrays";
+
+import { MatrixSymmetry, MatrixSymmetryCreate, MatrixMultiplyNumber, MatrixAdd, MatrixToArrays, MatrixFrom, MatrixAssign } from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
@@ -36,7 +31,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     globalbestroutesegments: [number, number][];
     globalbestlength: number;
     pheromoneintensityQ: number;
-    pheromonestore: SparseMatrixSymmetry<number>;
+    pheromonestore: MatrixSymmetry<number>;
     pheromonevolatilitycoefficientR1: number;
 }) {
     console.log("局部信息素更新计算开始");
@@ -45,7 +40,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     const current_route_segments = cycleroutetosegments(current_route);
 
     // 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
-    const deltapheromoneglobalbest = SparseMatrixSymmetryCreate({
+    const deltapheromoneglobalbest = MatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
         initializer:
@@ -60,7 +55,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
                       globalbestlength
                   ),
     });
-    const deltapheromoneiteratecurrent = SparseMatrixSymmetryCreate({
+    const deltapheromoneiteratecurrent = MatrixSymmetryCreate({
         row: countofnodes,
         initializer:
             !intersection_filter_with_cycle_route({
@@ -78,32 +73,29 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     //
     //
     //局部信息素更新
-    const deltapheromone = SparseMatrixMultiplyNumber(
+    const deltapheromone = MatrixMultiplyNumber(
         pheromoneintensityQ,
-        SparseMatrixAdd(
+        MatrixAdd(
             deltapheromoneglobalbest,
 
             deltapheromoneiteratecurrent
         )
     );
-    console.log("deltapheromone", SparseMatrixToArrays(deltapheromone));
-    const oldpheromonestore = SparseMatrixFrom(pheromonestore);
-    const nextpheromonestore = SparseMatrixAdd(
-        SparseMatrixMultiplyNumber(
+    console.log("deltapheromone", MatrixToArrays(deltapheromone));
+    const oldpheromonestore = MatrixFrom(pheromonestore);
+    const nextpheromonestore = MatrixAdd(
+        MatrixMultiplyNumber(
             1 - pheromonevolatilitycoefficientR1,
             oldpheromonestore
         ),
-        SparseMatrixMultiplyNumber(
-            pheromonevolatilitycoefficientR1,
-            deltapheromone
-        )
+        MatrixMultiplyNumber(pheromonevolatilitycoefficientR1, deltapheromone)
     );
     console.log(" 信息素更新结束");
     console.log({
-        oldpheromonestore: SparseMatrixToArrays(oldpheromonestore),
-        nextpheromonestore: SparseMatrixToArrays(nextpheromonestore),
+        oldpheromonestore: MatrixToArrays(oldpheromonestore),
+        nextpheromonestore: MatrixToArrays(nextpheromonestore),
     });
     asserttrue(nextpheromonestore.values().every((a) => a > 0));
     //信息素更新
-    SparseMatrixAssign(pheromonestore, nextpheromonestore);
+    MatrixAssign(pheromonestore, nextpheromonestore);
 }

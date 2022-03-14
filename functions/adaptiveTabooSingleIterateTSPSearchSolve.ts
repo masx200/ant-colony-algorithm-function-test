@@ -1,4 +1,4 @@
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
+
 import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
@@ -9,6 +9,7 @@ import { population_relative_information_entropy } from "./population-relative-i
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
 import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 
 export type AdaptiveTSPSearchOptions = {
     emit_finish_one_route: Emit_Finish_One_Route;
@@ -35,7 +36,7 @@ export type AdaptiveTSPSearchOptions = {
     pathTabooList: PathTabooList;
     /**最大迭代次数 */
     // maxnumberofiterations: number;
-    pheromonestore: SparseMatrixSymmetry;
+    pheromonestore: MatrixSymmetry;
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     // numberofstagnantiterations: number;
 };

@@ -1,6 +1,5 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
-import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
+
 import { asserttrue } from "../test/asserttrue";
 import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
 import { createpathTabooList } from "../pathTabooList/createPathTabooList";
@@ -21,6 +20,7 @@ import {
     default_local_pheromone_volatilization_rate,
 } from "../src/defaultnumberofants";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
+import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 export interface TSPRunner {
     runOneIteration: () => void;
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
@@ -39,7 +39,7 @@ export interface TSPRunner {
     getglobalbestlength: () => number;
     getglobalbestroute: () => number[];
     getcurrent_search_count: () => number;
-    pheromonestore: SparseMatrixSymmetry<number>;
+    pheromonestore: MatrixSymmetry<number>;
 
     pathTabooList: PathTabooList<number>;
     [Symbol.toStringTag]: string;
@@ -361,7 +361,7 @@ export function createTSPrunner({
             countofloops,
         });
         //信息素初始化
-        SparseMatrixFill(pheromonestore, 1 / countofnodes / totallength);
+        MatrixFill(pheromonestore, 1 / countofnodes / totallength);
     }
     return result;
 }

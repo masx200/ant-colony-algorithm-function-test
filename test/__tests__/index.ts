@@ -9,7 +9,7 @@ import { testpathsequalinbothdirections } from "../testpathsequalinbothdirection
 import { testpathTabooList } from "../testPathTabooList";
 import { testrobustsegmentintersect } from "../testrobustsegmentintersect";
 import { testgreedynodecoordinates6 } from "../testgreedynodecoordinates6";
-import { testsparsematrix } from "../test-sparse-matrix";
+// import { testMatrix } from "../test-sparse-matrix";
 
 it("main test functions", () => {
     testgetPheromonessetPheromones();
@@ -27,5 +27,5 @@ it("main test functions", () => {
     testcheckcurrentsegmentsintersectnextsegment();
     testclosedtotalpathlength();
     testgreedynodecoordinates6();
-    testsparsematrix();
+    // testMatrix();
 });

@@ -11,9 +11,10 @@ import { drawlinechart } from "../functions/drawlinechart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 // import { picknextnodeRoulette } from "../functions/pick-next-node-Roulette";
 import { taboo_backtracking_path_construction } from "../functions/Taboo-backtracking-path-construction";
-import { SparseMatrixFill } from "../matrixtools/SparseMatrixFill";
+
 
 import { asserttrue } from "./asserttrue";
+import { MatrixFill } from "@masx200/sparse-2d-matrix";
 
 export function test_taboo_backtracking_path_construction(
     nodecoordinates: Nodecoordinates
@@ -29,7 +30,7 @@ export function test_taboo_backtracking_path_construction(
         createptlandset(countofnodes, nodecoordinates);
 
     const pheromonestore = createPheromonestore(countofnodes);
-    SparseMatrixFill(pheromonestore, 1);
+    MatrixFill(pheromonestore, 1);
     // const parameterrandomization = false;
     const alphazero = 1;
     // const   = alphazero * 2;

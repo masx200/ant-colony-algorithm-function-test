@@ -508,6 +508,11 @@
   resolved "https://registry.yarnpkg.com/@masx200/event-emitter-target/-/event-emitter-target-1.1.9.tgz#dd6770f8a79b1687bd0d91fcb27f33794f908e4e"
   integrity sha512-LzqPTBzpkk59gQXQrLFYD0R9xcbu42DHJBubutIyjY8PYlTy5cq3+qSYl6uLjeHlI+KeM0e9jAFxrUZBFGx4Rw==
 
+"@masx200/sparse-2d-matrix@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@masx200/sparse-2d-matrix/-/sparse-2d-matrix-1.0.3.tgz#eef93a04c555e87d36e87c4848d53dbf71a931ad"
+  integrity sha512-uHVZ12H4nJ213zu0zNCAjxjYKsgCQHBmlpQrIYCHY03uXReV9UtWjlHdtYkqDWxV24hg5l0VLLu8kwL8CZkUzg==
+
 "@rollup/plugin-babel@^5.3.1":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"

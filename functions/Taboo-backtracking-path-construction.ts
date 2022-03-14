@@ -1,5 +1,5 @@
 import { pickRandom } from "mathjs";
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
+
 import { asserttrue } from "../test/asserttrue";
 
 import { constructonesteproute } from "./constructonesteproute";
@@ -13,6 +13,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 
 export type PathConstructOptions = {
     alphazero: number;
@@ -38,7 +39,7 @@ export type PathConstructOptions = {
     /* 通过序号获得欧氏距离 */
     // getdistancebyserialnumber: GetDistanceBySerialNumber;
 
-    pheromonestore: SparseMatrixSymmetry;
+    pheromonestore: MatrixSymmetry;
 };
 /**禁忌回溯路径构建 */
 export function taboo_backtracking_path_construction(

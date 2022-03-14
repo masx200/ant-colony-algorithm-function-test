@@ -1,4 +1,5 @@
-import { SparseMatrixSymmetry } from "../matrixtools/SparseMatrixSymmetry";
+
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { euclideandistance } from "./euclideandistance";
 import { Nodecoordinates } from "./Nodecoordinates";
 
@@ -6,7 +7,7 @@ export function calcandsetdistance(
     nodecoordinates: Nodecoordinates,
     left: number,
     right: number,
-    euclideandistancerecord: SparseMatrixSymmetry
+    euclideandistancerecord: MatrixSymmetry
 ): number {
     let leftpair = nodecoordinates[left];
     let rightpair = nodecoordinates[right];
