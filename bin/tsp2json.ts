@@ -4,19 +4,22 @@ import assert from "assert";
 import fsextra from "fs-extra";
 import path from "path";
 import process from "process";
-import { findfiles } from "./findfiles";
+//@ts-ignore
+import { findfiles } from "./findfiles.ts";
 ("use strict");
 process.on("unhandledRejection", (err) => {
     throw err;
 });
 console.log("tsp2json");
+console.log("usage:");
+console.log("tsp2json --inputdir=path/to/TSPLIB");
 const extension = "tsp";
 const args = process.argv.slice(2);
 const opts = parse(args);
 
 console.log(opts);
 const { inputdir } = opts;
-assert(typeof inputdir === "string");
+assert(typeof inputdir === "string", "arugments inputdir should not empty");
 
 start(inputdir);
 async function start(inputdir: string) {

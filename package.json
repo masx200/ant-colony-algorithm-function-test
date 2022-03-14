@@ -2,8 +2,9 @@
     "name": "ant-colony-algorithm-function-test",
     "private": true,
     "version": "1.13.0",
+    "type": "module",
     "scripts": {
-        "tsp2json": "node ./bin/tsp2json.js",
+        "tsp2json": "ts-node --esm  ./bin/tsp2json.ts",
         "test": "jest",
         "dev": "vite -c vite.config.ts",
         "build": "tsc && vite build",
