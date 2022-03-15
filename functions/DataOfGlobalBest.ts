@@ -3,5 +3,5 @@ export interface DataOfGlobalBest {
     globalbestroute: number[];
     globalbestlength: number;
     total_time_ms: number;
-    current_iterations: number;
+    // current_iterations: number;
 }

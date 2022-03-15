@@ -5,7 +5,7 @@ export function clearDataOfOneIteration() {
 }
 export const dataofoneiteration = reactive<DataOfFinishOneIteration[]>([]);
 export const oneiterationtablebody = computed<
-    [number, number, number, boolean, number, number, number][]
+    [number, number, number, boolean, number, number, number, number][]
 >(() => {
     return dataofoneiteration.map((data, index) => {
         return [
@@ -16,7 +16,7 @@ export const oneiterationtablebody = computed<
             data.pheromoneDiffusionProbability,
             data.timems / 1000,
             data.optimallengthofthisround,
-            // JSON.stringify(data.optimalrouteofthisround),
+            data.relative_standard_deviation,
         ];
     });
 });
@@ -29,7 +29,7 @@ export const oneiterationtableheads = [
 
     "耗时秒",
     "迭代最优长度",
-    // "迭代最优路径",
+    "相对标准差",
 ];
 
 console.log(dataofoneiteration, oneiterationtableheads);

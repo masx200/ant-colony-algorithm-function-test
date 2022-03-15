@@ -170,7 +170,7 @@ export function createTSPrunner({
             globalbestroute,
             ...data,
             current_search_count,
-            current_iterations: numberofiterations,
+            // current_iterations: numberofiterations,
             total_time_ms: totaltimems,
         });
     };
@@ -232,6 +232,7 @@ export function createTSPrunner({
             getbestroute,
         });
         const {
+            relative_standard_deviation,
             nextrandomselectionprobability,
             //   routesandlengths,
             pheromoneDiffusionProbability,
@@ -264,6 +265,7 @@ export function createTSPrunner({
         const timems = endtime - starttime;
         // totaltimems += timems;
         emit_finish_one_iteration({
+            relative_standard_deviation,
             // current_iterations: getnumberofiterations(),
             pheromoneDiffusionProbability,
             optimallengthofthisround,
@@ -339,6 +341,7 @@ export function createTSPrunner({
         if (routesandlengths.length === numberofants) {
             //一轮搜索结束
             const {
+                relative_standard_deviation,
                 nextrandomselectionprobability,
                 //   routesandlengths,
                 pheromoneDiffusionProbability,
@@ -366,6 +369,7 @@ export function createTSPrunner({
                 pheromoneintensityQ,
             });
             emit_finish_one_iteration({
+                relative_standard_deviation,
                 // current_iterations: getnumberofiterations(),
                 pheromoneDiffusionProbability,
                 optimallengthofthisround,

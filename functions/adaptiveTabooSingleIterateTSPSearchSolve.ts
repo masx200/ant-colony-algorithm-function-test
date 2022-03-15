@@ -45,6 +45,7 @@ export type AdaptiveTSPSearchOptions = {
 export function adaptiveTabooSingleIterateTSPSearchSolve(
     opts: AdaptiveTSPSearchOptions
 ): {
+    relative_standard_deviation: number;
     nextrandomselectionprobability: number;
     pheromoneDiffusionProbability: number;
     optimallengthofthisround: number;
@@ -177,7 +178,10 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     // numberofiterations++;
     // lastlength = routesandlengths[0].totallength;
     // }
+
+    const relative_standard_deviation: number;
     return {
+        relative_standard_deviation,
         optimallengthofthisround,
         optimalrouteofthisround,
         ispheromoneDiffusion,

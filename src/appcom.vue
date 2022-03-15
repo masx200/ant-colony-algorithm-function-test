@@ -35,12 +35,6 @@
     </div>
     <hr />
     <div class="chartcontainer" style="">
-        <!-- 迭代轮次和相对信息熵的图表 -->
-        <div
-            class="singlechart"
-            style=""
-            ref="container_of_iteration_rounds_and_information_entropy_chart"
-        ></div>
         <!-- 路径序号和当前路径长度的图表 -->
         <div
             class="singlechart"
@@ -52,6 +46,21 @@
             class="singlechart"
             style=""
             ref="container_of_path_number_and_optimal_path_length_chart"
+        ></div>
+    </div>
+    <hr />
+    <div class="chartcontainer" style="">
+        <!-- 迭代轮次和相对信息熵的图表 -->
+        <div
+            class="singlechart"
+            style=""
+            ref="container_of_iteration_rounds_and_information_entropy_chart"
+        ></div>
+        <!-- 迭代轮次和相对标准差的图表 -->
+        <div
+            class="singlechart"
+            style=""
+            ref="container_of_iteration_rounds_and_relative_standard_deviation"
         ></div>
     </div>
     <hr />

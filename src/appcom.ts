@@ -34,6 +34,8 @@ import { tsp_runner_run_async } from "./tsp_runner_run_async";
 import { TSP_before_Start } from "./TSP_before_Start";
 import { TSP_terminate } from "./TSP_terminate";
 import { use_escharts_container_pair } from "./use_escharts_container_pair";
+import { draw_iteration_rounds_and_information_entropy_chart } from "./draw_iteration_rounds_and_information_entropy_chart";
+import { draw_iteration_rounds_and_relative_standard_deviation_chart } from "./draw_iteration_rounds_and_relative_standard_deviation_chart";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
 console.log(TSP_cities_data);
 export default defineComponent({
@@ -55,6 +57,11 @@ export default defineComponent({
         } = use_escharts_container_pair();
         // const container_of_best_chart = ref<HTMLDivElement>();
         // const container_of_latest_chart = ref<HTMLDivElement>();
+        const {
+            container:
+                container_of_iteration_rounds_and_relative_standard_deviation,
+            chart: iteration_rounds_and_relative_standard_deviation_chart,
+        } = use_escharts_container_pair();
         const {
             container:
                 container_of_iteration_rounds_and_information_entropy_chart,
@@ -199,23 +206,12 @@ export default defineComponent({
             }
         };
         const finish_one_iteration_listener = () => {
-            const titletext = "迭代轮次和相对信息熵";
-            const chart = iteration_rounds_and_information_entropy_chart.value;
-            if (chart) {
-                console.log("dataofoneiteration", dataofoneiteration);
-                const data: [number, number][] = dataofoneiteration.map((a) => [
-                    a.current_iterations,
-                    a.population_relative_information_entropy,
-                ]);
-                console.log(data);
-                drawlinechart({
-                    // xAxis_min: 0,
-                    yAxis_min: 0,
-                    titletext,
-                    data: data,
-                    chart: chart,
-                });
-            }
+            draw_iteration_rounds_and_information_entropy_chart(
+                iteration_rounds_and_information_entropy_chart
+            );
+            draw_iteration_rounds_and_relative_standard_deviation_chart(
+                iteration_rounds_and_relative_standard_deviation_chart
+            );
         };
 
         const finish_one_route_listener = () => {
@@ -300,6 +296,7 @@ export default defineComponent({
             is_running.value = false;
         }
         return {
+            container_of_iteration_rounds_and_relative_standard_deviation,
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,
             local_pheromone_volatilization_rate,

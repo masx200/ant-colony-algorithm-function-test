@@ -1,4 +1,5 @@
 export interface DataOfFinishOneIteration {
+    relative_standard_deviation: number;
     current_iterations: number;
     population_relative_information_entropy: number;
     ispheromoneDiffusion: boolean;
