@@ -133,7 +133,8 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     });
     if (best_length_of_k_opt < getbestlength()) {
         console.log(
-            "k-opt-发现更优解",'k='+k,
+            "k-opt-发现更优解",
+            "k=" + k,
             best_route_of_k_opt,
             best_length_of_k_opt
         );
