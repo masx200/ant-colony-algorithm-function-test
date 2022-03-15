@@ -4,7 +4,8 @@ import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtos
 import { Nodecoordinates } from "./Nodecoordinates";
 
 export function construct_all_greed_routes_and_lengths(
-    nodecoordinates: Nodecoordinates) {
+    nodecoordinates: Nodecoordinates
+) {
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);

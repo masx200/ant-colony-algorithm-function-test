@@ -52,4 +52,3 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
     });
     return { route: result, totallength: bestlength };
 }
-

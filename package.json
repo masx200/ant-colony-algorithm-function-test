@@ -4,13 +4,13 @@
     "version": "1.13.0",
     "type": "module",
     "scripts": {
-        "tsp2json": "ts-node --esm  ./bin/tsp2json.ts",
+        "tsp2json": "ts-node --esm  ./bin/cli.ts",
         "test": "jest",
         "dev": "vite -c vite.config.ts",
         "build": "tsc && vite build",
         "check-type": "tsc",
         "preview": "vite preview",
-        "format": "npx prettier --write *.json *.ts *.html */*.html */*.ts */*.css *.md *.js */*.vue"
+        "format": "npx prettier --write *.json *.ts *.html */*.html */*.ts */*.css *.md *.js */*.vue */*.json"
     },
     "devDependencies": {
         "@types/node": "^12.12.17",

@@ -5,7 +5,7 @@ export function clearDataOfOneIteration() {
 }
 export const dataofoneiteration = reactive<DataOfFinishOneIteration[]>([]);
 export const oneiterationtablebody = computed<
-    [number, number, number, boolean, number, number, number, ][]
+    [number, number, number, boolean, number, number, number][]
 >(() => {
     return dataofoneiteration.map((data, index) => {
         return [

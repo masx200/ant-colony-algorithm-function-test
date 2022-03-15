@@ -38,6 +38,12 @@ yarn test
 yarn build
 ```
 
+4.把 tsp 文件转换为 json 文件
+
+```
+ yarn tsp2json --inputdir=path/to/TSPLIB --outputdir=path/to/TSPLIB
+```
+
 #### 参与贡献
 
 1.  Fork 本仓库
