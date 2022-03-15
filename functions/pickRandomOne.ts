@@ -9,6 +9,7 @@ export function pickRandomOne<T>(input: Array<T>, weights: number[] = []): T {
         const Roulette = weights.map((_w, i, a) => {
             return sum(a.slice(0, i)) / sumofweights;
         });
+        console.log("Roulette", Roulette);
         const ran = Math.random();
         for (let i = 0; i < input.length; i++) {
             if (ran > Roulette[i] && Roulette[i + 1] && ran < Roulette[i + 1]) {
@@ -20,6 +21,11 @@ export function pickRandomOne<T>(input: Array<T>, weights: number[] = []): T {
 
         return last;
     } else {
-        return input[random(0, input.length)];
+        const index = Math.min(random(0, input.length), input.length - 1);
+        asserttrue(index >= 0);
+        asserttrue(index < input.length);
+        const result = input[index];
+        console.log("pickRandomOne", result, input);
+        return result;
     }
 }
