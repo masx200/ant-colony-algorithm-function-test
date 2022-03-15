@@ -1,5 +1,5 @@
 import assert from "assert";
-
+import "core-js/actual/string/replace-all.js";
 export function tsp2json(tsp: string): [number, number][] {
     const data = tsp
         .split("\n")
