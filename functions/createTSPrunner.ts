@@ -22,6 +22,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 
 export interface TSPRunner {
+    runOneRoute: () => void;
     runOneIteration: () => void;
     // onDataChange: (callback: (data: DataOfGlobalBest) => void) => void;
     gettotaltimems: () => number;
@@ -276,8 +277,9 @@ export function createTSPrunner({
         }
         // emit_finish_all_iterations();
     };
-
+    function runOneRoute() {}
     const result: TSPRunner = {
+        runOneRoute,
         // onDataChange,
         pheromonevolatilitycoefficientR2,
         pheromonevolatilitycoefficientR1,
