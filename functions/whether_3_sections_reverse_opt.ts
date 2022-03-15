@@ -8,7 +8,7 @@
 6: (3) [false, false, true]
 7: (3) [false, false, false]
 */
-export function* whether_3_sections_reverse(): Generator<
+export function* whether_3_sections_reverse_opt(): Generator<
     [boolean, boolean, boolean],
     void,
     unknown
