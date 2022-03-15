@@ -7,6 +7,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import {
     defaultnumberofants,
     default_local_pheromone_volatilization_rate,
+    default_searchloopcountratio,
 } from "../src/defaultnumberofants";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
@@ -63,7 +64,7 @@ export function createTSPrunner({
     nodecoordinates,
     alphazero = 1,
     betazero = 5,
-    searchloopcountratio = 30,
+    searchloopcountratio = default_searchloopcountratio,
     numberofants = defaultnumberofants,
     //  maxnumberofiterations = 1000,
     //  maxnumberofstagnant = 30,
