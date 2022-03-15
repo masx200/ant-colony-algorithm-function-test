@@ -9,7 +9,6 @@ import { testpathsequalinbothdirections } from "../testpathsequalinbothdirection
 import { testpathTabooList } from "../testPathTabooList";
 import { testrobustsegmentintersect } from "../testrobustsegmentintersect";
 import { testgreedynodecoordinates6 } from "../testgreedynodecoordinates6";
-import { test_3_opt_cycle_routes } from "../test_3_opt_cycle_routes";
 // import { testMatrix } from "../test-sparse-matrix";
 
 it("main test functions", () => {
@@ -30,7 +29,4 @@ it("main test functions", () => {
     testgreedynodecoordinates6();
     // testMatrix();
 });
-it("test_3_opt_cycle_routes", () => {
-    console.log("test_3_opt_cycle_routes");
-    test_3_opt_cycle_routes();
-});
+
