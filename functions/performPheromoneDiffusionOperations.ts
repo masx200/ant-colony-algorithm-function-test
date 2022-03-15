@@ -80,9 +80,7 @@ function pheromoneDiffusionCallback({
         /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
         const selectedcitiesinsidecircle = copyArrayAndShuffle(
             nodesinsidecircle
-        ).slice(0, 25); /* pickRandom(
-            nodesinsidecircle,
-            Math.min(25, nodesinsidecircle.length)
+        ).slice(0, 25); /*
         ); */
         asserttrue(Array.isArray(selectedcitiesinsidecircle));
         asserttrue(!haverepetitions(selectedcitiesinsidecircle));

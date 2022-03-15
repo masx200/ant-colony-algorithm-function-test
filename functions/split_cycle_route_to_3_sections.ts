@@ -1,14 +1,15 @@
 import { random } from "lodash";
-import { pickRandom } from "mathjs";
+
 import { asserttrue } from "../test/asserttrue";
 import { cycle_reorganize } from "./cycle_reorganize";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
+import { pickRandomOne } from "./pickRandomOne";
 
 export function split_cycle_route_to_3_sections(
     oldRoute: number[]
 ): [number[], number[], number[]] {
     asserttrue(oldRoute.length >= 6);
-    const start = getnumberfromarrayofnmber(pickRandom(oldRoute));
+    const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
 
     const reoganized_route = cycle_reorganize(oldRoute, start);
 

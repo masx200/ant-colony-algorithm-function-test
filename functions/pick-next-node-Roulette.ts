@@ -1,10 +1,7 @@
-import {
-    pickRandom,
-    /*, random */
-} from "mathjs";
 import { asserttrue } from "../test/asserttrue";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
+import { pickRandomOne } from "./pickRandomOne";
 /* 轮盘法选择下一个节点,依据信息素和启发函数和参数是否随机 */
 export function picknextnodeRoulette(
     args: PickNextNodeRouletteOptions
@@ -48,11 +45,11 @@ export function picknextnodeRoulette(
     //               )
     //       );
     const result = randomselection
-        ? getnumberfromarrayofnmber(pickRandom(availablenextnodes, 1))
+        ? getnumberfromarrayofnmber(pickRandomOne(availablenextnodes))
         : getnumberfromarrayofnmber(
-              pickRandom(
+              pickRandomOne(
                   availablenextnodes,
-                  1,
+
                   availablenextnodes.map((nextnode) => {
                       const phermone = getpheromone(nextnode, currentnode);
                       //console.log("phermone", phermone);

@@ -52,7 +52,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     // const inputindexs = Array(nodecoordinates.length)
     //     .fill(0)
     //     .map((_v, i) => i);
-    // const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
+
     const starttime = Number(new Date());
     const { route: oldRoute, countofloops } =
         taboo_backtracking_path_construction({

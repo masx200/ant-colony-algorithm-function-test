@@ -6,7 +6,8 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
-import { pickRandom } from "mathjs";
+import { pickRandomOne } from "./pickRandomOne";
+
 /**构建一步路径,并返回下一次的路径 */
 export function constructonesteproute({
     // searchloopcountratio,
@@ -50,7 +51,7 @@ export function constructonesteproute({
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
-    const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
+    const startnode = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     /**单次搜索最多循环次数 */
     // const maximumnumberofloopsforasinglesearch =
     //     countofnodes * searchloopcountratio;

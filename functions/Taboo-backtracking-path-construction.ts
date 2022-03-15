@@ -1,5 +1,3 @@
-import { pickRandom } from "mathjs";
-
 import { asserttrue } from "../test/asserttrue";
 
 import { constructonesteproute } from "./constructonesteproute";
@@ -14,6 +12,7 @@ import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { pickRandomOne } from "./pickRandomOne";
 
 export type PathConstructOptions = {
     alphazero: number;
@@ -92,7 +91,7 @@ export function taboo_backtracking_path_construction(
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
-    const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
+    const startnode = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     let route: number[] = [startnode];
     function getroute() {
         return Array.from(route);
@@ -149,9 +148,7 @@ export function taboo_backtracking_path_construction(
             const restnodes = inputindexs.filter(
                 (city) => !route.includes(city)
             );
-            // const nextnode = getnumberfromarrayofnmber(pickRandom(restcities)
 
-            // );
             const nextnodesanddistances: {
                 nextnode: number;
                 distance: number;

@@ -1,8 +1,9 @@
 import { EChartsType } from "echarts";
-import { pickRandom } from "mathjs";
+
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "../functions/Greedyalgorithmtosolvetspwithselectedstart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { pickRandomOne } from "../functions/pickRandomOne";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 
 export function showanddrawrandomgreedyoftsp({
@@ -19,7 +20,7 @@ export function showanddrawrandomgreedyoftsp({
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
-    const start = getnumberfromarrayofnmber(pickRandom(inputindexs));
+    const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     // const { greedypath, totallength } =;
     const route = Greedyalgorithmtosolvetspwithselectedstart(
         nodecoordinates,

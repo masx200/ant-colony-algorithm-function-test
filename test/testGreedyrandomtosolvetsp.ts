@@ -1,4 +1,3 @@
-import { pickRandom } from "mathjs";
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { createchart } from "../functions/createchart";
@@ -6,12 +5,13 @@ import { drawlinechart } from "../functions/drawlinechart";
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "../functions/Greedyalgorithmtosolvetspwithselectedstart";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { pickRandomOne } from "../functions/pickRandomOne";
 
 export function testGreedyrandomtosolvetsp(nodecoordinates: Nodecoordinates) {
     const inputindexs = Array(nodecoordinates.length)
         .fill(0)
         .map((_v, i) => i);
-    const start = getnumberfromarrayofnmber(pickRandom(inputindexs));
+    const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     // const { greedypath, totallength } =;
     const route = Greedyalgorithmtosolvetspwithselectedstart(
         nodecoordinates,

@@ -1,6 +1,7 @@
 import { tsp2json } from "../../bin/tsp2json";
 
 it("tsp2json-eof", () => {
+    console.log("tsp2json-eof");
     const input = `NAME : a280
 COMMENT : drilling problem (Ludwig)
 TYPE : TSP
@@ -575,6 +576,7 @@ EOF
 });
 
 it("tsp2json-end", () => {
+    console.log("tsp2json-end");
     const input = `���ƣ�gr137
 ���ͣ�TSP
 ���ۣ�����-666�����е�TSP�����⣨�����ж���

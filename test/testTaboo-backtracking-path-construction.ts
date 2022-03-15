@@ -40,10 +40,6 @@ export function test_taboo_backtracking_path_construction(
     console.log("test_taboo_backtracking_path_construction start");
     console.log("禁忌回溯要解决的问题的坐标是", nodecoordinates);
 
-    // const inputindexs = Array(nodecoordinates.length)
-    //     .fill(0)
-    //     .map((_v, i) => i);
-    // const startnode = getnumberfromarrayofnmber(pickRandom(inputindexs));
     function getbestlength(): number {
         return (
             cachebestlengthofnodecoordinates.get(nodecoordinates) || Infinity
