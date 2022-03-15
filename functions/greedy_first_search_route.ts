@@ -29,9 +29,6 @@ export function greedy_first_search_route({
 
     const countofloops = countofnodes * countofnodes;
 
-    // totaltimems += timems;
-    // current_search_count++;
-    //    stagnantlength = totallength;
     setbestlength(totallength);
     setbestroute(route);
 
