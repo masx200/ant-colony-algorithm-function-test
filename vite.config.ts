@@ -1,7 +1,8 @@
 import vuePlugin from "@vitejs/plugin-vue";
 import path from "path";
 import { defineConfig } from "vite";
-import babel from "@rollup/plugin-babel";
+import { babel } from "@rollup/plugin-babel";
+// console.log(babel)
 export default defineConfig(({ mode, command }) => {
     console.log(mode, command);
     const isdrop = mode === "production" && command === "build";
