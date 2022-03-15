@@ -1,12 +1,13 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
+import { calc_relative_standard_deviation } from "./calc_relative_standard_deviation";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
-import { population_relative_information_entropy } from "./population-relative-information-entropy";
+import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
 
 export type AdaptiveTSPSearchOptions = {
     routesandlengths: {
@@ -107,7 +108,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     } */
     /**种群相对信息熵 */
     const current_population_relative_information_entropy =
-        population_relative_information_entropy(routes);
+        calc_population_relative_information_entropy(routes);
     const nextrandomselectionprobability =
         Math.sqrt(
             1 - Math.pow(current_population_relative_information_entropy, 2)
@@ -117,10 +118,13 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         Math.sqrt(
             1 - Math.pow(current_population_relative_information_entropy, 2)
         ) / 2;
-    console.log("种群相对信息熵", population_relative_information_entropy);
+    console.log(
+        "种群相对信息熵",
+        current_population_relative_information_entropy
+    );
     console.log("随机选择概率", nextrandomselectionprobability);
     console.log("信息素扩散概率", pheromoneDiffusionProbability);
-    asserttrue(!Number.isNaN(population_relative_information_entropy));
+    asserttrue(!Number.isNaN(current_population_relative_information_entropy));
     asserttrue(!Number.isNaN(nextrandomselectionprobability));
     asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
     const globalbestroute = getbestroute();
@@ -179,7 +183,10 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     // lastlength = routesandlengths[0].totallength;
     // }
 
-    const relative_standard_deviation: number;
+    const relative_standard_deviation: number =
+        calc_relative_standard_deviation(
+            routesandlengths.map(({ totallength }) => totallength)
+        );
     return {
         relative_standard_deviation,
         optimallengthofthisround,

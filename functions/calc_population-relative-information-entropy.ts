@@ -3,7 +3,7 @@ import { asserttrue } from "../test/asserttrue";
 import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
 
 /* 种群相对信息熵 */
-export function population_relative_information_entropy(
+export function calc_population_relative_information_entropy(
     routes: Array<number[]>
 ) {
     if (!(routes.length >= 2)) {
