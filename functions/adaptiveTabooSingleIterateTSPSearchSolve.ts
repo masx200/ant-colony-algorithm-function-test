@@ -8,8 +8,14 @@ import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRout
 import { Nodecoordinates } from "./Nodecoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
+import { random } from "lodash";
+import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
+import { closedtotalpathlength } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export type AdaptiveTSPSearchOptions = {
+    max_results_of_k_opt: number;
     routesandlengths: {
         route: number[];
         totallength: number;
@@ -35,7 +41,7 @@ export type AdaptiveTSPSearchOptions = {
     // numberofants: number;
     // alphazero: number;
     // betazero: number;
-    // pathTabooList: PathTabooList;
+    pathTabooList: PathTabooList;
     /**最大迭代次数 */
     // maxnumberofiterations: number;
     pheromonestore: MatrixSymmetry;
@@ -56,6 +62,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
 } {
     // console.log(opts);
     const {
+        max_results_of_k_opt,
         routesandlengths,
         // emit_finish_one_route,
         // searchloopcountratio,
@@ -63,9 +70,9 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         pheromoneintensityQ,
         // pheromonevolatilitycoefficientR1,
         pheromonevolatilitycoefficientR2,
-        // setbestroute,
-        // setbestlength,
-        // pathTabooList,
+        setbestroute,
+        setbestlength,
+        pathTabooList,
         pheromonestore,
         nodecoordinates,
         // maxnumberofiterations,
@@ -76,36 +83,9 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     } = opts;
     // asserttrue(typeof numberofants === "number");
     const countofnodes = nodecoordinates.length;
-    // let pheromoneDiffusionProbability = 0;
-    /**
-     * 迭代的次数
-     */
-    // let numberofiterations = 0;
-    /**搜索的停滞的轮次数 */
-    // let numberofstagnantsearch = 0;
-    /* 上一次搜索的路径长度 */
-    // let lastlength = getbestlength();
-    // const alphazero = 1;
-    // const betazero = 1;
-    /** 随机选择概率*/
-    // let nextrandomselectionprobability = 0;
-    // while (
-    //     numberofiterations < maxnumberofiterations ||
-    //     numberofstagnantsearch < numberofstagnantiterations
-    // ) {
-    // const routesandlengths: {
-    //     route: number[];
-    //     totallength: number;
-    // }[] = construct_routes_of_one_iteration({ numberofants, emit_finish_one_route, searchloopcountratio, pheromoneintensityQ, pheromonevolatilitycoefficientR1, nodecoordinates, alphazero, betazero, lastrandomselectionprobability, getbestlength, pathTabooList, pheromonestore, setbestlength, setbestroute, getbestroute });
+
     const routes = routesandlengths.map(({ route }) => route);
-    // const lengths = routesandlengths.map(({ totallength }) => totallength);
-    /*  if (
-        routesandlengths.every(({ totallength }) => totallength === lastlength)
-    ) {
-        numberofstagnantsearch++;
-    } else {
-        numberofstagnantsearch = 0;
-    } */
+
     /**种群相对信息熵 */
     const current_population_relative_information_entropy =
         calc_population_relative_information_entropy(routes);
@@ -127,6 +107,39 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     asserttrue(!Number.isNaN(current_population_relative_information_entropy));
     asserttrue(!Number.isNaN(nextrandomselectionprobability));
     asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
+
+    //对全局最优解进行k-opt优化
+    const k = random(2, countofnodes / 2, false);
+    const routes_of_k_opt = generate_k_opt_cycle_routes_limited(
+        getbestroute(),
+        k,
+        max_results_of_k_opt
+    );
+    const routesAndLengths = routes_of_k_opt.map((route) => {
+        const totallength = closedtotalpathlength({
+            // countofnodes: route.length,
+            path: route,
+            getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+        });
+        return { totallength, route };
+    });
+    const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
+        getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
+    routesAndLengths.forEach(({ route, totallength }) => {
+        if (best_length_of_k_opt < totallength) {
+            //非最优解添加到禁忌表
+            pathTabooList.add(route);
+        }
+    });
+    if (best_length_of_k_opt < getbestlength()) {
+        console.log(
+            "k-opt-发现更优解",
+            best_route_of_k_opt,
+            best_length_of_k_opt
+        );
+        setbestroute(best_route_of_k_opt);
+        setbestlength(best_length_of_k_opt);
+    }
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
 
@@ -182,7 +195,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     // numberofiterations++;
     // lastlength = routesandlengths[0].totallength;
     // }
-
+    //相对标准差
     const relative_standard_deviation: number =
         calc_relative_standard_deviation(
             routesandlengths.map(({ totallength }) => totallength)

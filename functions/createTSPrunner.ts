@@ -6,7 +6,12 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
     defaultnumberofants,
+    default_alpha,
+    default_beta,
+    default_global_pheromone_volatilization_rate,
     default_local_pheromone_volatilization_rate,
+    default_max_results_of_k_opt,
+    default_pheromoneintensityQ,
     default_searchloopcountratio,
 } from "../src/defaultnumberofants";
 import { assertnumber } from "../test/assertnumber";
@@ -60,16 +65,18 @@ export interface TSPRunner {
 }
 
 export function createTSPrunner({
-    pheromoneintensityQ = 1,
+    max_results_of_k_opt = default_max_results_of_k_opt,
+    pheromoneintensityQ = default_pheromoneintensityQ,
     nodecoordinates,
-    alphazero = 1,
-    betazero = 5,
+    alphazero = default_alpha,
+    betazero = default_beta,
     searchloopcountratio = default_searchloopcountratio,
     numberofants = defaultnumberofants,
     //  maxnumberofiterations = 1000,
     //  maxnumberofstagnant = 30,
     ...rest
 }: {
+    max_results_of_k_opt?: number;
     pheromonevolatilitycoefficientR1?: number;
     pheromonevolatilitycoefficientR2?: number;
     pheromoneintensityQ?: number;
@@ -88,7 +95,9 @@ export function createTSPrunner({
         rest?.pheromonevolatilitycoefficientR1 ??
         1 -
             Math.pow(
-                1 - (rest?.pheromonevolatilitycoefficientR2 ?? 0.1),
+                1 -
+                    (rest?.pheromonevolatilitycoefficientR2 ??
+                        default_global_pheromone_volatilization_rate),
                 1 / numberofants
             );
 
@@ -216,6 +225,7 @@ export function createTSPrunner({
             route: number[];
             totallength: number;
         }[] = construct_routes_of_one_iteration({
+            max_results_of_k_opt,
             numberofants,
             emit_finish_one_route,
             searchloopcountratio,
@@ -242,6 +252,8 @@ export function createTSPrunner({
             optimallengthofthisround,
             optimalrouteofthisround,
         } = adaptiveTabooSingleIterateTSPSearchSolve({
+            pathTabooList,
+            max_results_of_k_opt,
             routesandlengths,
             // emit_finish_one_route,
             setbestroute,
@@ -321,6 +333,7 @@ export function createTSPrunner({
         }
         const { route, totallength, timems } =
             adaptive_tabu_search_builds_a_path_and_updates_pheromone({
+                max_results_of_k_opt,
                 emit_finish_one_route,
                 searchloopcountratio,
                 pheromoneintensityQ,
@@ -351,6 +364,8 @@ export function createTSPrunner({
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = adaptiveTabooSingleIterateTSPSearchSolve({
+                pathTabooList,
+                max_results_of_k_opt,
                 routesandlengths,
                 // emit_finish_one_route,
                 setbestroute,

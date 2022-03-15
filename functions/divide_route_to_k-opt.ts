@@ -9,7 +9,7 @@ import { reversearray } from "./reversearray";
 //sum(length_of_parts)=oldRoute.length
 //length_of_parts.length=k
 //length_of_parts.every((a)=>a>=2)
-
+/**把路径切割成k个片段 */
 export const divide_route_to_k_opt = (
     oldRoute: number[],
     k: number

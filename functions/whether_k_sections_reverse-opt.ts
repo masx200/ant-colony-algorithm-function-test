@@ -14,10 +14,11 @@ export function whether_k_sections_reverse_opt(
     max_of_results: number,
     k: number
 ): boolean[][] {
+    //最多生成2^k条
     const set = new Set<number>();
     const min_binary = 0;
     const max_binary = 2 ** k - 1;
-    while (set.size < max_of_results) {
+    while (set.size < Math.min(max_of_results, 2 ** k)) {
         set.add(random(min_binary, max_binary, false));
     }
 
