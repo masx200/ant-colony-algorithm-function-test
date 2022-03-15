@@ -26,20 +26,23 @@ export function greedy_first_search_route({
         nodecoordinates,
         pathTabooList
     );
-    const endtime = Number(new Date());
+
     const countofloops = countofnodes * countofnodes;
-    const timems = endtime - starttime;
+
     // totaltimems += timems;
     // current_search_count++;
     //    stagnantlength = totallength;
     setbestlength(totallength);
     setbestroute(route);
+
+    //信息素初始化
+    MatrixFill(pheromonestore, 1 / countofnodes / totallength);
+    const endtime = Number(new Date());
+    const timems = endtime - starttime;
     emit_finish_one_route({
         route,
         totallength,
         timems,
         countofloops,
     });
-    //信息素初始化
-    MatrixFill(pheromonestore, 1 / countofnodes / totallength);
 }

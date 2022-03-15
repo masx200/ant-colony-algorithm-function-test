@@ -47,13 +47,14 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
 }): {
     route: number[];
     totallength: number;
+    timems: number;
 } {
+    const starttime = Number(new Date());
     const countofnodes = nodecoordinates.length;
     // const inputindexs = Array(nodecoordinates.length)
     //     .fill(0)
     //     .map((_v, i) => i);
 
-    const starttime = Number(new Date());
     const { route: oldRoute, countofloops } =
         taboo_backtracking_path_construction({
             searchloopcountratio,
@@ -101,8 +102,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     }
 
     const route = best_route_of_3_opt;
-    const endtime = Number(new Date());
-    const timems = endtime - starttime;
+
     const totallength = best_length_of_3_opt;
 
     if (
@@ -122,7 +122,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     } else {
         pathTabooList.add(route);
     }
-    emit_finish_one_route({ totallength, route, countofloops, timems });
+
     //
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
@@ -144,5 +144,8 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         pheromonevolatilitycoefficientR1,
     });
 
-    return { route, totallength };
+    const endtime = Number(new Date());
+    const timems = endtime - starttime;
+    emit_finish_one_route({ totallength, route, countofloops, timems });
+    return { route, totallength, timems };
 }
