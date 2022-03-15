@@ -20,11 +20,11 @@ function init_runner({
         numberofants,
     });
 }
-function runOneIteration() {
+function runOneRoute() {
     if (!runner) {
         throw new Error("No runner found");
     }
-    runner.runOneIteration();
+    runner.runOneRoute();
 }
 const on_finish_one_route = (
     callback: (data: DataOfFinishOneRoute) => void
@@ -44,7 +44,7 @@ const on_finish_one_iteration = (
 };
 const API: TSP_Worker_API = {
     init_runner,
-    runOneIteration,
+    runOneRoute,
     on_finish_one_iteration,
     on_finish_one_route,
 };

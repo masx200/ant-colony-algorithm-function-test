@@ -273,13 +273,13 @@ export default defineComponent({
                     // roundofsearch,
                     onLatestRouteChange,
                 });
-                console.log(runner);
+                console.log("runner", runner);
 
                 await runner.on_finish_one_route(finish_one_route_listener);
                 await runner.on_finish_one_iteration(
                     finish_one_iteration_listener
                 );
-                await tsp_runner_run_async(runner, roundofsearch);
+                await tsp_runner_run_async(runner, roundofsearch, numberofants);
                 is_running.value = false;
                 // runner.onDataChange(data_change_listener);
             } else {

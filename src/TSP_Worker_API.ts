@@ -9,7 +9,7 @@ export interface TSP_Worker_API {
     on_finish_one_route: (
         callback: (data: DataOfFinishOneRoute) => void
     ) => void;
-    runOneIteration: () => void;
+    runOneRoute: () => void;
     init_runner: ({
         pheromonevolatilitycoefficientR1,
         nodecoordinates,

@@ -102,7 +102,7 @@ export function createTSPrunner({
     /*  const pheromonevolatilitycoefficientR1 =
         1 - Math.pow(1 - pheromonevolatilitycoefficientR2, 1 / numberofants);
 */
-    console.log({
+    console.log("runner data",{
         numberofants,
         pheromonevolatilitycoefficientR1,
         pheromonevolatilitycoefficientR2,
@@ -307,6 +307,6 @@ export function createTSPrunner({
         [Symbol.toStringTag]: "TSPRunner",
         runOneIteration,
     };
-
+    console.log("runner", result);
     return result;
 }
