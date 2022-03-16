@@ -56,11 +56,11 @@
             style=""
             ref="container_of_iteration_rounds_and_information_entropy_chart"
         ></div>
-        <!-- 迭代轮次和相对标准差的图表 -->
+        <!-- 迭代轮次和与最优的相对偏差的图表 -->
         <div
             class="singlechart"
             style=""
-            ref="container_of_iteration_rounds_and_relative_standard_deviation"
+            ref="container_of_iteration_rounds_and_relative_deviation_from_optimal"
         ></div>
     </div>
     <hr />

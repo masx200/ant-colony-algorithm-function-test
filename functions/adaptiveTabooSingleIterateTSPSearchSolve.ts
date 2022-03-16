@@ -3,7 +3,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
-import { calc_relative_standard_deviation } from "./calc_relative_standard_deviation";
+import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycleroutetosegments } from "./cycleroutetosegments";
@@ -51,13 +51,14 @@ export type AdaptiveTSPSearchOptions = {
 export function adaptiveTabooSingleIterateTSPSearchSolve(
     opts: AdaptiveTSPSearchOptions
 ): {
-    relative_standard_deviation: number;
+    relative_deviation_from_optimal: number;
     nextrandomselectionprobability: number;
     pheromoneDiffusionProbability: number;
     optimallengthofthisround: number;
     optimalrouteofthisround: number[];
     ispheromoneDiffusion: boolean;
     population_relative_information_entropy: number;
+    locally_optimized_length: number;
 } {
     // console.log(opts);
     const {
@@ -129,6 +130,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
             pathTabooList.add(route);
         }
     });
+    const locally_optimized_length = best_length_of_k_opt;
     if (best_length_of_k_opt < getbestlength()) {
         console.log(
             "k-opt-发现更优解",
@@ -192,16 +194,16 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
             nodecoordinates,
         });
     }
-    // numberofiterations++;
-    // lastlength = routesandlengths[0].totallength;
-    // }
-    //相对标准差
-    const relative_standard_deviation: number =
-        calc_relative_standard_deviation(
-            routesandlengths.map(({ totallength }) => totallength)
+
+    //与最优的相对偏差
+    const relative_deviation_from_optimal: number =
+        calc_relative_deviation_from_optimal(
+            routesandlengths.map(({ totallength }) => totallength),
+            getbestlength()
         );
     return {
-        relative_standard_deviation,
+        locally_optimized_length,
+        relative_deviation_from_optimal,
         optimallengthofthisround,
         optimalrouteofthisround,
         ispheromoneDiffusion,

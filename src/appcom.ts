@@ -35,7 +35,7 @@ import { TSP_before_Start } from "./TSP_before_Start";
 import { TSP_terminate } from "./TSP_terminate";
 import { use_escharts_container_pair } from "./use_escharts_container_pair";
 import { draw_iteration_rounds_and_information_entropy_chart } from "./draw_iteration_rounds_and_information_entropy_chart";
-import { draw_iteration_rounds_and_relative_standard_deviation_chart } from "./draw_iteration_rounds_and_relative_standard_deviation_chart";
+import { draw_iteration_rounds_and_relative_deviation_from_optimal_chart } from "./draw_iteration_rounds_and_relative_deviation_from_optimal_chart";
 const TSP_cities_data = Array.from(TSP_cities_map.entries());
 console.log(TSP_cities_data);
 export default defineComponent({
@@ -59,8 +59,8 @@ export default defineComponent({
         // const container_of_latest_chart = ref<HTMLDivElement>();
         const {
             container:
-                container_of_iteration_rounds_and_relative_standard_deviation,
-            chart: iteration_rounds_and_relative_standard_deviation_chart,
+                container_of_iteration_rounds_and_relative_deviation_from_optimal,
+            chart: iteration_rounds_and_relative_deviation_from_optimal_chart,
         } = use_escharts_container_pair();
         const {
             container:
@@ -209,8 +209,8 @@ export default defineComponent({
             draw_iteration_rounds_and_information_entropy_chart(
                 iteration_rounds_and_information_entropy_chart
             );
-            draw_iteration_rounds_and_relative_standard_deviation_chart(
-                iteration_rounds_and_relative_standard_deviation_chart
+            draw_iteration_rounds_and_relative_deviation_from_optimal_chart(
+                iteration_rounds_and_relative_deviation_from_optimal_chart
             );
         };
 
@@ -296,7 +296,7 @@ export default defineComponent({
             is_running.value = false;
         }
         return {
-            container_of_iteration_rounds_and_relative_standard_deviation,
+            container_of_iteration_rounds_and_relative_deviation_from_optimal,
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,
             local_pheromone_volatilization_rate,

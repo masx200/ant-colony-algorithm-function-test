@@ -1,5 +1,5 @@
 export interface DataOfFinishOneIteration {
-    relative_standard_deviation: number;
+    relative_deviation_from_optimal: number;
     current_iterations: number;
     population_relative_information_entropy: number;
     ispheromoneDiffusion: boolean;
@@ -8,4 +8,6 @@ export interface DataOfFinishOneIteration {
     optimallengthofthisround: number;
     optimalrouteofthisround: number[];
     timems: number;
+    globalbestlength: number;
+    locally_optimized_length: number;
 }

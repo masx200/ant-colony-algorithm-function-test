@@ -244,7 +244,8 @@ export function createTSPrunner({
             //后处理时间要加上
             const starttime = Number(new Date());
             const {
-                relative_standard_deviation,
+                locally_optimized_length,
+                relative_deviation_from_optimal,
                 nextrandomselectionprobability,
                 //   routesandlengths,
                 pheromoneDiffusionProbability,
@@ -279,7 +280,9 @@ export function createTSPrunner({
             time_ms_of_one_iteration += timems;
             totaltimems += timems;
             emit_finish_one_iteration({
-                relative_standard_deviation,
+                locally_optimized_length,
+                globalbestlength: getbestlength(),
+                relative_deviation_from_optimal,
                 // current_iterations: getnumberofiterations(),
                 pheromoneDiffusionProbability,
                 optimallengthofthisround,
