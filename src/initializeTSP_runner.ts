@@ -4,6 +4,7 @@ import { create_TSP_Worker_comlink } from "./create_TSP_Worker_comlink";
 import { onreceiveDataOfGlobalBest } from "./onreceiveDataOfGlobalBest";
 import { onreceivedataofoneIteration } from "./onreceivedataofoneIteration";
 import { onreceivedataofoneroute } from "./onreceivedataofoneroute";
+import { dataofresult } from "./resultTableHeads-resultTableBody";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 export async function initializeTSP_runner({
     // onFinishIteration,
@@ -62,7 +63,13 @@ export async function initializeTSP_runner({
     await runner.on_finish_one_iteration((data) => {
         onreceivedataofoneIteration(data);
         onGlobalBestRouteChange(data.globalbestroute, nodecoordinates);
-        // onreceiveDataOfGlobalBest(data);
+        const { globalbestroute, globalbestlength } = data;
+        onreceiveDataOfGlobalBest(
+            Object.assign({}, dataofresult.value, {
+                globalbestroute,
+                globalbestlength,
+            })
+        );
     });
     // debugger
     return runner;
