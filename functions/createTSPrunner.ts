@@ -280,6 +280,7 @@ export function createTSPrunner({
             time_ms_of_one_iteration += timems;
             totaltimems += timems;
             emit_finish_one_iteration({
+                globalbestroute: getbestroute(),
                 locally_optimized_length,
                 globalbestlength: getbestlength(),
                 relative_deviation_from_optimal,

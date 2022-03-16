@@ -61,6 +61,7 @@ export async function initializeTSP_runner({
     // runner.on_finish_one_route(onDataChange);
     await runner.on_finish_one_iteration((data) => {
         onreceivedataofoneIteration(data);
+        onGlobalBestRouteChange(data.globalbestroute, nodecoordinates);
         // onreceiveDataOfGlobalBest(data);
     });
     // debugger
