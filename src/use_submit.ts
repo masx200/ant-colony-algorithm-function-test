@@ -3,7 +3,7 @@ import { Ref, ShallowRef } from "vue";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_cities_map } from "./TSP_cities_map";
 
-export function create_submit({
+export function use_submit({
     selecteleref,
     chart_store_latest,
     chart_store_best,

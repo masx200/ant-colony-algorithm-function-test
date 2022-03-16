@@ -6,11 +6,12 @@ import {
     defaultsearchrounds,
     default_local_pheromone_volatilization_rate,
 } from "./defaultnumberofants";
-import { TSP_before_Start } from "./TSP_before_Start";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
+import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
-export function createruntsp({
+export function use_run_tsp({
+    TSP_before_Start,
     searchrounds,
     numberofeachround,
     selecteleref,
@@ -22,6 +23,25 @@ export function createruntsp({
     finish_one_route_listener,
     finish_one_iteration_listener,
 }: {
+    TSP_before_Start({
+        onGlobalBestRouteChange,
+        onLatestRouteChange,
+        nodecoordinates,
+        numberofants,
+        pheromonevolatilitycoefficientR1,
+    }: {
+        pheromonevolatilitycoefficientR1: number;
+        onGlobalBestRouteChange: (
+            globalbestroute: number[],
+            nodecoordinates: Nodecoordinates
+        ) => void;
+        onLatestRouteChange: (
+            latestroute: number[],
+            nodecoordinates: Nodecoordinates
+        ) => void;
+        numberofants: number;
+        nodecoordinates: Nodecoordinates;
+    }): Promise<TSP_Worker_Remote>;
     searchrounds: Ref<number>;
     numberofeachround: Ref<number>;
     selecteleref: Ref<HTMLSelectElement | undefined>;

@@ -1,4 +1,4 @@
-import { ref } from "vue";
-import { DataOfSummarize } from "./DataOfSummarize";
+// import { ref } from "vue";
+// import { DataOfSummarize } from "./DataOfSummarize";
 
-export const dataofresult = ref<DataOfSummarize>();
+// export const dataofresult = ref<DataOfSummarize>();
