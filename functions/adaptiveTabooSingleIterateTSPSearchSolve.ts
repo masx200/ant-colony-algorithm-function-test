@@ -1,18 +1,17 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
+import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
 import { calc_relative_standard_deviation } from "./calc_relative_standard_deviation";
+import { closedtotalpathlength } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
-import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
-import { random } from "lodash";
-import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
-import { closedtotalpathlength } from "./closed-total-path-length";
-import { creategetdistancebyindex } from "./creategetdistancebyindex";
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
 
 export type AdaptiveTSPSearchOptions = {
     max_results_of_k_opt: number;
@@ -109,12 +108,11 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
 
     //对全局最优解进行k-opt优化
-    const k = random(2, countofnodes / 2, false);
-    const routes_of_k_opt = generate_k_opt_cycle_routes_limited(
-        getbestroute(),
-        k,
-        max_results_of_k_opt
-    );
+    const routes_of_k_opt = random_k_opt_limited_full({
+        // countofnodes,
+        oldRoute: getbestroute(),
+        max_results_of_k_opt,
+    });
     const routesAndLengths = routes_of_k_opt.map((route) => {
         const totallength = closedtotalpathlength({
             // countofnodes: route.length,
@@ -134,10 +132,11 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     if (best_length_of_k_opt < getbestlength()) {
         console.log(
             "k-opt-发现更优解",
-            "k=" + k,
+            // "k=" + k,
             best_route_of_k_opt,
             best_length_of_k_opt
         );
+        pathTabooList.add(getbestroute());
         setbestroute(best_route_of_k_opt);
         setbestlength(best_length_of_k_opt);
     }

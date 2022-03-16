@@ -10,10 +10,13 @@ import { random } from "lodash";
 6: (3) [false, false, true]
 7: (3) [false, false, false]
 */
-export function whether_k_sections_reverse_opt(
-    max_of_results: number,
-    k: number
-): boolean[][] {
+export function whether_k_sections_reverse_opt({
+    max_of_results,
+    k,
+}: {
+    max_of_results: number;
+    k: number;
+}): boolean[][] {
     //最多生成2^k条
     const set = new Set<number>();
     const min_binary = 0;

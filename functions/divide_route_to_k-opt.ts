@@ -24,13 +24,16 @@ export const divide_route_to_k_opt = (
     const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
 
     const cloned = cycle_reorganize(oldRoute, start);
-    console.log("cloned", cloned);
+    // console.log("cloned", cloned);
     const routes: number[][] = [];
     const lengths_of_parts: number[] = Array(k).fill(2);
     while (sum(lengths_of_parts) < length_of_old) {
         const index = random(0, k - 1);
 
-        lengths_of_parts[index]++;
+        lengths_of_parts[index] += random(
+            1,
+            length_of_old - sum(lengths_of_parts)
+        );
     }
     console.log("lengths_of_parts", lengths_of_parts);
 

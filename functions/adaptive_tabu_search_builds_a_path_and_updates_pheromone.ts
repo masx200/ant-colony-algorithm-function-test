@@ -11,8 +11,7 @@ import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { generate_3_opt_cycle_routes } from "./generate_3_opt_cycle_routes";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
-import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
-import { random } from "lodash";
+import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     emit_finish_one_route,
@@ -79,12 +78,11 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     });
 
     //对此次路径进行k-opt优化
-    const k = random(2, countofnodes / 2, false);
-    const routes_of_k_opt = generate_k_opt_cycle_routes_limited(
+    const routes_of_k_opt = random_k_opt_limited_full({
+        // countofnodes,
         oldRoute,
-        k,
-        max_results_of_k_opt
-    );
+        max_results_of_k_opt,
+    });
 
     const routesAndLengths = routes_of_k_opt.map((route) => {
         const totallength = closedtotalpathlength({
@@ -108,15 +106,17 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         // pathTabooList.add(oldRoute);
         console.log(
             "k-opt-发现更优解",
-            "k=" + k,
+            // "k=" + k,
             best_route_of_k_opt,
             best_length_of_k_opt
         );
+        pathTabooList.add(oldRoute);
     }
+    //随机k-opt可能不包含原路径
+    const route: number[] =
+        best_length_of_k_opt < old_totallength ? best_route_of_k_opt : oldRoute;
 
-    const route = best_route_of_k_opt;
-
-    const totallength = best_length_of_k_opt;
+    const totallength: number = Math.min(best_length_of_k_opt, old_totallength);
 
     if (
         intersection_filter_with_cycle_route({
