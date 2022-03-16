@@ -1,10 +1,10 @@
 import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { asserttrue } from "../test/asserttrue";
 import { nodecoordinates10 } from "../test/nodecoordinates10";
-// import { nodecoordinates16 } from "../test/nodecoordinates16";
-import { nodecoordinates21 } from "../test/nodecoordinates21";
 // import { nodecoordinates30 } from "../test/nodecoordinates30";
 import { nodecoordinates12 } from "../test/nodecoordinates12";
-import { asserttrue } from "../test/asserttrue";
+// import { nodecoordinates16 } from "../test/nodecoordinates16";
+import { nodecoordinates21 } from "../test/nodecoordinates21";
 const modules = import.meta.globEager("../tsp/*.json");
 console.log(modules);
 const TSP_cords: Record<string, Nodecoordinates> = {
