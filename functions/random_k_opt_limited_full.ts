@@ -17,7 +17,7 @@ export function random_k_opt_limited_full({
 
     while (routes_of_max.length < max_results_of_k_opt) {
         //如果没达到max_results_of_k_opt,则继续生成路径
-        const k = Math.round(random(2, countofnodes / 2, false));
+        const k = Math.round(random(2,Math.floor( countofnodes / 2), false));
         const routes_of_k_opt = generate_k_opt_cycle_routes_limited({
             oldRoute,
             k,
