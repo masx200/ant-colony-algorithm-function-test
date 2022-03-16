@@ -21,6 +21,7 @@ import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adap
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
 import { createPheromonestore } from "./createPheromonestore";
+import { DataOfBestChange } from "./DataOfBestChange";
 // import { DataOfGlobalBest } from "./DataOfGlobalBest";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
@@ -28,8 +29,8 @@ import { float64equal } from "./float64equal";
 import { greedy_first_search_route } from "./greedy_first_search_route";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-
 export interface TSPRunner {
+    on_best_change: (callback: (data: DataOfBestChange) => void) => void;
     runOneRoute: () => void;
     runOneIteration: () => void;
 
@@ -136,7 +137,21 @@ export function createTSPrunner({
         return current_search_count;
     };
     const setbestlength = (bestlength: number) => {
-        globalbestlength = bestlength;
+        if (bestlength < globalbestlength) {
+            globalbestlength = bestlength;
+            /* "找到最优解的耗时秒" */
+            time_of_best_ms = totaltimems;
+
+            /* 这样不行 */
+            // emit_best_change({
+            //     current_search_count,
+            //     current_iterations: getnumberofiterations(),
+            //     total_time_ms: totaltimems,
+            //     time_of_best_ms,
+            //     globalbestroute,
+            //     globalbestlength: globalbestlength,
+            // });
+        }
     };
     const setbestroute = (route: number[]) => {
         globalbestroute = route;
@@ -145,6 +160,8 @@ export function createTSPrunner({
     const getbestroute = () => {
         return globalbestroute;
     };
+    /* "找到最优解的耗时秒" */
+    let time_of_best_ms = 0;
     let globalbestlength: number = Infinity;
     const getbestlength = () => {
         return globalbestlength;
@@ -156,21 +173,27 @@ export function createTSPrunner({
     };
 
     const emitter = EventEmitterTargetClass();
+    const { on: on_best_change, emit: emit_best_change } =
+        createEventPair<DataOfBestChange>(emitter);
     const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =
         createEventPair<DataOfFinishOneRoute>(emitter);
     const emit_finish_one_route = (data: PureDataOfFinishOneRoute) => {
         totaltimems += data.timems;
         current_search_count++;
-        inner_emit_finish_one_route({
-            globalbestlength:
-                globalbestlength === Infinity
-                    ? data.totallength
-                    : globalbestlength,
+        emit_best_change({
+            current_search_count,
+            current_iterations: getnumberofiterations(),
+            total_time_ms: totaltimems,
+            time_of_best_ms,
             globalbestroute,
+            globalbestlength: globalbestlength,
+        });
+        inner_emit_finish_one_route({
             ...data,
             current_search_count,
 
             total_time_ms: totaltimems,
+            globalbestlength,
         });
     };
     const {
@@ -181,6 +204,14 @@ export function createTSPrunner({
         data: Omit<DataOfFinishOneIteration, "current_iterations">
     ) => {
         numberofiterations++;
+        emit_best_change({
+            current_search_count,
+            current_iterations: getnumberofiterations(),
+            total_time_ms: totaltimems,
+            time_of_best_ms,
+            globalbestroute,
+            globalbestlength: globalbestlength,
+        });
         inner_emit_finish_one_iteration({
             ...data,
             current_iterations: numberofiterations,
@@ -279,10 +310,20 @@ export function createTSPrunner({
             const timems = endtime - starttime;
             time_ms_of_one_iteration += timems;
             totaltimems += timems;
+            // emit_best_change({
+            //     current_search_count,
+            //     current_iterations: getnumberofiterations(),
+            //     total_time_ms: totaltimems,
+            //     time_of_best_ms,
+            //     globalbestroute: getbestroute(),
+            //     globalbestlength: getbestlength(),
+            // });
             emit_finish_one_iteration({
-                globalbestroute: getbestroute(),
+                globalbestlength: globalbestlength,
+                // time_of_best_ms,
+
                 locally_optimized_length,
-                globalbestlength: getbestlength(),
+
                 relative_deviation_from_optimal,
                 // current_iterations: getnumberofiterations(),
                 pheromoneDiffusionProbability,
@@ -299,6 +340,7 @@ export function createTSPrunner({
         }
     }
     const result: TSPRunner = {
+        on_best_change,
         runOneRoute,
         // onDataChange,
         pheromonevolatilitycoefficientR2,

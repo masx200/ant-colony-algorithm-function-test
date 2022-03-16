@@ -12,7 +12,9 @@ export const oneroutetablebody = computed<
             index + 1,
             data.totallength,
             data.countofloops,
+            //找到这一条的路径的数据
             data.globalbestlength,
+            // dataOfAllResults[index].globalbestlength,
             data.timems / 1000,
             data.total_time_ms / 1000,
         ];

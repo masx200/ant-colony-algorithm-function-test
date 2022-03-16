@@ -1,5 +1,6 @@
 import * as comlink from "comlink";
 import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
+import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
@@ -42,7 +43,16 @@ const on_finish_one_iteration = (
     }
     runner.on_finish_one_iteration(callback);
 };
+const on_best_change: (callback: (data: DataOfBestChange) => void) => void = (
+    callback
+) => {
+    if (!runner) {
+        throw new Error("No runner found");
+    }
+    runner.on_best_change(callback);
+};
 const API: TSP_Worker_API = {
+    on_best_change,
     init_runner,
     runOneRoute,
     on_finish_one_iteration,

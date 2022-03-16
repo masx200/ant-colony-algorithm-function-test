@@ -28,6 +28,7 @@ export const oneiterationtablebody = computed<
             data.timems / 1000,
             data.optimallengthofthisround,
             data.relative_deviation_from_optimal,
+            //找到这一轮的迭代的数据
             data.globalbestlength,
             data.locally_optimized_length,
         ];

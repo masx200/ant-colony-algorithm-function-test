@@ -64,14 +64,17 @@
         ></div>
     </div>
     <hr />
+    <!-- //汇总结果 -->
     <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
 
     <hr />
+    <!-- 迭代结果 -->
     <datatable
         :tableheads="oneiterationtableheads"
         :tablebody="oneiterationtablebody"
     />
     <hr />
+    <!-- 路径结果 -->
     <datatable
         :tableheads="oneroutetableheads"
         :tablebody="oneroutetablebody"
