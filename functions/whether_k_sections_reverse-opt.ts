@@ -17,6 +17,7 @@ export function whether_k_sections_reverse_opt({
     max_of_results: number;
     k: number;
 }): boolean[][] {
+    k = Math.round(k);
     //最多生成2^k条
     const set = new Set<number>();
     const min_binary = 0;

@@ -16,7 +16,7 @@ export function generate_k_opt_cycle_routes_limited({
 }): number[][] {
     asserttrue(oldRoute.length >= 2 * k);
     //splitedRoutes.length===k
-    const splitedRoutes = divide_route_to_k_opt(oldRoute, k);
+    const splitedRoutes = divide_route_to_k_opt(oldRoute, Math.round(k));
 
     console.log("splitedRoutes", splitedRoutes);
     asserttrue(
@@ -24,7 +24,10 @@ export function generate_k_opt_cycle_routes_limited({
     );
 
     const routes: number[][] = [
-        ...whether_k_sections_reverse_opt({ max_of_results: max_results, k }),
+        ...whether_k_sections_reverse_opt({
+            max_of_results: max_results,
+            k: Math.round(k),
+        }),
     ].map((values) => {
         return values
             .map((value, index) => {

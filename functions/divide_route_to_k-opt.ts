@@ -14,6 +14,7 @@ export const divide_route_to_k_opt = (
     oldRoute: number[],
     k: number
 ): number[][] => {
+    k = Math.round(k);
     asserttrue(oldRoute.length >= 2 * k);
     //每段路径至少含有2个城市
     const length_of_old = oldRoute.length;
@@ -26,6 +27,7 @@ export const divide_route_to_k_opt = (
     const cloned = cycle_reorganize(oldRoute, start);
     // console.log("cloned", cloned);
     const routes: number[][] = [];
+    // debugger;
     const lengths_of_parts: number[] = Array(k).fill(2);
     while (sum(lengths_of_parts) < length_of_old) {
         const index = random(0, k - 1);
