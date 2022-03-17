@@ -62,18 +62,17 @@ export function construct_one_route_all({
         // route = result.route;
         // totallength = result.totallength;
     } else if (
-        intersection_filter_with_cycle_route({
+        !intersection_filter_with_cycle_route({
             nodecoordinates,
             cycleroute: getbestroute(),
-        })
+        }) &&
+        Math.random() < 2 / 3
     ) {
-        //最优解有交叉点
-        return Math.random() < 2 / 3 ? 局部优化() : 禁忌搜索();
-        //    route = result.route;
-        //    totallength = result.totallength;
-    } else {
+        return 禁忌搜索();
         //最优解无交叉点
-        return Math.random() < 1 / 3 ? 局部优化() : 禁忌搜索();
+    } else {
+        //最优解有交叉点
+        return 局部优化();
     }
 
     function 禁忌搜索(): {
