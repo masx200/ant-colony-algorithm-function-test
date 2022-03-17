@@ -7,13 +7,15 @@ import { asserttrue } from "./asserttrue";
 export function test_3_opt_cycle_routes() {
     for (let i = 0; i < 5; i++) {
         const oldRoute = [0, 1, 2, 3, 4, 5, 6];
-        const splitedRoutes = split_cycle_route_to_3_sections(oldRoute);
-        asserttrue(splitedRoutes.length === 3);
-        console.log("splitedRoutes", splitedRoutes);
+        const splitted_Routes = split_cycle_route_to_3_sections(oldRoute);
+        asserttrue(splitted_Routes.length === 3);
+        console.log("splitted_Routes", splitted_Routes);
         asserttrue(
-            splitedRoutes.every((partial_route) => partial_route.length >= 2)
+            splitted_Routes.every((partial_route) => partial_route.length >= 2)
         );
-        asserttrue((oldRoute.length = sum(splitedRoutes.map((a) => a.length))));
+        asserttrue(
+            (oldRoute.length = sum(splitted_Routes.map((a) => a.length)))
+        );
         const newRoutes = generate_3_opt_cycle_routes(oldRoute);
         asserttrue(newRoutes.length === 8);
         asserttrue(
@@ -24,13 +26,15 @@ export function test_3_opt_cycle_routes() {
     }
     for (let i = 0; i < 5; i++) {
         const oldRoute = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const splitedRoutes = split_cycle_route_to_3_sections(oldRoute);
-        asserttrue(splitedRoutes.length === 3);
-        console.log("splitedRoutes", splitedRoutes);
+        const splitted_Routes = split_cycle_route_to_3_sections(oldRoute);
+        asserttrue(splitted_Routes.length === 3);
+        console.log("splitted_Routes", splitted_Routes);
         asserttrue(
-            splitedRoutes.every((partial_route) => partial_route.length >= 2)
+            splitted_Routes.every((partial_route) => partial_route.length >= 2)
         );
-        asserttrue((oldRoute.length = sum(splitedRoutes.map((a) => a.length))));
+        asserttrue(
+            (oldRoute.length = sum(splitted_Routes.map((a) => a.length)))
+        );
         const newRoutes = generate_3_opt_cycle_routes(oldRoute);
         asserttrue(newRoutes.length === 8);
         asserttrue(
@@ -41,13 +45,15 @@ export function test_3_opt_cycle_routes() {
     }
     for (let i = 0; i < 5; i++) {
         const oldRoute = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const splitedRoutes = divide_route_to_k_opt_random(oldRoute, 3);
-        asserttrue(splitedRoutes.length === 3);
-        console.log("splitedRoutes", splitedRoutes);
+        const splitted_Routes = divide_route_to_k_opt_random(oldRoute, 3);
+        asserttrue(splitted_Routes.length === 3);
+        console.log("splitted_Routes", splitted_Routes);
         asserttrue(
-            splitedRoutes.every((partial_route) => partial_route.length >= 2)
+            splitted_Routes.every((partial_route) => partial_route.length >= 2)
         );
-        asserttrue((oldRoute.length = sum(splitedRoutes.map((a) => a.length))));
+        asserttrue(
+            (oldRoute.length = sum(splitted_Routes.map((a) => a.length)))
+        );
         const newRoutes = generate_3_opt_cycle_routes(oldRoute);
         asserttrue(newRoutes.length === 8);
         asserttrue(
@@ -58,13 +64,15 @@ export function test_3_opt_cycle_routes() {
     }
     for (let i = 0; i < 5; i++) {
         const oldRoute = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const splitedRoutes = divide_route_to_k_opt_random(oldRoute, 5);
-        asserttrue(splitedRoutes.length === 5);
-        console.log("splitedRoutes", splitedRoutes);
+        const splitted_Routes = divide_route_to_k_opt_random(oldRoute, 5);
+        asserttrue(splitted_Routes.length === 5);
+        console.log("splitted_Routes", splitted_Routes);
         asserttrue(
-            splitedRoutes.every((partial_route) => partial_route.length >= 2)
+            splitted_Routes.every((partial_route) => partial_route.length >= 2)
         );
-        asserttrue((oldRoute.length = sum(splitedRoutes.map((a) => a.length))));
+        asserttrue(
+            (oldRoute.length = sum(splitted_Routes.map((a) => a.length)))
+        );
         const newRoutes = generate_3_opt_cycle_routes(oldRoute);
         asserttrue(newRoutes.length === 8);
         asserttrue(

@@ -4,14 +4,12 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { asserttrue } from "../test/asserttrue";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
 import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
-import { closedtotalpathlength } from "./closed-total-path-length";
-import { creategetdistancebyindex } from "./creategetdistancebyindex";
+import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
-import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
 
 export type AdaptiveTSPSearchOptions = {
     max_results_of_k_opt: number;
@@ -109,44 +107,18 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
 
     //对全局最优解进行k-opt优化
-    const routes_of_k_opt = random_k_opt_limited_full({
-        // countofnodes,
-        oldRoute: getbestroute(),
-        max_results_of_k_opt,
-    });
 
-    //排除与原路径一样的结果
-    const routesAndLengths = routes_of_k_opt
-        .map((route) => {
-            const totallength = closedtotalpathlength({
-                // countofnodes: route.length,
-                path: route,
-                getdistancebyindex: creategetdistancebyindex(nodecoordinates),
-            });
-            return { totallength, route };
-        })
-        .filter((a) => a.totallength !== getbestlength());
-    const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
-        getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
-    routesAndLengths.forEach(({ route, totallength }) => {
-        if (best_length_of_k_opt < totallength) {
-            //非最优解添加到禁忌表
-            pathTabooList.add(route);
-        }
+    const result = construct_route_from_k_opt_of_global_best({
+        getbestroute,
+        max_results_of_k_opt,
+        nodecoordinates,
+        getbestlength,
+        pathTabooList,
+        setbestlength,
+        setbestroute,
     });
-    const locally_optimized_length = best_length_of_k_opt;
-    if (best_length_of_k_opt < getbestlength()) {
-        console.log(
-            "k-opt-发现更优解",
-            // "k=" + k,
-            best_route_of_k_opt,
-            best_length_of_k_opt
-        );
-        pathTabooList.add(getbestroute());
-        setbestroute(best_route_of_k_opt);
-        setbestlength(best_length_of_k_opt);
-    }
-    //todo 精准的2-opt局部优化,消除交叉点
+    const locally_optimized_length = result.totallength;
+
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
 

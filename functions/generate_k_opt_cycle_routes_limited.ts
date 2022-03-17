@@ -15,12 +15,15 @@ export function generate_k_opt_cycle_routes_limited({
     max_results: number;
 }): number[][] {
     asserttrue(oldRoute.length >= 2 * k);
-    //splitedRoutes.length===k
-    const splitedRoutes = divide_route_to_k_opt_random(oldRoute, Math.round(k));
+    //splitted_Routes.length===k
+    const splitted_Routes = divide_route_to_k_opt_random(
+        oldRoute,
+        Math.round(k)
+    );
 
-    // console.log("splitedRoutes", splitedRoutes);
+    // console.log("splitted_Routes", splitted_Routes);
     asserttrue(
-        splitedRoutes.every((partial_route) => partial_route.length >= 2)
+        splitted_Routes.every((partial_route) => partial_route.length >= 2)
     );
 
     const routes: number[][] = [
@@ -32,8 +35,8 @@ export function generate_k_opt_cycle_routes_limited({
         return values
             .map((value, index) => {
                 return value
-                    ? reversearray(splitedRoutes[index])
-                    : splitedRoutes[index];
+                    ? reversearray(splitted_Routes[index])
+                    : splitted_Routes[index];
             })
             .flat();
     });
