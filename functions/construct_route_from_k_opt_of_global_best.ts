@@ -55,5 +55,6 @@ export function construct_route_from_k_opt_of_global_best({
     } else {
         pathTabooList.add(route);
     }
+    //todo 精准的2-opt局部优化,消除交叉点
     return { route, totallength };
 }

@@ -146,6 +146,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         setbestroute(best_route_of_k_opt);
         setbestlength(best_length_of_k_opt);
     }
+    //todo 精准的2-opt局部优化,消除交叉点
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
 
@@ -157,14 +158,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
 
     const iteratebestlengthandroute =
         getbestRouteOfSeriesRoutesAndLengths(routesandlengths);
-    //     routesandlengths.reduce(
-    //     (previous, current) => {
-    //         return previous.totallength < current.totallength
-    //             ? previous
-    //             : current;
-    //     },
-    //     routesandlengths[0]
-    // );
+
     const iteratebestlength = iteratebestlengthandroute.totallength;
     const iteratebestroute = iteratebestlengthandroute.route;
     const optimalrouteofthisround = iteratebestroute;

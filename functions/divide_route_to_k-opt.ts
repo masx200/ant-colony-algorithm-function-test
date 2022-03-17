@@ -22,6 +22,7 @@ export const divide_route_to_k_opt = (
 
     asserttrue(k <= length_of_old / 2);
     asserttrue(k >= 2);
+    //环路随机重排
     const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
 
     const cloned = cycle_reorganize(oldRoute, start);
