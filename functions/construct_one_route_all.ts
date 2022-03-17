@@ -66,7 +66,7 @@ export function construct_one_route_all({
             nodecoordinates,
             cycleroute: getbestroute(),
         }) &&
-        Math.random() < 2 / 3
+        Math.random() < 1/2 
     ) {
         return 禁忌搜索();
         //最优解无交叉点
