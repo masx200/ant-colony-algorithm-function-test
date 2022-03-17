@@ -11,7 +11,7 @@ export interface DataOfFinishOneIteration {
     pheromoneDiffusionProbability: number;
     optimallengthofthisround: number;
     optimalrouteofthisround: number[];
-    timems: number;
+    time_ms_of_one_iteration: number;
     globalbestlength: number;
     locally_optimized_length: number;
 }

@@ -7,15 +7,15 @@ import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-
 import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
-import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
+// import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { generate_3_opt_cycle_routes } from "./generate_3_opt_cycle_routes";
-import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
-import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
+// import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
+// import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
 /**自适应禁忌搜索构建一条路径并更新信息素 */
 export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
-    emit_finish_one_route,
-    max_results_of_k_opt,
+    // emit_finish_one_route,
+    // max_results_of_k_opt,
     searchloopcountratio,
     pheromoneintensityQ,
     pheromonevolatilitycoefficientR1,
@@ -31,8 +31,8 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     setbestroute,
     getbestroute,
 }: {
-    max_results_of_k_opt: number;
-    emit_finish_one_route: Emit_Finish_One_Route;
+    // max_results_of_k_opt: number;
+    // emit_finish_one_route: Emit_Finish_One_Route;
     searchloopcountratio: number;
     pheromoneintensityQ: number;
     pheromonevolatilitycoefficientR1: number;
@@ -50,15 +50,15 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
 }): {
     route: number[];
     totallength: number;
-    timems: number;
+    // timems: number;
 } {
-    const starttime = Number(new Date());
+    // const starttime = Number(new Date());
     const countofnodes = nodecoordinates.length;
     // const inputindexs = Array(nodecoordinates.length)
     //     .fill(0)
     //     .map((_v, i) => i);
 
-    const { route: oldRoute, countofloops } =
+    const { route: oldRoute /*  countofloops */ } =
         taboo_backtracking_path_construction({
             searchloopcountratio,
             alphazero,
@@ -78,46 +78,47 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     });
 
     //对此次路径进行k-opt优化
-    const routes_of_k_opt = random_k_opt_limited_full({
-        // countofnodes,
-        oldRoute,
-        max_results_of_k_opt,
-    });
+    // const routes_of_k_opt = random_k_opt_limited_full({
+    //     // countofnodes,
+    //     oldRoute,
+    //     max_results_of_k_opt,
+    // });
 
-    const routesAndLengths = routes_of_k_opt.map((route) => {
-        const totallength = closedtotalpathlength({
-            // countofnodes: route.length,
-            path: route,
-            getdistancebyindex: creategetdistancebyindex(nodecoordinates),
-        });
-        return { totallength, route };
-    });
-    const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
-        getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
-    //  尝试3-opt优化,如果得到更优的解,禁忌旧路径,赋值新路径
-    /* 其他非最优解添加到禁忌表 */
-    routesAndLengths.forEach(({ route, totallength }) => {
-        if (best_length_of_k_opt < totallength) {
-            //非最优解添加到禁忌表
-            pathTabooList.add(route);
-        }
-    });
-    if (best_length_of_k_opt < old_totallength) {
-        // pathTabooList.add(oldRoute);
-        console.log(
-            "k-opt-发现更优解",
-            // "k=" + k,
-            best_route_of_k_opt,
-            best_length_of_k_opt
-        );
-        pathTabooList.add(oldRoute);
-    }
+    // const routesAndLengths = routes_of_k_opt.map((route) => {
+    //     const totallength = closedtotalpathlength({
+    //         // countofnodes: route.length,
+    //         path: route,
+    //         getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+    //     });
+    //     return { totallength, route };
+    // });
+    // const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
+    //     getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
+    // //  尝试3-opt优化,如果得到更优的解,禁忌旧路径,赋值新路径
+    // /* 其他非最优解添加到禁忌表 */
+    // routesAndLengths.forEach(({ route, totallength }) => {
+    //     if (best_length_of_k_opt < totallength) {
+    //         //非最优解添加到禁忌表
+    //         pathTabooList.add(route);
+    //     }
+    // });
+    // if (best_length_of_k_opt < old_totallength) {
+    //     // pathTabooList.add(oldRoute);
+    //     console.log(
+    //         "k-opt-发现更优解",
+    //         // "k=" + k,
+    //         best_route_of_k_opt,
+    //         best_length_of_k_opt
+    //     );
+    //     pathTabooList.add(oldRoute);
+    // }
     //随机k-opt可能不包含原路径
-    const route: number[] =
-        best_length_of_k_opt < old_totallength ? best_route_of_k_opt : oldRoute;
+    // const route: number[] =
+    //     best_length_of_k_opt < old_totallength ? best_route_of_k_opt : oldRoute;
 
-    const totallength: number = Math.min(best_length_of_k_opt, old_totallength);
-
+    // const totallength: number = Math.min(best_length_of_k_opt, old_totallength);
+    const route = oldRoute;
+    const totallength = old_totallength;
     if (
         intersection_filter_with_cycle_route({
             cycleroute: route,
@@ -157,8 +158,8 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         pheromonevolatilitycoefficientR1,
     });
 
-    const endtime = Number(new Date());
-    const timems = endtime - starttime;
-    emit_finish_one_route({ totallength, route, countofloops, timems });
-    return { route, totallength, timems };
+    // const endtime = Number(new Date());
+    // const timems = endtime - starttime;
+    // emit_finish_one_route({ totallength, route, countofloops, timems });
+    return { route, totallength /* , timems */ };
 }

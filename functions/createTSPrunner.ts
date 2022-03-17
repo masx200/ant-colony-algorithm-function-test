@@ -178,7 +178,7 @@ export function createTSPrunner({
     const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =
         createEventPair<DataOfFinishOneRoute>(emitter);
     const emit_finish_one_route = (data: PureDataOfFinishOneRoute) => {
-        totaltimems += data.timems;
+        totaltimems += data.time_ms_of_one_route;
         current_search_count++;
         emit_best_change({
             current_search_count,
@@ -201,7 +201,10 @@ export function createTSPrunner({
         emit: inner_emit_finish_one_iteration,
     } = createEventPair<DataOfFinishOneIteration>(emitter);
     const emit_finish_one_iteration = (
-        data: Omit<DataOfFinishOneIteration, "current_iterations">
+        data: Omit<
+            DataOfFinishOneIteration,
+            "current_iterations" | "globalbestlength"
+        >
     ) => {
         numberofiterations++;
         emit_best_change({
@@ -214,6 +217,7 @@ export function createTSPrunner({
         });
         inner_emit_finish_one_iteration({
             ...data,
+            globalbestlength: globalbestlength,
             current_iterations: numberofiterations,
         });
     };
@@ -237,43 +241,61 @@ export function createTSPrunner({
     }[] = [];
     let time_ms_of_one_iteration: number = 0;
     function runOneRoute() {
+        const starttime_of_one_route = Number(new Date());
+        let route: number[] | undefined = undefined;
+        let totallength: number | undefined = undefined;
         if (current_search_count === 0) {
-            greedy_first_search_route({
+            const result = greedy_first_search_route({
                 pathTabooList,
                 nodecoordinates,
                 countofnodes,
                 setbestlength,
                 setbestroute,
-                emit_finish_one_route,
+                // emit_finish_one_route,
                 pheromonestore,
             });
-        }
-        const { route, totallength, timems } =
-            adaptive_tabu_search_builds_a_path_and_updates_pheromone({
-                max_results_of_k_opt,
-                emit_finish_one_route,
-                searchloopcountratio,
-                pheromoneintensityQ,
-                pheromonevolatilitycoefficientR1,
-                nodecoordinates,
-                alphazero,
+            route = result.route;
+            totallength = result.totallength;
+        } else {
+            const result =
+                adaptive_tabu_search_builds_a_path_and_updates_pheromone({
+                    // max_results_of_k_opt,
+                    // emit_finish_one_route,
+                    searchloopcountratio,
+                    pheromoneintensityQ,
+                    pheromonevolatilitycoefficientR1,
+                    nodecoordinates,
+                    alphazero,
 
-                betazero,
-                randomselectionprobability: lastrandomselectionprobability,
-                getbestlength,
-                pathTabooList,
-                pheromonestore,
-                setbestlength,
-                setbestroute,
-                getbestroute,
-            });
+                    betazero,
+                    randomselectionprobability: lastrandomselectionprobability,
+                    getbestlength,
+                    pathTabooList,
+                    pheromonestore,
+                    setbestlength,
+                    setbestroute,
+                    getbestroute,
+                });
+            route = result.route;
+            totallength = result.totallength;
+            // routesandlengths.push({ route, totallength });
+        }
+        const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
-        time_ms_of_one_iteration += timems;
+        const time_ms_of_one_route =
+            endtime_of_one_route - starttime_of_one_route;
+        time_ms_of_one_iteration += time_ms_of_one_route;
+        emit_finish_one_route({
+            time_ms_of_one_route: time_ms_of_one_route,
+            route,
+            totallength,
+        });
         if (routesandlengths.length === numberofants) {
+            const starttime_of_process_iteration = Number(new Date());
             //一轮搜索结束
 
             //后处理时间要加上
-            const starttime = Number(new Date());
+
             const {
                 locally_optimized_length,
                 relative_deviation_from_optimal,
@@ -305,11 +327,11 @@ export function createTSPrunner({
                 // pheromonevolatilitycoefficientR1,
                 pheromoneintensityQ,
             });
-            const endtime = Number(new Date());
+            const endtime_of_process_iteration = Number(new Date());
             //后处理时间要加上
-            const timems = endtime - starttime;
-            time_ms_of_one_iteration += timems;
-            totaltimems += timems;
+            const timems_of_process_iteration =
+                endtime_of_process_iteration - starttime_of_process_iteration;
+            time_ms_of_one_iteration += timems_of_process_iteration;
             // emit_best_change({
             //     current_search_count,
             //     current_iterations: getnumberofiterations(),
@@ -319,7 +341,7 @@ export function createTSPrunner({
             //     globalbestlength: getbestlength(),
             // });
             emit_finish_one_iteration({
-                globalbestlength: globalbestlength,
+                // globalbestlength: globalbestlength,
                 // time_of_best_ms,
 
                 locally_optimized_length,
@@ -332,12 +354,20 @@ export function createTSPrunner({
                 population_relative_information_entropy,
                 ispheromoneDiffusion,
                 randomselectionprobability: lastrandomselectionprobability,
-                timems: time_ms_of_one_iteration,
+                time_ms_of_one_iteration: time_ms_of_one_iteration,
             });
             time_ms_of_one_iteration = 0;
             lastrandomselectionprobability = nextrandomselectionprobability;
             routesandlengths.length = 0;
         }
+
+        /* else {
+            // const endtime = Number(new Date());
+            //后处理时间要加上
+            // const timems = endtime - starttime;
+            time_ms_of_one_iteration += timems;
+            totaltimems += timems;
+        } */
     }
     const result: TSPRunner = {
         on_best_change,

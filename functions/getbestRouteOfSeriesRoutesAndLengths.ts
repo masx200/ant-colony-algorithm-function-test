@@ -7,10 +7,9 @@ export function getbestRouteOfSeriesRoutesAndLengths(
     route: number[];
     totallength: number;
 } {
-if(!(routesandlengths.length>0)){
-throw new Error("routesandlengths empty!")
-
-}
+    if (!(routesandlengths.length > 0)) {
+        throw new Error("routesandlengths empty!");
+    }
     const iteratebestlengthandroute = routesandlengths.reduce(
         (previous, current) => {
             return previous.totallength < current.totallength

@@ -16,17 +16,17 @@ export function use_data_of_one_route() {
     };
     const dataofoneroute = reactive<DataOfFinishOneRoute[]>([]);
     const oneroutetablebody = computed<
-        [number, number, number, number, number, number][]
+        [number, number, number, number, number][]
     >(() => {
         return dataofoneroute.map((data, index) => {
             return [
                 index + 1,
                 data.totallength,
-                data.countofloops,
+                // data.countofloops,
                 //找到这一条的路径的数据
                 data.globalbestlength,
                 // dataOfAllResults[index].globalbestlength,
-                data.timems / 1000,
+                data.time_ms_of_one_route / 1000,
                 data.total_time_ms / 1000,
             ];
         });
@@ -34,7 +34,7 @@ export function use_data_of_one_route() {
     const oneroutetableheads = [
         "序号",
         "当前长度",
-        "循环次数",
+        // "循环次数",
 
         "全局最优长度",
         "当前耗时秒",

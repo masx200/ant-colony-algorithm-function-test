@@ -4,19 +4,7 @@ import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration"
 export function use_data_of_one_iteration(): {
     onreceivedataofoneIteration: (data: DataOfFinishOneIteration) => void;
     clearDataOfOneIteration: () => void;
-    dataofoneiteration: {
-        relative_deviation_from_optimal: number;
-        current_iterations: number;
-        population_relative_information_entropy: number;
-        ispheromoneDiffusion: boolean;
-        randomselectionprobability: number;
-        pheromoneDiffusionProbability: number;
-        optimallengthofthisround: number;
-        optimalrouteofthisround: number[];
-        timems: number;
-        globalbestlength: number;
-        locally_optimized_length: number;
-    }[];
+    dataofoneiteration: DataOfFinishOneIteration[];
     oneiterationtablebody: ComputedRef<
         [
             number,
@@ -79,7 +67,7 @@ export function use_data_of_one_iteration(): {
                 data.randomselectionprobability,
                 data.ispheromoneDiffusion,
                 data.pheromoneDiffusionProbability,
-                data.timems / 1000,
+                data.time_ms_of_one_iteration / 1000,
                 data.optimallengthofthisround,
                 data.relative_deviation_from_optimal,
                 //找到这一轮的迭代的数据

@@ -5,7 +5,6 @@ import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { pickRandomOne } from "../functions/pickRandomOne";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 
-
 export function showanddrawrandomgreedyoftsp({
     nodecoordinates,
     chart,

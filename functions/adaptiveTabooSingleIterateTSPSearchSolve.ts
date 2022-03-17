@@ -115,15 +115,17 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         max_results_of_k_opt,
     });
 
-//排除与原路径一样的结果
-    const routesAndLengths = routes_of_k_opt.map((route) => {
-        const totallength = closedtotalpathlength({
-            // countofnodes: route.length,
-            path: route,
-            getdistancebyindex: creategetdistancebyindex(nodecoordinates),
-        });
-        return { totallength, route };
-    }).filter(a=>a.totallength!==getbestlength());
+    //排除与原路径一样的结果
+    const routesAndLengths = routes_of_k_opt
+        .map((route) => {
+            const totallength = closedtotalpathlength({
+                // countofnodes: route.length,
+                path: route,
+                getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+            });
+            return { totallength, route };
+        })
+        .filter((a) => a.totallength !== getbestlength());
     const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
         getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
     routesAndLengths.forEach(({ route, totallength }) => {

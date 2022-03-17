@@ -175,7 +175,7 @@ export function taboo_backtracking_path_construction(
         }
     }
     asserttrue(route.length == countofnodes);
-    //console.log("路径一条构建完成,循环次数", trycount);
+    console.log("路径一条构建完成,循环次数", trycount);
     // const endtime = Number(new Date());
     //console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
     //console.log(
