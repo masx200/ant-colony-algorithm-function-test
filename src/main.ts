@@ -1,7 +1,5 @@
 import { createApp, h } from "vue";
-import { divide_route_to_k_opt_random } from "../functions/divide_route_to_k-opt-random";
 import "../functions/echarts-line";
-import { split_cycle_route_to_3_sections } from "../functions/split_cycle_route_to_3_sections";
 import appcom from "./appcom.vue";
 import { appcontainer } from "./appcontainer";
 import "./style.css";
