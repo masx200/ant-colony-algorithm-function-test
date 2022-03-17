@@ -129,7 +129,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         pathTabooList.add(route);
     }
     const bestlength = getbestlength();
-    if (bestlength && bestlength >= totallength) {
+    if (bestlength && bestlength > totallength) {
         //找到更优解,赋值最优解
         setbestlength(totallength);
         setbestroute(route);

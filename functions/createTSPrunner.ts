@@ -17,7 +17,7 @@ import {
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
 import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
-import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
+import { construct_one_route_all } from "./construct_one_route_all";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
 import { createPheromonestore } from "./createPheromonestore";
@@ -26,7 +26,6 @@ import { DataOfBestChange } from "./DataOfBestChange";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { float64equal } from "./float64equal";
-import { greedy_first_search_route } from "./greedy_first_search_route";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 export interface TSPRunner {
@@ -242,44 +241,25 @@ export function createTSPrunner({
     let time_ms_of_one_iteration: number = 0;
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
-        let route: number[] | undefined = undefined;
-        let totallength: number | undefined = undefined;
-        if (current_search_count === 0) {
-            const result = greedy_first_search_route({
+        const { route, totallength }: { route: number[]; totallength: number } =
+            construct_one_route_all({
+                current_search_count,
                 pathTabooList,
                 nodecoordinates,
                 countofnodes,
                 setbestlength,
                 setbestroute,
-                // emit_finish_one_route,
                 pheromonestore,
+                getbestroute,
+                max_results_of_k_opt,
+                getbestlength,
+                searchloopcountratio,
+                pheromoneintensityQ,
+                pheromonevolatilitycoefficientR1,
+                alphazero,
+                betazero,
+                lastrandomselectionprobability,
             });
-            route = result.route;
-            totallength = result.totallength;
-        } else {
-            const result =
-                adaptive_tabu_search_builds_a_path_and_updates_pheromone({
-                    // max_results_of_k_opt,
-                    // emit_finish_one_route,
-                    searchloopcountratio,
-                    pheromoneintensityQ,
-                    pheromonevolatilitycoefficientR1,
-                    nodecoordinates,
-                    alphazero,
-
-                    betazero,
-                    randomselectionprobability: lastrandomselectionprobability,
-                    getbestlength,
-                    pathTabooList,
-                    pheromonestore,
-                    setbestlength,
-                    setbestroute,
-                    getbestroute,
-                });
-            route = result.route;
-            totallength = result.totallength;
-            // routesandlengths.push({ route, totallength });
-        }
         const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
         const time_ms_of_one_route =

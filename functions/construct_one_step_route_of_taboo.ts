@@ -9,7 +9,7 @@ import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { pickRandomOne } from "./pickRandomOne";
 
 /**构建一步路径,并返回下一次的路径 */
-export function constructonesteproute({
+export function construct_one_step_route_of_taboo({
     // searchloopcountratio,
     // probabilityofacceptingasuboptimalsolution,
     // startnode,

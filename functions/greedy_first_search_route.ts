@@ -20,7 +20,7 @@ export function greedy_first_search_route({
     setbestroute: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     pheromonestore: MatrixSymmetry<number>;
-}) {
+}): { route: number[]; totallength: number } {
     // const starttime = Number(new Date());
     const { route, totallength } = Greedyalgorithmtosolvetspwithallstartbest(
         nodecoordinates,
