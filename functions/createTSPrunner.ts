@@ -28,6 +28,7 @@ import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { float64equal } from "./float64equal";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
+import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
     runOneRoute: () => void;
@@ -241,31 +242,39 @@ export function createTSPrunner({
     let time_ms_of_one_iteration: number = 0;
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
-        const { route, totallength }: { route: number[]; totallength: number } =
-            construct_one_route_all({
-                current_search_count,
-                pathTabooList,
-                nodecoordinates,
-                countofnodes,
-                setbestlength,
-                setbestroute,
-                pheromonestore,
-                getbestroute,
-                max_results_of_k_opt,
-                getbestlength,
-                searchloopcountratio,
-                pheromoneintensityQ,
-                pheromonevolatilitycoefficientR1,
-                alphazero,
-                betazero,
-                lastrandomselectionprobability,
-            });
+        const {
+            route,
+            totallength,
+            way_of_construct,
+        }: {
+            route: number[];
+            totallength: number;
+            way_of_construct: WayOfConstruct;
+        } = construct_one_route_all({
+            current_search_count,
+            pathTabooList,
+            nodecoordinates,
+            countofnodes,
+            setbestlength,
+            setbestroute,
+            pheromonestore,
+            getbestroute,
+            max_results_of_k_opt,
+            getbestlength,
+            searchloopcountratio,
+            pheromoneintensityQ,
+            pheromonevolatilitycoefficientR1,
+            alphazero,
+            betazero,
+            lastrandomselectionprobability,
+        });
         const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
         const time_ms_of_one_route =
             endtime_of_one_route - starttime_of_one_route;
         time_ms_of_one_iteration += time_ms_of_one_route;
         emit_finish_one_route({
+            way_of_construct,
             time_ms_of_one_route: time_ms_of_one_route,
             route,
             totallength,
