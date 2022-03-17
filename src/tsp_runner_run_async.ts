@@ -6,8 +6,14 @@ export async function tsp_runner_run_async(
     roundofsearch: number,
     numberofants: number
 ): Promise<void> {
+    let last_time = Number(new Date());
     for (let i = 0; i < roundofsearch * numberofants; i++) {
         await runner.runOneRoute();
-        await sleep_requestAnimationFrame_async_or_settimeout();
+
+        let duration = Number(new Date()) - last_time;
+        if (duration > 20) {
+            await sleep_requestAnimationFrame_async_or_settimeout();
+            last_time = Number(new Date());
+        }
     }
 }
