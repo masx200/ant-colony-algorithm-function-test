@@ -67,24 +67,20 @@ export function construct_one_route_all({
             cycleroute: getbestroute(),
         })
     ) {
-        const result = construct_route_from_k_opt_of_global_best({
-            getbestroute,
-            max_results_of_k_opt,
-            nodecoordinates,
-            getbestlength,
-            pathTabooList,
-            setbestlength,
-            setbestroute,
-        });
-        //最优解有交叉点,对最优解进行局部优化k-opt
-        // routesandlengths.push({ route, totallength });
-        return {
-            ...result,
-            way_of_construct: "局部优化",
-        };
+        //最优解有交叉点
+        return Math.random() < 2 / 3 ? 局部优化() : 禁忌搜索();
         //    route = result.route;
         //    totallength = result.totallength;
     } else {
+        //最优解无交叉点
+        return Math.random() < 1 / 3 ? 局部优化() : 禁忌搜索();
+    }
+
+    function 禁忌搜索(): {
+        way_of_construct: WayOfConstruct;
+        route: number[];
+        totallength: number;
+    } {
         const result = adaptive_tabu_search_builds_a_path_and_updates_pheromone(
             {
                 // max_results_of_k_opt,
@@ -108,6 +104,28 @@ export function construct_one_route_all({
         // route = result.route;
         // totallength = result.totallength;
         return { ...result, way_of_construct: "禁忌搜索" };
+    }
+
+    function 局部优化(): {
+        way_of_construct: WayOfConstruct;
+        route: number[];
+        totallength: number;
+    } {
+        const result = construct_route_from_k_opt_of_global_best({
+            getbestroute,
+            max_results_of_k_opt,
+            nodecoordinates,
+            getbestlength,
+            pathTabooList,
+            setbestlength,
+            setbestroute,
+        });
+        //最优解有交叉点,对最优解进行局部优化k-opt
+        // routesandlengths.push({ route, totallength });
+        return {
+            ...result,
+            way_of_construct: "局部优化",
+        };
     }
     // return { route, totallength };
 }
