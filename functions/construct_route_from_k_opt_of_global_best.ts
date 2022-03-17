@@ -120,6 +120,8 @@ export function construct_route_from_k_opt_of_global_best({
         } else {
             pathTabooList.add(route);
         }
+        return { route, totallength };
+    } else {
+        return { route, totallength };
     }
-    return { route, totallength };
 }
