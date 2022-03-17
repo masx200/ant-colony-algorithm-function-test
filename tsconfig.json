@@ -17,5 +17,13 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src", "test", "functions", "vue.d.ts", "pathTabooList", "bin"]
+    "include": [
+        "src",
+        "test",
+        "functions",
+        "vue.d.ts",
+        "pathTabooList",
+        "bin",
+        "__tests__"
+    ]
 }

@@ -9,8 +9,8 @@ import { reversearray } from "./reversearray";
 //sum(length_of_parts)=oldRoute.length
 //length_of_parts.length=k
 //length_of_parts.every((a)=>a>=2)
-/**把路径切割成k个片段 */
-export const divide_route_to_k_opt = (
+/**把路径切割成k个片段,每段路径至少含有2个城市 */
+export const divide_route_to_k_opt_random = (
     oldRoute: number[],
     k: number
 ): number[][] => {
@@ -38,14 +38,14 @@ export const divide_route_to_k_opt = (
             length_of_old - sum(lengths_of_parts)
         );
     }
-    console.log("lengths_of_parts", lengths_of_parts);
+    // console.log("lengths_of_parts", lengths_of_parts);
 
     for (let length_of_part of lengths_of_parts) {
         routes.push(cloned.slice(-length_of_part));
         cloned.length = cloned.length - length_of_part;
     }
     const result = reversearray(routes);
-    console.log("divide_route_to_k_opt", oldRoute, k, result);
+    // console.log("divide_route_to_k_opt_random", oldRoute, k, result);
     asserttrue(result.length >= 2);
     asserttrue(result.length === k);
     asserttrue(result.every((r) => r.length >= 2));
