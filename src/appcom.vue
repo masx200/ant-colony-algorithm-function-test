@@ -79,10 +79,12 @@
 <script lang="ts" src="./appcom.ts"></script>
 <style scoped>
 .singlechart {
+    min-height: 300px;
     max-width: 100%;
     width: 100%;
-
+    min-width: 300px;
     max-height: 100%;
+    height: 600px;
 }
 .chartcontainer {
     max-width: 100%;
@@ -103,13 +105,13 @@
 /* 小于600 */
 @media screen and (max-height: 600px) {
     .singlechart {
-        height: 100%;
+        max-height: 100%;
     }
 }
 /* 大于600 */
 @media screen and (min-height: 600px) {
     .singlechart {
-        height: 600px;
+        max-height: 600px;
     }
 }
 /* 大于1000 */
