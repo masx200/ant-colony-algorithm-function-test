@@ -7,7 +7,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 尝试所有起点找到最优的一个
 */
 export function Greedyalgorithmtosolvetspwithallstartbest(
-    nodecoordinates: Nodecoordinates,
+    nodecoordinates: Nodecoordinates
     // pathTabooList: PathTabooList
 ): { route: number[]; totallength: number } {
     // const { length } = nodecoordinates;

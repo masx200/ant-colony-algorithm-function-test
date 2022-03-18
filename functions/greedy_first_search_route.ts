@@ -23,7 +23,7 @@ export function greedy_first_search_route({
 }): { route: number[]; totallength: number } {
     // const starttime = Number(new Date());
     const { route, totallength } = Greedyalgorithmtosolvetspwithallstartbest(
-        nodecoordinates,
+        nodecoordinates
         // pathTabooList
     );
 
