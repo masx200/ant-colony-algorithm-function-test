@@ -1,4 +1,5 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { generate_paths_using_state_transition_probabilities } from "./generate-paths-using-state-transition-probabilities";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
@@ -70,8 +71,15 @@ export function construct_one_route_all({
         return 禁忌搜索();
         //最优解无交叉点
     } else */ else {
+        const result = generate_paths_using_state_transition_probabilities({
+            pheromonestore,
+            alphazero,
+            betazero,
+            randomselectionprobability: lastrandomselectionprobability,
+            nodecoordinates,
+        });
         //最优解有交叉点
-        return; /* 局部优化(); */
+        return result; /* 局部优化(); */
     }
 
     // function 禁忌搜索(): {

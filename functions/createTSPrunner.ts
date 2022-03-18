@@ -207,14 +207,14 @@ export function createTSPrunner({
         >
     ) => {
         numberofiterations++;
-        emit_best_change({
-            current_search_count,
-            current_iterations: getnumberofiterations(),
-            total_time_ms: totaltimems,
-            time_of_best_ms,
-            globalbestroute,
-            globalbestlength: globalbestlength,
-        });
+        // emit_best_change({
+        //     current_search_count,
+        //     current_iterations: getnumberofiterations(),
+        //     total_time_ms: totaltimems,
+        //     time_of_best_ms,
+        //     globalbestroute,
+        //     globalbestlength: globalbestlength,
+        // });
         inner_emit_finish_one_iteration({
             ...data,
             globalbestlength: globalbestlength,
@@ -300,11 +300,11 @@ export function createTSPrunner({
                 optimalrouteofthisround,
             } = handler_after_one_iteration_over({
                 // pathTabooList,
-                max_results_of_k_opt,
+                // max_results_of_k_opt,
                 routesandlengths,
                 // emit_finish_one_route,
-                setbestroute,
-                setbestlength,
+                // setbestroute,
+                // setbestlength,
                 getbestlength: getbestlength,
                 getbestroute: getbestroute,
                 // pathTabooList,

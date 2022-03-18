@@ -8,11 +8,14 @@ import { calc_population_relative_information_entropy } from "./calc_population-
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
+import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 
-export type AdaptiveTSPSearchOptions = {
-    max_results_of_k_opt: number;
+// export type AdaptiveTSPSearchOptions =;
+/* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
+export function handler_after_one_iteration_over(opts: {
+    // max_results_of_k_opt: number;
     routesandlengths: {
         route: number[];
         totallength: number;
@@ -28,8 +31,8 @@ export type AdaptiveTSPSearchOptions = {
     // pheromonevolatilitycoefficientR1: number;
     /**全局信息素挥发系数 */
     pheromonevolatilitycoefficientR2: number;
-    setbestroute: (route: number[]) => void;
-    setbestlength: (a: number) => void;
+    // setbestroute: (route: number[]) => void;
+    // setbestlength: (a: number) => void;
     getbestlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**
@@ -44,11 +47,7 @@ export type AdaptiveTSPSearchOptions = {
     pheromonestore: MatrixSymmetry;
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     // numberofstagnantiterations: number;
-};
-/* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
-export function handler_after_one_iteration_over(
-    opts: AdaptiveTSPSearchOptions
-): {
+}): {
     // relative_deviation_from_optimal: number;
     nextrandomselectionprobability: number;
     pheromoneDiffusionProbability: number;
@@ -60,7 +59,7 @@ export function handler_after_one_iteration_over(
 } {
     // console.log(opts);
     const {
-        max_results_of_k_opt,
+        // max_results_of_k_opt,
         routesandlengths,
         // emit_finish_one_route,
         // searchloopcountratio,
@@ -68,8 +67,8 @@ export function handler_after_one_iteration_over(
         pheromoneintensityQ,
         // pheromonevolatilitycoefficientR1,
         pheromonevolatilitycoefficientR2,
-        setbestroute,
-        setbestlength,
+        // setbestroute,
+        // setbestlength,
         // pathTabooList,
         pheromonestore,
         nodecoordinates,
@@ -122,9 +121,12 @@ export function handler_after_one_iteration_over(
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
 
-    const worstlengthandroute = routesandlengths.reduce((previous, current) => {
-        return previous.totallength > current.totallength ? previous : current;
-    }, routesandlengths[0]);
+    const worstlengthandroute =
+        getworstRouteOfSeriesRoutesAndLengths(routesandlengths);
+
+    //     routesandlengths.reduce((previous, current) => {
+    //     return previous.totallength > current.totallength ? previous : current;
+    // }, routesandlengths[0]);
     const iterateworstlength = worstlengthandroute.totallength;
     const iterateworstroute = worstlengthandroute.route;
 

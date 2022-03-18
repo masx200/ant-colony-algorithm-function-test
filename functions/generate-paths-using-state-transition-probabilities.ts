@@ -7,7 +7,7 @@ import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { intersectionfilterfun } from "./intersectionfilterfun";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+// import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
@@ -15,20 +15,20 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { pickRandomOne } from "./pickRandomOne";
 
 // export type PathConstructOptions = ;
-/**禁忌回溯路径构建 */
-export function taboo_backtracking_path_construction(opts: {
+/**使用状态转移概率生成路径. */
+export function generate_paths_using_state_transition_probabilities(opts: {
     alphazero: number;
     betazero: number;
     randomselectionprobability: number;
     /**搜索循环次数比例 */
-    searchloopcountratio: number;
-    getbestlength: () => number;
+    // searchloopcountratio: number;
+    // getbestlength: () => number;
     nodecoordinates: Nodecoordinates;
     /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
     // intersectionfilter: IntersectionFilter;
     /**选择下一个节点使用轮盘选择法 */
     // picknextnode(args: PickNextNodeRouletteOptions): number;
-    pathTabooList: PathTabooList;
+    // pathTabooList: PathTabooList;
     // startnode: number;
     /**过滤禁忌表当中的节点 */
 
@@ -43,7 +43,8 @@ export function taboo_backtracking_path_construction(opts: {
     pheromonestore: MatrixSymmetry;
 }): {
     route: number[];
-    countofloops: number;
+    totallength: number;
+    // countofloops: number;
 } {
     const filternotforbiddenbeforepick: FilterForbiddenBeforePick =
         filternotforbiddenbeforepickfun;
@@ -51,10 +52,10 @@ export function taboo_backtracking_path_construction(opts: {
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
-        searchloopcountratio,
+        // searchloopcountratio,
 
         randomselectionprobability,
-        getbestlength,
+        // getbestlength,
         //  parameterrandomization,
         // startnode,
         //   countofnodes,
@@ -70,7 +71,7 @@ export function taboo_backtracking_path_construction(opts: {
         //     ,
         //    ,
         betazero,
-        pathTabooList,
+        // pathTabooList,
     } = opts;
 
     const countofnodes = nodecoordinates.length;
@@ -180,5 +181,5 @@ export function taboo_backtracking_path_construction(opts: {
     //   "路径一条构建完成,平均每次循环消耗的时间毫秒",
     //    (endtime - starttime) / trycount
     //   );
-    return { route, countofloops: trycount };
+    return { route, totallength /* countofloops: trycount  */ };
 }
