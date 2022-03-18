@@ -1,5 +1,5 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+// import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
@@ -38,7 +38,7 @@ export type AdaptiveTSPSearchOptions = {
     // numberofants: number;
     // alphazero: number;
     // betazero: number;
-    pathTabooList: PathTabooList;
+    // pathTabooList: PathTabooList;
     /**最大迭代次数 */
     // maxnumberofiterations: number;
     pheromonestore: MatrixSymmetry;
@@ -46,7 +46,7 @@ export type AdaptiveTSPSearchOptions = {
     // numberofstagnantiterations: number;
 };
 /* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
-export function adaptiveTabooSingleIterateTSPSearchSolve(
+export function handler_after_one_iteration_over(
     opts: AdaptiveTSPSearchOptions
 ): {
     // relative_deviation_from_optimal: number;
@@ -70,7 +70,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
         pheromonevolatilitycoefficientR2,
         setbestroute,
         setbestlength,
-        pathTabooList,
+        // pathTabooList,
         pheromonestore,
         nodecoordinates,
         // maxnumberofiterations,

@@ -1,7 +1,7 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { createpathTabooList } from "../pathTabooList/createPathTabooList";
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+// import { createpathTabooList } from "../pathTabooList/createPathTabooList";
+// import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
@@ -16,7 +16,7 @@ import {
 } from "../src/defaultnumberofants";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
-import { adaptiveTabooSingleIterateTSPSearchSolve } from "./adaptiveTabooSingleIterateTSPSearchSolve";
+import { handler_after_one_iteration_over } from "./handler_after_one_iteration_over";
 import { construct_one_route_all } from "./construct_one_route_all";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
@@ -51,7 +51,7 @@ export interface TSPRunner {
     getcurrent_search_count: () => number;
     pheromonestore: MatrixSymmetry<number>;
 
-    pathTabooList: PathTabooList<number>;
+    // pathTabooList: PathTabooList<number>;
     [Symbol.toStringTag]: string;
     pheromonevolatilitycoefficientR2: number;
     pheromonevolatilitycoefficientR1: number;
@@ -130,7 +130,7 @@ export function createTSPrunner({
     };
 
     const countofnodes = nodecoordinates.length;
-    const pathTabooList = createpathTabooList(countofnodes);
+    // const pathTabooList = createpathTabooList(countofnodes);
     const pheromonestore = createPheromonestore(countofnodes);
     let current_search_count = 0;
     const getcurrent_search_count = () => {
@@ -252,7 +252,7 @@ export function createTSPrunner({
             // way_of_construct: WayOfConstruct;
         } = construct_one_route_all({
             current_search_count,
-            pathTabooList,
+            // pathTabooList,
             nodecoordinates,
             countofnodes,
             setbestlength,
@@ -295,8 +295,8 @@ export function createTSPrunner({
                 ispheromoneDiffusion,
                 optimallengthofthisround,
                 optimalrouteofthisround,
-            } = adaptiveTabooSingleIterateTSPSearchSolve({
-                pathTabooList,
+            } = handler_after_one_iteration_over({
+                // pathTabooList,
                 max_results_of_k_opt,
                 routesandlengths,
                 // emit_finish_one_route,
@@ -385,7 +385,7 @@ export function createTSPrunner({
         // searchloopcountratio,
         numberofants,
         //    maxnumberofiterations,
-        pathTabooList,
+        // pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",
         runOneIteration,
     };

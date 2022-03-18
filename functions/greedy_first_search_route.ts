@@ -2,18 +2,18 @@ import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtoso
 import { Nodecoordinates } from "./Nodecoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+// import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export function greedy_first_search_route({
     nodecoordinates,
-    pathTabooList,
+    // pathTabooList,
     countofnodes,
     setbestlength,
     setbestroute,
     // emit_finish_one_route,
     pheromonestore,
 }: {
-    pathTabooList: PathTabooList;
+    // pathTabooList: PathTabooList;
     nodecoordinates: Nodecoordinates;
     countofnodes: number;
     setbestlength: (bestlength: number) => void;
@@ -24,7 +24,7 @@ export function greedy_first_search_route({
     // const starttime = Number(new Date());
     const { route, totallength } = Greedyalgorithmtosolvetspwithallstartbest(
         nodecoordinates,
-        pathTabooList
+        // pathTabooList
     );
 
     // const countofloops = countofnodes * countofnodes;

@@ -1,5 +1,5 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+// import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 import { greedy_first_search_route } from "./greedy_first_search_route";
@@ -9,7 +9,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 
 export function construct_one_route_all({
     current_search_count,
-    pathTabooList,
+    // pathTabooList,
     nodecoordinates,
     countofnodes,
     setbestlength,
@@ -26,7 +26,7 @@ export function construct_one_route_all({
     lastrandomselectionprobability,
 }: {
     current_search_count: number;
-    pathTabooList: PathTabooList<number>;
+    // pathTabooList: PathTabooList<number>;
     nodecoordinates: Nodecoordinates;
     countofnodes: number;
     setbestlength: (bestlength: number) => void;
@@ -50,7 +50,7 @@ export function construct_one_route_all({
     // let totallength: number | undefined = undefined;
     if (current_search_count === 0) {
         const result = greedy_first_search_route({
-            pathTabooList,
+            // pathTabooList,
             nodecoordinates,
             countofnodes,
             setbestlength,

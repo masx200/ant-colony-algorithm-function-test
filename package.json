@@ -11,7 +11,7 @@
         "build": "vue-tsc --noEmit && vite build",
         "check": "vue-tsc --noEmit",
         "preview": "vite preview",
-        "format": "npx prettier --write *.json *.ts */*.html */*.ts */*.css *.md  */*.vue */*.json"
+        "format": " prettier --write *.json *.ts */*.html */*.ts */*.css *.md  */*.vue */*.json"
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",

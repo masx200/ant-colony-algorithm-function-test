@@ -1,4 +1,4 @@
-import { PathTabooList } from "../pathTabooList/PathTabooList";
+// import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { construct_all_greed_routes_and_lengths } from "./construct_all_greed_routes_and_lengths";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "./Nodecoordinates";
@@ -8,7 +8,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 */
 export function Greedyalgorithmtosolvetspwithallstartbest(
     nodecoordinates: Nodecoordinates,
-    pathTabooList: PathTabooList
+    // pathTabooList: PathTabooList
 ): { route: number[]; totallength: number } {
     // const { length } = nodecoordinates;
     const greedypathsandlengths: {
@@ -44,10 +44,10 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
         throw new Error("Accident");
     }
     /* 其他非最优解添加到禁忌表 */
-    greedypathsandlengths.forEach(({ route, routelength }) => {
-        if (bestlength < routelength) {
-            pathTabooList.add(route);
-        }
-    });
+    // greedypathsandlengths.forEach(({ route, routelength }) => {
+    //     if (bestlength < routelength) {
+    //         pathTabooList.add(route);
+    //     }
+    // });
     return { route: result, totallength: bestlength };
 }
