@@ -2,7 +2,7 @@
     "packageManager": "yarn@3.2.0",
     "name": "ant-colony-algorithm-function-test",
     "private": true,
-    "version": "3.0.0",
+    "version": "3.0.1",
     "type": "module",
     "scripts": {
         "tsp2json": "ts-node --esm  ./bin/cli.ts",
@@ -19,7 +19,7 @@
         "@babel/plugin-syntax-typescript": "^7.16.7",
         "@masx200/event-emitter-target": "^1.1.9",
         "@masx200/mini-cli-args-parser": "^1.0.4",
-        "@masx200/sparse-2d-matrix": "^1.0.4",
+        "@masx200/sparse-2d-matrix": "^1.0.5",
         "@rollup/plugin-babel": "^5.3.1",
         "@types/find": "^0.2.1",
         "@types/fs-extra": "^8.0.1",
