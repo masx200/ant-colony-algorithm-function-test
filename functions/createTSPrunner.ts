@@ -28,6 +28,7 @@ import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { float64equal } from "./float64equal";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
+import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
 // import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
@@ -255,15 +256,15 @@ export function createTSPrunner({
             // pathTabooList,
             nodecoordinates,
             countofnodes,
-            setbestlength,
-            setbestroute,
+            // setbestlength,
+            // setbestroute,
             pheromonestore,
-            getbestroute,
-            max_results_of_k_opt,
-            getbestlength,
+            // getbestroute,
+            // max_results_of_k_opt,
+            // getbestlength,
             // searchloopcountratio,
-            pheromoneintensityQ,
-            pheromonevolatilitycoefficientR1,
+            // pheromoneintensityQ,
+            // pheromonevolatilitycoefficientR1,
             alphazero,
             betazero,
             lastrandomselectionprobability,
@@ -271,6 +272,24 @@ export function createTSPrunner({
         //todo k-opt
         //todo 2-opt 去除交叉点循环
 
+        if (totallength < globalbestlength) {
+            setbestlength(totallength);
+            setbestroute(route);
+        }
+
+        // 赋值全局最优
+        // 局部信息素更新
+        the_pheromone_update_rule_after_each_ant_builds_the_path({
+            globalbestroute,
+            current_length: totallength,
+            current_route: route,
+            nodecoordinates,
+            countofnodes,
+            globalbestlength,
+            pheromonevolatilitycoefficientR1,
+            pheromoneintensityQ,
+            pheromonestore,
+        });
         const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
         const time_ms_of_one_route =

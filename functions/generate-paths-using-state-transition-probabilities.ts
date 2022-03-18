@@ -1,17 +1,18 @@
+// import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
-
-import { construct_one_step_route_of_taboo } from "./construct_one_step_route_of_taboo";
-import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
+import { closedtotalpathlength } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
+// import { construct_one_step_route_of_taboo } from "./construct_one_step_route_of_taboo";
+// import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
-import { IntersectionFilter } from "./IntersectionFilter.funtype";
-import { intersectionfilterfun } from "./intersectionfilterfun";
+// import { IntersectionFilter } from "./IntersectionFilter.funtype";
+// import { intersectionfilterfun } from "./intersectionfilterfun";
 import { Nodecoordinates } from "./Nodecoordinates";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
-import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
-import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { pickRandomOne } from "./pickRandomOne";
 
 // export type PathConstructOptions = ;
@@ -46,9 +47,9 @@ export function generate_paths_using_state_transition_probabilities(opts: {
     totallength: number;
     // countofloops: number;
 } {
-    const filternotforbiddenbeforepick: FilterForbiddenBeforePick =
-        filternotforbiddenbeforepickfun;
-    const intersectionfilter: IntersectionFilter = intersectionfilterfun;
+    // const filternotforbiddenbeforepick: FilterForbiddenBeforePick =
+    //     filternotforbiddenbeforepickfun;
+    // const intersectionfilter: IntersectionFilter = intersectionfilterfun;
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
@@ -92,17 +93,40 @@ export function generate_paths_using_state_transition_probabilities(opts: {
         .map((_v, i) => i);
     const startnode = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     let route: number[] = [startnode];
-    function getroute() {
-        return Array.from(route);
-    }
+    // function getroute() {
+    //     return Array.from(route);
+    // }
     /**循环次数 */
-    let trycount = 0;
+    // let trycount = 0;
     // const starttime = Number(new Date());
     while (
-        route.length !== countofnodes &&
-        trycount < countofnodes * searchloopcountratio
+        route.length !== countofnodes /* &&
+        trycount < countofnodes * searchloopcountratio */
     ) {
-        trycount++;
+        const availablenodes = new Set<number>(
+            Array(countofnodes)
+                .fill(0)
+                .map((_v, i) => i)
+                .filter((v) => !route.includes(v))
+        );
+        const filterednodes = availablenodes;
+        const nextnode = picknextnode({
+            randomselectionprobability,
+            //   ,
+            //  ,
+            alphazero,
+            //  ,
+            //   ,
+            betazero,
+            //  parameterrandomization,
+            currentnode: Array.from(route).slice(-1)[0],
+            availablenextnodes: Array.from(filterednodes),
+            getpheromone,
+            getdistancebyserialnumber,
+        });
+        route = [...route, nextnode];
+        // route=
+        // trycount++;
         //console.log(
         //     `第${trycount}次/${countofnodes * searchloopcountratio}`,
         //     "路径构建开始",
@@ -113,68 +137,74 @@ export function generate_paths_using_state_transition_probabilities(opts: {
         //     0,
         //     Math.min(1, trycount / maximumnumberofloopsforasinglesearch)
         // );
-        route = Array.from(
-            construct_one_step_route_of_taboo({
-                // probabilityofacceptingasuboptimalsolution,
-                // startnode,
-                countofnodes,
-                getbestlength,
-                filternotforbiddenbeforepick,
-                getdistancebyserialnumber,
-                getpheromone,
-                getroute,
-                intersectionfilter,
-                nodecoordinates,
-                pathTabooList,
-                picknextnode,
-                alphazero,
-                betazero,
-                randomselectionprobability,
-            })
-        );
+        // route = Array.from(
+        //     construct_one_step_route_of_taboo({
+        //         // probabilityofacceptingasuboptimalsolution,
+        //         // startnode,
+        //         countofnodes,
+        //         getbestlength,
+        //         filternotforbiddenbeforepick,
+        //         getdistancebyserialnumber,
+        //         getpheromone,
+        //         getroute,
+        //         intersectionfilter,
+        //         nodecoordinates,
+        //         pathTabooList,
+        //         picknextnode,
+        //         alphazero,
+        //         betazero,
+        //         randomselectionprobability,
+        //     })
+        // );
         // debugger;
         /* 路径长度检查 */
     }
 
-    if (route.length !== countofnodes) {
-        console.warn(
-            "构建路径超出循环次数,使用贪心算法方式构建剩余的路径",
-            route
-        );
+    // if (route.length !== countofnodes) {
+    //     console.warn(
+    //         "构建路径超出循环次数,使用贪心算法方式构建剩余的路径",
+    //         route
+    //     );
 
-        while (route.length !== countofnodes) {
-            const currentnode = route.slice(-1)[0];
-            const restnodes = inputindexs.filter(
-                (city) => !route.includes(city)
-            );
+    //     while (route.length !== countofnodes) {
+    //         const currentnode = route.slice(-1)[0];
+    //         const restnodes = inputindexs.filter(
+    //             (city) => !route.includes(city)
+    //         );
 
-            const nextnodesanddistances: {
-                nextnode: number;
-                distance: number;
-            }[] = restnodes.map((value) => {
-                return {
-                    nextnode: value,
-                    distance: geteuclideandistancebyindex(
-                        currentnode,
-                        value,
-                        nodecoordinates
-                    ),
-                };
-            });
-            const bestnextnodeanddistance: {
-                nextnode: number;
-                distance: number;
-            } = nextnodesanddistances.reduce((previous, current) => {
-                return previous.distance < current.distance
-                    ? previous
-                    : current;
-            }, nextnodesanddistances[0]);
-            const nextnode = bestnextnodeanddistance.nextnode;
-            route = [...route, nextnode];
-        }
-    }
+    //         const nextnodesanddistances: {
+    //             nextnode: number;
+    //             distance: number;
+    //         }[] = restnodes.map((value) => {
+    //             return {
+    //                 nextnode: value,
+    //                 distance: geteuclideandistancebyindex(
+    //                     currentnode,
+    //                     value,
+    //                     nodecoordinates
+    //                 ),
+    //             };
+    //         });
+    //         const bestnextnodeanddistance: {
+    //             nextnode: number;
+    //             distance: number;
+    //         } = nextnodesanddistances.reduce((previous, current) => {
+    //             return previous.distance < current.distance
+    //                 ? previous
+    //                 : current;
+    //         }, nextnodesanddistances[0]);
+    //         const nextnode = bestnextnodeanddistance.nextnode;
+    //         route = [...route, nextnode];
+    //     }
+    // }
     asserttrue(route.length == countofnodes);
-    console.log("路径一条构建完成,循环次数", trycount);
+    const routelength = closedtotalpathlength({
+        // countofnodes: route.length,
+        path: route,
+        getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+    });
+    const totallength = routelength;
+    // console.log("路径一条构建完成,循环次数", trycount);
     // const endtime = Number(new Date());
     //console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
     //console.log(

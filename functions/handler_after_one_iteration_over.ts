@@ -5,7 +5,7 @@ import { asserttrue } from "../test/asserttrue";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
 // import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
-import { cycleroutetosegments } from "./cycleroutetosegments";
+// import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
@@ -137,20 +137,20 @@ export function handler_after_one_iteration_over(opts: {
     const iteratebestroute = iteratebestlengthandroute.route;
     const optimalrouteofthisround = iteratebestroute;
     const optimallengthofthisround = iteratebestlength;
-    const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
-    const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
-    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    // const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
+    // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
+    // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     each_iteration_of_pheromone_update_rules({
         nodecoordinates,
         iteratebestroute,
         globalbestroute,
         countofnodes,
-        globalbestroutesegments,
+        // globalbestroutesegments,
         globalbestlength,
-        iteratebestroutesegments,
+        // iteratebestroutesegments,
         iteratebestlength,
         iterateworstlength,
-        iterateworstroutesegments,
+        iterateworstroute,
         pheromoneintensityQ,
         pheromonestore,
         pheromonevolatilitycoefficientR2,
@@ -161,7 +161,7 @@ export function handler_after_one_iteration_over(opts: {
         ispheromoneDiffusion = true;
         //信息素扩散
         performPheromoneDiffusionOperations({
-            globalbestroutesegments,
+            globalbestroute,
             pheromonestore,
             nodecoordinates,
         });

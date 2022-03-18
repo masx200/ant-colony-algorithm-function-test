@@ -1,6 +1,6 @@
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
-import { cycleroutetosegments } from "./cycleroutetosegments";
+// import { cycleroutetosegments } from "./cycleroutetosegments";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
@@ -140,7 +140,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     //
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
-    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
 
     //  如果路径长度比最优解得到的结果更差,禁忌此路径
     //  如果路径中存在交叉点,禁忌此路径
@@ -151,7 +151,7 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
         nodecoordinates,
         globalbestroute,
         countofnodes,
-        globalbestroutesegments,
+        // globalbestroute,
         globalbestlength,
         pheromoneintensityQ,
         pheromonestore,

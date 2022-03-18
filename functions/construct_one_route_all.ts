@@ -8,20 +8,21 @@ import { greedy_first_search_route } from "./greedy_first_search_route";
 import { Nodecoordinates } from "./Nodecoordinates";
 // import { WayOfConstruct } from "./WayOfConstruct";
 
+/* 只是生成一条路径 */
 export function construct_one_route_all({
     current_search_count,
     // pathTabooList,
     nodecoordinates,
     countofnodes,
-    setbestlength,
-    setbestroute,
+    // setbestlength,
+    // setbestroute,
     pheromonestore,
-    getbestroute,
-    max_results_of_k_opt,
-    getbestlength,
+    // getbestroute,
+    // max_results_of_k_opt,
+    // getbestlength,
     // searchloopcountratio,
-    pheromoneintensityQ,
-    pheromonevolatilitycoefficientR1,
+    // pheromoneintensityQ,
+    // pheromonevolatilitycoefficientR1,
     alphazero,
     betazero,
     lastrandomselectionprobability,
@@ -30,15 +31,15 @@ export function construct_one_route_all({
     // pathTabooList: PathTabooList<number>;
     nodecoordinates: Nodecoordinates;
     countofnodes: number;
-    setbestlength: (bestlength: number) => void;
-    setbestroute: (route: number[]) => void;
+    // setbestlength: (bestlength: number) => void;
+    // setbestroute: (route: number[]) => void;
     pheromonestore: MatrixSymmetry<number>;
-    getbestroute: () => number[];
-    max_results_of_k_opt: number;
-    getbestlength: () => number;
+    // getbestroute: () => number[];
+    // max_results_of_k_opt: number;
+    // getbestlength: () => number;
     // searchloopcountratio: number;
-    pheromoneintensityQ: number;
-    pheromonevolatilitycoefficientR1: number;
+    // pheromoneintensityQ: number;
+    // pheromonevolatilitycoefficientR1: number;
     alphazero: number;
     betazero: number;
     lastrandomselectionprobability: number;
@@ -54,8 +55,8 @@ export function construct_one_route_all({
             // pathTabooList,
             nodecoordinates,
             countofnodes,
-            setbestlength,
-            setbestroute,
+            // setbestlength,
+            // setbestroute,
             // emit_finish_one_route,
             pheromonestore,
         });

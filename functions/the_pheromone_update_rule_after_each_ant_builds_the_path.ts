@@ -16,7 +16,7 @@ import { Nodecoordinates } from "./Nodecoordinates";
 
 /**
  *
- * 每只蚂蚁构建完路径后的信息素更新规则
+ * 每只蚂蚁构建完路径后的信息素更新规则,局部信息素更新
  */
 export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     globalbestroute,
@@ -24,7 +24,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     current_route,
     nodecoordinates,
     countofnodes,
-    globalbestroutesegments,
+    // globalbestroutesegments,
     globalbestlength,
     pheromoneintensityQ,
     pheromonestore,
@@ -35,12 +35,13 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     globalbestroute: number[];
     nodecoordinates: Nodecoordinates;
     countofnodes: number;
-    globalbestroutesegments: [number, number][];
+    // globalbestroutesegments: [number, number][];
     globalbestlength: number;
     pheromoneintensityQ: number;
     pheromonestore: MatrixSymmetry<number>;
     pheromonevolatilitycoefficientR1: number;
 }) {
+    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     console.log("局部信息素更新计算开始");
     // const current_is_best = current_length === globalbestlength;
 

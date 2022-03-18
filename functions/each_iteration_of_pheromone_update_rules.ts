@@ -9,6 +9,7 @@ import {
     MatrixAssign,
 } from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
+import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
@@ -18,15 +19,15 @@ import { Nodecoordinates } from "./Nodecoordinates";
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function each_iteration_of_pheromone_update_rules({
     nodecoordinates,
-    globalbestroute,
-    iteratebestroute,
+    // globalbestroute,
+    // iteratebestroute,
     countofnodes,
-    globalbestroutesegments,
+    globalbestroute,
     globalbestlength,
-    iteratebestroutesegments,
+    iteratebestroute,
     iteratebestlength,
     iterateworstlength,
-    iterateworstroutesegments,
+    iterateworstroute,
     pheromoneintensityQ,
     pheromonestore,
     pheromonevolatilitycoefficientR2,
@@ -35,16 +36,19 @@ export function each_iteration_of_pheromone_update_rules({
     globalbestroute: number[];
     iteratebestroute: number[];
     countofnodes: number;
-    globalbestroutesegments: [number, number][];
+    // globalbestroutesegments: [number, number][];
     globalbestlength: number;
-    iteratebestroutesegments: [number, number][];
+    // iteratebestroutesegments: [number, number][];
     iteratebestlength: number;
     iterateworstlength: number;
-    iterateworstroutesegments: [number, number][];
+    iterateworstroute: number[];
     pheromoneintensityQ: number;
     pheromonestore: MatrixSymmetry<number>;
     pheromonevolatilitycoefficientR2: number;
 }) {
+    const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
+    const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
+    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
     const deltapheromoneglobalbest = MatrixSymmetryCreate({

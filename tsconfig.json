@@ -24,7 +24,6 @@
         "vue.d.ts",
         "pathTabooList",
         "bin",
-        "__tests__",
-      
+        "__tests__"
     ]
 }
