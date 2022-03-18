@@ -65,7 +65,7 @@ export function construct_one_route_all({
         !intersection_filter_with_cycle_route({
             nodecoordinates,
             cycleroute: getbestroute(),
-        }) 
+        })
     ) {
         return 禁忌搜索();
         //最优解无交叉点

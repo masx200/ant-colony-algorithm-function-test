@@ -11,7 +11,7 @@ import {
 } from "./defaultnumberofants";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import { draw_iteration_rounds_and_information_entropy_chart } from "./draw_iteration_rounds_and_information_entropy_chart";
-import { draw_iteration_rounds_and_relative_deviation_from_optimal_chart } from "./draw_iteration_rounds_and_relative_deviation_from_optimal_chart";
+// import { draw_iteration_rounds_and_relative_deviation_from_optimal_chart } from "./draw_iteration_rounds_and_relative_deviation_from_optimal_chart";
 import { draw_path_number_and_current_path_length_chart } from "./draw_path_number_and_current_path_length_chart";
 import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
@@ -95,11 +95,11 @@ export default defineComponent({
         } = use_escharts_container_pair();
         // const container_of_best_chart = ref<HTMLDivElement>();
         // const container_of_latest_chart = ref<HTMLDivElement>();
-        const {
-            container:
-                container_of_iteration_rounds_and_relative_deviation_from_optimal,
-            chart: iteration_rounds_and_relative_deviation_from_optimal_chart,
-        } = use_escharts_container_pair();
+        // const {
+        //     container:
+        //         container_of_iteration_rounds_and_relative_deviation_from_optimal,
+        //     chart: iteration_rounds_and_relative_deviation_from_optimal_chart,
+        // } = use_escharts_container_pair();
         const {
             container:
                 container_of_iteration_rounds_and_information_entropy_chart,
@@ -190,10 +190,10 @@ export default defineComponent({
                 iteration_rounds_and_information_entropy_chart,
                 dataofoneiteration
             );
-            draw_iteration_rounds_and_relative_deviation_from_optimal_chart(
-                iteration_rounds_and_relative_deviation_from_optimal_chart,
-                dataofoneiteration
-            );
+            // draw_iteration_rounds_and_relative_deviation_from_optimal_chart(
+            //     iteration_rounds_and_relative_deviation_from_optimal_chart,
+            //     dataofoneiteration
+            // );
         };
 
         const finish_one_route_listener = () => {
@@ -222,7 +222,7 @@ export default defineComponent({
             is_running,
         });
         return {
-            container_of_iteration_rounds_and_relative_deviation_from_optimal,
+            // container_of_iteration_rounds_and_relative_deviation_from_optimal,
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,
             local_pheromone_volatilization_rate,

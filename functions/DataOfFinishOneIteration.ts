@@ -3,7 +3,7 @@ export interface DataOfFinishOneIteration {
 
     // time_of_best_ms: number;
     // globalbestroute: number[];
-    relative_deviation_from_optimal: number;
+    // relative_deviation_from_optimal: number;
     current_iterations: number;
     population_relative_information_entropy: number;
     ispheromoneDiffusion: boolean;

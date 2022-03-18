@@ -287,7 +287,7 @@ export function createTSPrunner({
 
             const {
                 locally_optimized_length,
-                relative_deviation_from_optimal,
+                // relative_deviation_from_optimal,
                 nextrandomselectionprobability,
                 //   routesandlengths,
                 pheromoneDiffusionProbability,
@@ -335,7 +335,7 @@ export function createTSPrunner({
 
                 locally_optimized_length,
 
-                relative_deviation_from_optimal,
+                // relative_deviation_from_optimal,
                 // current_iterations: getnumberofiterations(),
                 pheromoneDiffusionProbability,
                 optimallengthofthisround,

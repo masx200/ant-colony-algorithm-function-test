@@ -14,7 +14,7 @@ export function use_data_of_one_iteration(): {
             number,
             number,
             number,
-            number,
+            // number,
             number,
             number
         ][]
@@ -30,7 +30,7 @@ export function use_data_of_one_iteration(): {
 
         "耗时秒",
         "迭代最优长度",
-        "与最优的相对偏差",
+        // "与最优的相对偏差",
         "全局最优长度",
         "局部优化长度",
     ];
@@ -55,7 +55,7 @@ export function use_data_of_one_iteration(): {
             number,
             number,
             number,
-            number,
+            // number,
             number,
             number
         ][]
@@ -69,7 +69,7 @@ export function use_data_of_one_iteration(): {
                 data.pheromoneDiffusionProbability,
                 data.time_ms_of_one_iteration / 1000,
                 data.optimallengthofthisround,
-                data.relative_deviation_from_optimal,
+                // data.relative_deviation_from_optimal,
                 //找到这一轮的迭代的数据
                 data.globalbestlength,
                 data.locally_optimized_length,

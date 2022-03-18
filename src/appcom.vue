@@ -1,5 +1,5 @@
 <template>
-    <h1>自适应+奖惩+蚁群+禁忌+k-opt 测试</h1>
+    <h1>自适应+奖惩+蚁群+k-opt 测试</h1>
     <hr />
     <span>选择城市地图</span>
     <select ref="selecteleref" :disabled="disablemapswitching" @change="submit">
@@ -31,8 +31,9 @@
         <!-- 全局最优解的图 -->
         <div class="singlechart" style="" ref="container_of_best_chart"></div>
         <!-- 最近一条路径的图 -->
-        <div class="singlechart" style="" ref="container_of_latest_chart"></div>
     </div>
+    <hr />
+    <div class="singlechart" style="" ref="container_of_latest_chart"></div>
     <hr />
     <div class="chartcontainer" style="">
         <!-- 路径序号和当前路径长度的图表 -->
@@ -42,12 +43,13 @@
             ref="container_of_path_number_and_current_path_length_chart"
         ></div>
         <!-- 路径序号和最优路径长度的图表 -->
-        <div
-            class="singlechart"
-            style=""
-            ref="container_of_path_number_and_optimal_path_length_chart"
-        ></div>
     </div>
+    <hr />
+    <div
+        class="singlechart"
+        style=""
+        ref="container_of_path_number_and_optimal_path_length_chart"
+    ></div>
     <hr />
     <div class="chartcontainer" style="">
         <!-- 迭代轮次和相对信息熵的图表 -->
@@ -55,12 +57,6 @@
             class="singlechart"
             style=""
             ref="container_of_iteration_rounds_and_information_entropy_chart"
-        ></div>
-        <!-- 迭代轮次和与最优的相对偏差的图表 -->
-        <div
-            class="singlechart"
-            style=""
-            ref="container_of_iteration_rounds_and_relative_deviation_from_optimal"
         ></div>
     </div>
     <hr />
@@ -84,7 +80,7 @@
 <style scoped>
 .singlechart {
     max-width: 100%;
-    width: 500px;
+    width: 100%;
     height: 500px;
     max-height: 100%;
 }
