@@ -12,7 +12,7 @@ import {
     default_local_pheromone_volatilization_rate,
     default_max_results_of_k_opt,
     default_pheromoneintensityQ,
-    default_searchloopcountratio,
+    // default_searchloopcountratio,
 } from "../src/defaultnumberofants";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
@@ -59,7 +59,7 @@ export interface TSPRunner {
     nodecoordinates: Nodecoordinates;
     alphazero: number;
     betazero: number;
-    searchloopcountratio: number;
+    // searchloopcountratio: number;
     numberofants: number;
 }
 
@@ -69,7 +69,7 @@ export function createTSPrunner({
     nodecoordinates,
     alphazero = default_alpha,
     betazero = default_beta,
-    searchloopcountratio = default_searchloopcountratio,
+    // searchloopcountratio = default_searchloopcountratio,
     numberofants = defaultnumberofants,
 
     ...rest
@@ -81,7 +81,7 @@ export function createTSPrunner({
     nodecoordinates: Nodecoordinates;
     alphazero?: number;
     betazero?: number;
-    searchloopcountratio?: number;
+    // searchloopcountratio?: number;
     numberofants?: number;
 }): TSPRunner {
     assertnumber(numberofants);
@@ -261,7 +261,7 @@ export function createTSPrunner({
             getbestroute,
             max_results_of_k_opt,
             getbestlength,
-            searchloopcountratio,
+            // searchloopcountratio,
             pheromoneintensityQ,
             pheromonevolatilitycoefficientR1,
             alphazero,
@@ -286,7 +286,7 @@ export function createTSPrunner({
             //后处理时间要加上
 
             const {
-                locally_optimized_length,
+                // locally_optimized_length,
                 // relative_deviation_from_optimal,
                 nextrandomselectionprobability,
                 //   routesandlengths,
@@ -329,11 +329,12 @@ export function createTSPrunner({
             //     globalbestroute: getbestroute(),
             //     globalbestlength: getbestlength(),
             // });
+            totaltimems += timems_of_process_iteration;
             emit_finish_one_iteration({
                 // globalbestlength: globalbestlength,
                 // time_of_best_ms,
 
-                locally_optimized_length,
+                // locally_optimized_length,
 
                 // relative_deviation_from_optimal,
                 // current_iterations: getnumberofiterations(),
@@ -381,7 +382,7 @@ export function createTSPrunner({
         //    maxnumberofstagnant,
         nodecoordinates,
         alphazero,
-        searchloopcountratio,
+        // searchloopcountratio,
         numberofants,
         //    maxnumberofiterations,
         pathTabooList,

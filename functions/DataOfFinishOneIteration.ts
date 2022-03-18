@@ -13,5 +13,5 @@ export interface DataOfFinishOneIteration {
     optimalrouteofthisround: number[];
     time_ms_of_one_iteration: number;
     globalbestlength: number;
-    locally_optimized_length: number;
+    // locally_optimized_length: number;
 }

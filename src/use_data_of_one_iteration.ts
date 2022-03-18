@@ -16,7 +16,7 @@ export function use_data_of_one_iteration(): {
             number,
             // number,
             number,
-            number
+            // number
         ][]
     >;
     oneiterationtableheads: string[];
@@ -57,7 +57,7 @@ export function use_data_of_one_iteration(): {
             number,
             // number,
             number,
-            number
+            // number
         ][]
     >(() => {
         return dataofoneiteration.map((data, index) => {
@@ -72,7 +72,7 @@ export function use_data_of_one_iteration(): {
                 // data.relative_deviation_from_optimal,
                 //找到这一轮的迭代的数据
                 data.globalbestlength,
-                data.locally_optimized_length,
+                // data.locally_optimized_length,
             ];
         });
     });

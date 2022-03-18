@@ -56,7 +56,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     optimalrouteofthisround: number[];
     ispheromoneDiffusion: boolean;
     population_relative_information_entropy: number;
-    locally_optimized_length: number;
+    // locally_optimized_length: number;
 } {
     // console.log(opts);
     const {
@@ -108,16 +108,16 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
 
     //对全局最优解进行k-opt优化
 
-    const result = construct_route_from_k_opt_of_global_best({
-        getbestroute,
-        max_results_of_k_opt,
-        nodecoordinates,
-        getbestlength,
-        pathTabooList,
-        setbestlength,
-        setbestroute,
-    });
-    const locally_optimized_length = result.totallength;
+    // const result = construct_route_from_k_opt_of_global_best({
+    //     getbestroute,
+    //     max_results_of_k_opt,
+    //     nodecoordinates,
+    //     getbestlength,
+    //     pathTabooList,
+    //     setbestlength,
+    //     setbestroute,
+    // });
+    // const locally_optimized_length = result.totallength;
 
     const globalbestroute = getbestroute();
     const globalbestlength = getbestlength();
@@ -172,7 +172,7 @@ export function adaptiveTabooSingleIterateTSPSearchSolve(
     //         getbestlength()
     //     );
     return {
-        locally_optimized_length,
+        // locally_optimized_length,
         // relative_deviation_from_optimal,
         optimallengthofthisround,
         optimalrouteofthisround,
