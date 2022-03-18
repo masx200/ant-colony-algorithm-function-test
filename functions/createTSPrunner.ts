@@ -28,7 +28,7 @@ import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { float64equal } from "./float64equal";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-import { WayOfConstruct } from "./WayOfConstruct";
+// import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
     runOneRoute: () => void;
@@ -245,11 +245,11 @@ export function createTSPrunner({
         const {
             route,
             totallength,
-            way_of_construct,
-        }: {
+        }: // way_of_construct,
+        {
             route: number[];
             totallength: number;
-            way_of_construct: WayOfConstruct;
+            // way_of_construct: WayOfConstruct;
         } = construct_one_route_all({
             current_search_count,
             pathTabooList,
@@ -274,7 +274,7 @@ export function createTSPrunner({
             endtime_of_one_route - starttime_of_one_route;
         time_ms_of_one_iteration += time_ms_of_one_route;
         emit_finish_one_route({
-            way_of_construct,
+            // way_of_construct,
             time_ms_of_one_route: time_ms_of_one_route,
             route,
             totallength,

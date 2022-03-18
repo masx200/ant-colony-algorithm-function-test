@@ -5,7 +5,7 @@ import { construct_route_from_k_opt_of_global_best } from "./construct_route_fro
 import { greedy_first_search_route } from "./greedy_first_search_route";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { WayOfConstruct } from "./WayOfConstruct";
+// import { WayOfConstruct } from "./WayOfConstruct";
 
 export function construct_one_route_all({
     current_search_count,
@@ -44,7 +44,7 @@ export function construct_one_route_all({
 }): {
     route: number[];
     totallength: number;
-    way_of_construct: WayOfConstruct;
+    // way_of_construct: WayOfConstruct;
 } {
     // let route: number[] | undefined = undefined;
     // let totallength: number | undefined = undefined;
@@ -58,7 +58,7 @@ export function construct_one_route_all({
             // emit_finish_one_route,
             pheromonestore,
         });
-        return { ...result, way_of_construct: "贪心算法" };
+        return { ...result /* , way_of_construct: "贪心算法" */ };
         // route = result.route;
         // totallength = result.totallength;
     } else if (
@@ -75,7 +75,7 @@ export function construct_one_route_all({
     }
 
     function 禁忌搜索(): {
-        way_of_construct: WayOfConstruct;
+        // way_of_construct: WayOfConstruct;
         route: number[];
         totallength: number;
     } {
@@ -101,11 +101,11 @@ export function construct_one_route_all({
         );
         // route = result.route;
         // totallength = result.totallength;
-        return { ...result, way_of_construct: "禁忌搜索" };
+        return { ...result /* , way_of_construct: "禁忌搜索" */ };
     }
 
     function 局部优化(): {
-        way_of_construct: WayOfConstruct;
+        // way_of_construct: WayOfConstruct;
         route: number[];
         totallength: number;
     } {
@@ -122,7 +122,7 @@ export function construct_one_route_all({
         // routesandlengths.push({ route, totallength });
         return {
             ...result,
-            way_of_construct: "局部优化",
+            // way_of_construct: "局部优化",
         };
     }
     // return { route, totallength };

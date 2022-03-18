@@ -16,7 +16,15 @@ export function use_data_of_one_route() {
     };
     const dataofoneroute = reactive<DataOfFinishOneRoute[]>([]);
     const oneroutetablebody = computed<
-        [number, number, number, number, number, string][]
+        [
+            number,
+            number,
+            number,
+            number,
+            number
+
+            // string
+        ][]
     >(() => {
         return dataofoneroute.map((data, index) => {
             return [
@@ -28,7 +36,7 @@ export function use_data_of_one_route() {
                 // dataOfAllResults[index].globalbestlength,
                 data.time_ms_of_one_route / 1000,
                 data.total_time_ms / 1000,
-                data.way_of_construct,
+                // data.way_of_construct,
             ];
         });
     });
@@ -40,7 +48,7 @@ export function use_data_of_one_route() {
         "全局最优长度",
         "当前耗时秒",
         "总计耗时秒",
-        "构建方式",
+        // "构建方式",
     ];
     const result = {
         dataofoneroute,
