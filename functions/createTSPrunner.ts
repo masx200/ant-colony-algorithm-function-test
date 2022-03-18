@@ -268,6 +268,10 @@ export function createTSPrunner({
             betazero,
             lastrandomselectionprobability,
         });
+//todo k-opt
+        //todo 2-opt 去除交叉点循环
+
+
         const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
         const time_ms_of_one_route =
