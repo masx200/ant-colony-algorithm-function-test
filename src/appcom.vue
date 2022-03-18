@@ -81,7 +81,7 @@
 .singlechart {
     max-width: 100%;
     width: 100%;
-    height: 500px;
+ 
     max-height: 100%;
 }
 .chartcontainer {
@@ -95,10 +95,24 @@
     flex-wrap: nowrap;
 }
 @media screen and (max-width: 1000px) {
+    /* 小于1000 */
     .chartcontainer {
         flex-direction: column;
     }
 }
+/* 小于600 */
+@media screen and (max-height: 600px) {
+    .singlechart {
+        height: 100%;
+    }
+}
+/* 大于600 */
+@media screen and (min-height: 600px) {
+    .singlechart {
+        height: 600px;
+    }
+}
+/* 大于1000 */
 @media screen and (min-width: 1000px) {
     .chartcontainer {
         flex-direction: row;
