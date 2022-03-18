@@ -15,7 +15,7 @@ export function use_data_of_one_iteration(): {
             number,
             number,
             // number,
-            number,
+            number
             // number
         ][]
     >;
@@ -56,7 +56,7 @@ export function use_data_of_one_iteration(): {
             number,
             number,
             // number,
-            number,
+            number
             // number
         ][]
     >(() => {

@@ -4,7 +4,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { asserttrue } from "../test/asserttrue";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
 // import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
-import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
+// import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";

@@ -9,7 +9,7 @@
         "test": "jest",
         "dev": "vite -c vite.config.ts",
         "build": "vue-tsc --noEmit && vite build",
-        "check": "vue-tsc--noEmit",
+        "check": "vue-tsc --noEmit",
         "preview": "vite preview",
         "format": "npx prettier --write *.json *.ts */*.html */*.ts */*.css *.md  */*.vue */*.json"
     },
