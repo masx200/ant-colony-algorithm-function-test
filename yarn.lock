@@ -691,10 +691,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@masx200/sparse-2d-matrix@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@masx200/sparse-2d-matrix@npm:1.0.4"
-  checksum: e32aede216e0e063b4e00a8efadda27cc9ace855b653f7eb4b75a5ec17a52e56614589f8770596de2e4a849b60da3161d8965bed669305df07b6eefb967580dc
+"@masx200/sparse-2d-matrix@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@masx200/sparse-2d-matrix@npm:1.0.5"
+  checksum: b935bceb6de50acd2e221f5398e2c325581c2005c0c066dec55fa6a0ed4ce4b40ab7f6b207a30d41a22a835e6cf7c49982ec19d45c6aa73defa674106c3db003
   languageName: node
   linkType: hard
 
@@ -1347,7 +1347,7 @@ __metadata:
     "@babel/plugin-syntax-typescript": ^7.16.7
     "@masx200/event-emitter-target": ^1.1.9
     "@masx200/mini-cli-args-parser": ^1.0.4
-    "@masx200/sparse-2d-matrix": ^1.0.4
+    "@masx200/sparse-2d-matrix": ^1.0.5
     "@rollup/plugin-babel": ^5.3.1
     "@types/find": ^0.2.1
     "@types/fs-extra": ^8.0.1
