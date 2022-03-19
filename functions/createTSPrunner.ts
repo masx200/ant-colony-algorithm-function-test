@@ -62,6 +62,7 @@ export interface TSPRunner {
     betazero: number;
     // searchloopcountratio: number;
     numberofants: number;
+    runRoutes: (count: number) => void;
 }
 
 export function createTSPrunner({
@@ -168,9 +169,9 @@ export function createTSPrunner({
         return globalbestlength;
     };
 
-    let numberofiterations = 0;
+    // let numberofiterations = 0;
     const getnumberofiterations = () => {
-        return numberofiterations;
+        return (current_search_count + 1) / numberofants;
     };
 
     const emitter = EventEmitterTargetClass();
@@ -207,7 +208,7 @@ export function createTSPrunner({
             "current_iterations" | "globalbestlength"
         >
     ) => {
-        numberofiterations++;
+        // numberofiterations++;
         // emit_best_change({
         //     current_search_count,
         //     current_iterations: getnumberofiterations(),
@@ -219,7 +220,7 @@ export function createTSPrunner({
         inner_emit_finish_one_iteration({
             ...data,
             globalbestlength: globalbestlength,
-            current_iterations: numberofiterations,
+            current_iterations: getnumberofiterations(),
         });
     };
 
@@ -381,7 +382,16 @@ export function createTSPrunner({
             totaltimems += timems;
         } */
     }
+    const runRoutes = (count: number) => {
+        assertnumber(count);
+        asserttrue(count > 0);
+
+        for (let i = 0; i < count; i++) {
+            runOneRoute();
+        }
+    };
     const result: TSPRunner = {
+        runRoutes,
         on_best_change,
         runOneRoute,
         // onDataChange,
