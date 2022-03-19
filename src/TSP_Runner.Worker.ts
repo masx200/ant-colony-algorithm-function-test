@@ -3,20 +3,11 @@ import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { TSPRunnerOptions } from "./TSPRunnerOptions";
 // import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { TSP_Worker_API } from "./TSP_Worker_API";
 let runner: TSPRunner | undefined = undefined;
-function init_runner(options: {
-    max_results_of_k_opt?: number | undefined;
-    pheromonevolatilitycoefficientR1?: number | undefined;
-    pheromonevolatilitycoefficientR2?: number | undefined;
-    pheromoneintensityQ?: number | undefined;
-    nodecoordinates: Nodecoordinates;
-    alphazero?: number | undefined;
-    betazero?: number | undefined;
-    numberofants?: number | undefined;
-}) {
+function init_runner(options: TSPRunnerOptions) {
     runner ||= createTSPrunner(options);
 }
 function runOneRoute() {

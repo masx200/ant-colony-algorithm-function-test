@@ -12,11 +12,10 @@ import {
     default_local_pheromone_volatilization_rate,
     default_max_results_of_k_opt,
     default_pheromoneintensityQ,
-    // default_searchloopcountratio,
 } from "../src/defaultnumberofants";
+import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
-import { EachIterationHandler } from "./EachIterationHandler";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
 import { createPheromonestore } from "./createPheromonestore";
@@ -24,11 +23,12 @@ import { DataOfBestChange } from "./DataOfBestChange";
 // import { DataOfGlobalBest } from "./DataOfGlobalBest";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+import { EachIterationHandler } from "./EachIterationHandler";
+// import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
+import { EachRouteGenerator } from "./EachRouteGenerator";
 import { float64equal } from "./float64equal";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-// import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
-import { EachRouteGenerator } from "./EachRouteGenerator";
 // import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
@@ -75,17 +75,7 @@ export function createTSPrunner({
     numberofants = defaultnumberofants,
 
     ...rest
-}: {
-    max_results_of_k_opt?: number;
-    pheromonevolatilitycoefficientR1?: number;
-    pheromonevolatilitycoefficientR2?: number;
-    pheromoneintensityQ?: number;
-    nodecoordinates: Nodecoordinates;
-    alphazero?: number;
-    betazero?: number;
-    // searchloopcountratio?: number;
-    numberofants?: number;
-}): TSPRunner {
+}: TSPRunnerOptions): TSPRunner {
     assertnumber(numberofants);
     asserttrue(numberofants >= 2);
 

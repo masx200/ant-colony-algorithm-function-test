@@ -2,7 +2,8 @@ import { TSPRunner } from "../functions/createTSPrunner";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+// import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { TSPRunnerOptions } from "./TSPRunnerOptions";
 
 export type TSP_Worker_API = TSPRunner & {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
@@ -13,13 +14,5 @@ export type TSP_Worker_API = TSPRunner & {
         callback: (data: DataOfFinishOneRoute) => void
     ) => void;
     runOneRoute: () => void;
-    init_runner: ({
-        pheromonevolatilitycoefficientR1,
-        nodecoordinates,
-        numberofants,
-    }: {
-        pheromonevolatilitycoefficientR1: number;
-        nodecoordinates: Nodecoordinates;
-        numberofants: number;
-    }) => void;
+    init_runner: (options: TSPRunnerOptions) => void;
 };

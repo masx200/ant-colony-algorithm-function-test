@@ -2,29 +2,20 @@ import * as comlink from "comlink";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+// import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { TSPRunnerOptions } from "./TSPRunnerOptions";
 import TSPWorker from "./TSP_Runner.Worker?worker";
 import { TSP_workerRef } from "./TSP_workerRef";
 import { TSP_Worker_API } from "./TSP_Worker_API";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
-export async function create_TSP_Worker_comlink({
-    pheromonevolatilitycoefficientR1,
-    nodecoordinates,
-    numberofants,
-}: {
-    pheromonevolatilitycoefficientR1: number;
-    nodecoordinates: Nodecoordinates;
-    numberofants: number;
-}): Promise<TSP_Worker_Remote> {
+export async function create_TSP_Worker_comlink(
+    options: TSPRunnerOptions
+): Promise<TSP_Worker_Remote> {
     const endpoint = new TSPWorker();
     TSP_workerRef.value = endpoint;
     const runner = comlink.wrap<TSP_Worker_API>(endpoint);
-    await runner.init_runner({
-        pheromonevolatilitycoefficientR1,
-        nodecoordinates,
-        numberofants,
-    });
+    await runner.init_runner(options);
     const on_finish_one_iteration = async (
         callback: (data: DataOfFinishOneIteration) => void
     ) => {
