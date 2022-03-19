@@ -2,7 +2,7 @@
 // import { sleep_requestAnimationFrame_async_or_settimeout } from "./sleep_requestAnimationFrame_async_or_settimeout";
 
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
-const interval = 1000;
+
 export async function tsp_runner_run_async(
     runner: TSP_Worker_Remote,
     roundofsearch: number,
@@ -10,7 +10,8 @@ export async function tsp_runner_run_async(
 ): Promise<void> {
     let rest_count = roundofsearch * numberofants;
     let run_count = 10;
-
+    const min_count = 5;
+    const interval = 2000;
     while (rest_count > 0) {
         run_count = Math.min(run_count, rest_count);
         let last_time = Number(new Date());
@@ -21,7 +22,7 @@ export async function tsp_runner_run_async(
         console.log("tsp_runner_run_async,次数", run_count);
         console.log("tsp_runner_run_async,用时", duration);
         if (duration > interval) {
-            run_count = Math.round(Math.max(run_count / 2, 1));
+            run_count = Math.round(Math.max(run_count / 2, min_count));
 
             //     await sleep_requestAnimationFrame_async_or_settimeout();
             //     last_time = Number(new Date());
