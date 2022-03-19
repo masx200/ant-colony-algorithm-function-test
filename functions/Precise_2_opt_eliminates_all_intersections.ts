@@ -7,7 +7,6 @@ import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
 
 /**精准2-opt消除所有交叉点 */
-
 export function Precise_2_opt_eliminates_all_intersections(
     optimal_route: number[],
     optimal_length: number,

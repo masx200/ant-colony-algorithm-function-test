@@ -31,9 +31,11 @@ export function Random_K_OPT_full_limited_find_best({
             return { totallength, route };
         })
         .filter((a) => a.totallength !== oldLength);
-
+    /* routesAndLengths可能为空了 */
     const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
-        getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
+        routesAndLengths.length
+            ? getbestRouteOfSeriesRoutesAndLengths(routesAndLengths)
+            : { route: oldRoute, totallength: oldLength };
     let optimal_route = best_route_of_k_opt;
     let optimal_length = best_length_of_k_opt;
     return { optimal_route, optimal_length };

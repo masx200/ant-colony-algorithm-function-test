@@ -1,7 +1,8 @@
 import { sum } from "lodash";
 import { assertnumber } from "../test/assertnumber";
 import { cycleroutetosegments } from "./cycleroutetosegments";
-/* 闭合总路径长度 首尾相连 */
+import { cycle_reorganize } from "./cycle_reorganize";
+/* 计算闭合总路径长度 首尾相连 */
 export function closedtotalpathlength(
     {
         // countofnodes,
@@ -13,12 +14,11 @@ export function closedtotalpathlength(
         getdistancebyindex: (left: number, right: number) => number;
     } // nodecoordinates: Nodecoordinates
 ): number {
-    // const
-    // if (path.length !== countofnodes) {
-    //     throw Error("invalid path not match nodecoordinates");
-    // }
+
+    /* 由于浮点数精度问题,重新排序,一样的路径可以输出一样的长度 */
+    const route = cycle_reorganize(path, 0);
     return sum(
-        cycleroutetosegments(path).map(function ([left, right]) {
+        cycleroutetosegments(route).map(function ([left, right]) {
             const distance = getdistancebyindex(left, right);
             assertnumber(distance);
             return distance;

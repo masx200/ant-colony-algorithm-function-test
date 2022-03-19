@@ -19,6 +19,7 @@ import { asserttrue } from "../test/asserttrue";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
 import { createPheromonestore } from "./createPheromonestore";
+import { cycle_reorganize } from "./cycle_reorganize";
 import { DataOfBestChange } from "./DataOfBestChange";
 // import { DataOfGlobalBest } from "./DataOfGlobalBest";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
@@ -146,7 +147,8 @@ export function createTSPrunner({
         }
     };
     const setbestroute = (route: number[]) => {
-        globalbestroute = route;
+        /* 重新排序一下好看 */
+        globalbestroute = cycle_reorganize(route, 0);
     };
     let globalbestroute: number[] = [];
     const getbestroute = () => {
