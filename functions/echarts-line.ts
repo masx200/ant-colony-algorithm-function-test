@@ -43,13 +43,12 @@ echarts.use([
 // 接下来的使用就跟之前一样，初始化图表，设置配置项
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
-export type ECOption =
-     ECBasicOption
-    & echarts.ComposeOption<
-          | BarSeriesOption
-          | LineSeriesOption
-          | TitleComponentOption
-          | TooltipComponentOption
-          | GridComponentOption
-          | DatasetComponentOption
-      >;
+export type ECOption = ECBasicOption &
+    echarts.ComposeOption<
+        | BarSeriesOption
+        | LineSeriesOption
+        | TitleComponentOption
+        | TooltipComponentOption
+        | GridComponentOption
+        | DatasetComponentOption
+    >;
