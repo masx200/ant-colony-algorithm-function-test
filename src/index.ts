@@ -26,3 +26,7 @@
 //         console.log(divide_route_to_2_opt_with_segment(route, intersection));
 //     }
 // }
+import { app } from "./main";
+app.config.errorHandler = (e) => {
+    throw e;
+};

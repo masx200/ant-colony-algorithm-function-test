@@ -7,7 +7,7 @@ import "./style.css";
 
 document.title = "ant-colony-algorithm-function-test";
 
-const app = createApp({
+export const app = createApp({
     render() {
         return h(appcom);
     },
