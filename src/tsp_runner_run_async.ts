@@ -28,6 +28,7 @@ export async function tsp_runner_run_async(
             //     last_time = Number(new Date());
         } else {
             run_count++;
+            run_count = Math.max(min_count, run_count);
         }
     }
 }
