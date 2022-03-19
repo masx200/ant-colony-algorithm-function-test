@@ -171,7 +171,7 @@ export function createTSPrunner({
 
     // let numberofiterations = 0;
     const getnumberofiterations = () => {
-        return (current_search_count + 1) / numberofants;
+        return (current_search_count ) / numberofants;
     };
 
     const emitter = EventEmitterTargetClass();

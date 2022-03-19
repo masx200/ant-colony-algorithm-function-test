@@ -9,14 +9,18 @@ export async function tsp_runner_run_async(
     numberofants: number
 ): Promise<void> {
     let rest_count = roundofsearch * numberofants;
-    let run_count = 1;
+    let run_count = 10;
 
     while (rest_count > 0) {
+        run_count = Math.min(run_count, rest_count);
         let last_time = Number(new Date());
         await runner.runRoutes(run_count);
         rest_count -= run_count;
         let duration = Number(new Date()) - last_time;
-        if (duration > 20) {
+
+        console.log("tsp_runner_run_async,次数", run_count);
+        console.log("tsp_runner_run_async,用时", duration);
+        if (duration > 500) {
             run_count = Math.round(Math.max(run_count / 2, 1));
 
             //     await sleep_requestAnimationFrame_async_or_settimeout();
