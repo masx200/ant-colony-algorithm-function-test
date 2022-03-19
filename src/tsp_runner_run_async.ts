@@ -11,7 +11,7 @@ export async function tsp_runner_run_async(
     let rest_count = roundofsearch * numberofants;
     let run_count = 20;
     const min_count = 10;
-    const interval = 5000;
+    const interval = 3000;
     while (rest_count > 0) {
         run_count = Math.min(run_count, rest_count);
         let last_time = Number(new Date());
