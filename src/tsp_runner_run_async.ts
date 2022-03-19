@@ -2,7 +2,7 @@
 // import { sleep_requestAnimationFrame_async_or_settimeout } from "./sleep_requestAnimationFrame_async_or_settimeout";
 
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
-const interval=1000
+const interval = 1000;
 export async function tsp_runner_run_async(
     runner: TSP_Worker_Remote,
     roundofsearch: number,

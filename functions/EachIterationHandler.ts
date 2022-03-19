@@ -14,7 +14,7 @@ import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusion
 
 // export type AdaptiveTSPSearchOptions =;
 /* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
-export function handler_after_one_iteration_over(opts: {
+export function EachIterationHandler(opts: {
     // max_results_of_k_opt: number;
     routesandlengths: {
         route: number[];

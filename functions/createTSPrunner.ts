@@ -16,8 +16,7 @@ import {
 } from "../src/defaultnumberofants";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
-import { handler_after_one_iteration_over } from "./handler_after_one_iteration_over";
-import { construct_one_route_all } from "./construct_one_route_all";
+import { EachIterationHandler } from "./EachIterationHandler";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
 import { createPheromonestore } from "./createPheromonestore";
@@ -28,7 +27,8 @@ import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { float64equal } from "./float64equal";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
+// import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
+import { EachRouteGenerator } from "./EachRouteGenerator";
 // import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
@@ -171,7 +171,7 @@ export function createTSPrunner({
 
     // let numberofiterations = 0;
     const getnumberofiterations = () => {
-        return (current_search_count ) / numberofants;
+        return current_search_count / numberofants;
     };
 
     const emitter = EventEmitterTargetClass();
@@ -244,52 +244,21 @@ export function createTSPrunner({
     let time_ms_of_one_iteration: number = 0;
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
-        const {
-            route,
-            totallength,
-        }: // way_of_construct,
-        {
-            route: number[];
-            totallength: number;
-            // way_of_construct: WayOfConstruct;
-        } = construct_one_route_all({
+        const { route, totallength } = EachRouteGenerator({
             current_search_count,
-            // pathTabooList,
-            nodecoordinates,
             countofnodes,
-            // setbestlength,
-            // setbestroute,
+            nodecoordinates,
             pheromonestore,
-            // getbestroute,
-            // max_results_of_k_opt,
-            // getbestlength,
-            // searchloopcountratio,
-            // pheromoneintensityQ,
-            // pheromonevolatilitycoefficientR1,
             alphazero,
             betazero,
             lastrandomselectionprobability,
-        });
-        //todo k-opt
-        //todo 2-opt 去除交叉点循环
-
-        if (totallength < globalbestlength) {
-            setbestlength(totallength);
-            setbestroute(route);
-        }
-
-        // 赋值全局最优
-        // 局部信息素更新
-        the_pheromone_update_rule_after_each_ant_builds_the_path({
-            globalbestroute,
-            current_length: totallength,
-            current_route: route,
-            nodecoordinates,
-            countofnodes,
+            max_results_of_k_opt,
             globalbestlength,
+            globalbestroute,
             pheromonevolatilitycoefficientR1,
             pheromoneintensityQ,
-            pheromonestore,
+            setbestlength,
+            setbestroute,
         });
         const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
@@ -318,7 +287,7 @@ export function createTSPrunner({
                 ispheromoneDiffusion,
                 optimallengthofthisround,
                 optimalrouteofthisround,
-            } = handler_after_one_iteration_over({
+            } = EachIterationHandler({
                 // pathTabooList,
                 // max_results_of_k_opt,
                 routesandlengths,
