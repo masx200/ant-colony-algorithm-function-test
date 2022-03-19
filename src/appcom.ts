@@ -7,10 +7,11 @@ import datatable from "./datatable.vue";
 import {
     defaultnumberofants,
     defaultsearchrounds,
-    default_local_pheromone_volatilization_rate,
+    default_local_pheromone_volatilization_rate
 } from "./defaultnumberofants";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 import { draw_iteration_rounds_and_information_entropy_chart } from "./draw_iteration_rounds_and_information_entropy_chart";
+import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
 // import { draw_iteration_rounds_and_relative_deviation_from_optimal_chart } from "./draw_iteration_rounds_and_relative_deviation_from_optimal_chart";
 import { draw_path_number_and_current_path_length_chart } from "./draw_path_number_and_current_path_length_chart";
 import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
@@ -142,12 +143,11 @@ export default defineComponent({
         ) => {
             const latestchart = chart_store_latest.value;
             if (latestchart) {
-                drawrouteofnodecoordinates({
-                    // resize: latestchart.resize,
+                draw_latest_route_debounced(
                     route,
                     nodecoordinates,
-                    chart: latestchart,
-                });
+                    latestchart
+                );
             }
         };
 
@@ -247,3 +247,4 @@ export default defineComponent({
         };
     },
 });
+
