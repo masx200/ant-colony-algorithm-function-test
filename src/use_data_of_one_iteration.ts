@@ -32,7 +32,7 @@ export function use_data_of_one_iteration(): {
         "迭代最优长度",
         // "与最优的相对偏差",
         "全局最优长度",
-        "局部优化长度",
+        // "局部优化长度",
     ];
     const onreceivedataofoneIteration = function onreceivedataofoneIteration(
         data: DataOfFinishOneIteration

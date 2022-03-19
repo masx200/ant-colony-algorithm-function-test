@@ -109,11 +109,18 @@
         height: 400px;
     }
 }
-/* @media screen and (min-width: 400px) {
+@media screen and (max-width: 500px) {
     .singlechart {
-        max-height: 400px;
+        height: 500px;
+        max-height: 500px;
     }
-} */
+}
+@media screen and (max-width: 600px) {
+    .singlechart {
+        height: 600px;
+        max-height: 600px;
+    }
+}
 /* 大于600 */
 @media screen and (min-width: 600px) {
     .singlechart {
