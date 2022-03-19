@@ -1,1 +1,2 @@
-export const drawChartMaxWait = 2000;
+export const drawChartMaxWait = 8000;
+export const drawChartWait = 500;
