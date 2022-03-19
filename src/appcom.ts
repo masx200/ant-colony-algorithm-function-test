@@ -55,14 +55,8 @@ export default defineComponent({
             clearDataOfResult,
             resultTableHeads,
             resultTableBody,
-        }: {
-            dataofresult: Ref<DataOfBestChange | undefined>;
-            onreceiveDataOfGlobalBest: (data: DataOfSummarize) => void;
-            clearDataOfResult: () => void;
-            resultTableHeads: string[];
-            resultTableBody: ComputedRef<
-                [number, number, number, number, number, string][]
-            >;
+            globalBestRouteBody,
+            globalBestRouteHeads,
         } = use_data_of_summary();
         console.log(dataofresult, resultTableBody);
         const initializeTSP_runner = use_initialize_tsp_runner({
@@ -217,6 +211,8 @@ export default defineComponent({
             is_running,
         });
         return {
+            globalBestRouteBody,
+            globalBestRouteHeads,
             // container_of_iteration_rounds_and_relative_deviation_from_optimal,
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,

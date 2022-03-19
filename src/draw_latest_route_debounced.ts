@@ -1,6 +1,7 @@
 import { EChartsType } from "echarts";
 import { debounce } from "lodash";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { drawChartMaxWait } from "./drawChartMaxWait";
 import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
 
 export const draw_latest_route_debounced = debounce(
@@ -18,6 +19,6 @@ export const draw_latest_route_debounced = debounce(
     },
     100,
     {
-        maxWait: 1000,
+        maxWait: drawChartMaxWait,
     }
 );

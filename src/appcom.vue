@@ -62,6 +62,12 @@
     <hr />
     <!-- //汇总结果 -->
     <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
+    <!-- 拆分表格 -->
+    <hr />
+    <datatable
+        :tableheads="globalBestRouteHeads"
+        :tablebody="globalBestRouteBody"
+    />
 
     <hr />
     <!-- 迭代结果 -->

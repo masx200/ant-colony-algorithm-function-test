@@ -8,8 +8,17 @@ export function use_data_of_summary(): {
     clearDataOfResult: () => void;
     resultTableHeads: string[];
     resultTableBody: ComputedRef<
-        [number, number, number, number, number, string][]
+        [
+            number,
+            number,
+            number,
+            number,
+            number
+            // , string
+        ][]
     >;
+    globalBestRouteHeads: string[];
+    globalBestRouteBody: ComputedRef<[string][]>;
 } {
     const onreceiveDataOfGlobalBest = function onreceiveDataOfGlobalBest(
         data: DataOfSummarize
@@ -34,10 +43,33 @@ export function use_data_of_summary(): {
         "总共耗时秒",
         "总路径数量",
         "总迭代次数",
-        "全局最优路径",
+        // "全局最优路径",
     ];
+    const globalBestRouteHeads = ["全局最优路径"];
+    const globalBestRouteBody: ComputedRef<[string][]> = computed(() => {
+        const result = dataofresult.value;
+        return result
+            ? [
+                  [
+                      //    result.globalbestlength,
+                      //    result.time_of_best_ms / 1000,
+                      //    result.total_time_ms / 1000,
+                      //    result.current_search_count,
+                      //    result.current_iterations,
+                      JSON.stringify(result.globalbestroute),
+                  ],
+              ]
+            : [];
+    });
     const resultTableBody: ComputedRef<
-        [number, number, number, number, number, string][]
+        [
+            number,
+            number,
+            number,
+            number,
+            number
+            // , string
+        ][]
     > = computed(() => {
         const result = dataofresult.value;
         return result
@@ -48,7 +80,7 @@ export function use_data_of_summary(): {
                       result.total_time_ms / 1000,
                       result.current_search_count,
                       result.current_iterations,
-                      JSON.stringify(result.globalbestroute),
+                      //   JSON.stringify(result.globalbestroute),
                   ],
               ]
             : [];
@@ -56,6 +88,8 @@ export function use_data_of_summary(): {
 
     const dataofresult = ref<DataOfSummarize>();
     return {
+        globalBestRouteHeads,
+        globalBestRouteBody,
         dataofresult,
         onreceiveDataOfGlobalBest,
         clearDataOfResult,
