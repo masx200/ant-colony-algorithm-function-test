@@ -9,12 +9,13 @@ import {
     defaultsearchrounds,
     default_local_pheromone_volatilization_rate
 } from "./defaultnumberofants";
-import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
+import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart } from "./draw_iteration_rounds_and_information_entropy_chart";
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
 // import { draw_iteration_rounds_and_relative_deviation_from_optimal_chart } from "./draw_iteration_rounds_and_relative_deviation_from_optimal_chart";
 import { draw_path_number_and_current_path_length_chart } from "./draw_path_number_and_current_path_length_chart";
-import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
+import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
+// import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
 import { use_data_of_one_iteration } from "./use_data_of_one_iteration";
 import { use_data_of_one_route } from "./use_data_of_one_route";
@@ -159,12 +160,7 @@ export default defineComponent({
             asserttrue(route.length === nodecoordinates.length);
             const chart = chart_store_best.value;
             if (chart) {
-                drawrouteofnodecoordinates({
-                    // resize: chart.resize,
-                    route,
-                    nodecoordinates,
-                    chart: chart,
-                });
+                draw_best_route_debounced(route, nodecoordinates, chart);
             }
         };
         onMounted(() => {
@@ -180,7 +176,7 @@ export default defineComponent({
             });
         });
         const data_change_listener = () => {
-            draw_path_number_and_optimal_path_length_chart(
+            draw_path_number_and_optimal_path_length_chart_debounced(
                 path_number_and_optimal_path_length_chart,
                 dataofoneroute
             );
@@ -247,4 +243,5 @@ export default defineComponent({
         };
     },
 });
+
 
