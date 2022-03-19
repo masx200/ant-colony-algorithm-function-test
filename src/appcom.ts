@@ -7,13 +7,12 @@ import datatable from "./datatable.vue";
 import {
     defaultnumberofants,
     defaultsearchrounds,
-    default_local_pheromone_volatilization_rate
+    default_local_pheromone_volatilization_rate,
 } from "./defaultnumberofants";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
-import { draw_iteration_rounds_and_information_entropy_chart } from "./draw_iteration_rounds_and_information_entropy_chart";
+import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
-// import { draw_iteration_rounds_and_relative_deviation_from_optimal_chart } from "./draw_iteration_rounds_and_relative_deviation_from_optimal_chart";
-import { draw_path_number_and_current_path_length_chart } from "./draw_path_number_and_current_path_length_chart";
+import { draw_path_number_and_current_path_length_chart_debounced } from "./draw_path_number_and_current_path_length_chart_debounced";
 import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
 // import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
@@ -182,7 +181,7 @@ export default defineComponent({
             );
         };
         const finish_one_iteration_listener = () => {
-            draw_iteration_rounds_and_information_entropy_chart(
+            draw_iteration_rounds_and_information_entropy_chart_debounced(
                 iteration_rounds_and_information_entropy_chart,
                 dataofoneiteration
             );
@@ -193,7 +192,7 @@ export default defineComponent({
         };
 
         const finish_one_route_listener = () => {
-            draw_path_number_and_current_path_length_chart(
+            draw_path_number_and_current_path_length_chart_debounced(
                 path_number_and_current_path_length_chart,
                 dataofoneroute
             );
@@ -243,5 +242,3 @@ export default defineComponent({
         };
     },
 });
-
-
