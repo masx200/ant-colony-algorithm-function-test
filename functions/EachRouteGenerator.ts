@@ -9,6 +9,7 @@ import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRout
 import { intersection_filter_with_cycle_route_find_one } from "./intersection_filter_with_cycle_route-find-one";
 import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with-segment";
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
+import { asserttrue } from "../test/asserttrue";
 
 export function EachRouteGenerator({
     current_search_count,
@@ -34,8 +35,8 @@ export function EachRouteGenerator({
     betazero: number;
     lastrandomselectionprobability: number;
     max_results_of_k_opt: number;
-    getbestlength:()=> number;
-    getbestroute:()=> number[];
+    getbestlength: () => number;
+    getbestroute: () => number[];
     pheromonevolatilitycoefficientR1: number;
     pheromoneintensityQ: number;
     setbestlength: (arg0: number) => void;
@@ -88,7 +89,7 @@ export function EachRouteGenerator({
         getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
     let optimal_route = best_route_of_k_opt;
     let optimal_length = best_length_of_k_opt;
-// debugger
+    // debugger
     while (true) {
         const intersection = intersection_filter_with_cycle_route_find_one({
             cycleroute: optimal_route,
@@ -141,16 +142,17 @@ export function EachRouteGenerator({
         setbestlength(totallength);
         setbestroute(route);
     }
-
+    asserttrue(getbestlength() < Infinity);
+    asserttrue(getbestroute().length===countofnodes);
     // 赋值全局最优
     // 局部信息素更新
     the_pheromone_update_rule_after_each_ant_builds_the_path({
-        globalbestroute:getbestroute(),
+        globalbestroute: getbestroute(),
         current_length: totallength,
         current_route: route,
         nodecoordinates,
         countofnodes,
-        globalbestlength:getbestlength(),
+        globalbestlength: getbestlength(),
         pheromonevolatilitycoefficientR1,
         pheromoneintensityQ,
         pheromonestore,
