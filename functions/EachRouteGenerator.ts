@@ -19,8 +19,8 @@ export function EachRouteGenerator({
     betazero,
     lastrandomselectionprobability,
     max_results_of_k_opt,
-    globalbestlength,
-    globalbestroute,
+    getbestlength,
+    getbestroute,
     pheromonevolatilitycoefficientR1,
     pheromoneintensityQ,
     setbestlength,
@@ -34,8 +34,8 @@ export function EachRouteGenerator({
     betazero: number;
     lastrandomselectionprobability: number;
     max_results_of_k_opt: number;
-    globalbestlength: number;
-    globalbestroute: number[];
+    getbestlength:()=> number;
+    getbestroute:()=> number[];
     pheromonevolatilitycoefficientR1: number;
     pheromoneintensityQ: number;
     setbestlength: (arg0: number) => void;
@@ -65,6 +65,7 @@ export function EachRouteGenerator({
         betazero,
         lastrandomselectionprobability,
     });
+    // debugger
     // k-opt随机
     // 2-opt 去除交叉点循环
     const routes_of_k_opt = random_k_opt_limited_full({
@@ -87,7 +88,7 @@ export function EachRouteGenerator({
         getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
     let optimal_route = best_route_of_k_opt;
     let optimal_length = best_length_of_k_opt;
-
+// debugger
     while (true) {
         const intersection = intersection_filter_with_cycle_route_find_one({
             cycleroute: optimal_route,
@@ -125,6 +126,7 @@ export function EachRouteGenerator({
             break;
         }
     }
+    // debugger
     let totallength = oldLength;
     let route = oldRoute;
 
@@ -135,7 +137,7 @@ export function EachRouteGenerator({
         totallength = optimal_length;
         route = optimal_route;
     }
-    if (totallength < globalbestlength) {
+    if (totallength < getbestlength()) {
         setbestlength(totallength);
         setbestroute(route);
     }
@@ -143,12 +145,12 @@ export function EachRouteGenerator({
     // 赋值全局最优
     // 局部信息素更新
     the_pheromone_update_rule_after_each_ant_builds_the_path({
-        globalbestroute,
+        globalbestroute:getbestroute(),
         current_length: totallength,
         current_route: route,
         nodecoordinates,
         countofnodes,
-        globalbestlength,
+        globalbestlength:getbestlength(),
         pheromonevolatilitycoefficientR1,
         pheromoneintensityQ,
         pheromonestore,
