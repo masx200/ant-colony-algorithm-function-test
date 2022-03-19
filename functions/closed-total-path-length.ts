@@ -14,7 +14,6 @@ export function closedtotalpathlength(
         getdistancebyindex: (left: number, right: number) => number;
     } // nodecoordinates: Nodecoordinates
 ): number {
-
     /* 由于浮点数精度问题,重新排序,一样的路径可以输出一样的长度 */
     const route = cycle_reorganize(path, 0);
     return sum(
