@@ -1,5 +1,5 @@
 // import { TSPRunner } from "../functions/createTSPrunner";
-// import { sleep_requestAnimationFrame_async_or_settimeout } from "./sleep_requestAnimationFrame_async_or_settimeout";
+import { sleep_requestAnimationFrame_async_or_settimeout } from "./sleep_requestAnimationFrame_async_or_settimeout";
 
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
@@ -30,5 +30,6 @@ export async function tsp_runner_run_async(
             run_count++;
             run_count = Math.max(min_count, run_count);
         }
+        await sleep_requestAnimationFrame_async_or_settimeout();
     }
 }
