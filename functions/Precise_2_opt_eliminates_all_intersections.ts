@@ -39,10 +39,13 @@ export function Precise_2_opt_eliminates_all_intersections(
                     return { totallength, route };
                 })
                 .filter((a) => a.totallength !== optimal_length);
+            /* routesAndLengths可能为空了 */
             const {
                 route: best_route_of_2_opt,
                 totallength: best_length_of_2_opt,
-            } = getbestRouteOfSeriesRoutesAndLengths(routesAndLengths);
+            } = routesAndLengths.length
+                ? getbestRouteOfSeriesRoutesAndLengths(routesAndLengths)
+                : { totallength: optimal_length, route: optimal_route };
 
             optimal_route = best_route_of_2_opt;
             optimal_length = best_length_of_2_opt;
