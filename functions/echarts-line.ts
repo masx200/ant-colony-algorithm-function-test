@@ -24,6 +24,7 @@ import * as echarts from "echarts/core";
 import { LabelLayout, UniversalTransition } from "echarts/features";
 // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
 import { CanvasRenderer } from "echarts/renderers";
+import { ECBasicOption } from "echarts/types/dist/shared";
 
 // 注册必须的组件
 echarts.use([
@@ -42,11 +43,13 @@ echarts.use([
 // 接下来的使用就跟之前一样，初始化图表，设置配置项
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
-export type ECOption = echarts.ComposeOption<
-    | BarSeriesOption
-    | LineSeriesOption
-    | TitleComponentOption
-    | TooltipComponentOption
-    | GridComponentOption
-    | DatasetComponentOption
->;
+export type ECOption =
+     ECBasicOption
+    & echarts.ComposeOption<
+          | BarSeriesOption
+          | LineSeriesOption
+          | TitleComponentOption
+          | TooltipComponentOption
+          | GridComponentOption
+          | DatasetComponentOption
+      >;

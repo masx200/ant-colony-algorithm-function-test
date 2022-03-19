@@ -36,6 +36,7 @@ export function drawlinechart({
     // setOption: EChartsType["setOption"];
 }) {
     const option: ECOption = {
+        animation: false,
         title: { text: titletext },
         xAxis: { min: xAxis_min, max: "dataMax" },
         yAxis: { min: yAxis_min, max: "dataMax" },
