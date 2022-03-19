@@ -103,11 +103,17 @@
     }
 }
 /* 小于600 */
-@media screen and (min-width: 400px) {
+@media screen and (max-width: 400px) {
+    .singlechart {
+        max-height: 400px;
+        height: 400px;
+    }
+}
+/* @media screen and (min-width: 400px) {
     .singlechart {
         max-height: 400px;
     }
-}
+} */
 /* 大于600 */
 @media screen and (min-width: 600px) {
     .singlechart {
