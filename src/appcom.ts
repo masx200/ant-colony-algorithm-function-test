@@ -5,7 +5,7 @@ import datatable from "./datatable.vue";
 import {
     defaultnumberofants,
     defaultsearchrounds,
-    default_local_pheromone_volatilization_rate
+    default_local_pheromone_volatilization_rate,
 } from "./defaultnumberofants";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";

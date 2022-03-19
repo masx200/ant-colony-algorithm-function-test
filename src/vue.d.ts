@@ -3,3 +3,4 @@ declare module "*.vue" {
     const m: DefineComponent;
     export default m;
 }
+// export {};

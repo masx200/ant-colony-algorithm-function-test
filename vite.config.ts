@@ -19,6 +19,7 @@ export default defineConfig(({ mode, command }) => {
             babel({
                 exclude: [/node_modules/],
                 extensions: [".ts", ".js"],
+                //@ts-ignore
                 plugins: [
                     [
                         "babel-plugin-import",

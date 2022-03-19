@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "declaration": false,
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "target": "ESNext",
@@ -18,10 +19,10 @@
         "forceConsistentCasingInFileNames": true
     },
     "include": [
+        "vite.config.ts",
         "src",
         "test",
         "functions",
-        "vue.d.ts",
         "pathTabooList",
         "bin",
         "__tests__"

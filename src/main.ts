@@ -1,7 +1,7 @@
 import { createApp, h } from "vue";
 import "../functions/echarts-line";
 import appcom from "./appcom.vue";
-import { appcontainer } from "./appcontainer";
+// import { appcontainer } from "./appcontainer";
 import "./style.css";
 // import { TSP_cities_map } from "./TSP_cities_map";
 
@@ -12,7 +12,7 @@ export const app = createApp({
         return h(appcom);
     },
 });
-app.mount(appcontainer);
+
 // console.log(app);
 // console.log(TSP_cities_map);
 // console.log(divide_route_to_k_opt_random);
