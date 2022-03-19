@@ -11,5 +11,8 @@ export const draw_best_route_debounced = debounce(
             chart: chart,
         });
     },
-    100
+    100,
+    {
+        maxWait: 1000,
+    }
 );

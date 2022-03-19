@@ -1,7 +1,9 @@
 import { debounce } from "lodash";
 import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 export const draw_path_number_and_optimal_path_length_chart_debounced =
-    debounce(draw_path_number_and_optimal_path_length_chart, 100);
+    debounce(draw_path_number_and_optimal_path_length_chart, 100, {
+        maxWait: 1000,
+    });
 // export function draw_path_number_and_optimal_path_length_chart_debounced(
 //     path_number_and_optimal_path_length_chart: ShallowRef<
 //         EChartsType | undefined
