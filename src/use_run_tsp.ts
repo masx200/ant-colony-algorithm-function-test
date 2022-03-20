@@ -11,6 +11,7 @@ import { tsp_runner_run_async } from "./tsp_runner_run_async";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export function use_run_tsp({
+    onprogress,
     TSP_before_Start,
     searchrounds,
     numberofeachround,
@@ -23,6 +24,7 @@ export function use_run_tsp({
     finish_one_route_listener,
     finish_one_iteration_listener,
 }: {
+    onprogress: (percentage: number) => void;
     TSP_before_Start({
         onGlobalBestRouteChange,
         onLatestRouteChange,
@@ -98,7 +100,12 @@ export function use_run_tsp({
 
             await runner.on_finish_one_route(finish_one_route_listener);
             await runner.on_finish_one_iteration(finish_one_iteration_listener);
-            await tsp_runner_run_async(runner, roundofsearch, numberofants);
+            await tsp_runner_run_async({
+                runner,
+                roundofsearch,
+                numberofants,
+                onprogress,
+            });
             is_running.value = false;
             // runner.onDataChange(data_change_listener);
         } else {

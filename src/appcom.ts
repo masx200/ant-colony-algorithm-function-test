@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref, watch } from "vue";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "../test/asserttrue";
-import datatable from "./datatable.vue";
+import Datatable from "./datatable.vue";
 import {
     defaultnumberofants,
     defaultsearchrounds,
@@ -12,22 +12,24 @@ import { draw_iteration_rounds_and_information_entropy_chart_debounced } from ".
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
 import { draw_path_number_and_current_path_length_chart_debounced } from "./draw_path_number_and_current_path_length_chart_debounced";
 import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
+import Progresselement from "./progress.vue";
+import { StopTSPWorker } from "./StopTSPWorker";
 // import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
+import { TSP_Reset } from "./TSP_Reset";
 import { use_data_of_one_iteration } from "./use_data_of_one_iteration";
 import { use_data_of_one_route } from "./use_data_of_one_route";
 import { use_data_of_summary } from "./use_data_of_summary";
 import { use_escharts_container_pair } from "./use_escharts_container_pair"; // import { TSPRunner } from "../functions/createTSPrunner";
 import { use_initialize_tsp_runner } from "./use_initialize_tsp_runner";
-import { use_reset } from "./use_reset";
 import { use_run_tsp } from "./use_run_tsp";
 import { use_submit } from "./use_submit";
 import { use_tsp_before_start } from "./use_tsp_before_start";
-import { use_tsp_terminate } from "./use_tsp_terminate";
-
 export default defineComponent({
-    components: { datatable },
+    components: { Datatable, Progresselement: Progresselement },
     setup() {
+        /* 进度从0到100 */
+        const percentage = ref(0);
         const {
             oneiterationtableheads,
             onreceivedataofoneIteration,
@@ -64,11 +66,12 @@ export default defineComponent({
         });
         const TSP_before_Start = use_tsp_before_start(initializeTSP_runner);
 
-        const TSP_terminate = use_tsp_terminate({
-            clearDataOfOneRoute,
-            clearDataOfOneIteration,
-            clearDataOfResult,
-        });
+        const TSP_terminate = () =>
+            TSP_Reset({
+                clearDataOfOneRoute,
+                clearDataOfOneIteration,
+                clearDataOfResult,
+            });
 
         console.log(dataofoneiteration, oneiterationtableheads);
 
@@ -189,8 +192,11 @@ export default defineComponent({
                 dataofoneroute
             );
         };
-
+        const onprogress = (p: number) => {
+            percentage.value = p;
+        };
         const runtsp = use_run_tsp({
+            onprogress,
             TSP_before_Start,
             searchrounds,
             numberofeachround,
@@ -203,12 +209,20 @@ export default defineComponent({
             finish_one_route_listener,
             finish_one_iteration_listener,
         });
-        const reset = use_reset({
-            TSP_terminate,
-            disablemapswitching,
-            is_running,
-        });
+        const resetold = () => {
+            TSP_terminate();
+            disablemapswitching.value = false;
+            is_running.value = false;
+        };
+        const reset = () => {
+            percentage.value = 0;
+            resetold();
+        };
+        const stop_handler = () => {
+            StopTSPWorker();
+        };
         return {
+            stop_handler,
             globalBestRouteBody,
             globalBestRouteHeads,
             // container_of_iteration_rounds_and_relative_deviation_from_optimal,
@@ -233,6 +247,7 @@ export default defineComponent({
             selecteleref,
             container_of_best_chart,
             container_of_latest_chart,
+            percentage,
         };
     },
 });

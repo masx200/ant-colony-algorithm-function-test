@@ -1,4 +1,5 @@
 <template>
+    <Progresselement :percentage="percentage" />
     <h1>自适应+奖惩+蚁群+k-opt 测试</h1>
     <hr />
     <span>选择城市地图</span>
@@ -12,7 +13,10 @@
         </option>
     </select>
 
-    <button v-text="'重置'" @click="reset" />
+    <button v-text="'重置'" @click="reset" /><button
+        v-text="'停止'"
+        @click="stop_handler"
+    />
     <hr />
     <span>局部信息素挥发率</span>
     <input
@@ -61,23 +65,23 @@
     </div>
     <hr />
     <!-- //汇总结果 -->
-    <datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
+    <Datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
     <!-- 拆分表格 -->
     <hr />
-    <datatable
+    <Datatable
         :tableheads="globalBestRouteHeads"
         :tablebody="globalBestRouteBody"
     />
 
     <hr />
     <!-- 迭代结果 -->
-    <datatable
+    <Datatable
         :tableheads="oneiterationtableheads"
         :tablebody="oneiterationtablebody"
     />
     <hr />
     <!-- 路径结果 -->
-    <datatable
+    <Datatable
         :tableheads="oneroutetableheads"
         :tablebody="oneroutetablebody"
     />
