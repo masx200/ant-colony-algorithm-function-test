@@ -2,6 +2,7 @@ import vuePlugin from "@vitejs/plugin-vue";
 import path from "path";
 import { defineConfig } from "vite";
 import { babel } from "@rollup/plugin-babel";
+import ElementPlus from "unplugin-element-plus/vite";
 // console.log(babel)
 export default defineConfig(({ mode, command }) => {
     console.log(mode, command);
@@ -13,6 +14,9 @@ export default defineConfig(({ mode, command }) => {
         },
         root: path.resolve(__dirname, "src"),
         plugins: [
+            ElementPlus({
+                // options
+            }),
             vuePlugin(),
             // mode === "production" &&
             //     command === "build" &&
