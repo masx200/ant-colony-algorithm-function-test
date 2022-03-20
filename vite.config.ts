@@ -1,8 +1,11 @@
+import { babel } from "@rollup/plugin-babel";
 import vuePlugin from "@vitejs/plugin-vue";
 import path from "path";
-import { defineConfig } from "vite";
-import { babel } from "@rollup/plugin-babel";
 import ElementPlus from "unplugin-element-plus/vite";
+import { defineConfig } from "vite";
+import vpchecker from "vite-plugin-checker";
+//@ts-ignore
+const checker = vpchecker.default;
 // console.log(babel)
 export default defineConfig(({ mode, command }) => {
     console.log(mode, command);
@@ -14,6 +17,9 @@ export default defineConfig(({ mode, command }) => {
         },
         root: path.resolve(__dirname, "src"),
         plugins: [
+            checker({ typescript: { root: path.resolve(__dirname) } }),
+            checker({ vueTsc: true }),
+
             ElementPlus({
                 // options
             }),
