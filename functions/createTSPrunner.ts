@@ -5,6 +5,10 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
+default_min_coefficient_of_pheromone_diffusion,
+
+default_max_coefficient_of_pheromone_diffusion,
+
     defaultnumber_of_ants,
     default_alpha,
     default_beta,
@@ -71,6 +75,10 @@ export interface TSPRunner {
 }
 
 export function createTSPrunner({
+min_coefficient_of_pheromone_diffusion=default_min_coefficient_of_pheromone_diffusion,
+
+max_coefficient_of_pheromone_diffusion=default_max_coefficient_of_pheromone_diffusion,
+
     max_results_of_k_opt = default_max_results_of_k_opt,
     pheromone_intensity_Q = default_pheromone_intensity_Q,
     node_coordinates,
