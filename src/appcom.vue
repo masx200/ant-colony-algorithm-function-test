@@ -12,9 +12,9 @@
             {{ item[0] }}
         </option>
     </select>
-
+    <br />
     <button v-text="'重置'" @click="reset" />
-    <button
+    <br /><button
         v-text="'停止'"
         @click="stop_handler"
         :disabled="disable_stop"
@@ -51,12 +51,6 @@
         <!-- 路径序号和最优路径长度的图表 -->
     </div>
     <hr />
-    <div
-        class="singlechart"
-        style=""
-        ref="container_of_path_number_and_optimal_path_length_chart"
-    ></div>
-    <hr />
     <div class="chartcontainer" style="">
         <!-- 迭代轮次和相对信息熵的图表 -->
         <div
@@ -66,6 +60,13 @@
         ></div>
     </div>
     <hr />
+    <div
+        class="singlechart"
+        style=""
+        ref="container_of_path_number_and_optimal_path_length_chart"
+    ></div>
+    <hr />
+
     <!-- //汇总结果 -->
     <Datatable :tableheads="resultTableHeads" :tablebody="resultTableBody" />
     <!-- 拆分表格 -->
