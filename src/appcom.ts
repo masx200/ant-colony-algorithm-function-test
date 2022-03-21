@@ -217,11 +217,15 @@ export default defineComponent({
         const reset = () => {
             percentage.value = 0;
             resetold();
+            disable_stop.value = false;
         };
+        const disable_stop = ref(false);
         const stop_handler = () => {
             StopTSPWorker();
+            disable_stop.value = true;
         };
         return {
+            disable_stop,
             stop_handler,
             globalBestRouteBody,
             globalBestRouteHeads,

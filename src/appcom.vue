@@ -13,9 +13,11 @@
         </option>
     </select>
 
-    <button v-text="'重置'" @click="reset" /><button
+    <button v-text="'重置'" @click="reset" />
+    <button
         v-text="'停止'"
         @click="stop_handler"
+        :disabled="disable_stop"
     />
     <hr />
     <span>局部信息素挥发率</span>
