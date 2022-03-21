@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed-top-navbar">
+    <div class="fixed-top-navbar Translucent-background">
         <el-progress :percentage="percentage" textInside :strokeWidth="20" />
     </div>
 </template>
