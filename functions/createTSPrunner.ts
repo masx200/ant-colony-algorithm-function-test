@@ -36,6 +36,9 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 // import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
+min_coefficient_of_pheromone_diffusion:number
+max_coefficient_of_pheromone_diffusion:number
+
     count_of_nodes: number;
     get_random_selection_probability(): number;
     get_time_of_best(): number;
@@ -381,6 +384,10 @@ default_local_pheromone_volatilization_rate
         }
     };
     const result: TSPRunner = {
+min_coefficient_of_pheromone_diffusion,
+
+max_coefficient_of_pheromone_diffusion,
+
         get_search_count_of_best() {
             return search_count_of_best;
         },
