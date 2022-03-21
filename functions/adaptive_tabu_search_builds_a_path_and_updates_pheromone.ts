@@ -4,7 +4,7 @@ import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { Nodecoordinates } from "./Nodecoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { taboo_backtracking_path_construction } from "./Taboo-backtracking-path-construction";
-import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
+import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 // import { Emit_Finish_One_Route } from "./Emit_Finish_One_Route";
@@ -145,10 +145,10 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     //  如果路径长度比最优解得到的结果更差,禁忌此路径
     //  如果路径中存在交叉点,禁忌此路径
 
-    the_pheromone_update_rule_after_each_ant_builds_the_path({
+    pheromone_update_rule_after_route({
         current_length: totallength,
         current_route: route,
-        nodecoordinates,
+        // nodecoordinates,
         globalbestroute,
         countofnodes,
         // globalbestroute,

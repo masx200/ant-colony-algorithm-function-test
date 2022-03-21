@@ -1,7 +1,7 @@
 export function iterateWorstMatrixInitializer(
     iterateworstroutesegments: [number, number][],
     iterateworstlength: number
-): ((row: number, column: number) => number) | undefined {
+): (row: number, column: number) => number {
     return (i, j) =>
         iterateworstroutesegments.some(
             ([left, right]) =>

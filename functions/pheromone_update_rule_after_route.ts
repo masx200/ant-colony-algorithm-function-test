@@ -1,28 +1,26 @@
 import {
+    MatrixAdd,
+    MatrixAssign,
+    MatrixFrom,
+    MatrixMultiplyNumber,
     MatrixSymmetry,
     MatrixSymmetryCreate,
-    MatrixMultiplyNumber,
-    MatrixAdd,
     MatrixToArrays,
-    MatrixFrom,
-    MatrixAssign,
 } from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
-import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
-import { Nodecoordinates } from "./Nodecoordinates";
 
 /**
  *
  * 每只蚂蚁构建完路径后的信息素更新规则,局部信息素更新
  */
-export function the_pheromone_update_rule_after_each_ant_builds_the_path({
+export function pheromone_update_rule_after_route({
     globalbestroute,
     current_length,
     current_route,
-    nodecoordinates,
+    // nodecoordinates,
     countofnodes,
     // globalbestroutesegments,
     globalbestlength,
@@ -33,7 +31,7 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     current_length: number;
     current_route: number[];
     globalbestroute: number[];
-    nodecoordinates: Nodecoordinates;
+    // nodecoordinates: Nodecoordinates;
     countofnodes: number;
     // globalbestroutesegments: [number, number][];
     globalbestlength: number;
@@ -51,31 +49,29 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
     const deltapheromoneglobalbest = MatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
-        initializer:
-            intersection_filter_with_cycle_route({
+        initializer: /*   intersection_filter_with_cycle_route({
                 cycleroute: globalbestroute,
 
                 nodecoordinates,
             }) && Math.random() < 0.5
                 ? undefined
-                : globalBestMatrixInitializer(
-                      globalbestroutesegments,
-                      globalbestlength
-                  ),
+                : */ globalBestMatrixInitializer(
+            globalbestroutesegments,
+            globalbestlength
+        ),
     });
     const deltapheromoneiteratecurrent = MatrixSymmetryCreate({
         row: countofnodes,
-        initializer:
-            !intersection_filter_with_cycle_route({
+        initializer: /*  !intersection_filter_with_cycle_route({
                 cycleroute: current_route,
 
                 nodecoordinates,
             }) || Math.random() < 0.5
-                ? iterateBestMatrixInitializer(
-                      current_route_segments,
-                      current_length
-                  )
-                : undefined,
+                ? */ iterateBestMatrixInitializer(
+            current_route_segments,
+            current_length
+        ),
+        // : undefined,
     });
     //
     //
@@ -85,8 +81,11 @@ export function the_pheromone_update_rule_after_each_ant_builds_the_path({
         pheromoneintensityQ,
         MatrixAdd(
             deltapheromoneglobalbest,
-
-            deltapheromoneiteratecurrent
+            MatrixMultiplyNumber(
+                /* 添加非最优的信息素系数 */
+                globalbestlength / current_length,
+                deltapheromoneiteratecurrent
+            )
         )
     );
     console.log("deltapheromone", MatrixToArrays(deltapheromone));

@@ -6,7 +6,7 @@ import { calc_population_relative_information_entropy } from "./calc_population-
 // import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 // import { cycleroutetosegments } from "./cycleroutetosegments";
-import { each_iteration_of_pheromone_update_rules } from "./each_iteration_of_pheromone_update_rules";
+import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_after_iteration";
 import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
 import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
 import { Nodecoordinates } from "./Nodecoordinates";
@@ -140,8 +140,8 @@ export function EachIterationHandler(opts: {
     // const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
     // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
-    each_iteration_of_pheromone_update_rules({
-        nodecoordinates,
+    pheromone_update_rule_after_iteration({
+        // nodecoordinates,
         iteratebestroute,
         globalbestroute,
         countofnodes,

@@ -1,7 +1,7 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { construct_one_route_all } from "./construct_one_route_all";
 import { Nodecoordinates } from "./Nodecoordinates";
-import { the_pheromone_update_rule_after_each_ant_builds_the_path } from "./the_pheromone_update_rule_after_each_ant_builds_the_path";
+import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 import { asserttrue } from "../test/asserttrue";
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
@@ -104,11 +104,11 @@ export function EachRouteGenerator({
     asserttrue(getbestroute().length === countofnodes);
     // 赋值全局最优
     // 局部信息素更新
-    the_pheromone_update_rule_after_each_ant_builds_the_path({
+    pheromone_update_rule_after_route({
         globalbestroute: getbestroute(),
         current_length: totallength,
         current_route: route,
-        nodecoordinates,
+        // nodecoordinates,
         countofnodes,
         globalbestlength: getbestlength(),
         pheromonevolatilitycoefficientR1,

@@ -1,7 +1,7 @@
 export function iterateBestMatrixInitializer(
     globalbestroutesegments: [number, number][],
     globalbestlength: number
-): ((row: number, column: number) => number) | undefined {
+): (row: number, column: number) => number {
     return (i, j) =>
         globalbestroutesegments.some(
             ([left, right]) =>

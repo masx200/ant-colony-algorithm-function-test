@@ -1,24 +1,22 @@
 import {
-    MatrixSymmetry,
-    MatrixSymmetryCreate,
-    MatrixMultiplyNumber,
     MatrixAdd,
-    MatrixToArrays,
+    MatrixAssign,
     MatrixFrom,
     MatrixMax,
-    MatrixAssign,
+    MatrixMultiplyNumber,
+    MatrixSymmetry,
+    MatrixSymmetryCreate,
+    MatrixToArrays,
 } from "@masx200/sparse-2d-matrix";
 import { asserttrue } from "../test/asserttrue";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
-import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
-import { Nodecoordinates } from "./Nodecoordinates";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
-export function each_iteration_of_pheromone_update_rules({
-    nodecoordinates,
+export function pheromone_update_rule_after_iteration({
+    // nodecoordinates,
     // globalbestroute,
     // iteratebestroute,
     countofnodes,
@@ -32,7 +30,7 @@ export function each_iteration_of_pheromone_update_rules({
     pheromonestore,
     pheromonevolatilitycoefficientR2,
 }: {
-    nodecoordinates: Nodecoordinates;
+    // nodecoordinates: Nodecoordinates;
     globalbestroute: number[];
     iteratebestroute: number[];
     countofnodes: number;
@@ -54,33 +52,31 @@ export function each_iteration_of_pheromone_update_rules({
     const deltapheromoneglobalbest = MatrixSymmetryCreate({
         row: countofnodes,
         //column: countofnodes,
-        initializer:
-            intersection_filter_with_cycle_route({
+        initializer: /* intersection_filter_with_cycle_route({
                 cycleroute: globalbestroute,
 
                 nodecoordinates,
             }) && Math.random() < 0.5
                 ? undefined
-                : globalBestMatrixInitializer(
-                      globalbestroutesegments,
-                      globalbestlength
-                  ),
+                : */ globalBestMatrixInitializer(
+            globalbestroutesegments,
+            globalbestlength
+        ),
     });
     /* 最优路径不能有交叉点 */
     const deltapheromoneiteratebest = MatrixSymmetryCreate({
         row: countofnodes,
         // column: countofnodes,
-        initializer:
-            intersection_filter_with_cycle_route({
+        initializer: /*     intersection_filter_with_cycle_route({
                 cycleroute: iteratebestroute,
 
                 nodecoordinates,
             }) && Math.random() < 0.5
                 ? undefined
-                : iterateBestMatrixInitializer(
-                      iteratebestroutesegments,
-                      iteratebestlength
-                  ),
+                : */ iterateBestMatrixInitializer(
+            iteratebestroutesegments,
+            iteratebestlength
+        ),
     });
     /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = MatrixSymmetryCreate({
@@ -101,7 +97,11 @@ export function each_iteration_of_pheromone_update_rules({
         pheromoneintensityQ,
         MatrixAdd(
             deltapheromoneglobalbest,
-            deltapheromoneiteratebest,
+            MatrixMultiplyNumber(
+                /* 添加非最优的信息素系数 */
+                globalbestlength / iteratebestlength,
+                deltapheromoneiteratebest
+            ),
             deltapheromoneiterateworst
         )
     );
