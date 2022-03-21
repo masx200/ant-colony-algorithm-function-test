@@ -2,35 +2,35 @@ import { isEqual } from "lodash";
 import { euclideandistance } from "../functions/euclideandistance";
 import { getalldistancesofnodes } from "../functions/getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "./asserttrue";
 export function testgeteuclideandistance() {
     console.log("test geteuclideandistance test start");
     asserttrue(euclideandistance([3, 4], [0, 0]) === 5);
 
-    let nodecoordinates1: Nodecoordinates = [
+    let node_coordinates1: NodeCoordinates = [
         [0, 0],
         [1, 4],
         [5, 5],
         [6, 8],
     ];
-    asserttrue(geteuclideandistancebyindex(0, 3, nodecoordinates1) === 10);
-    asserttrue(geteuclideandistancebyindex(3, 0, nodecoordinates1) === 10);
-    asserttrue(geteuclideandistancebyindex(2, 2, nodecoordinates1) === 0);
+    asserttrue(geteuclideandistancebyindex(0, 3, node_coordinates1) === 10);
+    asserttrue(geteuclideandistancebyindex(3, 0, node_coordinates1) === 10);
+    asserttrue(geteuclideandistancebyindex(2, 2, node_coordinates1) === 0);
 
-    let nodecoordinates2: Nodecoordinates = [
+    let node_coordinates2: NodeCoordinates = [
         [0, 0],
         [1, 4],
         [6, 8],
         [5, 5],
     ];
-    asserttrue(geteuclideandistancebyindex(0, 2, nodecoordinates2) === 10);
-    asserttrue(geteuclideandistancebyindex(2, 0, nodecoordinates2) === 10);
-    asserttrue(geteuclideandistancebyindex(1, 1, nodecoordinates2) === 0);
-    // console.log(nodecoordinates1);
-    // console.log(nodecoordinates2);
+    asserttrue(geteuclideandistancebyindex(0, 2, node_coordinates2) === 10);
+    asserttrue(geteuclideandistancebyindex(2, 0, node_coordinates2) === 10);
+    asserttrue(geteuclideandistancebyindex(1, 1, node_coordinates2) === 0);
+    // console.log(node_coordinates1);
+    // console.log(node_coordinates2);
 
-    const node1distances = getalldistancesofnodes(nodecoordinates1);
+    const node1distances = getalldistancesofnodes(node_coordinates1);
     // console.log(node1distances);
     // asserttrue(
     //     [

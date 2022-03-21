@@ -4,7 +4,7 @@ import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
-// import { Nodecoordinates } from "../functions/Nodecoordinates";
+// import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { TSP_Worker_API } from "./TSP_Worker_API";
 let runner: TSPRunner | undefined = undefined;
 function init_runner(options: TSPRunnerOptions) {

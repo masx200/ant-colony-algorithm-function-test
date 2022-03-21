@@ -1,14 +1,14 @@
 import { sum } from "lodash";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 /* 计算路径片段的总长度,非环路 */
 export function totalpathlengthwithoutcycle(
     path: number[],
-    nodecoordinates: Nodecoordinates
+    node_coordinates: NodeCoordinates
 ): number {
-    if (path.length >= nodecoordinates.length) {
-        throw Error("invalid path not match nodecoordinates");
+    if (path.length >= node_coordinates.length) {
+        throw Error("invalid path not match node_coordinates");
     }
     return sum(
         path
@@ -21,7 +21,7 @@ export function totalpathlengthwithoutcycle(
                 /* console.log(left, right);*/ geteuclideandistancebyindex(
                     left,
                     right,
-                    nodecoordinates
+                    node_coordinates
                 )
             )
     );

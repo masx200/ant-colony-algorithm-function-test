@@ -1,21 +1,21 @@
 import { EChartsType } from "echarts";
 import { debounce } from "lodash";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { drawChartMaxWait, drawChartWait } from "./drawChartMaxWait";
 import { debounce_animation_frame } from "./debounce_animation_frame";
-import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
+import { drawrouteofnode_coordinates } from "./drawrouteofnode_coordinates";
 
 export const draw_latest_route_debounced = debounce_animation_frame(
     debounce(
         (
             route: number[],
-            nodecoordinates: Nodecoordinates,
+            node_coordinates: NodeCoordinates,
             latestchart: EChartsType
         ) => {
-            drawrouteofnodecoordinates({
+            drawrouteofnode_coordinates({
                 // resize: latestchart.resize,
                 route,
-                nodecoordinates,
+                node_coordinates,
                 chart: latestchart,
             });
         },

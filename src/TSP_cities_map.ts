@@ -1,18 +1,18 @@
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "../test/asserttrue";
-import { nodecoordinates10 } from "../test/nodecoordinates10";
-// import { nodecoordinates30 } from "../test/nodecoordinates30";
-import { nodecoordinates12 } from "../test/nodecoordinates12";
-// import { nodecoordinates16 } from "../test/nodecoordinates16";
-import { nodecoordinates21 } from "../test/nodecoordinates21";
+import { node_coordinates10 } from "../test/node_coordinates10";
+// import { node_coordinates30 } from "../test/node_coordinates30";
+import { node_coordinates12 } from "../test/node_coordinates12";
+// import { node_coordinates16 } from "../test/node_coordinates16";
+import { node_coordinates21 } from "../test/node_coordinates21";
 const modules = import.meta.globEager("../tsp/*.json");
 console.log(modules);
-const TSP_cords: Record<string, Nodecoordinates> = {
-    nodecoordinates10,
-    // nodecoordinates16,
-    nodecoordinates12,
-    nodecoordinates21,
-    // nodecoordinates30,
+const TSP_cords: Record<string, NodeCoordinates> = {
+    node_coordinates10,
+    // node_coordinates16,
+    node_coordinates12,
+    node_coordinates21,
+    // node_coordinates30,
     ...Object.fromEntries(
         Object.entries(modules).map(([key, value]) => {
             const name = key
@@ -24,7 +24,7 @@ const TSP_cords: Record<string, Nodecoordinates> = {
     ),
 };
 console.log(TSP_cords);
-const entries: [string, Nodecoordinates][] = Object.entries(TSP_cords)
+const entries: [string, NodeCoordinates][] = Object.entries(TSP_cords)
     .sort((a, b) => a[1].length - b[1].length)
     .map((entry) => {
         const name = entry[0];
@@ -32,4 +32,4 @@ const entries: [string, Nodecoordinates][] = Object.entries(TSP_cords)
         asserttrue(scale > 0);
         return [`名称:${name},规模:${scale}`, entry[1]];
     });
-export const TSP_cities_map = new Map<string, Nodecoordinates>(entries);
+export const TSP_cities_map = new Map<string, NodeCoordinates>(entries);

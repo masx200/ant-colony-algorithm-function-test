@@ -1,6 +1,6 @@
 // import { divide_route_to_2_opt_with_segment } from "../functions/divide_route_to_2-opt-with-segment";
 // import { intersection_filter_with_cycle_route_find_one } from "../functions/intersection_filter_with_cycle_route-find-one";
-// import { Nodecoordinates } from "../functions/Nodecoordinates";
+// import { NodeCoordinates } from "../functions/NodeCoordinates";
 // import ulysses22 from "../tsp/ulysses22.json";
 
 // if (import.meta.env.DEV) {
@@ -13,7 +13,7 @@
 //     ];
 //     console.log(route);
 //     const intersection = intersection_filter_with_cycle_route_find_one({
-//         nodecoordinates: ulysses22 as Nodecoordinates,
+//         node_coordinates: ulysses22 as NodeCoordinates,
 //         cycleroute: route,
 //     });
 //     console.log(intersection);

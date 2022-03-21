@@ -1,4 +1,4 @@
 export interface JSONOfpathTabooList<N extends number = number> {
-    countofnodes: N;
+    count_of_nodes: N;
     values: number[][];
 }

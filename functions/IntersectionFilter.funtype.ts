@@ -1,11 +1,11 @@
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 export type IntersectionFilter = (
-    // countofnodes: number,
+    // count_of_nodes: number,
     arg: {
         currentroute: number[];
 
         nextnode: number;
-        nodecoordinates: Nodecoordinates;
+        node_coordinates: NodeCoordinates;
     }
 ) => boolean;

@@ -1,17 +1,17 @@
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "./asserttrue";
 import { testgreedyconstructroutebest } from "./test-greedyconstructroute";
-// import { nodecoordinates6 } from "./nodecoordinates6";
+// import { node_coordinates6 } from "./node_coordinates6";
 
-export function testgreedynodecoordinates6() {
+export function testgreedynode_coordinates6() {
     const { /* greedypath,  */ totallength } =
-        testgreedyconstructroutebest(nodecoordinates6);
+        testgreedyconstructroutebest(node_coordinates6);
 
     asserttrue(totallength === 328.8245611270737);
 }
 
 //export
-const nodecoordinates6: Nodecoordinates = [
+const node_coordinates6: NodeCoordinates = [
     [0, 25],
     [25, 0],
     [75, 0],

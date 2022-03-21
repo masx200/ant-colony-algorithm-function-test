@@ -11,11 +11,11 @@ export function testpathTabooList() {
     console.log("test pathTabooList start");
 
     const ptl = createpathTabooList(10);
-    asserttrue(ptl.countofnodes === 10);
+    asserttrue(ptl.count_of_nodes === 10);
     const ptlclone = pathTabooListFrom(ptl);
     asserttrue(!isEqual(ptlclone, ptl));
     asserttrue(ispathTabooList(ptlclone));
-    asserttrue(ptlclone.countofnodes == 10);
+    asserttrue(ptlclone.count_of_nodes == 10);
     asserttrue(ispathTabooList(ptl));
     assertshouldcatcherror(() => {
         createpathTabooList(0);
@@ -26,7 +26,7 @@ export function testpathTabooList() {
     console.log(ptl);
     asserttrue(ptl.size() === 0);
 
-    asserttrue(ptl.countofnodes == 10);
+    asserttrue(ptl.count_of_nodes == 10);
     ptl.add([1, 2]);
     ptl.add([2, 1]);
     asserttrue(ptl.size() === 1);
@@ -78,7 +78,7 @@ export function testpathTabooList() {
     console.log(jsonofptl);
     asserttrue(
         isEqual(jsonofptl, {
-            countofnodes: 10,
+            count_of_nodes: 10,
             values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]],
         })
     );

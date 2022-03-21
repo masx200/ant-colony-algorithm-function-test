@@ -2,7 +2,7 @@ import * as comlink from "comlink";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-// import { Nodecoordinates } from "../functions/Nodecoordinates";
+// import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
 import TSPWorker from "./TSP_Runner.Worker?worker";
 import { TSP_workerRef } from "./TSP_workerRef";

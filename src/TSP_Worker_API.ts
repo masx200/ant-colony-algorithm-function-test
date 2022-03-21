@@ -2,7 +2,7 @@ import { TSPRunner } from "../functions/createTSPrunner";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-// import { Nodecoordinates } from "../functions/Nodecoordinates";
+// import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
 
 export type TSP_Worker_API = TSPRunner & {

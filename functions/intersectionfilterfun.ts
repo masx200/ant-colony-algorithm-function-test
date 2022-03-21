@@ -1,24 +1,24 @@
 import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegmentsintersectnextsegment";
 import { haverepetitions } from "./haverepetitions";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 /**判断路径当中是否有交叉点 */
 export function intersectionfilterfun({
     currentroute,
     nextnode,
-    nodecoordinates,
-}: //countofnodes: number,
+    node_coordinates,
+}: //count_of_nodes: number,
 {
     currentroute: number[];
 
     nextnode: number;
-    nodecoordinates: Nodecoordinates;
+    node_coordinates: NodeCoordinates;
 }): boolean {
-    const countofnodes = nodecoordinates.length;
+    const count_of_nodes = node_coordinates.length;
     const currentsegments: [number, number][] = currentroute
         .slice(0, currentroute.length - 1)
         .map((v, i) => [v, currentroute[i + 1]]);
     // debugger;
-    if (countofnodes === currentroute.length + 1) {
+    if (count_of_nodes === currentroute.length + 1) {
         /*形成环路了, 需要判断两个线段是否有交点 */
         const nextsegments: [number, number][] = [
             [currentroute.slice(-1)[0], nextnode],
@@ -39,7 +39,7 @@ export function intersectionfilterfun({
                 ),
 
                 nextsegment,
-                nodecoordinates
+                node_coordinates
             )
         );
         // debugger;
@@ -64,7 +64,7 @@ export function intersectionfilterfun({
                     ])
             ),
             nextsegment,
-            nodecoordinates
+            node_coordinates
         );
         // debugger;
         return result;

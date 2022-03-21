@@ -1,12 +1,12 @@
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 export function construct_all_greed_routes_and_lengths(
-    nodecoordinates: Nodecoordinates
+    node_coordinates: NodeCoordinates
 ) {
-    const inputindexs = Array(nodecoordinates.length)
+    const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
 
@@ -18,13 +18,13 @@ export function construct_all_greed_routes_and_lengths(
         route: number[];
     } {
         const route = Greedyalgorithmtosolvetspwithselectedstart(
-            nodecoordinates,
+            node_coordinates,
             start
         );
         const routelength = closedtotalpathlength({
-            // countofnodes: route.length,
+            // count_of_nodes: route.length,
             path: route,
-            getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+            getdistancebyindex: creategetdistancebyindex(node_coordinates),
         });
         return { routelength, route };
     });

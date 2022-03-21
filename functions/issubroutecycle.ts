@@ -6,35 +6,35 @@ import { reversearray } from "./reversearray";
 export function issubroutecycle(
     parentroute: number[],
     childroute: number[],
-    countofnodes: number //总节点数,用于判断是否是环路
+    count_of_nodes: number //总节点数,用于判断是否是环路
 ): boolean {
     if (
-        countofnodes <= 0 ||
-        countofnodes < parentroute.length ||
-        countofnodes < childroute.length ||
+        count_of_nodes <= 0 ||
+        count_of_nodes < parentroute.length ||
+        count_of_nodes < childroute.length ||
         parentroute.length < childroute.length ||
         parentroute.length === 0 ||
         childroute.length === 0
     ) {
-        throw new Error("incorrect route or countofnodes");
+        throw new Error("incorrect route or count_of_nodes");
     }
     /* 如果路径长度达到最大值则视为环路
     两个都是环路
     */
     if (
-        parentroute.length === countofnodes &&
-        childroute.length == countofnodes
+        parentroute.length === count_of_nodes &&
+        childroute.length == count_of_nodes
     ) {
         return ispathsequalinbothdirectionswithcycle(parentroute, childroute);
     } else if (
-        parentroute.length !== countofnodes &&
-        childroute.length !== countofnodes
+        parentroute.length !== count_of_nodes &&
+        childroute.length !== count_of_nodes
     ) {
         return issubroutenotcyclewithreverse(parentroute, childroute);
         /* 如果两个都不是环路 */
     } else if (
-        parentroute.length === countofnodes &&
-        childroute.length !== countofnodes
+        parentroute.length === count_of_nodes &&
+        childroute.length !== count_of_nodes
     ) {
         return (
             issubroutenotcyclewithreverse(

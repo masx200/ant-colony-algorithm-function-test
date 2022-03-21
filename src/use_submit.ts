@@ -16,15 +16,15 @@ export function use_submit({
         const element = selecteleref.value;
         console.log(element);
         console.log(element?.value);
-        const nodecoordinates = TSP_cities_map.get(element?.value || "");
-        if (nodecoordinates) {
-            console.log(nodecoordinates);
+        const node_coordinates = TSP_cities_map.get(element?.value || "");
+        if (node_coordinates) {
+            console.log(node_coordinates);
             setTimeout(() => {
                 const latestchart = chart_store_latest.value;
                 if (latestchart) {
                     showanddrawrandomgreedyoftsp({
                         // resize: latestchart.resize,
-                        nodecoordinates,
+                        node_coordinates,
                         chart: latestchart,
                     });
                 }
@@ -34,7 +34,7 @@ export function use_submit({
                 if (bestchart) {
                     showanddrawrandomgreedyoftsp({
                         // resize: bestchart.resize,
-                        nodecoordinates,
+                        node_coordinates,
                         chart: bestchart,
                     });
                 }

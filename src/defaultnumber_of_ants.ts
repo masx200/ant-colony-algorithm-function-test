@@ -1,9 +1,9 @@
-export const defaultnumberofants = 15;
+export const defaultnumber_of_ants = 15;
 export const defaultsearchrounds = 100;
 export const default_local_pheromone_volatilization_rate = 0.035;
 export const default_global_pheromone_volatilization_rate = 0.3;
 // export const default_searchloopcountratio = 15;
 export const default_alpha = 1;
 export const default_beta = 5;
-export const default_pheromoneintensityQ = 1;
+export const default_pheromone_intensity_Q = 1;
 export const default_max_results_of_k_opt = 20;

@@ -1,23 +1,23 @@
-import { cachebestlengthofnodecoordinates } from "../functions/cachebestlengthofnodecoordinates";
-import { cachebestrouteofnodecoordinates } from "../functions/cachebestrouteofnodecoordinates";
+import { cachebestlengthofnode_coordinates } from "../functions/cachebestlengthofnode_coordinates";
+import { cachebestrouteofnode_coordinates } from "../functions/cachebestrouteofnode_coordinates";
 import { construct_all_greed_routes_and_lengths } from "../functions/construct_all_greed_routes_and_lengths";
-import { getbestRouteOfSeriesRoutesAndLengths } from "../functions/getbestRouteOfSeriesRoutesAndLengths";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "./asserttrue";
 
 export function testgreedyconstructroutebest(
-    nodecoordinates: Nodecoordinates
+    node_coordinates: NodeCoordinates
 ): {
     greedypath: number[];
     totallength: number;
 } {
     console.log("贪心算法测试开始");
 
-    console.log("贪心算法要解决的问题的坐标是", nodecoordinates);
+    console.log("贪心算法要解决的问题的坐标是", node_coordinates);
     const greedypathsandlengths =
-        construct_all_greed_routes_and_lengths(nodecoordinates);
+        construct_all_greed_routes_and_lengths(node_coordinates);
     const { route: greedypath, totallength } =
-        getbestRouteOfSeriesRoutesAndLengths(
+        get_best_routeOfSeriesRoutesAndLengths(
             greedypathsandlengths.map(({ route, routelength }) => ({
                 route,
                 totallength: routelength,
@@ -25,24 +25,27 @@ export function testgreedyconstructroutebest(
         );
     console.log("贪心算法得到的路径是", greedypath);
 
-    // const totallength = closedtotalpathlength(greedypath, nodecoordinates);
+    // const totallength = closedtotalpathlength(greedypath, node_coordinates);
     console.log("贪心算法得出的路径长度", totallength);
 
     if (
-        typeof cachebestlengthofnodecoordinates.get(nodecoordinates) !==
+        typeof cachebestlengthofnode_coordinates.get(node_coordinates) !==
         "number"
     ) {
-        cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
-        cachebestrouteofnodecoordinates.set(nodecoordinates, greedypath);
+        cachebestlengthofnode_coordinates.set(node_coordinates, totallength);
+        cachebestrouteofnode_coordinates.set(node_coordinates, greedypath);
     } else {
         const bestlength =
-            cachebestlengthofnodecoordinates.get(nodecoordinates);
+            cachebestlengthofnode_coordinates.get(node_coordinates);
         if (bestlength && bestlength > totallength) {
-            cachebestlengthofnodecoordinates.set(nodecoordinates, totallength);
-            cachebestrouteofnodecoordinates.set(nodecoordinates, greedypath);
+            cachebestlengthofnode_coordinates.set(
+                node_coordinates,
+                totallength
+            );
+            cachebestrouteofnode_coordinates.set(node_coordinates, greedypath);
         }
     }
-    asserttrue(greedypath.length === nodecoordinates.length);
+    asserttrue(greedypath.length === node_coordinates.length);
     console.log("贪心算法测试结束");
     return { greedypath, totallength };
 }

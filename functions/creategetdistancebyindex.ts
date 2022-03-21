@@ -1,9 +1,9 @@
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 export function creategetdistancebyindex(
-    nodecoordinates: Nodecoordinates
+    node_coordinates: NodeCoordinates
 ): (left: number, right: number) => number {
     return (left: number, right: number) =>
-        geteuclideandistancebyindex(left, right, nodecoordinates);
+        geteuclideandistancebyindex(left, right, node_coordinates);
 }

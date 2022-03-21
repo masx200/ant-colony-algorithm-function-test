@@ -1,7 +1,7 @@
 import { asserttrue } from "../test/asserttrue";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { closedtotalpathlength } from "./closed-total-path-length";
@@ -14,16 +14,16 @@ export function construct_one_step_route_of_taboo({
     // probabilityofacceptingasuboptimalsolution,
     // startnode,
     getdistancebyserialnumber,
-    getbestlength,
+    get_best_length,
     randomselectionprobability,
-    alphazero,
-    betazero,
+    alpha_zero,
+    beta_zero,
     picknextnode,
     getroute,
-    countofnodes,
+    count_of_nodes,
     filternotforbiddenbeforepick,
     pathTabooList,
-    nodecoordinates,
+    node_coordinates,
     intersectionfilter,
     getpheromone,
 }: {
@@ -33,34 +33,34 @@ export function construct_one_step_route_of_taboo({
     // probabilityofacceptingasuboptimalsolution: number;
     getdistancebyserialnumber: (left: number, right: number) => number;
     intersectionfilter: IntersectionFilter;
-    nodecoordinates: Nodecoordinates;
-    getbestlength: () => number;
+    node_coordinates: NodeCoordinates;
+    get_best_length: () => number;
     randomselectionprobability: number;
 
-    alphazero: number;
+    alpha_zero: number;
 
-    betazero: number;
+    beta_zero: number;
     picknextnode: (args: PickNextNodeRouletteOptions) => number;
     // startnode: number;
     pathTabooList: PathTabooList;
-    countofnodes: number;
+    count_of_nodes: number;
     getroute: () => number[];
     getpheromone: (left: number, right: number) => number;
     filternotforbiddenbeforepick: FilterForbiddenBeforePick;
 }): number[] {
-    const inputindexs = Array(nodecoordinates.length)
+    const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
     const startnode = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     /**单次搜索最多循环次数 */
     // const maximumnumberofloopsforasinglesearch =
-    //     countofnodes * searchloopcountratio;
+    //     count_of_nodes * searchloopcountratio;
     const route = getroute();
-    if (route.length > countofnodes || route.length < 1) {
+    if (route.length > count_of_nodes || route.length < 1) {
         throw Error("route accident");
     }
     const availablenodes = new Set<number>(
-        Array(countofnodes)
+        Array(count_of_nodes)
             .fill(0)
             .map((_v, i) => i)
             .filter((v) => !route.includes(v))
@@ -69,7 +69,7 @@ export function construct_one_step_route_of_taboo({
     /* 找出禁忌表中不包含的路径 */
     const selectednodes = Array.from(availablenodes).filter((value) =>
         filternotforbiddenbeforepick(
-            // countofnodes,
+            // count_of_nodes,
             Array.from(route),
             pathTabooList,
             value
@@ -99,10 +99,10 @@ export function construct_one_step_route_of_taboo({
             randomselectionprobability,
             //   ,
             //  ,
-            alphazero,
+            alpha_zero,
             //  ,
             //   ,
-            betazero,
+            beta_zero,
             //  parameterrandomization,
             currentnode: Array.from(route).slice(-1)[0],
             availablenextnodes: Array.from(filterednodes),
@@ -111,7 +111,7 @@ export function construct_one_step_route_of_taboo({
         });
         asserttrue(!pathTabooList.has([...route, nextnode]));
 
-        if (route.length + 1 === countofnodes) {
+        if (route.length + 1 === count_of_nodes) {
             //已经完成一条路径退出循环
             return [...route, nextnode];
         }
@@ -122,7 +122,7 @@ export function construct_one_step_route_of_taboo({
                 currentroute: Array.from(route),
 
                 nextnode,
-                nodecoordinates,
+                node_coordinates,
             })
         ) {
             pathTabooList.add([...route, nextnode]);
@@ -137,13 +137,13 @@ export function construct_one_step_route_of_taboo({
         }
         if (
             //如果所有城市都经过了,则结束了,如果没走完所有城市,则计算部分城市的环路路径长度
-            route.length < countofnodes &&
+            route.length < count_of_nodes &&
             route.length >= 2 &&
             closedtotalpathlength({
-                // countofnodes: route.length,
+                // count_of_nodes: route.length,
                 path: route,
                 getdistancebyindex: getdistancebyserialnumber,
-            }) > getbestlength()
+            }) > get_best_length()
         ) {
             //测试不接受次优解
             pathTabooList.add([...route, nextnode]);

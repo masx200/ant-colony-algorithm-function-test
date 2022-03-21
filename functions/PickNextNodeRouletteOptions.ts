@@ -4,8 +4,8 @@ import { GetPheromone } from "./GetPheromone";
 export type PickNextNodeRouletteOptions = {
     randomselectionprobability: number;
     // parameterrandomization: boolean;
-    alphazero: number;
-    betazero: number;
+    alpha_zero: number;
+    beta_zero: number;
     getpheromone: GetPheromone;
     currentnode: number;
     availablenextnodes: number[];

@@ -10,10 +10,10 @@ export function picknextnodeRoulette(
         randomselectionprobability,
         //   ,
         //  ,
-        alphazero,
+        alpha_zero,
         //    ,
         //    ,
-        betazero,
+        beta_zero,
         //   parameterrandomization,
         getpheromone,
         getdistancebyserialnumber,
@@ -26,13 +26,13 @@ export function picknextnodeRoulette(
             "invalid availablenextnodes:" + JSON.stringify(availablenextnodes)
         );
     }
-    const beta = betazero;
-    // parameterrandomization ? random( ,  ) : betazero;
+    const beta = beta_zero;
+    // parameterrandomization ? random( ,  ) : beta_zero;
 
-    const alpha = alphazero;
+    const alpha = alpha_zero;
     //parameterrandomization
     //    ? random( ,  )
-    //   : alphazero;
+    //   : alpha_zero;
     const randomselection = Math.random() < randomselectionprobability;
     // const weights: number[] = randomselection
     //     ? []

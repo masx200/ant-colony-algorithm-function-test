@@ -5,7 +5,7 @@ import { pathTabooListSymbol } from "./pathTabooListSymbol";
 export type PathTabooList<N extends number = number> = {
     [pathTabooListSymbol]: true;
     size(): number;
-    countofnodes: N;
+    count_of_nodes: N;
     add(route: number[]): void;
     clear(): void;
     delete(route: number[]): boolean;

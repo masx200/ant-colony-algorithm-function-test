@@ -6,7 +6,7 @@ import {
 } from "@masx200/sparse-2d-matrix";
 
 /* 创建信息素仓库 */
-export function createPheromonestore<R extends number>(
+export function createPheromoneStore<R extends number>(
     scale: R
 ): MatrixSymmetry<R> {
     return MatrixSymmetryCreate({
@@ -51,6 +51,6 @@ export function createPheromonestore<R extends number>(
 //     entries,
 //     get,
 //     set,
-//     [Symbol.toStringTag]: "PheromoneStore",
+//     [Symbol.toStringTag]: "pheromoneStore",
 // };
 // }

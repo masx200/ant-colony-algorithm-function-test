@@ -1,15 +1,15 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { euclideandistance } from "./euclideandistance";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 export function calcandsetdistance(
-    nodecoordinates: Nodecoordinates,
+    node_coordinates: NodeCoordinates,
     left: number,
     right: number,
     euclideandistancerecord: MatrixSymmetry
 ): number {
-    let leftpair = nodecoordinates[left];
-    let rightpair = nodecoordinates[right];
+    let leftpair = node_coordinates[left];
+    let rightpair = node_coordinates[right];
     let distance = euclideandistance(
         leftpair,
 

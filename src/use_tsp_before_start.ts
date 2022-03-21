@@ -1,25 +1,25 @@
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { TSP_RunnerRef } from "./TSP_workerRef";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export function use_tsp_before_start(
     initializeTSP_runner: ({
-        nodecoordinates,
-        numberofants,
+        node_coordinates,
+        number_of_ants,
         onGlobalBestRouteChange,
         onLatestRouteChange,
-        pheromonevolatilitycoefficientR1,
+        pheromone_volatility_coefficient_R1,
     }: {
-        pheromonevolatilitycoefficientR1: number;
-        nodecoordinates: Nodecoordinates;
-        numberofants: number;
+        pheromone_volatility_coefficient_R1: number;
+        node_coordinates: NodeCoordinates;
+        number_of_ants: number;
         onGlobalBestRouteChange: (
             globalbestroute: number[],
-            nodecoordinates: Nodecoordinates
+            node_coordinates: NodeCoordinates
         ) => void;
         onLatestRouteChange: (
             latestroute: number[],
-            nodecoordinates: Nodecoordinates
+            node_coordinates: NodeCoordinates
         ) => void;
     }) => Promise<TSP_Worker_Remote>
 ) {
@@ -28,32 +28,32 @@ export function use_tsp_before_start(
         onGlobalBestRouteChange,
         onLatestRouteChange,
         // roundofsearch,
-        nodecoordinates,
-        numberofants,
-        pheromonevolatilitycoefficientR1,
+        node_coordinates,
+        number_of_ants,
+        pheromone_volatility_coefficient_R1,
     }: {
         // onFinishIteration: () => void;
-        pheromonevolatilitycoefficientR1: number;
+        pheromone_volatility_coefficient_R1: number;
         onGlobalBestRouteChange: (
             globalbestroute: number[],
-            nodecoordinates: Nodecoordinates
+            node_coordinates: NodeCoordinates
         ) => void;
         onLatestRouteChange: (
             latestroute: number[],
-            nodecoordinates: Nodecoordinates
+            node_coordinates: NodeCoordinates
         ) => void;
         // roundofsearch: number;
-        numberofants: number;
-        nodecoordinates: Nodecoordinates;
+        number_of_ants: number;
+        node_coordinates: NodeCoordinates;
     }): Promise<TSP_Worker_Remote> {
-        console.log("TSP_before_Start", nodecoordinates);
+        console.log("TSP_before_Start", node_coordinates);
         TSP_RunnerRef.value ||= await initializeTSP_runner({
             // onFinishIteration,
-            pheromonevolatilitycoefficientR1,
+            pheromone_volatility_coefficient_R1,
             onGlobalBestRouteChange,
             onLatestRouteChange,
-            nodecoordinates,
-            numberofants,
+            node_coordinates,
+            number_of_ants,
         });
         // TSP_RunnerRef.value?.runIterations(roundofsearch);
         const runner = TSP_RunnerRef.value;

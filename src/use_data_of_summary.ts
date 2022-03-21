@@ -13,6 +13,7 @@ export function use_data_of_summary(): {
             number,
             number,
             number,
+            number,
             number
             // , string
         ][]
@@ -39,10 +40,11 @@ export function use_data_of_summary(): {
     };
     const resultTableHeads = [
         "全局最优长度",
-        "找到最优解的耗时秒",
+        "最优解的耗时秒",
+        "最优解路径数量",
         "总共耗时秒",
-        "总路径数量",
-        "总迭代次数",
+        "总计路径数量",
+        "总计迭代次数",
         // "全局最优路径",
     ];
     const globalBestRouteHeads = ["全局最优路径"];
@@ -67,6 +69,7 @@ export function use_data_of_summary(): {
             number,
             number,
             number,
+            number,
             number
             // , string
         ][]
@@ -77,7 +80,9 @@ export function use_data_of_summary(): {
                   [
                       result.globalbestlength,
                       result.time_of_best_ms / 1000,
+                      result.search_count_of_best,
                       result.total_time_ms / 1000,
+
                       result.current_search_count,
                       result.current_iterations,
                       //   JSON.stringify(result.globalbestroute),

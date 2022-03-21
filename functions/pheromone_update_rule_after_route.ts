@@ -20,24 +20,24 @@ export function pheromone_update_rule_after_route({
     globalbestroute,
     current_length,
     current_route,
-    // nodecoordinates,
-    countofnodes,
+    // node_coordinates,
+    count_of_nodes,
     // globalbestroutesegments,
     globalbestlength,
-    pheromoneintensityQ,
-    pheromonestore,
-    pheromonevolatilitycoefficientR1,
+    pheromone_intensity_Q,
+    pheromoneStore,
+    pheromone_volatility_coefficient_R1,
 }: {
     current_length: number;
     current_route: number[];
     globalbestroute: number[];
-    // nodecoordinates: Nodecoordinates;
-    countofnodes: number;
+    // node_coordinates: NodeCoordinates;
+    count_of_nodes: number;
     // globalbestroutesegments: [number, number][];
     globalbestlength: number;
-    pheromoneintensityQ: number;
-    pheromonestore: MatrixSymmetry<number>;
-    pheromonevolatilitycoefficientR1: number;
+    pheromone_intensity_Q: number;
+    pheromoneStore: MatrixSymmetry<number>;
+    pheromone_volatility_coefficient_R1: number;
 }) {
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     console.log("局部信息素更新计算开始");
@@ -47,12 +47,12 @@ export function pheromone_update_rule_after_route({
 
     // 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
     const deltapheromoneglobalbest = MatrixSymmetryCreate({
-        row: countofnodes,
-        //column: countofnodes,
+        row: count_of_nodes,
+        //column: count_of_nodes,
         initializer: /*   intersection_filter_with_cycle_route({
                 cycleroute: globalbestroute,
 
-                nodecoordinates,
+                node_coordinates,
             }) && Math.random() < 0.5
                 ? undefined
                 : */ globalBestMatrixInitializer(
@@ -61,11 +61,11 @@ export function pheromone_update_rule_after_route({
         ),
     });
     const deltapheromoneiteratecurrent = MatrixSymmetryCreate({
-        row: countofnodes,
+        row: count_of_nodes,
         initializer: /*  !intersection_filter_with_cycle_route({
                 cycleroute: current_route,
 
-                nodecoordinates,
+                node_coordinates,
             }) || Math.random() < 0.5
                 ? */ iterateBestMatrixInitializer(
             current_route_segments,
@@ -78,7 +78,7 @@ export function pheromone_update_rule_after_route({
     //
     //局部信息素更新
     const deltapheromone = MatrixMultiplyNumber(
-        pheromoneintensityQ,
+        pheromone_intensity_Q,
         MatrixAdd(
             deltapheromoneglobalbest,
             MatrixMultiplyNumber(
@@ -89,20 +89,23 @@ export function pheromone_update_rule_after_route({
         )
     );
     console.log("deltapheromone", MatrixToArrays(deltapheromone));
-    const oldpheromonestore = MatrixFrom(pheromonestore);
-    const nextpheromonestore = MatrixAdd(
+    const oldpheromoneStore = MatrixFrom(pheromoneStore);
+    const nextpheromoneStore = MatrixAdd(
         MatrixMultiplyNumber(
-            1 - pheromonevolatilitycoefficientR1,
-            oldpheromonestore
+            1 - pheromone_volatility_coefficient_R1,
+            oldpheromoneStore
         ),
-        MatrixMultiplyNumber(pheromonevolatilitycoefficientR1, deltapheromone)
+        MatrixMultiplyNumber(
+            pheromone_volatility_coefficient_R1,
+            deltapheromone
+        )
     );
     console.log(" 信息素更新结束");
     console.log({
-        oldpheromonestore: MatrixToArrays(oldpheromonestore),
-        nextpheromonestore: MatrixToArrays(nextpheromonestore),
+        oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
+        nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
     });
-    asserttrue(nextpheromonestore.values().every((a) => a > 0));
+    asserttrue(nextpheromoneStore.values().every((a) => a > 0));
     //信息素更新
-    MatrixAssign(pheromonestore, nextpheromonestore);
+    MatrixAssign(pheromoneStore, nextpheromoneStore);
 }

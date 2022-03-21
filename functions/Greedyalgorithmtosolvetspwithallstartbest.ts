@@ -1,21 +1,21 @@
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { construct_all_greed_routes_and_lengths } from "./construct_all_greed_routes_and_lengths";
-import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 /* 贪心算法解决tsp问题,返回路径序列 
 尝试所有起点找到最优的一个
 */
 export function Greedyalgorithmtosolvetspwithallstartbest(
-    nodecoordinates: Nodecoordinates
+    node_coordinates: NodeCoordinates
     // pathTabooList: PathTabooList
 ): { route: number[]; totallength: number } {
-    // const { length } = nodecoordinates;
+    // const { length } = node_coordinates;
     const greedypathsandlengths: {
         routelength: number;
         route: number[];
-    }[] = construct_all_greed_routes_and_lengths(nodecoordinates);
-    const bestlengthsandroutes = getbestRouteOfSeriesRoutesAndLengths(
+    }[] = construct_all_greed_routes_and_lengths(node_coordinates);
+    const bestlengthsandroutes = get_best_routeOfSeriesRoutesAndLengths(
         greedypathsandlengths.map(({ route, routelength }) => ({
             route,
             totallength: routelength,

@@ -1,16 +1,16 @@
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 /* 可选起点的贪心算法 */
 export function Greedyalgorithmtosolvetspwithselectedstart(
-    nodecoordinates: Nodecoordinates,
+    node_coordinates: NodeCoordinates,
     start: number
 ): number[] {
-    if (start < 0 || start >= nodecoordinates.length) {
+    if (start < 0 || start >= node_coordinates.length) {
         throw new Error("incorrect start");
     }
-    // const { length } = nodecoordinates;
-    const inputindexs = Array(nodecoordinates.length)
+    // const { length } = node_coordinates;
+    const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
     const indexsset = new Set(inputindexs);
@@ -28,7 +28,7 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
         /* 计算其他点与此点的距离的最小值 */
         /*  const mindistance = Math.min(
             ...restnodes.map((value) =>
-                geteuclideandistancebyindex(currentnode, value, nodecoordinates)
+                geteuclideandistancebyindex(currentnode, value, node_coordinates)
             )
         );
 */
@@ -37,7 +37,7 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
         /*   const nextnode = restnodes.find((value) => {
             return (
                 mindistance ===
-                geteuclideandistancebyindex(currentnode, value, nodecoordinates)
+                geteuclideandistancebyindex(currentnode, value, node_coordinates)
             );
         });
         */
@@ -51,7 +51,7 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
                 distance: geteuclideandistancebyindex(
                     currentnode,
                     value,
-                    nodecoordinates
+                    node_coordinates
                 ),
             };
         });

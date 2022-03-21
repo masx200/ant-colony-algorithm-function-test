@@ -1,34 +1,34 @@
 import { EChartsType } from "echarts";
 import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "../functions/Greedyalgorithmtosolvetspwithselectedstart";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { pickRandomOne } from "../functions/pickRandomOne";
-import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
+import { drawrouteofnode_coordinates } from "./drawrouteofnode_coordinates";
 
 export function showanddrawrandomgreedyoftsp({
-    nodecoordinates,
+    node_coordinates,
     chart,
 }: // resize,
 {
-    nodecoordinates: Nodecoordinates;
+    node_coordinates: NodeCoordinates;
     chart: EChartsType;
     // resize: () => void;
 }) {
-    console.log(nodecoordinates, chart);
+    console.log(node_coordinates, chart);
 
-    const inputindexs = Array(nodecoordinates.length)
+    const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
     const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     // const { greedypath, totallength } =;
     const route = Greedyalgorithmtosolvetspwithselectedstart(
-        nodecoordinates,
+        node_coordinates,
         start
     );
     // const greedypath = route;
-    drawrouteofnodecoordinates({
+    drawrouteofnode_coordinates({
         /*  resize, */ route,
-        nodecoordinates,
+        node_coordinates,
         chart,
     });
 }

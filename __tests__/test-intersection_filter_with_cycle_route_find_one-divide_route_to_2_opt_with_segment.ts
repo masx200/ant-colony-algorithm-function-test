@@ -1,10 +1,10 @@
 import { isEqual } from "lodash";
 import { divide_route_to_2_opt_with_segment } from "../functions/divide_route_to_2-opt-with-segment";
 import { intersection_filter_with_cycle_route_find_one } from "../functions/intersection_filter_with_cycle_route-find-one";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 it("test-intersection_filter_with_cycle_route_find_one-divide_route_to_2_opt_with_segment", () => {
-    const ulysses22: Nodecoordinates = [
+    const ulysses22: NodeCoordinates = [
         [38.24, 20.42],
         [39.57, 26.15],
         [40.56, 25.32],
@@ -34,7 +34,7 @@ it("test-intersection_filter_with_cycle_route_find_one-divide_route_to_2_opt_wit
         19, 20,
     ];
     const intersection = intersection_filter_with_cycle_route_find_one({
-        nodecoordinates: ulysses22 as Nodecoordinates,
+        node_coordinates: ulysses22 as NodeCoordinates,
         cycleroute: route,
     });
     expect(Array.isArray(intersection)).toBeTruthy();

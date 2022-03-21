@@ -1,6 +1,6 @@
 import { EChartsType } from "echarts";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
-import { drawrouteofnodecoordinates } from "./drawrouteofnodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { drawrouteofnode_coordinates } from "./drawrouteofnode_coordinates";
 import { debounce } from "lodash";
 import { drawChartMaxWait, drawChartWait } from "./drawChartMaxWait";
 import { debounce_animation_frame } from "./debounce_animation_frame";
@@ -8,13 +8,13 @@ export const draw_best_route_debounced = debounce_animation_frame(
     debounce(
         (
             route: number[],
-            nodecoordinates: Nodecoordinates,
+            node_coordinates: NodeCoordinates,
             chart: EChartsType
         ) => {
-            drawrouteofnodecoordinates({
+            drawrouteofnode_coordinates({
                 // resize: chart.resize,
                 route,
-                nodecoordinates,
+                node_coordinates,
                 chart: chart,
             });
         },

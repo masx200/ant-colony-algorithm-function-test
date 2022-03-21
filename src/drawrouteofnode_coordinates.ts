@@ -3,17 +3,17 @@ import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { cycle_reorganize } from "../functions/cycle_reorganize";
 import { drawlinechart } from "../functions/drawlinechart";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 
-export function drawrouteofnodecoordinates({
+export function drawrouteofnode_coordinates({
     route,
-    nodecoordinates,
+    node_coordinates,
     chart,
 }: // resize,
 {
     // resize: () => void;
     route: number[];
-    nodecoordinates: Nodecoordinates;
+    node_coordinates: NodeCoordinates;
     // greedypath: number[],
     chart: EChartsType;
 }) {
@@ -21,10 +21,10 @@ export function drawrouteofnodecoordinates({
     const greedypath = cycle_reorganize(route, 0);
     const totallength = closedtotalpathlength({
         path: route,
-        getdistancebyindex: creategetdistancebyindex(nodecoordinates),
+        getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });
     const linechardata = [...greedypath, greedypath[0]].map(
-        (v) => nodecoordinates[v]
+        (v) => node_coordinates[v]
     );
     // console.log("贪心算法路径结果画图坐标", linechardata);
     // console.log("贪心算法得到的路径是", greedypath);
@@ -35,6 +35,6 @@ export function drawrouteofnodecoordinates({
         // resize,
         data: linechardata,
         chart: chart as EChartsType,
-        titletext: `城市数:${nodecoordinates.length},路径长度:${totallength}`,
+        titletext: `城市数:${node_coordinates.length},路径长度:${totallength}`,
     });
 }

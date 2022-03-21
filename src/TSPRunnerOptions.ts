@@ -1,12 +1,12 @@
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 export type TSPRunnerOptions = {
     max_results_of_k_opt?: number | undefined;
-    pheromonevolatilitycoefficientR1?: number | undefined;
-    pheromonevolatilitycoefficientR2?: number | undefined;
-    pheromoneintensityQ?: number | undefined;
-    nodecoordinates: Nodecoordinates;
-    alphazero?: number | undefined;
-    betazero?: number | undefined;
-    numberofants?: number | undefined;
+    pheromone_volatility_coefficient_R1?: number | undefined;
+    pheromone_volatility_coefficient_R2?: number | undefined;
+    pheromone_intensity_Q?: number | undefined;
+    node_coordinates: NodeCoordinates;
+    alpha_zero?: number | undefined;
+    beta_zero?: number | undefined;
+    number_of_ants?: number | undefined;
 };

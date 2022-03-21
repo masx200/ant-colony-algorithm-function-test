@@ -17,34 +17,34 @@ import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { haverepetitions } from "./haverepetitions";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 /**执行信息素扩散操作 */
 export function performPheromoneDiffusionOperations({
     globalbestroute,
     // globalbestroutesegments,
-    pheromonestore,
-    nodecoordinates,
+    pheromoneStore,
+    node_coordinates,
 }: {
     // globalbestroutesegments: [number, number][];
     globalbestroute: number[];
-    pheromonestore: MatrixSymmetry<number>;
-    nodecoordinates: Nodecoordinates;
+    pheromoneStore: MatrixSymmetry<number>;
+    node_coordinates: NodeCoordinates;
 }): void {
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     globalbestroutesegments.forEach(
         pheromoneDiffusionCallback({
-            pheromonestore,
-            nodecoordinates,
+            pheromoneStore,
+            node_coordinates,
             globalbestroutesegments,
         })
     );
     function pheromoneDiffusionCallback({
-        pheromonestore,
-        nodecoordinates,
+        pheromoneStore,
+        node_coordinates,
         globalbestroutesegments,
     }: {
-        pheromonestore: MatrixSymmetry<number>;
-        nodecoordinates: Nodecoordinates;
+        pheromoneStore: MatrixSymmetry<number>;
+        node_coordinates: NodeCoordinates;
         globalbestroutesegments: [number, number][];
     }): (
         value: [number, number],
@@ -52,24 +52,24 @@ export function performPheromoneDiffusionOperations({
         array: [number, number][]
     ) => void {
         return function ([cityA, cityB]) {
-            const pheromoneZ = pheromonestore.get(cityA, cityB);
+            const pheromoneZ = pheromoneStore.get(cityA, cityB);
 
             const centerofcircleE: [number, number] = [
-                (nodecoordinates[cityA][0] + nodecoordinates[cityB][0]) / 2,
-                (nodecoordinates[cityA][1] + nodecoordinates[cityB][1]) / 2,
+                (node_coordinates[cityA][0] + node_coordinates[cityB][0]) / 2,
+                (node_coordinates[cityA][1] + node_coordinates[cityB][1]) / 2,
             ];
-            //     x: (nodecoordinates[left][0] + nodecoordinates[right][0]) / 2,
-            //     y: (nodecoordinates[left][1] + nodecoordinates[right][1]) / 2,
+            //     x: (node_coordinates[left][0] + node_coordinates[right][0]) / 2,
+            //     y: (node_coordinates[left][1] + node_coordinates[right][1]) / 2,
             // };
             let theradiusofthecircle =
-                Math.max(...getalldistancesofnodes(nodecoordinates)) / 4;
-            const inputindexs = Array(nodecoordinates.length)
+                Math.max(...getalldistancesofnodes(node_coordinates)) / 4;
+            const inputindexs = Array(node_coordinates.length)
                 .fill(0)
                 .map((_v, i) => i);
             const nodesinsidecircle = inputindexs
                 .map((city) => ({
                     distance: euclideandistance(
-                        nodecoordinates[city],
+                        node_coordinates[city],
                         centerofcircleE
                     ),
                     city: city,
@@ -98,28 +98,28 @@ export function performPheromoneDiffusionOperations({
                     )
             );
             if (segmentsinsidecircle.length) {
-                const { row } = pheromonestore;
+                const { row } = pheromoneStore;
 
-                const deltapheromonestore = MatrixSymmetryCreate({
+                const deltapheromoneStore = MatrixSymmetryCreate({
                     row,
                     initializer: () => 0,
                 });
-                deltapheromonestore.set(cityA, cityB, -pheromoneZ * 0.5);
+                deltapheromoneStore.set(cityA, cityB, -pheromoneZ * 0.5);
                 const citiesandd1xd2 = segmentsinsidecircle.map(
                     ([cityC, cityD]) => {
                         // debugger;
                         const pointF: [number, number] = [
-                            (nodecoordinates[cityC][0] +
-                                nodecoordinates[cityD][0]) /
+                            (node_coordinates[cityC][0] +
+                                node_coordinates[cityD][0]) /
                                 2,
-                            (nodecoordinates[cityC][1] +
-                                nodecoordinates[cityD][1]) /
+                            (node_coordinates[cityC][1] +
+                                node_coordinates[cityD][1]) /
                                 2,
                         ];
                         const distanceofCD = geteuclideandistancebyindex(
                             cityC,
                             cityD,
-                            nodecoordinates
+                            node_coordinates
                         );
                         const distanceofEF = euclideandistance(
                             pointF,
@@ -164,25 +164,25 @@ export function performPheromoneDiffusionOperations({
                 // debugger;
                 pheromonedeltaofcities.forEach(
                     ({ cityC, cityD, pheromonedelta }) => {
-                        deltapheromonestore.set(cityC, cityD, pheromonedelta);
-                        deltapheromonestore.set(cityD, cityC, pheromonedelta);
+                        deltapheromoneStore.set(cityC, cityD, pheromonedelta);
+                        deltapheromoneStore.set(cityD, cityC, pheromonedelta);
                     }
                 );
                 console.log(
                     "deltapheromone",
-                    MatrixToArrays(deltapheromonestore)
+                    MatrixToArrays(deltapheromoneStore)
                 );
-                const pheromonestorenext = MatrixAdd(
-                    MatrixFrom(pheromonestore),
-                    deltapheromonestore
+                const pheromoneStorenext = MatrixAdd(
+                    MatrixFrom(pheromoneStore),
+                    deltapheromoneStore
                 );
-                const oldpheromonestore = MatrixFrom(pheromonestore);
+                const oldpheromoneStore = MatrixFrom(pheromoneStore);
                 console.log({
-                    oldpheromonestore: MatrixToArrays(oldpheromonestore),
-                    pheromonestorenext: MatrixToArrays(pheromonestorenext),
+                    oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
+                    pheromoneStorenext: MatrixToArrays(pheromoneStorenext),
                 });
-                asserttrue(pheromonestorenext.values().every((a) => a > 0));
-                MatrixAssign(pheromonestore, pheromonestorenext);
+                asserttrue(pheromoneStorenext.values().every((a) => a > 0));
+                MatrixAssign(pheromoneStore, pheromoneStorenext);
             }
         };
     }

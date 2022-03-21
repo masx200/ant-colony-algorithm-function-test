@@ -7,9 +7,9 @@ import { calc_population_relative_information_entropy } from "./calc_population-
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 // import { cycleroutetosegments } from "./cycleroutetosegments";
 import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_after_iteration";
-import { getbestRouteOfSeriesRoutesAndLengths } from "./getbestRouteOfSeriesRoutesAndLengths";
+import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 
 // export type AdaptiveTSPSearchOptions =;
@@ -24,27 +24,27 @@ export function EachIterationHandler(opts: {
     // lastrandomselectionprobability: number;
     // searchloopcountratio: number;
 
-    getbestroute: () => number[];
+    get_best_route: () => number[];
     /**信息素强度*/
-    pheromoneintensityQ: number;
+    pheromone_intensity_Q: number;
     /**局部信息素挥发系数 */
-    // pheromonevolatilitycoefficientR1: number;
+    // pheromone_volatility_coefficient_R1: number;
     /**全局信息素挥发系数 */
-    pheromonevolatilitycoefficientR2: number;
+    pheromone_volatility_coefficient_R2: number;
     // setbestroute: (route: number[]) => void;
     // setbestlength: (a: number) => void;
-    getbestlength: () => number;
-    nodecoordinates: Nodecoordinates;
+    get_best_length: () => number;
+    node_coordinates: NodeCoordinates;
     /**
      * 蚂蚁数量
      */
-    // numberofants: number;
-    // alphazero: number;
-    // betazero: number;
+    // number_of_ants: number;
+    // alpha_zero: number;
+    // beta_zero: number;
     // pathTabooList: PathTabooList;
     /**最大迭代次数 */
     // maxnumberofiterations: number;
-    pheromonestore: MatrixSymmetry;
+    pheromoneStore: MatrixSymmetry;
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     // numberofstagnantiterations: number;
 }): {
@@ -64,22 +64,22 @@ export function EachIterationHandler(opts: {
         // emit_finish_one_route,
         // searchloopcountratio,
         // lastrandomselectionprobability,
-        pheromoneintensityQ,
-        // pheromonevolatilitycoefficientR1,
-        pheromonevolatilitycoefficientR2,
+        pheromone_intensity_Q,
+        // pheromone_volatility_coefficient_R1,
+        pheromone_volatility_coefficient_R2,
         // setbestroute,
         // setbestlength,
         // pathTabooList,
-        pheromonestore,
-        nodecoordinates,
+        pheromoneStore,
+        node_coordinates,
         // maxnumberofiterations,
         // numberofstagnantiterations,
-        // numberofants,
-        getbestlength,
-        getbestroute,
+        // number_of_ants,
+        get_best_length,
+        get_best_route,
     } = opts;
-    // asserttrue(typeof numberofants === "number");
-    const countofnodes = nodecoordinates.length;
+    // asserttrue(typeof number_of_ants === "number");
+    const count_of_nodes = node_coordinates.length;
 
     const routes = routesandlengths.map(({ route }) => route);
 
@@ -108,18 +108,18 @@ export function EachIterationHandler(opts: {
     //对全局最优解进行k-opt优化
 
     // const result = construct_route_from_k_opt_of_global_best({
-    //     getbestroute,
+    //     get_best_route,
     //     max_results_of_k_opt,
-    //     nodecoordinates,
-    //     getbestlength,
+    //     node_coordinates,
+    //     get_best_length,
     //     pathTabooList,
     //     setbestlength,
     //     setbestroute,
     // });
     // const locally_optimized_length = result.totallength;
 
-    const globalbestroute = getbestroute();
-    const globalbestlength = getbestlength();
+    const globalbestroute = get_best_route();
+    const globalbestlength = get_best_length();
 
     const worstlengthandroute =
         getworstRouteOfSeriesRoutesAndLengths(routesandlengths);
@@ -131,7 +131,7 @@ export function EachIterationHandler(opts: {
     const iterateworstroute = worstlengthandroute.route;
 
     const iteratebestlengthandroute =
-        getbestRouteOfSeriesRoutesAndLengths(routesandlengths);
+        get_best_routeOfSeriesRoutesAndLengths(routesandlengths);
 
     const iteratebestlength = iteratebestlengthandroute.totallength;
     const iteratebestroute = iteratebestlengthandroute.route;
@@ -141,19 +141,19 @@ export function EachIterationHandler(opts: {
     // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     pheromone_update_rule_after_iteration({
-        // nodecoordinates,
+        // node_coordinates,
         iteratebestroute,
         globalbestroute,
-        countofnodes,
+        count_of_nodes,
         // globalbestroutesegments,
         globalbestlength,
         // iteratebestroutesegments,
         iteratebestlength,
         iterateworstlength,
         iterateworstroute,
-        pheromoneintensityQ,
-        pheromonestore,
-        pheromonevolatilitycoefficientR2,
+        pheromone_intensity_Q,
+        pheromoneStore,
+        pheromone_volatility_coefficient_R2,
     });
     let ispheromoneDiffusion = false;
     if (Math.random() < pheromoneDiffusionProbability) {
@@ -162,8 +162,8 @@ export function EachIterationHandler(opts: {
         //信息素扩散
         performPheromoneDiffusionOperations({
             globalbestroute,
-            pheromonestore,
-            nodecoordinates,
+            pheromoneStore,
+            node_coordinates,
         });
     }
 
@@ -171,7 +171,7 @@ export function EachIterationHandler(opts: {
     // const relative_deviation_from_optimal: number =
     //     calc_relative_deviation_from_optimal(
     //         routesandlengths.map(({ totallength }) => totallength),
-    //         getbestlength()
+    //         get_best_length()
     //     );
     return {
         // locally_optimized_length,

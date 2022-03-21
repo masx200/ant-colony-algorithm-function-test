@@ -8,11 +8,11 @@ import { pathTabooListSymbol } from "./pathTabooListSymbol";
 /**
  * 路径禁忌列表  */
 export function createpathTabooListold<N extends number = number>(
-    countofnodes: N
+    count_of_nodes: N
     //路径最多节点数,用于判断是否是环路
 ): PathTabooList<N> {
-    if (countofnodes < 2) {
-        throw new Error("incorrect countofnodes");
+    if (count_of_nodes < 2) {
+        throw new Error("incorrect count_of_nodes");
     }
     const store = new Map<number, Set<number[]>>();
     const keys = () => {
@@ -26,7 +26,7 @@ export function createpathTabooListold<N extends number = number>(
             return false;
         }
         for (let value of set) {
-            if (is_route_equals<N>(value, route, countofnodes)) {
+            if (is_route_equals<N>(value, route, count_of_nodes)) {
                 return true;
             }
         }
@@ -34,8 +34,8 @@ export function createpathTabooListold<N extends number = number>(
     };
     const add = (route: number[]) => {
         //当添加一条路径长度为(总节点数-1)的路径到禁忌路径列表时，应该自动补全成完整路径添加到禁忌列表中
-        if (route.length === countofnodes - 1) {
-            const restitem = Array(countofnodes)
+        if (route.length === count_of_nodes - 1) {
+            const restitem = Array(count_of_nodes)
                 .fill(0)
                 .map((_v, i) => i)
                 .filter((v) => !route.includes(v))[0];
@@ -45,7 +45,7 @@ export function createpathTabooListold<N extends number = number>(
         // debugger;
         if (
             route.length <= 1 ||
-            route.length > countofnodes ||
+            route.length > count_of_nodes ||
             route.some((v) => typeof v !== "number")
         ) {
             throw new Error("incorrect route:" + JSON.stringify(route));
@@ -66,7 +66,7 @@ export function createpathTabooListold<N extends number = number>(
             }
 
             for (let value of set) {
-                if (is_route_equals<N>(value, route, countofnodes)) {
+                if (is_route_equals<N>(value, route, count_of_nodes)) {
                     set.delete(value);
                     return true;
                 }
@@ -82,16 +82,16 @@ export function createpathTabooListold<N extends number = number>(
             const sizeofsets = sum([...store.values()].map((s) => s.size));
             return sizeofsets;
         },
-        countofnodes,
+        count_of_nodes,
         [Symbol.toStringTag]: "pathTabooList",
     };
 }
 
 export function createpathTabooList<N extends number = number>(
-    countofnodes: N
+    count_of_nodes: N
     //路径最多节点数,用于判断是否是环路
 ): PathTabooList<N> {
-    const oldptl = createpathTabooListold(countofnodes);
+    const oldptl = createpathTabooListold(count_of_nodes);
 
     const cacheset = new Set<string>();
     //缓存性能优化
@@ -123,7 +123,7 @@ export function createpathTabooList<N extends number = number>(
 
             assertIsArray(value);
 
-            if (is_route_equals(value, route, countofnodes)) {
+            if (is_route_equals(value, route, count_of_nodes)) {
                 cacheset.delete(s);
             }
         });

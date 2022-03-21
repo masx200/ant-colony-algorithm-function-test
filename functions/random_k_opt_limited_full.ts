@@ -3,21 +3,21 @@ import { random } from "lodash";
 import { asserttrue } from "../test/asserttrue";
 
 export function random_k_opt_limited_full({
-    // countofnodes,
+    // count_of_nodes,
     oldRoute,
     max_results_of_k_opt,
 }: {
-    // countofnodes: number;
+    // count_of_nodes: number;
     oldRoute: number[];
     max_results_of_k_opt: number;
 }): number[][] {
     asserttrue(oldRoute.length >= 4);
-    const countofnodes = oldRoute.length;
+    const count_of_nodes = oldRoute.length;
     const routes_of_max: number[][] = [];
 
     while (routes_of_max.length < max_results_of_k_opt) {
         //如果没达到max_results_of_k_opt,则继续生成路径
-        const k = Math.round(random(2, Math.floor(countofnodes / 2), false));
+        const k = Math.round(random(2, Math.floor(count_of_nodes / 2), false));
         const routes_of_k_opt = generate_k_opt_cycle_routes_limited({
             oldRoute,
             k,

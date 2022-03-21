@@ -1,12 +1,12 @@
 import { defineComponent, onMounted, ref, watch } from "vue";
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "../test/asserttrue";
 import Datatable from "./Datatable-com.vue";
 import {
-    defaultnumberofants,
+    defaultnumber_of_ants,
     defaultsearchrounds,
     default_local_pheromone_volatilization_rate,
-} from "./defaultnumberofants";
+} from "./defaultnumber_of_ants";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
@@ -81,7 +81,7 @@ export default defineComponent({
         );
         const disablemapswitching = ref(false);
         const searchrounds = ref(defaultsearchrounds);
-        const numberofeachround = ref(defaultnumberofants);
+        const numberofeachround = ref(defaultnumber_of_ants);
         const selecteleref = ref<HTMLSelectElement>();
         const { container: container_of_best_chart, chart: chart_store_best } =
             use_escharts_container_pair();
@@ -134,13 +134,13 @@ export default defineComponent({
         });
         const onLatestRouteChange = (
             route: number[],
-            nodecoordinates: Nodecoordinates
+            node_coordinates: NodeCoordinates
         ) => {
             const latestchart = chart_store_latest.value;
             if (latestchart) {
                 draw_latest_route_debounced(
                     route,
-                    nodecoordinates,
+                    node_coordinates,
                     latestchart
                 );
             }
@@ -148,13 +148,13 @@ export default defineComponent({
 
         const onGlobalBestRouteChange = (
             route: number[],
-            nodecoordinates: Nodecoordinates
+            node_coordinates: NodeCoordinates
         ) => {
             asserttrue(route.length > 0);
-            asserttrue(route.length === nodecoordinates.length);
+            asserttrue(route.length === node_coordinates.length);
             const chart = chart_store_best.value;
             if (chart) {
-                draw_best_route_debounced(route, nodecoordinates, chart);
+                draw_best_route_debounced(route, node_coordinates, chart);
             }
         };
         onMounted(() => {

@@ -1,6 +1,6 @@
-import { Nodecoordinates } from "../functions/Nodecoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 
-export const nodecoordinates21: Nodecoordinates = [
+export const node_coordinates21: NodeCoordinates = [
     [0, 0],
     [1, 4],
     [5, 5],

@@ -5,43 +5,43 @@ import { generate_paths_using_state_transition_probabilities } from "./generate-
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 import { greedy_first_search_route } from "./greedy_first_search_route";
 // import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
-import { Nodecoordinates } from "./Nodecoordinates";
+import { NodeCoordinates } from "./NodeCoordinates";
 // import { WayOfConstruct } from "./WayOfConstruct";
 
 /* 只是生成一条路径 */
 export function construct_one_route_all({
     current_search_count,
     // pathTabooList,
-    nodecoordinates,
-    countofnodes,
+    node_coordinates,
+    count_of_nodes,
     // setbestlength,
     // setbestroute,
-    pheromonestore,
-    // getbestroute,
+    pheromoneStore,
+    // get_best_route,
     // max_results_of_k_opt,
-    // getbestlength,
+    // get_best_length,
     // searchloopcountratio,
-    // pheromoneintensityQ,
-    // pheromonevolatilitycoefficientR1,
-    alphazero,
-    betazero,
+    // pheromone_intensity_Q,
+    // pheromone_volatility_coefficient_R1,
+    alpha_zero,
+    beta_zero,
     lastrandomselectionprobability,
 }: {
     current_search_count: number;
     // pathTabooList: PathTabooList<number>;
-    nodecoordinates: Nodecoordinates;
-    countofnodes: number;
+    node_coordinates: NodeCoordinates;
+    count_of_nodes: number;
     // setbestlength: (bestlength: number) => void;
     // setbestroute: (route: number[]) => void;
-    pheromonestore: MatrixSymmetry<number>;
-    // getbestroute: () => number[];
+    pheromoneStore: MatrixSymmetry<number>;
+    // get_best_route: () => number[];
     // max_results_of_k_opt: number;
-    // getbestlength: () => number;
+    // get_best_length: () => number;
     // searchloopcountratio: number;
-    // pheromoneintensityQ: number;
-    // pheromonevolatilitycoefficientR1: number;
-    alphazero: number;
-    betazero: number;
+    // pheromone_intensity_Q: number;
+    // pheromone_volatility_coefficient_R1: number;
+    alpha_zero: number;
+    beta_zero: number;
     lastrandomselectionprobability: number;
 }): {
     route: number[];
@@ -53,31 +53,31 @@ export function construct_one_route_all({
     if (current_search_count === 0) {
         const result = greedy_first_search_route({
             // pathTabooList,
-            nodecoordinates,
-            countofnodes,
+            node_coordinates,
+            count_of_nodes,
             // setbestlength,
             // setbestroute,
             // emit_finish_one_route,
-            pheromonestore,
+            pheromoneStore,
         });
         return { ...result /* , way_of_construct: "贪心算法" */ };
         // route = result.route;
         // totallength = result.totallength;
     } /*  if (
         !intersection_filter_with_cycle_route({
-            nodecoordinates,
-            cycleroute: getbestroute(),
+            node_coordinates,
+            cycleroute: get_best_route(),
         })
     ) {
         return 禁忌搜索();
         //最优解无交叉点
     } else */ else {
         const result = generate_paths_using_state_transition_probabilities({
-            pheromonestore,
-            alphazero,
-            betazero,
+            pheromoneStore,
+            alpha_zero,
+            beta_zero,
             randomselectionprobability: lastrandomselectionprobability,
-            nodecoordinates,
+            node_coordinates,
         });
         //最优解有交叉点
         return result; /* 局部优化(); */
@@ -93,19 +93,19 @@ export function construct_one_route_all({
     //             // max_results_of_k_opt,
     //             // emit_finish_one_route,
     //             searchloopcountratio,
-    //             pheromoneintensityQ,
-    //             pheromonevolatilitycoefficientR1,
-    //             nodecoordinates,
-    //             alphazero,
+    //             pheromone_intensity_Q,
+    //             pheromone_volatility_coefficient_R1,
+    //             node_coordinates,
+    //             alpha_zero,
 
-    //             betazero,
+    //             beta_zero,
     //             randomselectionprobability: lastrandomselectionprobability,
-    //             getbestlength,
+    //             get_best_length,
     //             pathTabooList,
-    //             pheromonestore,
+    //             pheromoneStore,
     //             setbestlength,
     //             setbestroute,
-    //             getbestroute,
+    //             get_best_route,
     //         }
     //     );
     //     // route = result.route;
@@ -119,10 +119,10 @@ export function construct_one_route_all({
     //     totallength: number;
     // } {
     //     const result = construct_route_from_k_opt_of_global_best({
-    //         getbestroute,
+    //         get_best_route,
     //         max_results_of_k_opt,
-    //         nodecoordinates,
-    //         getbestlength,
+    //         node_coordinates,
+    //         get_best_length,
     //         pathTabooList,
     //         setbestlength,
     //         setbestroute,
