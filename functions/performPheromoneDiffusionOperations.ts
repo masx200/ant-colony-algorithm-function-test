@@ -125,9 +125,9 @@ export function performPheromoneDiffusionOperations({
                             pointF,
                             centerofcircleE
                         );
-                        const distanceofCDxdistanceofEF =
+                        const CDxEF =
                             distanceofCD * distanceofEF;
-                        return { cityC, cityD, distanceofCDxdistanceofEF };
+                        return { cityC, cityD, CDxEF };
                     }
                 );
 
@@ -135,15 +135,15 @@ export function performPheromoneDiffusionOperations({
                     3 /
                     Math.max(
                         ...citiesandd1xd2.map(
-                            ({ distanceofCDxdistanceofEF }) =>
-                                distanceofCDxdistanceofEF
+                            ({ CDxEF }) =>
+                                CDxEF
                         )
                     );
                 const citiesandweights = citiesandd1xd2.map(
-                    ({ cityC, cityD, distanceofCDxdistanceofEF }) => {
+                    ({ cityC, cityD, CDxEF }) => {
                         const weight = Math.exp(
                             -Math.pow(
-                                coefficientK * distanceofCDxdistanceofEF,
+                                coefficientK * CDxEF,
                                 2
                             )
                         );
