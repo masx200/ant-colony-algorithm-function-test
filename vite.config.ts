@@ -2,7 +2,7 @@ import { babel } from "@rollup/plugin-babel";
 import vuePlugin from "@vitejs/plugin-vue";
 import path from "path";
 import ElementPlus from "unplugin-element-plus/vite";
-import { defineConfig } from "vite";
+import { defineConfig, UserConfigExport } from "vite";
 import vpchecker from "vite-plugin-checker";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { VitePWA } from "vite-plugin-pwa";
@@ -12,8 +12,7 @@ const checker = vpchecker.default;
 export default defineConfig(({ mode, command }) => {
     console.log(mode, command);
     const isdrop = mode === "production" && command === "build";
-    return {
-        cssCodeSplit: false,
+    const config: UserConfigExport = {
         esbuild: {
             legalComments: "none",
             drop: isdrop ? ["console", "debugger"] : undefined,
@@ -54,6 +53,7 @@ export default defineConfig(({ mode, command }) => {
             // getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
         ],
         build: {
+            cssCodeSplit: false,
             minify: "esbuild",
             emptyOutDir: true,
             outDir: path.resolve(__dirname, "dist"),
@@ -62,5 +62,5 @@ export default defineConfig(({ mode, command }) => {
             //     compress: { drop_console: true, drop_debugger: true },
             // },
         },
-    };
+    };return config
 });
