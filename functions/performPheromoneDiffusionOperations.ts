@@ -20,11 +20,21 @@ import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdi
 import { NodeCoordinates } from "./NodeCoordinates";
 /**执行信息素扩散操作 */
 export function performPheromoneDiffusionOperations({
+
+min_coefficient_of_pheromone_diffusion,
+
+max_coefficient_of_pheromone_diffusion,
+
     globalbestroute,
     // globalbestroutesegments,
     pheromoneStore,
     node_coordinates,
 }: {
+
+
+min_coefficient_of_pheromone_diffusion:number
+max_coefficient_of_pheromone_diffusion:number
+
     // globalbestroutesegments: [number, number][];
     globalbestroute: number[];
     pheromoneStore: MatrixSymmetry<number>;
@@ -38,11 +48,15 @@ export function performPheromoneDiffusionOperations({
             globalbestroutesegments,
         })
     );
-    function pheromoneDiffusionCallback({
+    function pheromoneDiffusionCallback({max_coefficient_of_pheromone_diffusion,
+min_coefficient_of_pheromone_diffusion,
         pheromoneStore,
         node_coordinates,
         globalbestroutesegments,
     }: {
+min_coefficient_of_pheromone_diffusion:number
+max_coefficient_of_pheromone_diffusion:number
+
         pheromoneStore: MatrixSymmetry<number>;
         node_coordinates: NodeCoordinates;
         globalbestroutesegments: [number, number][];
@@ -76,13 +90,15 @@ export function performPheromoneDiffusionOperations({
                 }))
                 .filter(({ distance }) => distance < theradiusofthecircle)
                 .sort((a, b) => /*从小到大排序*/ a.distance - b.distance)
-                .slice(0, 50)
+                .slice(0, max_coefficient_of_pheromone_diffusion)
                 .map((a) => a.city);
 
             /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
             const selectedcitiesinsidecircle = copyArrayAndShuffle(
                 nodesinsidecircle
-            ).slice(0, 25); /*
+            ).slice(0, min_coefficient_of_pheromone_diffusion);
+
+ /*
         ); */
             asserttrue(Array.isArray(selectedcitiesinsidecircle));
             asserttrue(!haverepetitions(selectedcitiesinsidecircle));
