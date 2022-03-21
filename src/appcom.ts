@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref, watch } from "vue";
 import { Nodecoordinates } from "../functions/Nodecoordinates";
 import { asserttrue } from "../test/asserttrue";
-import Datatable from "./datatable.vue";
+import Datatable from "./Datatable.vue";
 import {
     defaultnumberofants,
     defaultsearchrounds,
@@ -12,7 +12,7 @@ import { draw_iteration_rounds_and_information_entropy_chart_debounced } from ".
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
 import { draw_path_number_and_current_path_length_chart_debounced } from "./draw_path_number_and_current_path_length_chart_debounced";
 import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
-import Progresselement from "./progress.vue";
+import Progresselement from "./Progresselement.vue";
 import { StopTSPWorker } from "./StopTSPWorker";
 // import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";

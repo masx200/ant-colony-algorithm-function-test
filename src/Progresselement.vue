@@ -1,6 +1,6 @@
 <template>
     <div class="fixed-top-navbar">
-        <el-progress :percentage="percentage" />
+        <el-progress :percentage="percentage" textInside :strokeWidth="20" />
     </div>
 </template>
 <script lang="ts">
