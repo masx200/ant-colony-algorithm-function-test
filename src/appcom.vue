@@ -14,22 +14,21 @@
     </select>
     <br />
     <button v-text="'重置'" @click="reset" />
-    <br /><button
-        v-text="'停止'"
-        @click="stop_handler"
-        :disabled="disable_stop"
-    />
+    <button v-text="'停止'" @click="stop_handler" :disabled="disable_stop" />
     <hr />
     <span>局部信息素挥发率</span>
     <input
         v-model.number="local_pheromone_volatilization_rate"
         :disabled="disablemapswitching"
-    />
+    /><br />
     <span>蚂蚁数量</span>
-    <input v-model.number="numberofeachround" :disabled="disablemapswitching" />
+    <input
+        v-model.number="numberofeachround"
+        :disabled="disablemapswitching"
+    /><br />
     <span>迭代轮次</span>
     <input v-model.number="searchrounds" />
-
+    <br />
     <button v-text="'运行'" @click="runtsp" :disabled="is_running" />
     <hr />
 
