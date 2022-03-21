@@ -312,6 +312,10 @@ default_local_pheromone_volatilization_rate
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = EachIterationHandler({
+min_coefficient_of_pheromone_diffusion,
+
+max_coefficient_of_pheromone_diffusion,
+
                 // pathTabooList,
                 // max_results_of_k_opt,
                 routesandlengths,
