@@ -8,7 +8,7 @@ import {
     defaultnumber_of_ants,
     default_alpha,
     default_beta,
-    default_global_pheromone_volatilization_rate,
+   // default_global_pheromone_volatilization_rate,
     default_local_pheromone_volatilization_rate,
     default_max_results_of_k_opt,
     default_pheromone_intensity_Q,
@@ -86,16 +86,19 @@ export function createTSPrunner({
 
     const pheromone_volatility_coefficient_R1 =
         rest?.pheromone_volatility_coefficient_R1 ??
-        1 -
+default_local_pheromone_volatilization_rate
+      /*  1 -
             Math.pow(
                 1 -
                     (rest?.pheromone_volatility_coefficient_R2 ??
                         default_global_pheromone_volatilization_rate),
                 1 / number_of_ants
             );
+*/
 
+//由局部信息素挥发率决定全局信息素挥发率
     const pheromone_volatility_coefficient_R2 =
-        rest?.pheromone_volatility_coefficient_R2 ??
+      //  rest?.pheromone_volatility_coefficient_R2 ??
         1 -
             Math.pow(
                 1 -
