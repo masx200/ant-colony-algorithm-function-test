@@ -1,4 +1,3 @@
-
 import { appcontainer } from "./appcontainer";
 import { app } from "./main";
 app.config.errorHandler = (e) => {

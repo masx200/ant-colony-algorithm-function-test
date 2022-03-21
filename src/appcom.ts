@@ -218,6 +218,7 @@ export default defineComponent({
             percentage.value = 0;
             resetold();
             disable_stop.value = false;
+            location.reload();
         };
         const disable_stop = ref(false);
         const stop_handler = () => {

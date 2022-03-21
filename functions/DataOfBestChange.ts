@@ -5,5 +5,5 @@ export interface DataOfBestChange {
     total_time_ms: number;
     current_search_count: number;
     current_iterations: number;
-    search_count_of_best:number;
+    search_count_of_best: number;
 }

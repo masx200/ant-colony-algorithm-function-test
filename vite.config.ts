@@ -45,7 +45,13 @@ export default defineConfig(({ mode, command }) => {
                     // "@babel/plugin-syntax-typescript",
                 ].filter(Boolean),
             }),
-            createHtmlPlugin({ minify: { removeAttributeQuotes: false } }),
+            createHtmlPlugin({
+                minify: {
+                    collapseWhitespace: true,
+                    removeComments: true,
+                    removeAttributeQuotes: false,
+                },
+            }),
             VitePWA({
                 registerType: "autoUpdate",
                 workbox: { globPatterns: ["*/*"] },
@@ -62,5 +68,6 @@ export default defineConfig(({ mode, command }) => {
             //     compress: { drop_console: true, drop_debugger: true },
             // },
         },
-    };return config
+    };
+    return config;
 });
