@@ -13,7 +13,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .fixed-top-navbar {
-    height: 50px;
+    height: 30px;
     position: fixed;
     width: 100%;
     top: 0%;
