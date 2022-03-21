@@ -61,6 +61,10 @@ max_coefficient_of_pheromone_diffusion:number
 } {
     // console.log(opts);
     const {
+min_coefficient_of_pheromone_diffusion,
+
+max_coefficient_of_pheromone_diffusion,
+
         // max_results_of_k_opt,
         routesandlengths,
         // emit_finish_one_route,
