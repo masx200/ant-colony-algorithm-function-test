@@ -1,8 +1,8 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 export type TSPRunnerOptions = {
-min_coefficient_of_pheromone_diffusion:number
-max_coefficient_of_pheromone_diffusion:number
+min_coefficient_of_pheromone_diffusion?:number
+max_coefficient_of_pheromone_diffusion?:number
 
     max_results_of_k_opt?: number | undefined;
     pheromone_volatility_coefficient_R1?: number | undefined;
