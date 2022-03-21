@@ -43,6 +43,10 @@ max_coefficient_of_pheromone_diffusion:number
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     globalbestroutesegments.forEach(
         pheromoneDiffusionCallback({
+min_coefficient_of_pheromone_diffusion,
+
+max_coefficient_of_pheromone_diffusion,
+
             pheromoneStore,
             node_coordinates,
             globalbestroutesegments,
