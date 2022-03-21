@@ -12,5 +12,5 @@ body {
     height: 100%;
 }
 .Translucent-background {
-    background-color: hsla(0,0%,100%,.5);
+    background-color: hsla(0, 0%, 100%, 0.5);
 }
