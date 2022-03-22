@@ -5,14 +5,12 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
-default_min_coefficient_of_pheromone_diffusion,
-
-default_max_coefficient_of_pheromone_diffusion,
-
+    default_min_coefficient_of_pheromone_diffusion,
+    default_max_coefficient_of_pheromone_diffusion,
     defaultnumber_of_ants,
     default_alpha,
     default_beta,
-   // default_global_pheromone_volatilization_rate,
+    // default_global_pheromone_volatilization_rate,
     default_local_pheromone_volatilization_rate,
     default_max_results_of_k_opt,
     default_pheromone_intensity_Q,
@@ -36,8 +34,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 // import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
-min_coefficient_of_pheromone_diffusion:number
-max_coefficient_of_pheromone_diffusion:number
+    min_coefficient_of_pheromone_diffusion: number;
+    max_coefficient_of_pheromone_diffusion: number;
 
     count_of_nodes: number;
     get_random_selection_probability(): number;
@@ -78,9 +76,9 @@ max_coefficient_of_pheromone_diffusion:number
 }
 
 export function createTSPrunner({
-min_coefficient_of_pheromone_diffusion=default_min_coefficient_of_pheromone_diffusion,
+    min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
 
-max_coefficient_of_pheromone_diffusion=default_max_coefficient_of_pheromone_diffusion,
+    max_coefficient_of_pheromone_diffusion = default_max_coefficient_of_pheromone_diffusion,
 
     max_results_of_k_opt = default_max_results_of_k_opt,
     pheromone_intensity_Q = default_pheromone_intensity_Q,
@@ -97,8 +95,8 @@ max_coefficient_of_pheromone_diffusion=default_max_coefficient_of_pheromone_diff
 
     const pheromone_volatility_coefficient_R1 =
         rest?.pheromone_volatility_coefficient_R1 ??
-default_local_pheromone_volatilization_rate
-      /*  1 -
+        default_local_pheromone_volatilization_rate;
+    /*  1 -
             Math.pow(
                 1 -
                     (rest?.pheromone_volatility_coefficient_R2 ??
@@ -107,16 +105,16 @@ default_local_pheromone_volatilization_rate
             );
 */
 
-//由局部信息素挥发率决定全局信息素挥发率
+    //由局部信息素挥发率决定全局信息素挥发率
     const pheromone_volatility_coefficient_R2 =
-      //  rest?.pheromone_volatility_coefficient_R2 ??
+        //  rest?.pheromone_volatility_coefficient_R2 ??
         1 -
-            Math.pow(
-                1 -
-                    (rest?.pheromone_volatility_coefficient_R1 ??
-                        default_local_pheromone_volatilization_rate),
-                number_of_ants
-            );
+        Math.pow(
+            1 -
+                (rest?.pheromone_volatility_coefficient_R1 ??
+                    default_local_pheromone_volatilization_rate),
+            number_of_ants
+        );
 
     /*  const pheromone_volatility_coefficient_R1 =
         1 - Math.pow(1 - pheromone_volatility_coefficient_R2, 1 / number_of_ants);
@@ -312,9 +310,9 @@ default_local_pheromone_volatilization_rate
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = EachIterationHandler({
-min_coefficient_of_pheromone_diffusion,
+                min_coefficient_of_pheromone_diffusion,
 
-max_coefficient_of_pheromone_diffusion,
+                max_coefficient_of_pheromone_diffusion,
 
                 // pathTabooList,
                 // max_results_of_k_opt,
@@ -388,9 +386,9 @@ max_coefficient_of_pheromone_diffusion,
         }
     };
     const result: TSPRunner = {
-min_coefficient_of_pheromone_diffusion,
+        min_coefficient_of_pheromone_diffusion,
 
-max_coefficient_of_pheromone_diffusion,
+        max_coefficient_of_pheromone_diffusion,
 
         get_search_count_of_best() {
             return search_count_of_best;

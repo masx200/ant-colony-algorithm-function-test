@@ -20,20 +20,17 @@ import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdi
 import { NodeCoordinates } from "./NodeCoordinates";
 /**执行信息素扩散操作 */
 export function performPheromoneDiffusionOperations({
+    min_coefficient_of_pheromone_diffusion,
 
-min_coefficient_of_pheromone_diffusion,
-
-max_coefficient_of_pheromone_diffusion,
+    max_coefficient_of_pheromone_diffusion,
 
     globalbestroute,
     // globalbestroutesegments,
     pheromoneStore,
     node_coordinates,
 }: {
-
-
-min_coefficient_of_pheromone_diffusion:number
-max_coefficient_of_pheromone_diffusion:number
+    min_coefficient_of_pheromone_diffusion: number;
+    max_coefficient_of_pheromone_diffusion: number;
 
     // globalbestroutesegments: [number, number][];
     globalbestroute: number[];
@@ -43,23 +40,24 @@ max_coefficient_of_pheromone_diffusion:number
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     globalbestroutesegments.forEach(
         pheromoneDiffusionCallback({
-min_coefficient_of_pheromone_diffusion,
+            min_coefficient_of_pheromone_diffusion,
 
-max_coefficient_of_pheromone_diffusion,
+            max_coefficient_of_pheromone_diffusion,
 
             pheromoneStore,
             node_coordinates,
             globalbestroutesegments,
         })
     );
-    function pheromoneDiffusionCallback({max_coefficient_of_pheromone_diffusion,
-min_coefficient_of_pheromone_diffusion,
+    function pheromoneDiffusionCallback({
+        max_coefficient_of_pheromone_diffusion,
+        min_coefficient_of_pheromone_diffusion,
         pheromoneStore,
         node_coordinates,
         globalbestroutesegments,
     }: {
-min_coefficient_of_pheromone_diffusion:number
-max_coefficient_of_pheromone_diffusion:number
+        min_coefficient_of_pheromone_diffusion: number;
+        max_coefficient_of_pheromone_diffusion: number;
 
         pheromoneStore: MatrixSymmetry<number>;
         node_coordinates: NodeCoordinates;
@@ -102,7 +100,7 @@ max_coefficient_of_pheromone_diffusion:number
                 nodesinsidecircle
             ).slice(0, min_coefficient_of_pheromone_diffusion);
 
- /*
+            /*
         ); */
             asserttrue(Array.isArray(selectedcitiesinsidecircle));
             asserttrue(!haverepetitions(selectedcitiesinsidecircle));
@@ -145,27 +143,17 @@ max_coefficient_of_pheromone_diffusion:number
                             pointF,
                             centerofcircleE
                         );
-                        const CDxEF =
-                            distanceofCD * distanceofEF;
+                        const CDxEF = distanceofCD * distanceofEF;
                         return { cityC, cityD, CDxEF };
                     }
                 );
 
                 const coefficientK =
-                    3 /
-                    Math.max(
-                        ...citiesandd1xd2.map(
-                            ({ CDxEF }) =>
-                                CDxEF
-                        )
-                    );
+                    3 / Math.max(...citiesandd1xd2.map(({ CDxEF }) => CDxEF));
                 const citiesandweights = citiesandd1xd2.map(
                     ({ cityC, cityD, CDxEF }) => {
                         const weight = Math.exp(
-                            -Math.pow(
-                                coefficientK * CDxEF,
-                                2
-                            )
+                            -Math.pow(coefficientK * CDxEF, 2)
                         );
 
                         return { cityC, cityD, weight };

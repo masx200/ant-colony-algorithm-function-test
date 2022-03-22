@@ -23,8 +23,8 @@ export function EachIterationHandler(opts: {
     // emit_finish_one_route: Emit_Finish_One_Route;
     // lastrandomselectionprobability: number;
     // searchloopcountratio: number;
-min_coefficient_of_pheromone_diffusion:number
-max_coefficient_of_pheromone_diffusion:number
+    min_coefficient_of_pheromone_diffusion: number;
+    max_coefficient_of_pheromone_diffusion: number;
 
     get_best_route: () => number[];
     /**信息素强度*/
@@ -61,9 +61,9 @@ max_coefficient_of_pheromone_diffusion:number
 } {
     // console.log(opts);
     const {
-min_coefficient_of_pheromone_diffusion,
+        min_coefficient_of_pheromone_diffusion,
 
-max_coefficient_of_pheromone_diffusion,
+        max_coefficient_of_pheromone_diffusion,
 
         // max_results_of_k_opt,
         routesandlengths,
@@ -166,9 +166,10 @@ max_coefficient_of_pheromone_diffusion,
         console.log("执行信息素扩散操作");
         ispheromoneDiffusion = true;
         //信息素扩散
-        performPheromoneDiffusionOperations({min_coefficient_of_pheromone_diffusion,
+        performPheromoneDiffusionOperations({
+            min_coefficient_of_pheromone_diffusion,
 
-max_coefficient_of_pheromone_diffusion,
+            max_coefficient_of_pheromone_diffusion,
 
             globalbestroute,
             pheromoneStore,
