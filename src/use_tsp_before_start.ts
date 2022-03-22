@@ -22,7 +22,27 @@ export function use_tsp_before_start(
             node_coordinates: NodeCoordinates
         ) => void;
     }) => Promise<TSP_Worker_Remote>
-) {
+): ({
+    onGlobalBestRouteChange,
+    onLatestRouteChange,
+    node_coordinates,
+    number_of_ants,
+    pheromone_volatility_coefficient_R1,
+}: {
+    // onFinishIteration: () => void;
+    pheromone_volatility_coefficient_R1: number;
+    onGlobalBestRouteChange: (
+        globalbestroute: number[],
+        node_coordinates: NodeCoordinates
+    ) => void;
+    onLatestRouteChange: (
+        latestroute: number[],
+        node_coordinates: NodeCoordinates
+    ) => void;
+    // roundofsearch: number;
+    number_of_ants: number;
+    node_coordinates: NodeCoordinates;
+}) => Promise<TSP_Worker_Remote> {
     return async function TSP_before_Start({
         // onFinishIteration,
         onGlobalBestRouteChange,

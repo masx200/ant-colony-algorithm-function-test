@@ -12,8 +12,9 @@ import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 export async function create_TSP_Worker_comlink(
     options: TSPRunnerOptions
 ): Promise<TSP_Worker_Remote> {
-    const endpoint = new TSPWorker();
-    TSP_workerRef.value = endpoint;
+    // new TSPWorker();
+    TSP_workerRef.value ||= new TSPWorker();
+    const endpoint = TSP_workerRef.value;
     const runner = comlink.wrap<TSP_Worker_API>(endpoint);
     await runner.init_runner(options);
     const on_finish_one_iteration = async (

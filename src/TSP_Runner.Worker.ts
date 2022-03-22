@@ -8,7 +8,10 @@ import { TSPRunnerOptions } from "./TSPRunnerOptions";
 import { TSP_Worker_API } from "./TSP_Worker_API";
 let runner: TSPRunner | undefined = undefined;
 function init_runner(options: TSPRunnerOptions) {
-    runner ||= createTSPrunner(options);
+    if (runner) {
+        throw new Error("cannot init runner twice");
+    }
+    runner = createTSPrunner(options);
 }
 function runOneRoute() {
     if (!runner) {

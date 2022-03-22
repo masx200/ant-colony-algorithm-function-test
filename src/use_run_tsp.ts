@@ -60,7 +60,7 @@ export function use_run_tsp({
     ) => void;
     finish_one_route_listener: () => void;
     finish_one_iteration_listener: () => void;
-}) {
+}): () => Promise<void> {
     return async () => {
         // console.log("搜索轮次", searchrounds.value);
         // console.log("蚂蚁数量", numberofeachround.value);

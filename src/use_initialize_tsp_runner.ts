@@ -13,7 +13,26 @@ export function use_initialize_tsp_runner({
     onreceiveDataOfGlobalBest: (data: DataOfSummarize) => void;
     onreceivedataofoneroute: (data: DataOfFinishOneRoute) => void;
     onreceivedataofoneIteration: (data: DataOfFinishOneIteration) => void;
-}) {
+}): ({
+    node_coordinates,
+    number_of_ants,
+    onGlobalBestRouteChange,
+    onLatestRouteChange,
+    pheromone_volatility_coefficient_R1,
+}: {
+    // onFinishIteration: () => void;
+    pheromone_volatility_coefficient_R1: number;
+    node_coordinates: NodeCoordinates;
+    number_of_ants: number;
+    onGlobalBestRouteChange: (
+        globalbestroute: number[],
+        node_coordinates: NodeCoordinates
+    ) => void;
+    onLatestRouteChange: (
+        latestroute: number[],
+        node_coordinates: NodeCoordinates
+    ) => void;
+}) => Promise<TSP_Worker_Remote> {
     return async function initializeTSP_runner({
         // onFinishIteration,
         node_coordinates,
