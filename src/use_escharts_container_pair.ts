@@ -14,7 +14,7 @@ export function use_escharts_container_pair(): {
         // setTimeout(() => {
         if (containerofbest) {
             const bestchart = createchartofcontainer(containerofbest);
-            console.log(bestchart);
+            // console.log(bestchart);
             chart.value = bestchart;
         }
     });

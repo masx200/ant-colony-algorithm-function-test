@@ -10,7 +10,7 @@ export function TSP_Reset({
     clearDataOfResult: () => void;
 }) {
     // return function TSP_terminate() {
-    console.log("TSP_terminate");
+    // console.log("TSP_terminate");
     // TSP_workerRef.value?.terminate();
     // TSP_workerRef.value = undefined;
     clearDataOfOneRoute();

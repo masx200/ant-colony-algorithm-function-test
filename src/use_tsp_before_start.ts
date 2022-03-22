@@ -46,7 +46,7 @@ export function use_tsp_before_start(
         number_of_ants: number;
         node_coordinates: NodeCoordinates;
     }): Promise<TSP_Worker_Remote> {
-        console.log("TSP_before_Start", node_coordinates);
+        // console.log("TSP_before_Start", node_coordinates);
         TSP_RunnerRef.value ||= await initializeTSP_runner({
             // onFinishIteration,
             pheromone_volatility_coefficient_R1,

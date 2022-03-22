@@ -26,8 +26,8 @@ export async function tsp_runner_run_async({
         rest_count -= run_count;
         let duration = Number(new Date()) - last_time;
 
-        console.log("tsp_runner_run_async,次数", run_count);
-        console.log("tsp_runner_run_async,用时", duration);
+        // console.log("tsp_runner_run_async,次数", run_count);
+        // console.log("tsp_runner_run_async,用时", duration);
         if (duration > interval) {
             run_count = Math.round(Math.max(run_count / 2, min_count));
 

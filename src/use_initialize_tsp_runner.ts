@@ -40,7 +40,7 @@ export function use_initialize_tsp_runner({
             node_coordinates,
             number_of_ants,
         });
-        console.log(runner);
+        // console.log(runner);
         await runner.on_best_change((data) => {
             onreceiveDataOfGlobalBest(data);
             onGlobalBestRouteChange(data.globalbestroute, node_coordinates);

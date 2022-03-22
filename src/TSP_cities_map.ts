@@ -6,7 +6,7 @@ import { node_coordinates12 } from "../test/node_coordinates12";
 // import { node_coordinates16 } from "../test/node_coordinates16";
 import { node_coordinates21 } from "../test/node_coordinates21";
 const modules = import.meta.globEager("../tsp/*.json");
-console.log(modules);
+// console.log(modules);
 const TSP_cords: Record<string, NodeCoordinates> = {
     node_coordinates10,
     // node_coordinates16,
@@ -23,7 +23,7 @@ const TSP_cords: Record<string, NodeCoordinates> = {
         })
     ),
 };
-console.log(TSP_cords);
+// console.log(TSP_cords);
 const entries: [string, NodeCoordinates][] = Object.entries(TSP_cords)
     .sort((a, b) => a[1].length - b[1].length)
     .map((entry) => {

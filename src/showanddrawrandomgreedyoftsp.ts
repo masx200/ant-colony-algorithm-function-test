@@ -14,7 +14,7 @@ export function showanddrawrandomgreedyoftsp({
     chart: EChartsType;
     // resize: () => void;
 }) {
-    console.log(node_coordinates, chart);
+    // console.log(node_coordinates, chart);
 
     const inputindexs = Array(node_coordinates.length)
         .fill(0)

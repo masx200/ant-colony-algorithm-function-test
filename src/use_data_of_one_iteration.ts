@@ -37,10 +37,10 @@ export function use_data_of_one_iteration(): {
     const onreceivedataofoneIteration = function onreceivedataofoneIteration(
         data: DataOfFinishOneIteration
     ) {
-        console.log("onreceivedataofoneIteration");
+        // console.log("onreceivedataofoneIteration");
         dataofoneiteration.push(data);
-        console.log(dataofoneiteration);
-        console.log(oneiterationtablebody);
+        // console.log(dataofoneiteration);
+        // console.log(oneiterationtablebody);
     };
     const clearDataOfOneIteration = function clearDataOfOneIteration(): void {
         dataofoneiteration.length = 0;

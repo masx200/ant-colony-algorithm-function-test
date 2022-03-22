@@ -47,10 +47,10 @@ export default defineComponent({
             oneroutetableheads,
         } = use_data_of_one_route();
         //
-        console.log(dataofoneroute, oneroutetablebody);
+        // console.log(dataofoneroute, oneroutetablebody);
 
         const {
-            dataofresult,
+            // dataofresult,
             onreceiveDataOfGlobalBest,
             clearDataOfResult,
             resultTableHeads,
@@ -58,7 +58,7 @@ export default defineComponent({
             globalBestRouteBody,
             globalBestRouteHeads,
         } = use_data_of_summary();
-        console.log(dataofresult, resultTableBody);
+        // console.log(dataofresult, resultTableBody);
         const initializeTSP_runner = use_initialize_tsp_runner({
             onreceiveDataOfGlobalBest,
             onreceivedataofoneroute,
@@ -73,7 +73,7 @@ export default defineComponent({
                 clearDataOfResult,
             });
 
-        console.log(dataofoneiteration, oneiterationtableheads);
+        // console.log(dataofoneiteration, oneiterationtableheads);
 
         const is_running = ref(false);
         const local_pheromone_volatilization_rate = ref(
@@ -117,13 +117,13 @@ export default defineComponent({
         });
         onMounted(() => {
             reset(true);
-            console.log(selecteleref);
+            // console.log(selecteleref);
             const element = selecteleref.value;
             element && (element.selectedIndex = 0);
 
             // console.log(containertoechart);
-            console.log(container_of_best_chart);
-            console.log(container_of_latest_chart);
+            // console.log(container_of_best_chart);
+            // console.log(container_of_latest_chart);
 
             submit();
             data_change_listener();

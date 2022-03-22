@@ -5,10 +5,10 @@ export function use_data_of_one_route() {
     const onreceivedataofoneroute = function onreceivedataofoneroute(
         data: DataOfFinishOneRoute
     ): void {
-        console.log("onreceivedataofoneroute");
+        // console.log("onreceivedataofoneroute");
         dataofoneroute.push(data);
-        console.log(dataofoneroute);
-        console.log(oneroutetablebody);
+        // console.log(dataofoneroute);
+        // console.log(oneroutetablebody);
     };
 
     const clearDataOfOneRoute = function clearDataOfOneRoute() {

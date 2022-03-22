@@ -29,7 +29,7 @@ export function drawrouteofnode_coordinates({
     // console.log("贪心算法路径结果画图坐标", linechardata);
     // console.log("贪心算法得到的路径是", greedypath);
     // console.log("贪心算法得到的长度是", totallength);
-    console.log("test drawlinechart", route, greedypath);
+    // console.log("test drawlinechart", route, greedypath);
     // const chart = chart;
     drawlinechart({
         // resize,

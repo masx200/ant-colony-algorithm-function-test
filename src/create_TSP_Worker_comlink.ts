@@ -37,6 +37,6 @@ export async function create_TSP_Worker_comlink(
         on_finish_one_iteration: { value: on_finish_one_iteration },
         on_best_change: { value: on_best_change },
     });
-    console.log(runner, remote);
+    // console.log(runner, remote);
     return remote as TSP_Worker_Remote;
 }

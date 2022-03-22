@@ -14,11 +14,11 @@ export function use_submit({
 }) {
     return () => {
         const element = selecteleref.value;
-        console.log(element);
-        console.log(element?.value);
+        // console.log(element);
+        // console.log(element?.value);
         const node_coordinates = TSP_cities_map.get(element?.value || "");
         if (node_coordinates) {
-            console.log(node_coordinates);
+            // console.log(node_coordinates);
             setTimeout(() => {
                 const latestchart = chart_store_latest.value;
                 if (latestchart) {

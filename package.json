@@ -1,7 +1,7 @@
 {
     "packageManager": "yarn@3.2.0",
     "name": "ant-colony-algorithm-function-test",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "type": "module",
     "scripts": {
         "tsp2json": "ts-node --esm  ./bin/cli.ts",

@@ -62,8 +62,8 @@ export function use_run_tsp({
     finish_one_iteration_listener: () => void;
 }) {
     return async () => {
-        console.log("搜索轮次", searchrounds.value);
-        console.log("蚂蚁数量", numberofeachround.value);
+        // console.log("搜索轮次", searchrounds.value);
+        // console.log("蚂蚁数量", numberofeachround.value);
         const roundofsearch = searchrounds.value;
         const numberofeachroundvalue = numberofeachround.value;
         const element = selecteleref.value;
@@ -79,7 +79,7 @@ export function use_run_tsp({
         ) {
             disablemapswitching.value = true;
             const number_of_ants = numberofeachroundvalue;
-            console.log(node_coordinates);
+            // console.log(node_coordinates);
             assertnumber(number_of_ants);
             assertnumber(roundofsearch);
             assertnumber(pheromone_volatility_coefficient_R1);
@@ -96,7 +96,7 @@ export function use_run_tsp({
                 // roundofsearch,
                 onLatestRouteChange,
             });
-            console.log("runner", runner);
+            // console.log("runner", runner);
 
             await runner.on_finish_one_route(finish_one_route_listener);
             await runner.on_finish_one_iteration(finish_one_iteration_listener);

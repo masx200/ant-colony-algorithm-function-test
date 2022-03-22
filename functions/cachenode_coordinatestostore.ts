@@ -6,4 +6,4 @@ export const cachenode_coordinatestostore = new WeakMap<
     NodeCoordinates,
     MatrixSymmetry
 >();
-console.log(cachenode_coordinatestostore);
+// console.log(cachenode_coordinatestostore);
