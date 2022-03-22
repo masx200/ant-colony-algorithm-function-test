@@ -5,7 +5,7 @@ import Datatable from "./Datatable-com.vue";
 import {
     defaultnumber_of_ants,
     defaultsearchrounds,
-    default_local_pheromone_volatilization_rate,
+    default_pheromone_volatility_coefficient_R1,
 } from "./defaultnumber_of_ants";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
@@ -77,7 +77,7 @@ export default defineComponent({
 
         const is_running = ref(false);
         const local_pheromone_volatilization_rate = ref(
-            default_local_pheromone_volatilization_rate
+            default_pheromone_volatility_coefficient_R1
         );
         const disablemapswitching = ref(false);
         const searchrounds = ref(defaultsearchrounds);

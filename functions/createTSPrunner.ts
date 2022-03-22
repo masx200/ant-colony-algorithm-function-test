@@ -5,19 +5,21 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
-    default_min_coefficient_of_pheromone_diffusion,
-    default_max_coefficient_of_pheromone_diffusion,
     defaultnumber_of_ants,
     default_alpha,
     default_beta,
     // default_global_pheromone_volatilization_rate,
-    default_local_pheromone_volatilization_rate,
+    default_pheromone_volatility_coefficient_R1,
+    default_max_coefficient_of_pheromone_diffusion,
     default_max_results_of_k_opt,
+    default_min_coefficient_of_pheromone_diffusion,
     default_pheromone_intensity_Q,
 } from "../src/defaultnumber_of_ants";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
+import { calc_pheromone_volatility_coefficient_R1 } from "./calc_pheromone_volatility_coefficient_R1";
+import { calc_pheromone_volatility_coefficient_R2 } from "./calc_pheromone_volatility_coefficient_R2";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
 import { createEventPair } from "./createEventPair";
 import { createPheromoneStore } from "./createPheromoneStore";
@@ -95,7 +97,7 @@ export function createTSPrunner({
 
     const pheromone_volatility_coefficient_R1 =
         rest?.pheromone_volatility_coefficient_R1 ??
-        default_local_pheromone_volatilization_rate;
+        default_pheromone_volatility_coefficient_R1;
     /*  1 -
             Math.pow(
                 1 -
@@ -108,11 +110,9 @@ export function createTSPrunner({
     //由局部信息素挥发率决定全局信息素挥发率
     const pheromone_volatility_coefficient_R2 =
         //  rest?.pheromone_volatility_coefficient_R2 ??
-        1 -
-        Math.pow(
-            1 -
-                (rest?.pheromone_volatility_coefficient_R1 ??
-                    default_local_pheromone_volatilization_rate),
+        calc_pheromone_volatility_coefficient_R2(
+            rest?.pheromone_volatility_coefficient_R1 ??
+                default_pheromone_volatility_coefficient_R1,
             number_of_ants
         );
 
@@ -128,11 +128,10 @@ export function createTSPrunner({
     asserttrue(
         float64equal(
             pheromone_volatility_coefficient_R1,
-            1 -
-                Math.pow(
-                    1 - pheromone_volatility_coefficient_R2,
-                    1 / number_of_ants
-                )
+            calc_pheromone_volatility_coefficient_R1(
+                pheromone_volatility_coefficient_R2,
+                number_of_ants
+            )
         )
     );
 

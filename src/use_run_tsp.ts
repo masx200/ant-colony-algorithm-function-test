@@ -4,7 +4,7 @@ import { assertnumber } from "../test/assertnumber";
 import {
     defaultnumber_of_ants,
     defaultsearchrounds,
-    default_local_pheromone_volatilization_rate,
+    default_pheromone_volatility_coefficient_R1,
 } from "./defaultnumber_of_ants";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
@@ -110,7 +110,7 @@ export function use_run_tsp({
             // runner.onDataChange(data_change_listener);
         } else {
             local_pheromone_volatilization_rate.value =
-                default_local_pheromone_volatilization_rate;
+                default_pheromone_volatility_coefficient_R1;
             searchrounds.value = defaultsearchrounds;
             numberofeachround.value = defaultnumber_of_ants;
             disablemapswitching.value = false;
