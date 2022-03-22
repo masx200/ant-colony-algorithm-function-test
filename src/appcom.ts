@@ -234,7 +234,7 @@ export default defineComponent({
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,
             local_pheromone_volatilization_rate,
-            reset,
+            resethandler:()=>{reset()},
             resultTableHeads,
             resultTableBody,
             oneroutetableheads,
