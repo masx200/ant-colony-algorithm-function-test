@@ -1,9 +1,10 @@
-import { computed, ComputedRef, ref } from "vue";
+import { computed, ComputedRef, Ref, ref } from "vue";
+import { DataOfBestChange } from "../functions/DataOfBestChange";
 // import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfSummarize } from "./DataOfSummarize";
 
 export function use_data_of_summary(): {
-    // dataofresult: Ref<DataOfBestChange | undefined>;
+    dataofresult: Ref<DataOfBestChange | undefined>;
     onreceiveDataOfGlobalBest: (data: DataOfSummarize) => void;
     clearDataOfResult: () => void;
     resultTableHeads: string[];
@@ -95,7 +96,7 @@ export function use_data_of_summary(): {
     return {
         globalBestRouteHeads,
         globalBestRouteBody,
-        // dataofresult,
+        dataofresult,
         onreceiveDataOfGlobalBest,
         clearDataOfResult,
         resultTableHeads,
