@@ -50,7 +50,7 @@ export default defineComponent({
         // console.log(dataofoneroute, oneroutetablebody);
 
         const {
-            // dataofresult,
+            dataofresult,
             onreceiveDataOfGlobalBest,
             clearDataOfResult,
             resultTableHeads,
@@ -58,7 +58,7 @@ export default defineComponent({
             globalBestRouteBody,
             globalBestRouteHeads,
         } = use_data_of_summary();
-        // console.log(dataofresult, resultTableBody);
+        console.log(dataofresult, resultTableBody);
         const initializeTSP_runner = use_initialize_tsp_runner({
             onreceiveDataOfGlobalBest,
             onreceivedataofoneroute,
