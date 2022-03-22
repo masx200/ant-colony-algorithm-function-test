@@ -76,6 +76,11 @@
     />
 
     <hr />
+    <Datatable
+        :tableheads="TableHeadsOfHistoryOfBest"
+        :tablebody="TableBodyOfHistoryOfBest"
+    />
+    <hr />
     <!-- 迭代结果 -->
     <Datatable
         :tableheads="oneiterationtableheads"

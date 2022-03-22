@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref, watch } from "vue";
+import { defineComponent, onMounted, readonly, ref, watch } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "../test/asserttrue";
 import Datatable from "./Datatable-com.vue";
@@ -21,6 +21,7 @@ import { use_data_of_one_iteration } from "./use_data_of_one_iteration";
 import { use_data_of_one_route } from "./use_data_of_one_route";
 import { use_data_of_summary } from "./use_data_of_summary";
 import { use_escharts_container_pair } from "./use_escharts_container_pair"; // import { TSPRunner } from "../functions/createTSPrunner";
+import { use_history_of_best } from "./use_history_of_best";
 import { use_initialize_tsp_runner } from "./use_initialize_tsp_runner";
 import { use_run_tsp } from "./use_run_tsp";
 import { use_submit } from "./use_submit";
@@ -58,20 +59,19 @@ export default defineComponent({
             globalBestRouteBody,
             globalBestRouteHeads,
         } = use_data_of_summary();
-        console.log(dataofresult, resultTableBody);
+        // console.log(dataofresult, resultTableBody);
+        const {
+            clearData: clearDataOfHistoryOfBest,
+            TableHeads: TableHeadsOfHistoryOfBest,
+            TableBody: TableBodyOfHistoryOfBest,
+        } = use_history_of_best(readonly(dataofresult));
+
         const initializeTSP_runner = use_initialize_tsp_runner({
             onreceiveDataOfGlobalBest,
             onreceivedataofoneroute,
             onreceivedataofoneIteration,
         });
         const TSP_before_Start = use_tsp_before_start(initializeTSP_runner);
-
-        const TSP_terminate = () =>
-            TSP_Reset({
-                clearDataOfOneRoute,
-                clearDataOfOneIteration,
-                clearDataOfResult,
-            });
 
         // console.log(dataofoneiteration, oneiterationtableheads);
 
@@ -209,6 +209,15 @@ export default defineComponent({
             finish_one_route_listener,
             finish_one_iteration_listener,
         });
+        const TSP_terminate = () => {
+            clearDataOfHistoryOfBest();
+            TSP_Reset([
+                clearDataOfOneRoute,
+                clearDataOfOneIteration,
+                clearDataOfResult,
+            ]);
+        };
+
         const resetold = () => {
             TSP_terminate();
             disablemapswitching.value = false;
@@ -225,7 +234,12 @@ export default defineComponent({
             StopTSPWorker();
             disable_stop.value = true;
         };
+        const resethandler = () => {
+            reset();
+        };
         return {
+            TableHeadsOfHistoryOfBest,
+            TableBodyOfHistoryOfBest,
             disable_stop,
             stop_handler,
             globalBestRouteBody,
@@ -234,9 +248,7 @@ export default defineComponent({
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,
             local_pheromone_volatilization_rate,
-            resethandler: () => {
-                reset();
-            },
+            resethandler: resethandler,
             resultTableHeads,
             resultTableBody,
             oneroutetableheads,

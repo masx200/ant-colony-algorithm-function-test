@@ -168,7 +168,7 @@ export function createTSPrunner({
             globalbestlength = bestlength;
             /* "找到最优解的耗时秒" */
             time_of_best_ms = totaltimems;
-            search_count_of_best = current_search_count+1;
+            search_count_of_best = current_search_count + 1;
             /* 这样不行 */
             // emit_best_change({
             //     current_search_count,
