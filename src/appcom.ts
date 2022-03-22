@@ -116,7 +116,7 @@ export default defineComponent({
             chart_store_best,
         });
         onMounted(() => {
-            reset();
+            reset(true);
             console.log(selecteleref);
             const element = selecteleref.value;
             element && (element.selectedIndex = 0);
@@ -214,11 +214,11 @@ export default defineComponent({
             disablemapswitching.value = false;
             is_running.value = false;
         };
-        const reset = () => {
+        const reset = (first:boolean=false) => {
             percentage.value = 0;
             resetold();
             disable_stop.value = false;
-            location.reload();
+         first||   location.reload();
         };
         const disable_stop = ref(false);
         const stop_handler = () => {
