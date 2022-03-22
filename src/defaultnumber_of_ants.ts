@@ -1,6 +1,6 @@
-export const defaultnumber_of_ants = 15;
+export const defaultnumber_of_ants = 20;
 export const defaultsearchrounds = 100;
-export const default_pheromone_volatility_coefficient_R1 = 0.035;
+export const default_pheromone_volatility_coefficient_R1 = 0.03;
 
 //由局部信息素挥发率决定全局信息素挥发率
 
