@@ -29,6 +29,7 @@ export default defineConfig(({ mode, command }) => {
             // mode === "production" &&
             //     command === "build" &&
             babel({
+                sourceMaps: mode !== "production",
                 exclude: [/node_modules/],
                 extensions: [".ts", ".js"],
                 //@ts-ignore
