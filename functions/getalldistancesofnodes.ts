@@ -7,7 +7,7 @@ export function getalldistancesofnodes(
     node_coordinates: NodeCoordinates
 ): number[] {
     // let { length } = node_coordinates;
-    let inputarray = Array(node_coordinates.length)
+    const inputarray = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
     return [...combinations(inputarray, 2)].map(([left, right]) =>

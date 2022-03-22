@@ -13,8 +13,8 @@ import { asserttrue } from "../test/asserttrue";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { euclideandistance } from "./euclideandistance";
-import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
+import { get_max_distance_of_node_coordinates } from "./get_max_distance_of_node_coordinates";
 import { haverepetitions } from "./haverepetitions";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -77,8 +77,8 @@ export function performPheromoneDiffusionOperations({
             //     x: (node_coordinates[left][0] + node_coordinates[right][0]) / 2,
             //     y: (node_coordinates[left][1] + node_coordinates[right][1]) / 2,
             // };
-            let theradiusofthecircle =
-                Math.max(...getalldistancesofnodes(node_coordinates)) / 4;
+            const theradiusofthecircle =
+                get_max_distance_of_node_coordinates(node_coordinates) / 4;
             const inputindexs = Array(node_coordinates.length)
                 .fill(0)
                 .map((_v, i) => i);
@@ -195,3 +195,4 @@ export function performPheromoneDiffusionOperations({
         };
     }
 }
+
