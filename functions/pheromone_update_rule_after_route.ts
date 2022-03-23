@@ -80,12 +80,12 @@ export function pheromone_update_rule_after_route({
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
         // MatrixAdd(
-            deltapheromoneglobalbest,
-            // MatrixMultiplyNumber(
-            //     /* 添加非最优的信息素系数 */
-            //     globalbestlength / current_length,
-            //     deltapheromoneiteratecurrent
-            // )
+        deltapheromoneglobalbest
+        // MatrixMultiplyNumber(
+        //     /* 添加非最优的信息素系数 */
+        //     globalbestlength / current_length,
+        //     deltapheromoneiteratecurrent
+        // )
         // )
     );
     console.log("deltapheromone", MatrixToArrays(deltapheromone));

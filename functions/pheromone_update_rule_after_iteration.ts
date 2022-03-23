@@ -64,26 +64,26 @@ export function pheromone_update_rule_after_iteration({
         ),
     });
     /* 最优路径不能有交叉点 */
-//   /*   const deltapheromoneiteratebest = MatrixSymmetryCreate({
-//         row: count_of_nodes,
-//         // column: count_of_nodes,
-//         initializer: /*     intersection_filter_with_cycle_route({
-//                 cycleroute: iteratebestroute,
+    //   /*   const deltapheromoneiteratebest = MatrixSymmetryCreate({
+    //         row: count_of_nodes,
+    //         // column: count_of_nodes,
+    //         initializer: /*     intersection_filter_with_cycle_route({
+    //                 cycleroute: iteratebestroute,
 
-//                 node_coordinates,
-//             }) && Math.random() < 0.5
-//                 ? undefined
-//                 : */ iterateBestMatrixInitializer(
-//             iteratebestroutesegments,
-//             iteratebestlength
-//         ),
-//     }); */
+    //                 node_coordinates,
+    //             }) && Math.random() < 0.5
+    //                 ? undefined
+    //                 : */ iterateBestMatrixInitializer(
+    //             iteratebestroutesegments,
+    //             iteratebestlength
+    //         ),
+    //     }); */
     /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = MatrixSymmetryCreate({
         row: count_of_nodes,
         initializer: !(
             // iteratebestlength === iterateworstlength ||
-            iterateworstlength === globalbestlength
+            (iterateworstlength === globalbestlength)
         )
             ? iterateWorstMatrixInitializer(
                   iterateworstroutesegments,

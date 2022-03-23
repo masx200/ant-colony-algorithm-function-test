@@ -20,6 +20,7 @@ import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdi
 import { NodeCoordinates } from "./NodeCoordinates";
 /**执行信息素扩散操作 */
 export function performPheromoneDiffusionOperations({
+    pheromoneDiffusionProbability,
     min_coefficient_of_pheromone_diffusion,
 
     max_coefficient_of_pheromone_diffusion,
@@ -29,6 +30,7 @@ export function performPheromoneDiffusionOperations({
     pheromoneStore,
     node_coordinates,
 }: {
+    pheromoneDiffusionProbability: number;
     min_coefficient_of_pheromone_diffusion: number;
     max_coefficient_of_pheromone_diffusion: number;
 
@@ -38,17 +40,19 @@ export function performPheromoneDiffusionOperations({
     node_coordinates: NodeCoordinates;
 }): void {
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
-    globalbestroutesegments.forEach(
-        pheromoneDiffusionCallback({
-            min_coefficient_of_pheromone_diffusion,
+    globalbestroutesegments.forEach((segment) => {
+        if (Math.random() < pheromoneDiffusionProbability) {
+            pheromoneDiffusionCallback({
+                min_coefficient_of_pheromone_diffusion,
 
-            max_coefficient_of_pheromone_diffusion,
+                max_coefficient_of_pheromone_diffusion,
 
-            pheromoneStore,
-            node_coordinates,
-            globalbestroutesegments,
-        })
-    );
+                pheromoneStore,
+                node_coordinates,
+                globalbestroutesegments,
+            })(segment);
+        }
+    });
     function pheromoneDiffusionCallback({
         max_coefficient_of_pheromone_diffusion,
         min_coefficient_of_pheromone_diffusion,
@@ -62,11 +66,7 @@ export function performPheromoneDiffusionOperations({
         pheromoneStore: MatrixSymmetry<number>;
         node_coordinates: NodeCoordinates;
         globalbestroutesegments: [number, number][];
-    }): (
-        value: [number, number],
-        index: number,
-        array: [number, number][]
-    ) => void {
+    }): (value: [number, number]) => void {
         return function ([cityA, cityB]) {
             const pheromoneZ = pheromoneStore.get(cityA, cityB);
 

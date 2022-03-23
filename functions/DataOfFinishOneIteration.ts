@@ -6,7 +6,7 @@ export interface DataOfFinishOneIteration {
     // relative_deviation_from_optimal: number;
     current_iterations: number;
     population_relative_information_entropy: number;
-    ispheromoneDiffusion: boolean;
+    // ispheromoneDiffusion: boolean;
     randomselectionprobability: number;
     pheromoneDiffusionProbability: number;
     optimallengthofthisround: number;

@@ -55,7 +55,7 @@ export function EachIterationHandler(opts: {
     pheromoneDiffusionProbability: number;
     optimallengthofthisround: number;
     optimalrouteofthisround: number[];
-    ispheromoneDiffusion: boolean;
+    // ispheromoneDiffusion: boolean;
     population_relative_information_entropy: number;
     // locally_optimized_length: number;
 } {
@@ -161,21 +161,22 @@ export function EachIterationHandler(opts: {
         pheromoneStore,
         pheromone_volatility_coefficient_R2,
     });
-    let ispheromoneDiffusion = false;
-    if (Math.random() < pheromoneDiffusionProbability) {
-        console.log("执行信息素扩散操作");
-        ispheromoneDiffusion = true;
-        //信息素扩散
-        performPheromoneDiffusionOperations({
-            min_coefficient_of_pheromone_diffusion,
+    // let ispheromoneDiffusion = false;
+    // if (Math.random() < pheromoneDiffusionProbability) {
+    console.log("执行信息素扩散操作");
+    // ispheromoneDiffusion = true;
+    //信息素扩散
+    performPheromoneDiffusionOperations({
+        pheromoneDiffusionProbability,
+        min_coefficient_of_pheromone_diffusion,
 
-            max_coefficient_of_pheromone_diffusion,
+        max_coefficient_of_pheromone_diffusion,
 
-            globalbestroute,
-            pheromoneStore,
-            node_coordinates,
-        });
-    }
+        globalbestroute,
+        pheromoneStore,
+        node_coordinates,
+    });
+    // }
 
     //与最优的相对偏差
     // const relative_deviation_from_optimal: number =
@@ -188,7 +189,7 @@ export function EachIterationHandler(opts: {
         // relative_deviation_from_optimal,
         optimallengthofthisround,
         optimalrouteofthisround,
-        ispheromoneDiffusion,
+        // ispheromoneDiffusion,
         // routesandlengths,
         nextrandomselectionprobability,
         population_relative_information_entropy:
