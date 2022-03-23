@@ -63,10 +63,11 @@ export function EachRouteGenerator({
         beta_zero,
         lastrandomselectionprobability,
     });
-
-    if (oldLength < get_best_length()) {
-        setbestlength(oldLength);
-        setbestroute(oldRoute);
+    if (get_best_route().length === 0) {
+        if (oldLength < get_best_length()) {
+            setbestlength(oldLength);
+            setbestroute(oldRoute);
+        }
     }
     /* 对当前路径进行精准2-opt优化 */
     const { optimal_route: route1, optimal_length: length1 } =
@@ -79,13 +80,13 @@ export function EachRouteGenerator({
     // k-opt随机
     // 2-opt 去除交叉点循环
 
-    /* 对全局最优解进行k-opt优化 */
-    let { optimal_route: route2, optimal_length: length2 } =
+    /* 对全局最优解或当前路径进行k-opt优化 */
+    const { optimal_route: route2, optimal_length: length2 } =
         Random_K_OPT_full_limited_find_best({
-            oldRoute: get_best_route(),
+            oldRoute: Math.random() < 0.5 ? get_best_route() : oldRoute,
             max_results_of_k_opt,
             node_coordinates,
-            oldLength: get_best_length(),
+            oldLength: Math.random() < 0.5 ? get_best_length() : oldLength,
         });
 
     const { optimal_route: route3, optimal_length: length3 } =
@@ -94,16 +95,19 @@ export function EachRouteGenerator({
             optimal_length: length2,
             node_coordinates,
         });
-    // debugger
-
-    // debugger
-    /* 找出最短(路径2,路径3,路径1,当前路径) */
-    const { route, totallength } = get_best_routeOfSeriesRoutesAndLengths([
+    const temp_set_of_routes = [
         { route: route1, totallength: length1 },
         { route: route2, totallength: length2 },
         { route: route3, totallength: length3 },
         { route: oldRoute, totallength: oldLength },
-    ]);
+    ].filter((a) => a.totallength !== get_best_length());
+    // debugger
+
+    // debugger
+    /* 找出最短(路径2,路径3,路径1,当前路径) */
+    const { route, totallength } = temp_set_of_routes.length
+        ? get_best_routeOfSeriesRoutesAndLengths(temp_set_of_routes)
+        : { route: oldRoute, totallength: oldLength };
 
     if (totallength < get_best_length()) {
         setbestlength(totallength);
