@@ -95,7 +95,7 @@ export function EachIterationHandler(opts: {
     const nextrandomselectionprobability =
         Math.sqrt(
             1 - Math.pow(current_population_relative_information_entropy, 2)
-        ) / 10;
+        ) / 8;
 
     const pheromoneDiffusionProbability =
         Math.sqrt(

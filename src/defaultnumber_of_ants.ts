@@ -14,3 +14,4 @@ export const default_max_results_of_k_opt = 20;
 export const default_max_coefficient_of_pheromone_diffusion = 20;
 
 export const default_min_coefficient_of_pheromone_diffusion = 10;
+export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.8;
