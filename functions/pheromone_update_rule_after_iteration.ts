@@ -11,6 +11,7 @@ import {
 import { asserttrue } from "../test/asserttrue";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
+import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
 
@@ -18,12 +19,12 @@ import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
 export function pheromone_update_rule_after_iteration({
     // node_coordinates,
     // globalbestroute,
-    // iteratebestroute,
+    iteratebestroute,
     count_of_nodes,
     globalbestroute,
     globalbestlength,
     // iteratebestroute,
-    // iteratebestlength,
+    iteratebestlength,
     iterateworstlength,
     iterateworstroute,
     pheromone_intensity_Q,
@@ -32,12 +33,12 @@ export function pheromone_update_rule_after_iteration({
 }: {
     // node_coordinates: NodeCoordinates;
     globalbestroute: number[];
-    // iteratebestroute: number[];
+    iteratebestroute: number[];
     count_of_nodes: number;
     // globalbestroutesegments: [number, number][];
     globalbestlength: number;
     // iteratebestroutesegments: [number, number][];
-    // iteratebestlength: number;
+    iteratebestlength: number;
     iterateworstlength: number;
     iterateworstroute: number[];
     pheromone_intensity_Q: number;
@@ -45,7 +46,7 @@ export function pheromone_update_rule_after_iteration({
     pheromone_volatility_coefficient_R2: number;
 }) {
     const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
-    // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
+    const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
@@ -64,26 +65,28 @@ export function pheromone_update_rule_after_iteration({
         ),
     });
     /* 最优路径不能有交叉点 */
-    //   /*   const deltapheromoneiteratebest = MatrixSymmetryCreate({
-    //         row: count_of_nodes,
-    //         // column: count_of_nodes,
-    //         initializer: /*     intersection_filter_with_cycle_route({
-    //                 cycleroute: iteratebestroute,
+    const deltapheromoneiteratebest = MatrixSymmetryCreate({
+        row: count_of_nodes,
+        // column: count_of_nodes,
+        /*     intersection_filter_with_cycle_route({
+                    cycleroute: iteratebestroute,
 
-    //                 node_coordinates,
-    //             }) && Math.random() < 0.5
-    //                 ? undefined
-    //                 : */ iterateBestMatrixInitializer(
-    //             iteratebestroutesegments,
-    //             iteratebestlength
-    //         ),
-    //     }); */
+                    node_coordinates,
+                }) && Math.random() < 0.5
+                    ? undefined
+                    : */
+
+        initializer: iterateBestMatrixInitializer(
+            iteratebestroutesegments,
+            iteratebestlength
+        ),
+    });
     /* 最差不能和最好的相同 */
     const deltapheromoneiterateworst = MatrixSymmetryCreate({
         row: count_of_nodes,
         initializer: !(
-            // iteratebestlength === iterateworstlength ||
-            (iterateworstlength === globalbestlength)
+            iteratebestlength === iterateworstlength ||
+            iterateworstlength === globalbestlength
         )
             ? iterateWorstMatrixInitializer(
                   iterateworstroutesegments,
@@ -97,11 +100,11 @@ export function pheromone_update_rule_after_iteration({
         pheromone_intensity_Q,
         MatrixAdd(
             deltapheromoneglobalbest,
-            // MatrixMultiplyNumber(
-            //     /* 添加非最优的信息素系数 */
-            //     globalbestlength / iteratebestlength,
-            //     deltapheromoneiteratebest
-            // ),
+            MatrixMultiplyNumber(
+                /* 添加非最优的信息素系数 */
+                0.5,
+                deltapheromoneiteratebest
+            ),
             deltapheromoneiterateworst
         )
     );
