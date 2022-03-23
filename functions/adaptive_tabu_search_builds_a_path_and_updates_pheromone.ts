@@ -146,8 +146,8 @@ export function adaptive_tabu_search_builds_a_path_and_updates_pheromone({
     //  如果路径中存在交叉点,禁忌此路径
 
     pheromone_update_rule_after_route({
-        current_length: totallength,
-        current_route: route,
+        // current_length: totallength,
+        // current_route: route,
         // node_coordinates,
         globalbestroute,
         count_of_nodes,

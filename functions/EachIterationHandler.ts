@@ -148,13 +148,13 @@ export function EachIterationHandler(opts: {
     // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     pheromone_update_rule_after_iteration({
         // node_coordinates,
-        iteratebestroute,
+        // iteratebestroute,
         globalbestroute,
         count_of_nodes,
         // globalbestroutesegments,
         globalbestlength,
         // iteratebestroutesegments,
-        iteratebestlength,
+        // iteratebestlength,
         iterateworstlength,
         iterateworstroute,
         pheromone_intensity_Q,

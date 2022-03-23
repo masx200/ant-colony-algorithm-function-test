@@ -10,7 +10,7 @@ import {
 import { asserttrue } from "../test/asserttrue";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
-import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
+// import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 
 /**
  *
@@ -18,8 +18,8 @@ import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
  */
 export function pheromone_update_rule_after_route({
     globalbestroute,
-    current_length,
-    current_route,
+    // current_length,
+    // current_route,
     // node_coordinates,
     count_of_nodes,
     // globalbestroutesegments,
@@ -28,8 +28,8 @@ export function pheromone_update_rule_after_route({
     pheromoneStore,
     pheromone_volatility_coefficient_R1,
 }: {
-    current_length: number;
-    current_route: number[];
+    // current_length: number;
+    // current_route: number[];
     globalbestroute: number[];
     // node_coordinates: NodeCoordinates;
     count_of_nodes: number;
@@ -43,7 +43,7 @@ export function pheromone_update_rule_after_route({
     console.log("局部信息素更新计算开始");
     // const current_is_best = current_length === globalbestlength;
 
-    const current_route_segments = cycleroutetosegments(current_route);
+    // const current_route_segments = cycleroutetosegments(current_route);
 
     // 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
     const deltapheromoneglobalbest = MatrixSymmetryCreate({
@@ -60,33 +60,33 @@ export function pheromone_update_rule_after_route({
             globalbestlength
         ),
     });
-    const deltapheromoneiteratecurrent = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        initializer: /*  !intersection_filter_with_cycle_route({
-                cycleroute: current_route,
+    // const deltapheromoneiteratecurrent = MatrixSymmetryCreate({
+    //     row: count_of_nodes,
+    //     initializer: /*  !intersection_filter_with_cycle_route({
+    //             cycleroute: current_route,
 
-                node_coordinates,
-            }) || Math.random() < 0.5
-                ? */ iterateBestMatrixInitializer(
-            current_route_segments,
-            current_length
-        ),
-        // : undefined,
-    });
+    //             node_coordinates,
+    //         }) || Math.random() < 0.5
+    //             ? */ iterateBestMatrixInitializer(
+    //         current_route_segments,
+    //         current_length
+    //     ),
+    //     // : undefined,
+    // });
     //
     //
     //
     //局部信息素更新
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
-        MatrixAdd(
+        // MatrixAdd(
             deltapheromoneglobalbest,
-            MatrixMultiplyNumber(
-                /* 添加非最优的信息素系数 */
-                globalbestlength / current_length,
-                deltapheromoneiteratecurrent
-            )
-        )
+            // MatrixMultiplyNumber(
+            //     /* 添加非最优的信息素系数 */
+            //     globalbestlength / current_length,
+            //     deltapheromoneiteratecurrent
+            // )
+        // )
     );
     console.log("deltapheromone", MatrixToArrays(deltapheromone));
     const oldpheromoneStore = MatrixFrom(pheromoneStore);
