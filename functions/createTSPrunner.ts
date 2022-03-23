@@ -8,12 +8,12 @@ import {
     defaultnumber_of_ants,
     default_alpha,
     default_beta,
-    // default_global_pheromone_volatilization_rate,
-    default_pheromone_volatility_coefficient_R1,
     default_max_coefficient_of_pheromone_diffusion,
     default_max_results_of_k_opt,
     default_min_coefficient_of_pheromone_diffusion,
     default_pheromone_intensity_Q,
+    // default_global_pheromone_volatilization_rate,
+    default_pheromone_volatility_coefficient_R1,
 } from "../src/defaultnumber_of_ants";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { assertnumber } from "../test/assertnumber";
@@ -30,7 +30,7 @@ import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { EachIterationHandler } from "./EachIterationHandler";
 // import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
-import { EachRouteGenerator } from "./EachRouteGenerator";
+import { createEachRouteGenerator } from "./EachRouteGenerator";
 import { float64equal } from "./float64equal";
 import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
@@ -262,10 +262,15 @@ export function createTSPrunner({
             runOneIteration();
         }
     };
-
+    const EachRouteGenerator = createEachRouteGenerator();
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
-        const { route, totallength } = EachRouteGenerator({
+        const {
+            route,
+            totallength,
+            weight_of_opt_best,
+            weight_of_opt_current,
+        } = EachRouteGenerator({
             current_search_count,
             count_of_nodes,
             node_coordinates,
@@ -287,6 +292,8 @@ export function createTSPrunner({
             endtime_of_one_route - starttime_of_one_route;
         time_ms_of_one_iteration += time_ms_of_one_route;
         emit_finish_one_route({
+            weight_of_opt_best,
+            weight_of_opt_current,
             // way_of_construct,
             time_ms_of_one_route: time_ms_of_one_route,
             route,

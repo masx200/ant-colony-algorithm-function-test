@@ -21,6 +21,8 @@ export function use_data_of_one_route() {
             number,
             number,
             number,
+            number,
+            number,
             number
 
             // string
@@ -36,6 +38,8 @@ export function use_data_of_one_route() {
                 // dataOfAllResults[index].globalbestlength,
                 data.time_ms_of_one_route / 1000,
                 data.total_time_ms / 1000,
+                data.weight_of_opt_best,
+                data.weight_of_opt_current,
                 // data.way_of_construct,
             ];
         });
@@ -49,6 +53,8 @@ export function use_data_of_one_route() {
         "当前耗时秒",
         "总计耗时秒",
         // "构建方式",
+        "优化最优路径的权重",
+        "优化当前路径的权重",
     ];
     const result = {
         dataofoneroute,
