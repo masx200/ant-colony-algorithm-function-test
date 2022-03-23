@@ -106,8 +106,8 @@ export function EachRouteGenerator({
     // 局部信息素更新
     pheromone_update_rule_after_route({
         globalbestroute: get_best_route(),
-        // current_length: totallength,
-        // current_route: route,
+        current_length: totallength,
+        current_route: route,
         // node_coordinates,
         count_of_nodes,
         globalbestlength: get_best_length(),
