@@ -100,14 +100,17 @@ export function EachRouteGenerator({
         { route: route2, totallength: length2 },
         { route: route3, totallength: length3 },
         { route: oldRoute, totallength: oldLength },
-    ].filter((a) => a.totallength !== get_best_length());
+    ];
+    //.filter((a) => a.totallength !== get_best_length());
     // debugger
 
     // debugger
     /* 找出最短(路径2,路径3,路径1,当前路径) */
-    const { route, totallength } = temp_set_of_routes.length
-        ? get_best_routeOfSeriesRoutesAndLengths(temp_set_of_routes)
-        : { route: oldRoute, totallength: oldLength };
+    const { route, totallength } =
+        //    temp_set_of_routes.length
+        //?
+        get_best_routeOfSeriesRoutesAndLengths(temp_set_of_routes);
+    //   : { route: oldRoute, totallength: oldLength };
 
     if (totallength < get_best_length()) {
         setbestlength(totallength);
