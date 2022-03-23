@@ -6,12 +6,16 @@ import { intersection_filter_with_cycle_route_find_one } from "./intersection_fi
 import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with-segment";
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
 
-/**精准2-opt消除所有交叉点 */
-export function Precise_2_opt_eliminates_all_intersections(
-    optimal_route: number[],
-    optimal_length: number,
-    node_coordinates: NodeCoordinates
-): { optimal_length: number; optimal_route: number[] } {
+/**精准2-opt消除所有交叉点 ,尽可能去除与原路径一样的路径*/
+export function Precise_2_opt_eliminates_all_intersections({
+    optimal_route,
+    optimal_length,
+    node_coordinates,
+}: {
+    optimal_route: number[];
+    optimal_length: number;
+    node_coordinates: NodeCoordinates;
+}): { optimal_length: number; optimal_route: number[] } {
     while (true) {
         const intersection = intersection_filter_with_cycle_route_find_one({
             cycleroute: optimal_route,

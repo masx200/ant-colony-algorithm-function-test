@@ -63,30 +63,39 @@ export function EachRouteGenerator({
         beta_zero,
         lastrandomselectionprobability,
     });
+
+    if (oldLength < get_best_length()) {
+        setbestlength(oldLength);
+        setbestroute(oldRoute);
+    }
+    /* 对当前路径进行精准2-opt优化 */
+    const { optimal_route: route1, optimal_length: length1 } =
+        Precise_2_opt_eliminates_all_intersections({
+            optimal_route: oldRoute,
+            optimal_length: oldLength,
+            node_coordinates,
+        });
     // debugger
     // k-opt随机
     // 2-opt 去除交叉点循环
-    let { optimal_route: route1, optimal_length: length1 } =
+
+    /* 对全局最优解进行k-opt优化 */
+    let { optimal_route: route2, optimal_length: length2 } =
         Random_K_OPT_full_limited_find_best({
-            oldRoute,
+            oldRoute: get_best_route(),
             max_results_of_k_opt,
             node_coordinates,
-            oldLength,
+            oldLength: get_best_length(),
         });
 
-    const { optimal_route: route2, optimal_length: length2 } =
-        Precise_2_opt_eliminates_all_intersections(
-            route1,
-            length1,
-            node_coordinates
-        );
-    // debugger
     const { optimal_route: route3, optimal_length: length3 } =
-        Precise_2_opt_eliminates_all_intersections(
-            oldRoute,
-            oldLength,
-            node_coordinates
-        );
+        Precise_2_opt_eliminates_all_intersections({
+            optimal_route: route2,
+            optimal_length: length2,
+            node_coordinates,
+        });
+    // debugger
+
     // debugger
     /* 找出最短(路径2,路径3,路径1,当前路径) */
     const { route, totallength } = get_best_routeOfSeriesRoutesAndLengths([
