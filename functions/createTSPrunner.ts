@@ -305,7 +305,7 @@ export function createTSPrunner({
                 //   routesandlengths,
                 pheromoneDiffusionProbability,
                 population_relative_information_entropy,
-                ispheromoneDiffusion,
+                // ispheromoneDiffusion,
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = EachIterationHandler({
@@ -359,7 +359,7 @@ export function createTSPrunner({
                 optimallengthofthisround,
                 optimalrouteofthisround,
                 population_relative_information_entropy,
-                ispheromoneDiffusion,
+                // ispheromoneDiffusion,
                 randomselectionprobability: lastrandomselectionprobability,
                 time_ms_of_one_iteration: time_ms_of_one_iteration,
             });
