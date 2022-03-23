@@ -1,4 +1,4 @@
-export const defaultnumber_of_ants = 20;
+export const defaultnumber_of_ants = 15;
 export const defaultsearchrounds = 100;
 export const default_pheromone_volatility_coefficient_R1 = 0.03;
 
