@@ -5,7 +5,7 @@ import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { pickRandomOne } from "../functions/pickRandomOne";
 import { drawrouteofnode_coordinates } from "./drawrouteofnode_coordinates";
 
-export function showanddrawrandomgreedyoftsp({
+export async function showanddrawrandomgreedyoftsp({
     node_coordinates,
     chart,
 }: // resize,
