@@ -5,7 +5,7 @@ import { drawlinechart } from "../functions/drawlinechart";
 
 export function draw_iteration_rounds_and_information_entropy_chart(
     iteration_rounds_and_information_entropy_chart: ShallowRef<
-        EChartsType | undefined
+        Pick<EChartsType,"resize"|"setOption"> | undefined
     >,
     dataofoneiteration: DataOfFinishOneIteration[]
 ) {
