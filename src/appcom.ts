@@ -119,6 +119,8 @@ export default defineComponent({
         });
         const indeterminate = ref(false);
         async function submit_select_node_coordinates() {
+//debounce
+if(indeterminate.value === true){return}
             onprogress(100 * Math.random());
             indeterminate.value = true;
             await submit();
