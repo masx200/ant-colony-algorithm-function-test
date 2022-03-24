@@ -4,10 +4,12 @@ import { debounce } from "lodash";
 import { debounce_animation_frame } from "./debounce_animation_frame";
 
 /* 创建echarts实例 */
-export function createchartofcontainer(container: HTMLElement): /* {
-    chart: */ EChartsType {
-    // resize: () => void;
-    // }
+export function createchartofcontainer(container: HTMLElement):  
+
+Pick<EChartsType,"resize"|"setOption"
+>
+ {
+    
     const debouncedresize = debounce_animation_frame(
         debounce(() => {
             chart.resize();
@@ -37,11 +39,11 @@ export function createchartofcontainer(container: HTMLElement): /* {
 //debounce
 
 
-chart.resize=debounce_animation_frame(debounce(chart.resize))
+const resize=debounce_animation_frame(debounce(chart.resize))
 
 
-chart.setOption=debounce_animation_frame(debounce(chart.setOption))
+const setOption=debounce_animation_frame(debounce(chart.setOption))
 
     // console.log(chart);
-    return chart;
+    return {resize,setOption}
 }
