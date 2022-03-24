@@ -9,8 +9,8 @@ export function use_submit({
     chart_store_best,
 }: {
     selecteleref: Ref<HTMLSelectElement | undefined>;
-    chart_store_latest: ShallowRef<EChartsType | undefined>;
-    chart_store_best: ShallowRef<EChartsType | undefined>;
+    chart_store_latest: ShallowRef<Pick<EChartsType,"resize"|"setOption"> | undefined>;
+    chart_store_best: ShallowRef<Pick<EChartsType,"resize"|"setOption"> | undefined>;
 }) {
     return async () => {
         const element = selecteleref.value;
