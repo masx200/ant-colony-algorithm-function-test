@@ -30,7 +30,8 @@ export function drawlinechart({
     xAxis_min?: string | number;
     yAxis_min?: string | number;
     data: Array<[number, number]>;
-    chart: EChartsType;
+    chart: Pick<EChartsType,"resize"|"setOption"
+>;
     titletext: string;
     // resize: EChartsType["resize"];
     // setOption: EChartsType["setOption"];
