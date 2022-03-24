@@ -34,7 +34,7 @@ export function drawrouteofnode_coordinates({
     drawlinechart({
         // resize,
         data: linechardata,
-        chart: chart as EChartsType,
+        chart: chart ,
         titletext: `城市数:${node_coordinates.length},路径长度:${totallength}`,
     });
 }
