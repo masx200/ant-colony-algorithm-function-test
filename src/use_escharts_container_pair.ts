@@ -8,7 +8,8 @@ export function use_escharts_container_pair(): {
 >>;
 } {
     const container = ref<HTMLDivElement>();
-    const chart = shallowRef<EChartsType>();
+    const chart = shallowRef<Pick<EChartsType,"resize"|"setOption"
+>>();
     onMounted(() => {
         const containerofbest = container.value;
 
