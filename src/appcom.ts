@@ -100,7 +100,7 @@ export default defineComponent({
         // } = use_escharts_container_pair();
         const {
             container:
-            container_of_iteration_rounds_and_information_entropy_chart,
+                container_of_iteration_rounds_and_information_entropy_chart,
             chart: iteration_rounds_and_information_entropy_chart,
         } = use_escharts_container_pair();
         const {
