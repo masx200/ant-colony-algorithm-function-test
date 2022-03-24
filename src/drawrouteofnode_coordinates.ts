@@ -9,13 +9,13 @@ export function drawrouteofnode_coordinates({
     route,
     node_coordinates,
     chart,
-}: // resize,
+}: 
 {
-    // resize: () => void;
+    
     route: number[];
     node_coordinates: NodeCoordinates;
-    // greedypath: number[],
-    chart: EChartsType;
+    
+    chart: Pick<EChartsType,"resize"|"setOption">
 }) {
     //画图的时候重新排列一下顺序
     const greedypath = cycle_reorganize(route, 0);
