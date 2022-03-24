@@ -37,6 +37,7 @@ export function createchartofcontainer(container: HTMLElement): /* {
 //debounce
 
 
+chart.resize=debounce_animation_frame(debounce(chart.resize))
 
 
 chart.setOption=debounce_animation_frame(debounce(chart.setOption))
