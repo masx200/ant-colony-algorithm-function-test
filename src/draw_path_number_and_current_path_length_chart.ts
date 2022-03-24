@@ -5,7 +5,7 @@ import { drawlinechart } from "../functions/drawlinechart";
 
 export function draw_path_number_and_current_path_length_chart(
     path_number_and_current_path_length_chart: ShallowRef<
-        EChartsType | undefined
+        Pick<EChartsType,"resize"|"setOption"> | undefined
     >,
     dataofoneroute: DataOfFinishOneRoute[]
 ) {
