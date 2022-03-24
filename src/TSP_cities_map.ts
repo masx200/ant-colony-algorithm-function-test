@@ -29,4 +29,4 @@ asserttrue(entries.length);
 export const TSP_cities_map = new Map<string, () => Promise<NodeCoordinates>>(
     entries
 );
-console.log(getDimension, getNames, getNodeCoordinates);
+// console.log(getDimension, getNames, getNodeCoordinates);

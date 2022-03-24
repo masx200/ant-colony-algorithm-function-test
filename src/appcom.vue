@@ -6,10 +6,10 @@
     <select ref="selecteleref" :disabled="disablemapswitching" @change="submit">
         <option
             v-for="item in TSP_cities_data"
-            v-bind:key="item[0]"
-            :value="item[0]"
+            v-bind:key="item"
+            :value="item"
         >
-            {{ item[0] }}
+            {{ item }}
         </option>
     </select>
     <br />
