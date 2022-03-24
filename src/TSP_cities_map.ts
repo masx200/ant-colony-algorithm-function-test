@@ -19,3 +19,4 @@ const entries: [string, () => Promise<NodeCoordinates>][] = Object.entries(TSP_c
     });
 asserttrue(entries.length)
 export const TSP_cities_map = new Map<string, () => Promise<NodeCoordinates>>(entries);
+console.log(getDimension, getNames, getNodeCoordinates)
