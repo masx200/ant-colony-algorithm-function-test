@@ -39,10 +39,11 @@ Pick<EChartsType,"resize"|"setOption"
 //debounce
 
 
-const resize=debounce_animation_frame(debounce(chart.resize))
+const resize=debounce_animation_frame(debounce(chart.resize)) as EChartsType["resize"]
 
 
-const setOption=debounce_animation_frame(debounce(chart.setOption))
+const setOption=debounce_animation_frame(debounce(chart.setOption)) as EChartsType["setOption"]
+
 
     // console.log(chart);
     return {resize,setOption} as Pick<EChartsType,"resize"|"setOption"
