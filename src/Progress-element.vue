@@ -1,6 +1,11 @@
 <template>
     <div class="fixed-top-navbar Translucent-background">
-        <el-progress :percentage="percentage" textInside :strokeWidth="20" />
+        <el-progress
+            :percentage="percentage"
+            textInside
+            :strokeWidth="20"
+            :indeterminate="indeterminate"
+        />
     </div>
 </template>
 <script lang="ts">
@@ -8,7 +13,10 @@ import { ElProgress } from "element-plus";
 import { defineComponent } from "vue";
 export default defineComponent({
     components: { ElProgress },
-    props: { percentage: { type: Number, required: true } },
+    props: {
+        percentage: { type: Number, required: true },
+        indeterminate: { type: Boolean, required: false },
+    },
 });
 </script>
 <style scoped>

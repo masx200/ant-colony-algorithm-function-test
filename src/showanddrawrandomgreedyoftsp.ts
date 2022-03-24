@@ -1,8 +1,6 @@
 import { EChartsType } from "echarts";
-import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
-import { Greedyalgorithmtosolvetspwithselectedstart } from "../functions/Greedyalgorithmtosolvetspwithselectedstart";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { pickRandomOne } from "../functions/pickRandomOne";
+import { cacheble_greed_random_route } from "./cacheble_greed_random_route";
 import { drawrouteofnode_coordinates } from "./drawrouteofnode_coordinates";
 
 export async function showanddrawrandomgreedyoftsp({
@@ -16,15 +14,7 @@ export async function showanddrawrandomgreedyoftsp({
 }) {
     // console.log(node_coordinates, chart);
 
-    const inputindexs = Array(node_coordinates.length)
-        .fill(0)
-        .map((_v, i) => i);
-    const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
-    // const { greedypath, totallength } =;
-    const route = Greedyalgorithmtosolvetspwithselectedstart(
-        node_coordinates,
-        start
-    );
+    const route = await cacheble_greed_random_route(node_coordinates);
     // const greedypath = route;
     drawrouteofnode_coordinates({
         /*  resize, */ route,

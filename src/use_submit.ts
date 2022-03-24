@@ -22,7 +22,7 @@ export function use_submit({
             // setTimeout(() => {
             const latestchart = chart_store_latest.value;
             if (latestchart) {
-                showanddrawrandomgreedyoftsp({
+                await showanddrawrandomgreedyoftsp({
                     // resize: latestchart.resize,
                     node_coordinates: await node_coordinates(),
                     chart: latestchart,
@@ -32,7 +32,7 @@ export function use_submit({
             // setTimeout(() => {
             const bestchart = chart_store_best.value;
             if (bestchart) {
-                showanddrawrandomgreedyoftsp({
+                await showanddrawrandomgreedyoftsp({
                     // resize: bestchart.resize,
                     node_coordinates: await node_coordinates(),
                     chart: bestchart,

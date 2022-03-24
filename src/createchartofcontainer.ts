@@ -1,15 +1,18 @@
 import { EChartsType } from "echarts";
 import * as echarts from "echarts";
 import { debounce } from "lodash";
+import { debounce_animation_frame } from "./debounce_animation_frame";
 
 /* 创建echarts实例 */
 export function createchartofcontainer(container: HTMLElement): /* {
     chart: */ EChartsType {
     // resize: () => void;
     // }
-    const debouncedresize = debounce(() => {
-        chart.resize();
-    });
+    const debouncedresize = debounce_animation_frame(
+        debounce(() => {
+            chart.resize();
+        })
+    );
     // const container = document.body.appendChild(document.createElement("div"));
     // document.body.appendChild(document.createElement("hr"));
 

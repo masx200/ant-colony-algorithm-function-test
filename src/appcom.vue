@@ -1,14 +1,14 @@
 <template>
-    <Progresselement :percentage="percentage" />
+    <Progresselement :percentage="percentage" :indeterminate="indeterminate" />
     <h1>自适应+奖惩+蚁群+k-opt 测试</h1>
     <hr />
     <span>选择城市地图</span>
-    <select ref="selecteleref" :disabled="disablemapswitching" @change="submit">
-        <option
-            v-for="item in TSP_cities_data"
-            v-bind:key="item"
-            :value="item"
-        >
+    <select
+        ref="selecteleref"
+        :disabled="disablemapswitching"
+        @change="submit_select_node_coordinates"
+    >
+        <option v-for="item in TSP_cities_data" v-bind:key="item" :value="item">
             {{ item }}
         </option>
     </select>

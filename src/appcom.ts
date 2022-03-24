@@ -117,6 +117,14 @@ export default defineComponent({
             chart_store_latest,
             chart_store_best,
         });
+        const indeterminate = ref(false);
+        async function submit_select_node_coordinates() {
+            onprogress(100 * Math.random());
+            indeterminate.value = true;
+            await submit();
+            onprogress(0);
+            indeterminate.value = false;
+        }
         onMounted(async () => {
             reset(true);
             // console.log(selecteleref);
@@ -127,10 +135,10 @@ export default defineComponent({
             // console.log(container_of_best_chart);
             // console.log(container_of_latest_chart);
 
-            await submit();
             data_change_listener();
             finish_one_iteration_listener();
             finish_one_route_listener();
+            await submit_select_node_coordinates();
             // });
             // });
         });
@@ -243,6 +251,7 @@ export default defineComponent({
             reset();
         };
         return {
+            indeterminate,
             TableHeadsOfHistoryOfBest,
             TableBodyOfHistoryOfBest,
             disable_stop,
@@ -267,7 +276,7 @@ export default defineComponent({
             runtsp,
             searchrounds,
             TSP_cities_data,
-            submit,
+            submit_select_node_coordinates,
             selecteleref,
             container_of_best_chart,
             container_of_latest_chart,
