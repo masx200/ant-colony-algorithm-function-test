@@ -100,7 +100,7 @@ export default defineComponent({
         // } = use_escharts_container_pair();
         const {
             container:
-                container_of_iteration_rounds_and_information_entropy_chart,
+            container_of_iteration_rounds_and_information_entropy_chart,
             chart: iteration_rounds_and_information_entropy_chart,
         } = use_escharts_container_pair();
         const {
@@ -117,7 +117,7 @@ export default defineComponent({
             chart_store_latest,
             chart_store_best,
         });
-        onMounted(() => {
+        onMounted(async () => {
             reset(true);
             // console.log(selecteleref);
             const element = selecteleref.value;
@@ -127,7 +127,7 @@ export default defineComponent({
             // console.log(container_of_best_chart);
             // console.log(container_of_latest_chart);
 
-            submit();
+            await submit();
             data_change_listener();
             finish_one_iteration_listener();
             finish_one_route_listener();
