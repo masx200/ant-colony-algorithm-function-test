@@ -91,7 +91,7 @@ export function use_run_tsp({
                 // onFinishIteration,
                 pheromone_volatility_coefficient_R1,
                 onGlobalBestRouteChange,
-                node_coordinates: await node_coordinates,
+                node_coordinates: await node_coordinates(),
                 number_of_ants,
                 // roundofsearch,
                 onLatestRouteChange,

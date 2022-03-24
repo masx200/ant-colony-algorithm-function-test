@@ -24,7 +24,7 @@ export function use_submit({
             if (latestchart) {
                 showanddrawrandomgreedyoftsp({
                     // resize: latestchart.resize,
-                    node_coordinates: await node_coordinates,
+                    node_coordinates: await node_coordinates(),
                     chart: latestchart,
                 });
             }
@@ -34,7 +34,7 @@ export function use_submit({
             if (bestchart) {
                 showanddrawrandomgreedyoftsp({
                     // resize: bestchart.resize,
-                    node_coordinates: await node_coordinates,
+                    node_coordinates: await node_coordinates(),
                     chart: bestchart,
                 });
             }
