@@ -170,7 +170,10 @@ export default defineComponent({
         onMounted(() => {
             //先初始化worker
             // const endpoint = new TSPWorker();
-            TSP_workerRef.value ||= new TSPWorker();
+
+            if (process.env.NODE_ENV === "development") {
+                TSP_workerRef.value ||= new TSPWorker();
+            }
             // watch(dataOfAllResults, () => {
             //     data_change_listener();
             // });

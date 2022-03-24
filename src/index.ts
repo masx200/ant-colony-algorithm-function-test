@@ -14,17 +14,18 @@ app.mount(appcontainer);
             "127.0.0.1" !== location.hostname
         ) {
             "serviceWorker" in navigator &&
-                window.addEventListener(
-                    "load",
-                    function () {
-                        const updateSW = registerSW({
-                            onNeedRefresh() {},
-                            onOfflineReady() {},
-                        });
-                        updateSW(true).catch(() => {});
-                    },
-                    { once: true }
-                );
+                // window.addEventListener(
+                //     "load",
+                (function () {
+                    const updateSW = registerSW({
+                        onNeedRefresh() {},
+                        onOfflineReady() {},
+                    });
+                    updateSW(true).catch(() => {});
+                })();
+
+            //     { once: true }
+            // );
         }
     }
 })();
