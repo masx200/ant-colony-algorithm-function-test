@@ -10,7 +10,7 @@ const TSP_cords: Record<string, () => Promise<NodeCoordinates>> =
     Object.fromEntries(
         getNames()
             .map((n) => ({ name: n, dimension: getDimension(n) }))
-            .filter(({ dimension }) => dimension <= 5000)
+            .filter(({ dimension }) => dimension <= 2000)
             .map(({ name }) => [name, () => getNodeCoordinates(name)])
     );
 // console.log(TSP_cords);
