@@ -1733,10 +1733,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@masx200/tsp-lib-test-data@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@masx200/tsp-lib-test-data@npm:1.1.0"
-  checksum: 716451e201233b1850291662c250dd4b6d1c2f72d04c0b029b19c2e397229b5d81dd15c4e1a070a3105e148b43947f27f763d786d9bcb4db2d7861bae7196101
+"@masx200/tsp-lib-test-data@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@masx200/tsp-lib-test-data@npm:1.1.1"
+  checksum: 363793ceba5d6d332d8db2c2775dcefb19f54681fdd239cdd8936118122e8dea96df0d45f8a78f5c7b0bda7af77bdc8f6cb651b2107165d18b6c409ba1494f8e
   languageName: node
   linkType: hard
 
@@ -2569,7 +2569,7 @@ __metadata:
     "@masx200/event-emitter-target": ^1.1.9
     "@masx200/mini-cli-args-parser": ^1.0.4
     "@masx200/sparse-2d-matrix": ^1.0.5
-    "@masx200/tsp-lib-test-data": ^1.1.0
+    "@masx200/tsp-lib-test-data": ^1.1.1
     "@rollup/plugin-babel": ^5.3.1
     "@types/find": ^0.2.1
     "@types/fs-extra": ^8.0.1
