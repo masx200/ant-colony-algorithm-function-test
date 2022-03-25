@@ -10,7 +10,7 @@ import { TSP_cities_map } from "./TSP_cities_map";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
-export function use_run_tsp({
+export function use_run_tsp_by_search_rounds({
     onprogress,
     TSP_before_Start,
     searchrounds,

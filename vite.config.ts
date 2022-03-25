@@ -1,7 +1,10 @@
 import { babel } from "@rollup/plugin-babel";
 import vuePlugin from "@vitejs/plugin-vue";
 import path from "path";
+import AutoImport from "unplugin-auto-import/vite";
 import ElementPlus from "unplugin-element-plus/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import Components from "unplugin-vue-components/vite";
 import { defineConfig, UserConfigExport } from "vite";
 import vpchecker from "vite-plugin-checker";
 import { createHtmlPlugin } from "vite-plugin-html";
@@ -19,6 +22,12 @@ export default defineConfig(({ mode, command }) => {
         },
         root: path.resolve(__dirname, "src"),
         plugins: [
+            AutoImport({
+                resolvers: [ElementPlusResolver()],
+            }),
+            Components({
+                resolvers: [ElementPlusResolver()],
+            }),
             checker({ typescript: { root: path.resolve(__dirname) } }),
             checker({ vueTsc: true }),
 

@@ -17,19 +17,39 @@
     <button v-text="'停止'" @click="stop_handler" :disabled="disable_stop" />
     <hr />
     <span>局部信息素挥发率</span>
-    <input
+    <el-input-number
         v-model.number="local_pheromone_volatilization_rate"
         :disabled="disablemapswitching"
+        :min="0"
+        :max="1"
     /><br />
     <span>蚂蚁数量</span>
-    <input
+    <el-input-number
         v-model.number="numberofeachround"
         :disabled="disablemapswitching"
+        :min="2"
     /><br />
-    <span>迭代轮次</span>
-    <input v-model.number="searchrounds" />
-    <br />
-    <button v-text="'运行'" @click="runtsp" :disabled="is_running" />
+    <hr />
+    <div>
+        <span>迭代轮次数</span>
+        <el-input-number v-model.number="searchrounds" :min="1" />
+        <br />
+        <button
+            v-text="'运行'"
+            @click="runtsp_by_search_rounds"
+            :disabled="is_running"
+        />
+    </div>
+    <div>
+        <span>迭代时间秒</span>
+        <el-input-number v-model.number="search_time_seconds"  :min="1"/>
+        <br />
+        <button
+            v-text="'运行'"
+            @click="run_tsp_by_time"
+            :disabled="is_running"
+        />
+    </div>
     <hr />
 
     <div class="chartcontainer" style="">

@@ -6,6 +6,7 @@ import {
     defaultnumber_of_ants,
     defaultsearchrounds,
     default_pheromone_volatility_coefficient_R1,
+    default_search_time_seconds,
 } from "./defaultnumber_of_ants";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
@@ -25,7 +26,7 @@ import { use_data_of_summary } from "./use_data_of_summary";
 import { use_escharts_container_pair } from "./use_escharts_container_pair"; // import { TSPRunner } from "../functions/createTSPrunner";
 import { use_history_of_best } from "./use_history_of_best";
 import { use_initialize_tsp_runner } from "./use_initialize_tsp_runner";
-import { use_run_tsp } from "./use_run_tsp";
+import { use_run_tsp_by_search_rounds } from "./use_run_tsp-by-search-rounds";
 import { use_submit } from "./use_submit";
 import { use_tsp_before_start } from "./use_tsp_before_start";
 export default defineComponent({
@@ -215,7 +216,7 @@ export default defineComponent({
         const onprogress = (p: number) => {
             percentage.value = p;
         };
-        const runtsp = use_run_tsp({
+        const runtsp_by_search_rounds = use_run_tsp_by_search_rounds({
             onprogress,
             TSP_before_Start,
             searchrounds,
@@ -257,7 +258,11 @@ export default defineComponent({
         const resethandler = () => {
             reset();
         };
+        const run_tsp_by_time = () => {};
+        const search_time_seconds = ref(default_search_time_seconds);
         return {
+            run_tsp_by_time,
+            search_time_seconds,
             indeterminate,
             TableHeadsOfHistoryOfBest,
             TableBodyOfHistoryOfBest,
@@ -280,7 +285,7 @@ export default defineComponent({
             container_of_path_number_and_current_path_length_chart,
             disablemapswitching,
             container_of_path_number_and_optimal_path_length_chart,
-            runtsp,
+            runtsp_by_search_rounds,
             searchrounds,
             TSP_cities_data,
             submit_select_node_coordinates,
