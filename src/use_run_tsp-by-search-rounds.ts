@@ -64,7 +64,7 @@ export function use_run_tsp_by_search_rounds({
     return async () => {
         // console.log("搜索轮次", searchrounds.value);
         // console.log("蚂蚁数量", numberofeachround.value);
-        const roundofsearch = searchrounds.value;
+        const round_of_search = searchrounds.value;
         const numberofeachroundvalue = numberofeachround.value;
         const element = selecteleref.value;
         // element && (element.selectedIndex = 0);
@@ -73,7 +73,7 @@ export function use_run_tsp_by_search_rounds({
             local_pheromone_volatilization_rate.value;
         if (
             pheromone_volatility_coefficient_R1 > 0 &&
-            roundofsearch > 0 &&
+            round_of_search > 0 &&
             numberofeachroundvalue >= 2 &&
             node_coordinates
         ) {
@@ -81,7 +81,7 @@ export function use_run_tsp_by_search_rounds({
             const number_of_ants = numberofeachroundvalue;
             // console.log(node_coordinates);
             assertnumber(number_of_ants);
-            assertnumber(roundofsearch);
+            assertnumber(round_of_search);
             assertnumber(pheromone_volatility_coefficient_R1);
             is_running.value = true;
             // const onFinishIteration = () => {
@@ -93,7 +93,7 @@ export function use_run_tsp_by_search_rounds({
                 onGlobalBestRouteChange,
                 node_coordinates: await node_coordinates(),
                 number_of_ants,
-                // roundofsearch,
+                // round_of_search,
                 onLatestRouteChange,
             });
             // console.log("runner", runner);
@@ -103,7 +103,7 @@ export function use_run_tsp_by_search_rounds({
             onprogress(0);
             await tsp_runner_run_async({
                 runner,
-                roundofsearch,
+                round_of_search,
                 number_of_ants,
                 onprogress,
             });

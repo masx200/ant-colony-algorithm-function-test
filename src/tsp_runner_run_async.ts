@@ -5,17 +5,19 @@ import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export async function tsp_runner_run_async({
     runner,
-    roundofsearch = Infinity,
+    count_of_search = Infinity,
+    round_of_search = Infinity,
     number_of_ants,
     onprogress,
 }: {
+    count_of_search?: number;
     runner: TSP_Worker_Remote;
-    roundofsearch?: number;
+    round_of_search?: number;
     number_of_ants: number;
     onprogress?: (percentage: number) => void;
 }): Promise<void> {
-    const all_count = roundofsearch * number_of_ants;
-    let rest_count = roundofsearch * number_of_ants;
+    const all_count = count_of_search ?? round_of_search * number_of_ants;
+    let rest_count = all_count;
     let run_count = 20;
     const min_count = 10;
     const interval = 3000;

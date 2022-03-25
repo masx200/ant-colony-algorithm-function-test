@@ -39,7 +39,7 @@ export function use_tsp_before_start(
         latestroute: number[],
         node_coordinates: NodeCoordinates
     ) => void;
-    // roundofsearch: number;
+    // round_of_search: number;
     number_of_ants: number;
     node_coordinates: NodeCoordinates;
 }) => Promise<TSP_Worker_Remote> {
@@ -47,7 +47,7 @@ export function use_tsp_before_start(
         // onFinishIteration,
         onGlobalBestRouteChange,
         onLatestRouteChange,
-        // roundofsearch,
+        // round_of_search,
         node_coordinates,
         number_of_ants,
         pheromone_volatility_coefficient_R1,
@@ -62,7 +62,7 @@ export function use_tsp_before_start(
             latestroute: number[],
             node_coordinates: NodeCoordinates
         ) => void;
-        // roundofsearch: number;
+        // round_of_search: number;
         number_of_ants: number;
         node_coordinates: NodeCoordinates;
     }): Promise<TSP_Worker_Remote> {
@@ -75,7 +75,7 @@ export function use_tsp_before_start(
             node_coordinates,
             number_of_ants,
         });
-        // TSP_RunnerRef.value?.runIterations(roundofsearch);
+        // TSP_RunnerRef.value?.runIterations(round_of_search);
         const runner = TSP_RunnerRef.value;
         return runner;
     };
