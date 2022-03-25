@@ -32,6 +32,7 @@ import { EachIterationHandler } from "./EachIterationHandler";
 // import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
 import { createEachRouteGenerator } from "./EachRouteGenerator";
 import { float64equal } from "./float64equal";
+import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
 import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 // import { WayOfConstruct } from "./WayOfConstruct";
@@ -182,7 +183,7 @@ export function createTSPrunner({
     };
     const setbestroute = (route: number[]) => {
         /* 重新排序一下好看 */
-        globalbestroute = cycle_reorganize(route, 0);
+        globalbestroute = generateUniqueArrayOfCircularPath(route);
     };
 
     const get_best_route = () => {
