@@ -9,7 +9,7 @@ export async function showanddrawrandomgreedyoftsp({
 }: // resize,
 {
     node_coordinates: NodeCoordinates;
-    chart: Pick<EChartsType,"resize"|"setOption">
+    chart: Pick<EChartsType, "resize" | "setOption">;
 }) {
     // console.log(node_coordinates, chart);
 

@@ -9,13 +9,11 @@ export function drawrouteofnode_coordinates({
     route,
     node_coordinates,
     chart,
-}: 
-{
-    
+}: {
     route: number[];
     node_coordinates: NodeCoordinates;
-    
-    chart: Pick<EChartsType,"resize"|"setOption">
+
+    chart: Pick<EChartsType, "resize" | "setOption">;
 }) {
     //画图的时候重新排列一下顺序
     const greedypath = cycle_reorganize(route, 0);
@@ -34,7 +32,7 @@ export function drawrouteofnode_coordinates({
     drawlinechart({
         // resize,
         data: linechardata,
-        chart: chart ,
+        chart: chart,
         titletext: `城市数:${node_coordinates.length},路径长度:${totallength}`,
     });
 }
