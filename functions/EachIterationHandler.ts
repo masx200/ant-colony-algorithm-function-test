@@ -100,7 +100,7 @@ export function EachIterationHandler(opts: {
     const pheromoneDiffusionProbability =
         Math.sqrt(
             1 - Math.pow(current_population_relative_information_entropy, 2)
-        ) / 3;
+        ) / 4;
     console.log(
         "种群相对信息熵",
         current_population_relative_information_entropy
