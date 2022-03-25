@@ -32,7 +32,7 @@
         :controls="false"
     /><br />
     <hr />
-    <el-radio-group v-model="radio_run_way">
+    <el-radio-group v-model="radio_run_way"  :disabled="is_running">
         <el-radio :label="run_way_time">按照时间</el-radio>
         <el-radio :label="run_way_round">按照轮次</el-radio>
     </el-radio-group>
