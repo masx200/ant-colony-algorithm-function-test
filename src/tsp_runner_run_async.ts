@@ -16,6 +16,7 @@ export async function tsp_runner_run_async({
     number_of_ants: number;
     onprogress?: (percentage: number) => void;
 }): Promise<void> {
+    onprogress && onprogress(0);
     const all_count = count_of_search ?? round_of_search * number_of_ants;
     let rest_count = all_count;
     let run_count = 20;

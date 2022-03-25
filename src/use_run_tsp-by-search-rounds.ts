@@ -100,7 +100,7 @@ export function use_run_tsp_by_search_rounds({
 
             await runner.on_finish_one_route(finish_one_route_listener);
             await runner.on_finish_one_iteration(finish_one_iteration_listener);
-            onprogress(0);
+           
             await tsp_runner_run_async({
                 runner,
                 round_of_search,
