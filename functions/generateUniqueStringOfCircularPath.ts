@@ -3,3 +3,4 @@ import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircul
 export function generateUniqueStringOfCircularPath(route: number[]): string {
     return JSON.stringify(generateUniqueArrayOfCircularPath(route));
 }
+
