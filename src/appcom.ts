@@ -14,6 +14,7 @@ import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
 import { draw_path_number_and_current_path_length_chart_debounced } from "./draw_path_number_and_current_path_length_chart_debounced";
 import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
 import Progresselement from "./Progress-element.vue";
+import { RunWay } from "./RunWay";
 import { StopTSPWorker } from "./StopTSPWorker";
 // import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
@@ -260,7 +261,13 @@ export default defineComponent({
         };
         const run_tsp_by_time = () => {};
         const search_time_seconds = ref(default_search_time_seconds);
+        const radio_run_way = ref(RunWay.round);
+        const run_way_time = RunWay.time;
+        const run_way_round = RunWay.round;
         return {
+            run_way_round,
+            run_way_time,
+            radio_run_way,
             run_tsp_by_time,
             search_time_seconds,
             indeterminate,

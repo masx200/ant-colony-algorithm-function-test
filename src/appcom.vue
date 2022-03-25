@@ -18,6 +18,7 @@
     <hr />
     <span>局部信息素挥发率</span>
     <el-input-number
+        :controls="false"
         v-model.number="local_pheromone_volatilization_rate"
         :disabled="disablemapswitching"
         :min="0"
@@ -28,11 +29,20 @@
         v-model.number="numberofeachround"
         :disabled="disablemapswitching"
         :min="2"
+        :controls="false"
     /><br />
     <hr />
-    <div>
+    <el-radio-group v-model="radio_run_way">
+        <el-radio :label="run_way_time">按照时间</el-radio>
+        <el-radio :label="run_way_round">按照轮次</el-radio>
+    </el-radio-group>
+    <div v-show="radio_run_way === run_way_round">
         <span>迭代轮次数</span>
-        <el-input-number v-model.number="searchrounds" :min="1" />
+        <el-input-number
+            v-model.number="searchrounds"
+            :min="1"
+            :controls="false"
+        />
         <br />
         <button
             v-text="'运行'"
@@ -40,9 +50,13 @@
             :disabled="is_running"
         />
     </div>
-    <div>
+    <div v-show="radio_run_way === run_way_time">
         <span>迭代时间秒</span>
-        <el-input-number v-model.number="search_time_seconds"  :min="1"/>
+        <el-input-number
+            v-model.number="search_time_seconds"
+            :min="1"
+            :controls="false"
+        />
         <br />
         <button
             v-text="'运行'"
