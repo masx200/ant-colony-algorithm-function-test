@@ -24,7 +24,7 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
             node_coordinates: node_coordinates12,
         })
     );
-    console.log("  testcheckcurrentsegmentsintersectnextsegment start");
+    // console.log("  testcheckcurrentsegmentsintersectnextsegment start");
     asserttrue(
         intersectionfilterfun({
             currentroute: [3, 1, 0],
@@ -60,5 +60,5 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
             node_coordinates: node_coordinates21,
         })
     );
-    console.log("  testcheckcurrentsegmentsintersectnextsegment end");
+    // console.log("  testcheckcurrentsegmentsintersectnextsegment end");
 }

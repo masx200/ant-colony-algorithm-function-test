@@ -2,7 +2,7 @@ import { robustsegmentintersect } from "../functions/robust-segment-intersect";
 import { asserttrue } from "./asserttrue";
 
 export function testrobustsegmentintersect() {
-    console.log("test robustsegmentintersect start");
+    // console.log("test robustsegmentintersect start");
     asserttrue(
         robustsegmentintersect([-1, 0], [1, 0], [0, -1], [0, 1]),
         "general test"
@@ -45,5 +45,5 @@ export function testrobustsegmentintersect() {
         robustsegmentintersect([0, 1], [0, -1], [0, 0], [0, 1]),
         "endpoint touches"
     );
-    console.log("test robustsegmentintersect ok");
+    // console.log("test robustsegmentintersect ok");
 }

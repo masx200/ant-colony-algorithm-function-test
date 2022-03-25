@@ -8,7 +8,7 @@ import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
 export function testpathTabooList() {
-    console.log("test pathTabooList start");
+    // console.log("test pathTabooList start");
 
     const ptl = createpathTabooList(10);
     asserttrue(ptl.count_of_nodes === 10);
@@ -23,7 +23,7 @@ export function testpathTabooList() {
     assertshouldcatcherror(() => {
         createpathTabooList(1);
     });
-    console.log(ptl);
+    // console.log(ptl);
     asserttrue(ptl.size() === 0);
 
     asserttrue(ptl.count_of_nodes == 10);
@@ -52,11 +52,11 @@ export function testpathTabooList() {
     );
     asserttrue(!ptl.delete([1, 2, 3]));
     asserttrue(ptl.size() === 2);
-    console.log(ptl.values());
+    // console.log(ptl.values());
     asserttrue(ptl.has([3, 1, 2]));
     asserttrue(ptl.delete([3, 1, 2]));
     asserttrue(!ptl.has([3, 1, 2]));
-    console.log(ptl.values());
+    // console.log(ptl.values());
     asserttrue(isEqual(ptl.values(), [[1, 2]]), "ptl.values");
     asserttrue(ptl.size() === 1, "ptl.size");
     ptl.clear();
@@ -75,7 +75,7 @@ export function testpathTabooList() {
     asserttrue(isEqual(ptl.values(), [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]]));
 
     const jsonofptl = pathTabooListToJSON(ptl);
-    console.log(jsonofptl);
+    // console.log(jsonofptl);
     asserttrue(
         isEqual(jsonofptl, {
             count_of_nodes: 10,
@@ -85,5 +85,5 @@ export function testpathTabooList() {
 
     asserttrue(ptl.delete([2, 3, 4, 5, 6, 7, 8, 9, 0, 1]));
     asserttrue(ptl.size() === 0);
-    console.log("test pathTabooList end");
+    // console.log("test pathTabooList end");
 }

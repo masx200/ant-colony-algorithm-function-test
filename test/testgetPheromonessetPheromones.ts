@@ -5,11 +5,11 @@ import { assertshouldcatcherror } from "./assertshouldcatcherror";
 import { asserttrue } from "./asserttrue";
 
 export function testgetPheromonessetPheromones() {
-    console.log("getPheromones, setPheromones test start");
+    // console.log("getPheromones, setPheromones test start");
 
     const pheromoneStore = createPheromoneStore(13);
 
-    console.log(pheromoneStore);
+    // console.log(pheromoneStore);
     const { get: getPheromone, set: setPheromone } = pheromoneStore;
     setPheromone(1, 10, 9);
     setPheromone(12, 10, 8);
@@ -74,5 +74,5 @@ export function testgetPheromonessetPheromones() {
     assertshouldcatcherror(() => {
         createPheromoneStore(0);
     });
-    console.log("getPheromones, setPheromones test ok");
+    // console.log("getPheromones, setPheromones test ok");
 }

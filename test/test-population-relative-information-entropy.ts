@@ -2,7 +2,7 @@ import { calc_population_relative_information_entropy } from "../functions/calc_
 import { asserttrue } from "./asserttrue";
 
 export function test_population_relative_information_entropy() {
-    console.log("test_population_relative_information_entropy start");
+    // console.log("test_population_relative_information_entropy start");
 
     asserttrue(
         0.75 ===
@@ -27,5 +27,5 @@ export function test_population_relative_information_entropy() {
                 [1, 3, 2],
             ])
     );
-    console.log("test_population_relative_information_entropy end");
+    // console.log("test_population_relative_information_entropy end");
 }

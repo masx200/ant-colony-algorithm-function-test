@@ -5,7 +5,7 @@ import { geteuclideandistancebyindex } from "../functions/geteuclideandistanceby
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { asserttrue } from "./asserttrue";
 export function testgeteuclideandistance() {
-    console.log("test geteuclideandistance test start");
+    // console.log("test geteuclideandistance test start");
     asserttrue(euclideandistance([3, 4], [0, 0]) === 5);
 
     let node_coordinates1: NodeCoordinates = [
@@ -51,7 +51,7 @@ export function testgeteuclideandistance() {
         )
     );
     asserttrue(10 === Math.max(...node1distances));
-    console.log("test geteuclideandistance test ok");
+    // console.log("test geteuclideandistance test ok");
 }
 
 // function aboutequal(a: number, b: number) {
