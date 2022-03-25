@@ -29,11 +29,12 @@ import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { EachIterationHandler } from "./EachIterationHandler";
 // import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
-import { createEachRouteGenerator } from "./EachRouteGenerator";
+import { createEachRouteGenerator } from "./createEachRouteGenerator";
 import { float64equal } from "./float64equal";
 import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
 import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
+import { update_weight_of_opt } from "./update_weight_of_opt";
 // import { WayOfConstruct } from "./WayOfConstruct";
 export interface TSPRunner {
     min_coefficient_of_pheromone_diffusion: number;
@@ -262,7 +263,13 @@ export function createTSPrunner({
             runOneIteration();
         }
     };
-    const EachRouteGenerator = createEachRouteGenerator();
+    const {
+        EachRouteGenerator,
+        set_weight_of_opt_best,
+        set_weight_of_opt_current,
+        get_weight_of_opt_best,
+        get_weight_of_opt_current,
+    } = createEachRouteGenerator();
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
         const {
@@ -306,6 +313,7 @@ export function createTSPrunner({
             //后处理时间要加上
 
             const {
+                coefficient_of_diversity_increase,
                 // locally_optimized_length,
                 // relative_deviation_from_optimal,
                 nextrandomselectionprobability,
@@ -339,6 +347,15 @@ export function createTSPrunner({
                 pheromone_volatility_coefficient_R2,
                 // pheromone_volatility_coefficient_R1,
                 pheromone_intensity_Q,
+            });
+
+            //更新局部优化的系数
+            update_weight_of_opt({
+                get_weight_of_opt_best,
+                get_weight_of_opt_current,
+                set_weight_of_opt_best,
+                coefficient_of_diversity_increase,
+                set_weight_of_opt_current,
             });
             const endtime_of_process_iteration = Number(new Date());
             //后处理时间要加上

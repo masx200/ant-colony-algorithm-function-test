@@ -1,46 +1,22 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { asserttrue } from "../test/asserttrue";
 import { construct_one_route_all } from "./construct_one_route_all";
+import { Fun_EachRouteGenerator } from "./Fun_EachRouteGenerator";
+import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { NodeCoordinates } from "./NodeCoordinates";
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
-import { asserttrue } from "../test/asserttrue";
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
-export function createEachRouteGenerator(): ({
-    current_search_count,
-    count_of_nodes,
-    node_coordinates,
-    pheromoneStore,
-    alpha_zero,
-    beta_zero,
-    lastrandomselectionprobability,
-    max_results_of_k_opt,
-    get_best_length,
-    get_best_route,
-    pheromone_volatility_coefficient_R1,
-    pheromone_intensity_Q,
-    setbestlength,
-    setbestroute,
-}: {
-    current_search_count: number;
-    count_of_nodes: number;
-    node_coordinates: NodeCoordinates;
-    pheromoneStore: MatrixSymmetry;
-    alpha_zero: number;
-    beta_zero: number;
-    lastrandomselectionprobability: number;
-    max_results_of_k_opt: number;
-    get_best_length: () => number;
-    get_best_route: () => number[];
-    pheromone_volatility_coefficient_R1: number;
-    pheromone_intensity_Q: number;
-    setbestlength: (arg0: number) => void;
-    setbestroute: (arg0: number[]) => void;
-}) => {
-    route: number[];
-    totallength: number;
-    weight_of_opt_best: number;
-    weight_of_opt_current: number;
+export function createEachRouteGenerator(): {
+    EachRouteGenerator: Fun_EachRouteGenerator;
+    // weight_of_opt_current: {
+    get_weight_of_opt_current(): number;
+    set_weight_of_opt_current(value: number): void;
+    // };
+    // weight_of_opt_best: {
+    get_weight_of_opt_best(): number;
+    set_weight_of_opt_best(value: number): void;
+    // };
 } {
     let weight_of_opt_best = 1;
     let weight_of_opt_current = 1;
@@ -51,7 +27,7 @@ export function createEachRouteGenerator(): ({
         );
     }
     /**每一条路径的生成和局部信息素更新 */
-    return function EachRouteGenerator({
+    function EachRouteGenerator({
         current_search_count,
         count_of_nodes,
         node_coordinates,
@@ -193,5 +169,24 @@ export function createEachRouteGenerator(): ({
             weight_of_opt_best,
             weight_of_opt_current,
         };
+    }
+    return {
+        EachRouteGenerator,
+        // weight_of_opt_best: {
+        get_weight_of_opt_best() {
+            return weight_of_opt_best;
+        },
+        set_weight_of_opt_best(value: number) {
+            weight_of_opt_best = value;
+        },
+        // },
+        // weight_of_opt_current: {
+        get_weight_of_opt_current() {
+            return weight_of_opt_current;
+        },
+        set_weight_of_opt_current(value: number) {
+            weight_of_opt_current = value;
+        },
+        // },
     };
 }

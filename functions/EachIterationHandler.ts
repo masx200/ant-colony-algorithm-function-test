@@ -3,14 +3,14 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
+import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
+import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+import { NodeCoordinates } from "./NodeCoordinates";
+import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 // import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 // import { cycleroutetosegments } from "./cycleroutetosegments";
 import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_after_iteration";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
-import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
-import { NodeCoordinates } from "./NodeCoordinates";
-import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 
 // export type AdaptiveTSPSearchOptions =;
 /* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
@@ -50,6 +50,7 @@ export function EachIterationHandler(opts: {
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     // numberofstagnantiterations: number;
 }): {
+    coefficient_of_diversity_increase: number;
     // relative_deviation_from_optimal: number;
     nextrandomselectionprobability: number;
     pheromoneDiffusionProbability: number;
@@ -92,15 +93,13 @@ export function EachIterationHandler(opts: {
     /**种群相对信息熵 */
     const current_population_relative_information_entropy =
         calc_population_relative_information_entropy(routes);
-    const nextrandomselectionprobability =
-        Math.sqrt(
-            1 - Math.pow(current_population_relative_information_entropy, 2)
-        ) / 8;
 
-    const pheromoneDiffusionProbability =
-        Math.sqrt(
-            1 - Math.pow(current_population_relative_information_entropy, 2)
-        ) / 4;
+    const coefficient_of_diversity_increase = Math.sqrt(
+        1 - Math.pow(current_population_relative_information_entropy, 2)
+    );
+    const nextrandomselectionprobability =
+        coefficient_of_diversity_increase / 8;
+    const pheromoneDiffusionProbability = coefficient_of_diversity_increase / 4;
     console.log(
         "种群相对信息熵",
         current_population_relative_information_entropy
@@ -185,6 +184,7 @@ export function EachIterationHandler(opts: {
     //         get_best_length()
     //     );
     return {
+        coefficient_of_diversity_increase,
         // locally_optimized_length,
         // relative_deviation_from_optimal,
         optimallengthofthisround,
