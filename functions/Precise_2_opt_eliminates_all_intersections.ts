@@ -2,7 +2,7 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
-import { intersection_filter_with_cycle_route_find_one } from "./intersection_filter_with_cycle_route-find-one";
+import { cacheble_intersection_filter_with_cycle_route_find_one } from "./cacheble_intersection_filter_with_cycle_route_find_one";
 import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with-segment";
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
 
@@ -17,10 +17,11 @@ export function Precise_2_opt_eliminates_all_intersections({
     node_coordinates: NodeCoordinates;
 }): { optimal_length: number; optimal_route: number[] } {
     while (true) {
-        const intersection = intersection_filter_with_cycle_route_find_one({
-            cycleroute: optimal_route,
-            node_coordinates,
-        });
+        const intersection =
+            cacheble_intersection_filter_with_cycle_route_find_one({
+                cycleroute: optimal_route,
+                node_coordinates,
+            });
         if (intersection) {
             const splitted_Routes = divide_route_to_2_opt_with_segment(
                 optimal_route,

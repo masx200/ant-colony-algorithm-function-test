@@ -1,6 +1,7 @@
 import { isEqual } from "lodash";
 import { divide_route_to_2_opt_with_segment } from "../functions/divide_route_to_2-opt-with-segment";
-import { intersection_filter_with_cycle_route_find_one } from "../functions/intersection_filter_with_cycle_route-find-one";
+import { intersection_filter_with_cycle_route_find_one_old } from "../functions/intersection_filter_with_cycle_route_find_one_old";
+
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 it("test-intersection_filter_with_cycle_route_find_one-divide_route_to_2_opt_with_segment", () => {
@@ -33,7 +34,7 @@ it("test-intersection_filter_with_cycle_route_find_one-divide_route_to_2_opt_wit
         0, 7, 21, 17, 3, 16, 1, 2, 15, 11, 12, 13, 6, 5, 14, 4, 10, 8, 9, 18,
         19, 20,
     ];
-    const intersection = intersection_filter_with_cycle_route_find_one({
+    const intersection = intersection_filter_with_cycle_route_find_one_old({
         node_coordinates: ulysses22 as NodeCoordinates,
         cycleroute: route,
     });
