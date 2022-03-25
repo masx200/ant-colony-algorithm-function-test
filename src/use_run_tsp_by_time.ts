@@ -1,37 +1,31 @@
 import { Ref } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { assertnumber } from "../test/assertnumber";
-import {
-    defaultnumber_of_ants,
-    defaultsearchrounds,
-    default_pheromone_volatility_coefficient_R1,
-} from "./defaultnumber_of_ants";
 import { Fun_TSP_Before_Start } from "./Fun_TSP_Before_Start";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
 
-export function use_run_tsp_by_search_rounds({
-    onprogress,
-    TSP_before_Start,
-    searchrounds,
+export function use_run_tsp_by_time({
+    search_time_seconds,
     numberofeachround,
     selecteleref,
     local_pheromone_volatilization_rate,
     disablemapswitching,
     is_running,
+    TSP_before_Start,
     onGlobalBestRouteChange,
     onLatestRouteChange,
     finish_one_route_listener,
     finish_one_iteration_listener,
+    onprogress,
 }: {
-    onprogress: (percentage: number) => void;
-    TSP_before_Start: Fun_TSP_Before_Start;
-    searchrounds: Ref<number>;
+    search_time_seconds: Ref<number>;
     numberofeachround: Ref<number>;
     selecteleref: Ref<HTMLSelectElement | undefined>;
     local_pheromone_volatilization_rate: Ref<number>;
     disablemapswitching: Ref<boolean>;
     is_running: Ref<boolean>;
+    TSP_before_Start: Fun_TSP_Before_Start;
     onGlobalBestRouteChange: (
         route: number[],
         node_coordinates: NodeCoordinates
@@ -42,11 +36,10 @@ export function use_run_tsp_by_search_rounds({
     ) => void;
     finish_one_route_listener: () => void;
     finish_one_iteration_listener: () => void;
-}): () => Promise<void> {
+    onprogress: (p: number) => void;
+}) {
     return async () => {
-        // console.log("搜索轮次", searchrounds.value);
-        // console.log("蚂蚁数量", numberofeachround.value);
-        const round_of_search = searchrounds.value;
+        const search_time_ms = search_time_seconds.value * 1000;
         const numberofeachroundvalue = numberofeachround.value;
         const element = selecteleref.value;
         // element && (element.selectedIndex = 0);
@@ -55,7 +48,7 @@ export function use_run_tsp_by_search_rounds({
             local_pheromone_volatilization_rate.value;
         if (
             pheromone_volatility_coefficient_R1 > 0 &&
-            round_of_search > 0 &&
+            search_time_ms > 0 &&
             numberofeachroundvalue >= 2 &&
             node_coordinates
         ) {
@@ -63,7 +56,7 @@ export function use_run_tsp_by_search_rounds({
             const number_of_ants = numberofeachroundvalue;
             // console.log(node_coordinates);
             assertnumber(number_of_ants);
-            assertnumber(round_of_search);
+            assertnumber(search_time_ms);
             assertnumber(pheromone_volatility_coefficient_R1);
             is_running.value = true;
             // const onFinishIteration = () => {
@@ -79,24 +72,16 @@ export function use_run_tsp_by_search_rounds({
                 onLatestRouteChange,
             });
             // console.log("runner", runner);
-
             await runner.on_finish_one_route(finish_one_route_listener);
             await runner.on_finish_one_iteration(finish_one_iteration_listener);
 
             await tsp_runner_run_async({
+                time_of_search_ms: search_time_ms,
                 runner,
-                round_of_search,
+
                 number_of_ants,
                 onprogress,
             });
-            is_running.value = false;
-            // runner.onDataChange(data_change_listener);
-        } else {
-            local_pheromone_volatilization_rate.value =
-                default_pheromone_volatility_coefficient_R1;
-            searchrounds.value = defaultsearchrounds;
-            numberofeachround.value = defaultnumber_of_ants;
-            disablemapswitching.value = false;
             is_running.value = false;
         }
     };

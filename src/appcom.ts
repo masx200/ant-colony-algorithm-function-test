@@ -28,6 +28,7 @@ import { use_escharts_container_pair } from "./use_escharts_container_pair"; // 
 import { use_history_of_best } from "./use_history_of_best";
 import { use_initialize_tsp_runner } from "./use_initialize_tsp_runner";
 import { use_run_tsp_by_search_rounds } from "./use_run_tsp-by-search-rounds";
+import { use_run_tsp_by_time } from "./use_run_tsp_by_time";
 import { use_submit } from "./use_submit";
 import { use_tsp_before_start } from "./use_tsp_before_start";
 export default defineComponent({
@@ -132,7 +133,7 @@ export default defineComponent({
             indeterminate.value = false;
         }
         onMounted(async () => {
-            reset(true);
+            reset();
             // console.log(selecteleref);
             const element = selecteleref.value;
             element && (element.selectedIndex = 0);
@@ -245,11 +246,11 @@ export default defineComponent({
             disablemapswitching.value = false;
             is_running.value = false;
         };
-        const reset = (first: boolean = false) => {
+        const reset = (/* first: boolean = false */) => {
             percentage.value = 0;
             resetold();
             disable_stop.value = false;
-            first || location.reload();
+            // first || location.reload();
         };
         const disable_stop = ref(false);
         const stop_handler = () => {
@@ -258,9 +259,24 @@ export default defineComponent({
         };
         const resethandler = () => {
             reset();
+            location.reload();
         };
-        const run_tsp_by_time = () => {};
         const search_time_seconds = ref(default_search_time_seconds);
+        const run_tsp_by_time = use_run_tsp_by_time({
+            search_time_seconds,
+            numberofeachround,
+            selecteleref,
+            local_pheromone_volatilization_rate,
+            disablemapswitching,
+            is_running,
+            TSP_before_Start,
+            onGlobalBestRouteChange,
+            onLatestRouteChange,
+            finish_one_route_listener,
+            finish_one_iteration_listener,
+            onprogress,
+        });
+
         const radio_run_way = ref(RunWay.round);
         const run_way_time = RunWay.time;
         const run_way_round = RunWay.round;

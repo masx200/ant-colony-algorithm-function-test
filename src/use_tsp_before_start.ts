@@ -1,48 +1,12 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { Fun_initialize_TSP_runner } from "./Fun_initialize_TSP_runner";
+import { Fun_TSP_Before_Start } from "./Fun_TSP_Before_Start";
 import { TSP_RunnerRef } from "./TSP_workerRef";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export function use_tsp_before_start(
-    initializeTSP_runner: ({
-        node_coordinates,
-        number_of_ants,
-        onGlobalBestRouteChange,
-        onLatestRouteChange,
-        pheromone_volatility_coefficient_R1,
-    }: {
-        pheromone_volatility_coefficient_R1: number;
-        node_coordinates: NodeCoordinates;
-        number_of_ants: number;
-        onGlobalBestRouteChange: (
-            globalbestroute: number[],
-            node_coordinates: NodeCoordinates
-        ) => void;
-        onLatestRouteChange: (
-            latestroute: number[],
-            node_coordinates: NodeCoordinates
-        ) => void;
-    }) => Promise<TSP_Worker_Remote>
-): ({
-    onGlobalBestRouteChange,
-    onLatestRouteChange,
-    node_coordinates,
-    number_of_ants,
-    pheromone_volatility_coefficient_R1,
-}: {
-    // onFinishIteration: () => void;
-    pheromone_volatility_coefficient_R1: number;
-    onGlobalBestRouteChange: (
-        globalbestroute: number[],
-        node_coordinates: NodeCoordinates
-    ) => void;
-    onLatestRouteChange: (
-        latestroute: number[],
-        node_coordinates: NodeCoordinates
-    ) => void;
-    // round_of_search: number;
-    number_of_ants: number;
-    node_coordinates: NodeCoordinates;
-}) => Promise<TSP_Worker_Remote> {
+    initializeTSP_runner: Fun_initialize_TSP_runner
+): Fun_TSP_Before_Start {
     return async function TSP_before_Start({
         // onFinishIteration,
         onGlobalBestRouteChange,
