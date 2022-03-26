@@ -27,7 +27,10 @@ export async function tsp_runner_run_async({
     );
     const all_time = time_of_search_ms;
     onprogress && onprogress(0);
-    const all_count = count_of_search ?? round_of_search * number_of_ants;
+    const all_count =
+        count_of_search < Infinity
+            ? count_of_search
+            : round_of_search * number_of_ants;
     let rest_count = all_count;
     let run_count = 15;
     const min_count = 10;

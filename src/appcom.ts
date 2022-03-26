@@ -1,5 +1,6 @@
 import { defineComponent, onMounted, readonly, ref, watch } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
 import Datatable from "./Datatable-com.vue";
 import {
@@ -216,6 +217,7 @@ export default defineComponent({
             );
         };
         const onprogress = (p: number) => {
+            assertnumber(p)
             percentage.value = Math.min(100, Math.max(0, p));
         };
         const runtsp_by_search_rounds = use_run_tsp_by_search_rounds({
