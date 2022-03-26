@@ -1,6 +1,7 @@
 <template>
     <div class="fixed-top-navbar Translucent-background">
         <el-progress
+            class="Translucent-background"
             :percentage="percentage"
             textInside
             :strokeWidth="20"
@@ -21,6 +22,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .fixed-top-navbar {
+    z-index: 10;
     height: 30px;
     position: fixed;
     width: 100%;
