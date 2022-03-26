@@ -216,7 +216,7 @@ export default defineComponent({
             );
         };
         const onprogress = (p: number) => {
-            percentage.value = p;
+            percentage.value = Math.min(100, Math.max(0, p));
         };
         const runtsp_by_search_rounds = use_run_tsp_by_search_rounds({
             onprogress,

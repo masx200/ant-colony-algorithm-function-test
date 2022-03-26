@@ -48,13 +48,15 @@ export async function tsp_runner_run_async({
             // console.log("tsp_runner_run_async,次数", run_count);
             // console.log("tsp_runner_run_async,用时", duration);
 
-            onprogress && onprogress(100 * (1 - rest_count / all_count));
+            onprogress &&
+                onprogress(Math.min(100, 100 * (1 - rest_count / all_count)));
         } else {
             const last_time = Number(new Date());
             await runner.runRoutes(run_count);
             duration = Number(new Date()) - last_time;
             rest_time -= duration;
-            onprogress && onprogress(100 * (1 - rest_time / all_time));
+            onprogress &&
+                onprogress(Math.min(100, 100 * (1 - rest_time / all_time)));
         }
         if (duration > interval) {
             run_count = Math.round(Math.max(run_count / 2, min_count));
