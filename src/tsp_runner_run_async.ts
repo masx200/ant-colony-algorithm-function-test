@@ -31,7 +31,7 @@ export async function tsp_runner_run_async({
     let rest_count = all_count;
     let run_count = 15;
     const min_count = 10;
-    const interval = 3000;
+    const interval = 10000;
 
     let rest_time = time_of_search_ms;
     const type_of_search =
