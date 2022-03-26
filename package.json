@@ -3,16 +3,18 @@
         "minimist": "1.2.6"
     },
     "packageManager": "yarn@3.2.0",
-    "name": "ant-colony-algorithm-function-test",
-    "version": "3.2.5",
+    "name": "@masx200/ant-colony-algorithm-function-test",
+    "version": "3.3.0",
     "type": "module",
     "scripts": {
+        "precommit": "npm run format",
         "test": "jest",
         "dev": "vite -c vite.config.ts",
         "build": "vue-tsc --noEmit && vite build",
         "check": "vue-tsc --noEmit",
         "preview": "vite preview",
-        "format": " prettier --write  *.ts */*.html */*.ts */*.css *.md  */*.vue "
+        "format": " prettier --write  *.ts */*.html */*.ts */*.css *.md  */*.vue ",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",
@@ -62,5 +64,8 @@
         "vite-plugin-pwa": "^0.11.13",
         "vue": "^3.2.31",
         "vue-tsc": "^0.33.2-patch.1"
+    },
+    "dependencies": {
+        "husky": "^7.0.4"
     }
 }
