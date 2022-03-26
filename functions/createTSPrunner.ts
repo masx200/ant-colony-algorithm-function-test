@@ -199,7 +199,7 @@ export function createTSPrunner({
         return current_search_count / number_of_ants;
     };
 
-    const emitter = EventEmitterTargetClass();
+    const emitter = EventEmitterTargetClass({ sync: true });
     const { on: on_best_change, emit: emit_best_change } =
         createEventPair<DataOfBestChange>(emitter);
     const { on: on_finish_one_route, emit: inner_emit_finish_one_route } =

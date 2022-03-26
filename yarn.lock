@@ -1719,10 +1719,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@masx200/event-emitter-target@npm:^1.1.9":
-  version: 1.1.9
-  resolution: "@masx200/event-emitter-target@npm:1.1.9"
-  checksum: 7c6b6806a5dfa437abc76fac007c4fa664a214cba25ed6954d56b895ed2522da0d9647846c154c9c292a56ae1c34d2610a8311e0819c8e1c30d2626237dba98a
+"@masx200/event-emitter-target@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@masx200/event-emitter-target@npm:2.0.0"
+  checksum: 2c48f60f8ff6926cc9c19cf307eecfba4945de50bba294c0a8af438c1eaba3e8bca332616fed255d7abb2d6f8a69c96be88439bd22407be5ccaba2715cb777a9
   languageName: node
   linkType: hard
 
@@ -2573,7 +2573,7 @@ __metadata:
     "@babel/generator": ^7.17.3
     "@babel/plugin-syntax-typescript": ^7.16.7
     "@babel/preset-typescript": ^7.16.7
-    "@masx200/event-emitter-target": ^1.1.9
+    "@masx200/event-emitter-target": ^2.0.0
     "@masx200/mini-cli-args-parser": ^1.0.4
     "@masx200/sparse-2d-matrix": ^1.0.5
     "@masx200/tsp-lib-test-data": ^1.1.1
