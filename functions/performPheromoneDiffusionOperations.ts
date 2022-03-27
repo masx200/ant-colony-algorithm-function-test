@@ -122,7 +122,7 @@ export function performPheromoneDiffusionOperations({
                     row,
                     initializer: () => 0,
                 });
-                deltapheromoneStore.set(cityA, cityB, -pheromoneZ * 0.5);
+
                 const citiesandd1xd2 = segmentsinsidecircle.map(
                     ([cityC, cityD]) => {
                         // debugger;
@@ -159,36 +159,46 @@ export function performPheromoneDiffusionOperations({
                         return { cityC, cityD, weight };
                     }
                 );
-                const weightsum = sum(
-                    citiesandweights.map(({ weight }) => weight)
-                );
-                const pheromonedeltaofcities = citiesandweights.map(
-                    ({ cityC, cityD, weight }) => {
-                        const pheromonedelta =
-                            (0.5 * pheromoneZ * weight) / weightsum;
-                        return { cityC, cityD, pheromonedelta };
-                    }
-                );
+                const weightX0 = 1;
+                const weightsum =
+                    weightX0 +
+                    sum(citiesandweights.map(({ weight }) => weight));
+                /*  const pheromonedeltaofcities = */
+
+                citiesandweights.forEach(({ cityC, cityD, weight }) => {
+                    const pheromonedelta = (pheromoneZ * weight) / weightsum;
+
+                    deltapheromoneStore.set(cityC, cityD, pheromonedelta);
+                    deltapheromoneStore.set(cityD, cityC, pheromonedelta);
+
+                    // return { cityC, cityD, pheromonedelta };
+                });
                 // debugger;
-                pheromonedeltaofcities.forEach(
-                    ({ cityC, cityD, pheromonedelta }) => {
-                        deltapheromoneStore.set(cityC, cityD, pheromonedelta);
-                        deltapheromoneStore.set(cityD, cityC, pheromonedelta);
-                    }
-                );
-                console.log(
-                    "deltapheromone",
-                    MatrixToArrays(deltapheromoneStore)
-                );
+                // pheromonedeltaofcities.forEach(
+                //     ({ cityC, cityD, pheromonedelta }) => {
+                //         deltapheromoneStore.set(cityC, cityD, pheromonedelta);
+                //         deltapheromoneStore.set(cityD, cityC, pheromonedelta);
+                //     }
+                // );
+                const pheromoneX0 = (pheromoneZ * weightX0) / weightsum;
+                // const delta_pheromoneX0 = pheromoneX0 - pheromoneZ;
+                // deltapheromoneStore.set(cityA, cityB, delta_pheromoneX0);
+                // deltapheromoneStore.set(cityB, cityA, delta_pheromoneX0);
+                // console.log(
+                //     "deltapheromone",
+                //     MatrixToArrays(deltapheromoneStore)
+                // );
                 const pheromoneStorenext = MatrixAdd(
                     MatrixFrom(pheromoneStore),
                     deltapheromoneStore
                 );
-                const oldpheromoneStore = MatrixFrom(pheromoneStore);
-                console.log({
-                    oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
-                    pheromoneStorenext: MatrixToArrays(pheromoneStorenext),
-                });
+                pheromoneStorenext.set(cityA, cityB, pheromoneX0);
+                pheromoneStorenext.set(cityB, cityA, pheromoneX0);
+                // const oldpheromoneStore = MatrixFrom(pheromoneStore);
+                // console.log({
+                //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
+                //     pheromoneStorenext: MatrixToArrays(pheromoneStorenext),
+                // });
                 asserttrue(pheromoneStorenext.values().every((a) => a > 0));
                 MatrixAssign(pheromoneStore, pheromoneStorenext);
             }
