@@ -1,3 +1,4 @@
+/**更新局部优化的系数 */
 export function update_weight_of_opt({
     get_weight_of_opt_best,
     get_weight_of_opt_current,
@@ -16,12 +17,12 @@ export function update_weight_of_opt({
         (get_weight_of_opt_best() + get_weight_of_opt_current()) / 2;
     set_weight_of_opt_best(
         get_weight_of_opt_best() +
-            (coefficient_of_diversity_increase / 2) *
+            (coefficient_of_diversity_increase / 4) *
                 (avarage_weight - get_weight_of_opt_best())
     );
     set_weight_of_opt_current(
         get_weight_of_opt_current() +
-            (coefficient_of_diversity_increase / 2) *
+            (coefficient_of_diversity_increase / 4) *
                 (avarage_weight - get_weight_of_opt_current())
     );
 }

@@ -1,14 +1,12 @@
 import {
+    MatrixAdd,
+    MatrixAssign,
+    MatrixFrom,
     MatrixSymmetry,
     MatrixSymmetryCreate,
-    MatrixToArrays,
-    MatrixAdd,
-    MatrixFrom,
-    MatrixAssign,
 } from "@masx200/sparse-2d-matrix";
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
-
 import { asserttrue } from "../test/asserttrue";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
 import { cycleroutetosegments } from "./cycleroutetosegments";
@@ -18,6 +16,7 @@ import { get_max_distance_of_node_coordinates } from "./get_max_distance_of_node
 import { haverepetitions } from "./haverepetitions";
 import { ispathsequalinbothdirectionswithoutcycle } from "./ispathsequalinbothdirectionswithoutcycle";
 import { NodeCoordinates } from "./NodeCoordinates";
+
 /**执行信息素扩散操作 */
 export function performPheromoneDiffusionOperations({
     pheromoneDiffusionProbability,
