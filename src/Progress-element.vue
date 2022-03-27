@@ -4,7 +4,7 @@
             class="Translucent-background"
             :percentage="percentage"
             textInside
-            :strokeWidth="20"
+            :strokeWidth="25"
             :indeterminate="indeterminate"
         />
     </div>

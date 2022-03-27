@@ -61,6 +61,7 @@
                 v-model.number="searchrounds"
                 :min="1"
                 :controls="false"
+                :disabled="is_running"
             />
             <br />
             <button
@@ -77,6 +78,7 @@
                 v-model.number="search_time_seconds"
                 :min="1"
                 :controls="false"
+                :disabled="is_running"
             />
             <br />
             <button
