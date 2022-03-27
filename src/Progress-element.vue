@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed-top-navbar Translucent-background">
+    <div class=" progress-bar Translucent-background">
         <el-progress
             class="Translucent-background"
             :percentage="percentage"
@@ -21,12 +21,13 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.fixed-top-navbar {
-    z-index: 10;
+
+.progress-bar {
+    /* z-index: 10; */
     height: 30px;
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
-    top: 0%;
-    left: 0;
+    /* top: 0%; */
+    /* left: 0; */
 }
 </style>
