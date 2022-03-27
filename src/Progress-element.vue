@@ -1,5 +1,5 @@
 <template>
-    <div class=" progress-bar Translucent-background">
+    <div class="progress-bar Translucent-background">
         <el-progress
             class="Translucent-background"
             :percentage="percentage"
@@ -21,7 +21,6 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-
 .progress-bar {
     /* z-index: 10; */
     height: 30px;

@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <Progresselement class="fixed-top-navbar"
+        <Progresselement
+            class="fixed-top-navbar"
             :percentage="percentage"
             :indeterminate="indeterminate"
         />
