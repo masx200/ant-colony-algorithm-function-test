@@ -218,7 +218,13 @@ export default defineComponent({
         };
         const onprogress = (p: number) => {
             assertnumber(p);
-            percentage.value = Math.min(100, Math.max(0, p));
+            const value = Math.min(100, Math.max(0, p));
+            percentage.value = value;
+            if (value === 100 || value === 0) {
+                navbar_float.value = false;
+            } else {
+                navbar_float.value = true;
+            }
         };
         const runtsp_by_search_rounds = use_run_tsp_by_search_rounds({
             onprogress,
@@ -255,9 +261,11 @@ export default defineComponent({
             // first || location.reload();
         };
         const disable_stop = ref(false);
+        const navbar_float = ref(false);
         const stop_handler = () => {
             StopTSPWorker();
             disable_stop.value = true;
+            navbar_float.value = false;
         };
         const resethandler = () => {
             reset();
@@ -283,6 +291,7 @@ export default defineComponent({
         const run_way_time = RunWay.time;
         const run_way_round = RunWay.round;
         return {
+            navbar_float,
             run_way_round,
             run_way_time,
             radio_run_way,

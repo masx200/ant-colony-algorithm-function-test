@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div :class="{ 'container-top': navbar_float }">
         <Progresselement
-            class="fixed-top-navbar"
+            :class="{ 'fixed-top-navbar': navbar_float }"
             :percentage="percentage"
             :indeterminate="indeterminate"
         />
@@ -221,7 +221,7 @@
         flex-direction: row;
     }
 }
-.container {
+.container-top {
     margin-top: 30px;
 }
 </style>
