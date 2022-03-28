@@ -137,12 +137,14 @@ export function createEachRouteGenerator(): {
         //   : { route: oldRoute, totallength: oldLength };
 
         if (totallength < get_best_length()) {
-            if (length3 === totallength) {
-                if (select_opt_best) {
-                    weight_of_opt_best++;
-                } else {
-                    weight_of_opt_current++;
-                }
+            if (length3 === totallength && select_opt_best) {
+                // if () {
+                weight_of_opt_best++;
+                //} else {
+
+                //}
+            } else {
+                weight_of_opt_current++;
             }
 
             setbestlength(totallength);
