@@ -35,6 +35,14 @@ import { use_tsp_before_start } from "./use_tsp_before_start";
 export default defineComponent({
     components: { Datatable, Progresselement: Progresselement },
     setup() {
+        onMounted(() => {
+            window.addEventListener("beforeunload", (e) => {
+                if (is_running.value) {
+                    e.returnValue = "是否要关闭";
+                    e.preventDefault();
+                }
+            });
+        });
         /* 进度从0到100 */
         const percentage = ref(0);
         const {
