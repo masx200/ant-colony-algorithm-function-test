@@ -264,6 +264,8 @@ export function createTSPrunner({
         }
     };
     const {
+        get_probability_of_opt_best,
+        get_probability_of_opt_current,
         EachRouteGenerator,
         set_weight_of_opt_best,
         set_weight_of_opt_current,
@@ -275,8 +277,8 @@ export function createTSPrunner({
         const {
             route,
             totallength,
-            weight_of_opt_best,
-            weight_of_opt_current,
+            // weight_of_opt_best,
+            // weight_of_opt_current,
         } = EachRouteGenerator({
             current_search_count,
             count_of_nodes,
@@ -299,8 +301,10 @@ export function createTSPrunner({
             endtime_of_one_route - starttime_of_one_route;
         time_ms_of_one_iteration += time_ms_of_one_route;
         emit_finish_one_route({
-            weight_of_opt_best,
-            weight_of_opt_current,
+            probability_of_opt_best: get_probability_of_opt_best(),
+            probability_of_opt_current: get_probability_of_opt_current(),
+            // weight_of_opt_best,
+            // weight_of_opt_current,
             // way_of_construct,
             time_ms_of_one_route: time_ms_of_one_route,
             route,

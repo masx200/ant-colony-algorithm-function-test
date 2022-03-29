@@ -8,6 +8,8 @@ import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
 export function createEachRouteGenerator(): {
+    get_probability_of_opt_current: () => number;
+    get_probability_of_opt_best: () => number;
     EachRouteGenerator: Fun_EachRouteGenerator;
     // weight_of_opt_current: {
     get_weight_of_opt_current(): number;
@@ -24,6 +26,11 @@ export function createEachRouteGenerator(): {
     function get_probability_of_opt_best(): number {
         return (
             weight_of_opt_best / (weight_of_opt_best + weight_of_opt_current)
+        );
+    }
+    function get_probability_of_opt_current(): number {
+        return (
+            weight_of_opt_current / (weight_of_opt_best + weight_of_opt_current)
         );
     }
     /**每一条路径的生成和局部信息素更新 */
@@ -60,8 +67,8 @@ export function createEachRouteGenerator(): {
     }): {
         route: number[];
         totallength: number;
-        weight_of_opt_best: number;
-        weight_of_opt_current: number;
+        // weight_of_opt_best: number;
+        // weight_of_opt_current: number;
     } {
         const {
             route: oldRoute,
@@ -168,11 +175,13 @@ export function createEachRouteGenerator(): {
         return {
             route,
             totallength,
-            weight_of_opt_best,
-            weight_of_opt_current,
+            // weight_of_opt_best,
+            // weight_of_opt_current,
         };
     }
     return {
+        get_probability_of_opt_best,
+        get_probability_of_opt_current,
         EachRouteGenerator,
         // weight_of_opt_best: {
         get_weight_of_opt_best() {

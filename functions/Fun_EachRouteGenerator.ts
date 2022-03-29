@@ -34,6 +34,6 @@ export type Fun_EachRouteGenerator = ({
 }) => {
     route: number[];
     totallength: number;
-    weight_of_opt_best: number;
-    weight_of_opt_current: number;
+    // weight_of_opt_best: number;
+    // weight_of_opt_current: number;
 };
