@@ -13,7 +13,7 @@
         "build": "vue-tsc --noEmit && vite build",
         "check": "vue-tsc --noEmit",
         "preview": "vite preview",
-        "format": " prettier --write  *.ts */*.html */*.ts */*.css *.md  */*.vue ",
+        "format": " prettier --write  *.ts */*.html */*.ts */*.css *.md  */*.vue *.json",
         "prepare": "husky install"
     },
     "devDependencies": {
