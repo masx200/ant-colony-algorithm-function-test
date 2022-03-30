@@ -9,28 +9,27 @@ export async function tsp_runner_run_async({
     runner,
     time_of_search_ms = Infinity,
     count_of_search = Infinity,
-    round_of_search = Infinity,
-    number_of_ants,
+    // round_of_search = Infinity,
+    // number_of_ants,
     onprogress,
 }: {
     time_of_search_ms?: number; //毫秒
     count_of_search?: number;
     runner: TSP_Worker_Remote;
-    round_of_search?: number;
-    number_of_ants: number;
+    // round_of_search?: number;
+    // number_of_ants: number;
     onprogress?: (percentage: number) => void;
 }): Promise<void> {
     asserttrue(
-        [time_of_search_ms, count_of_search, round_of_search].some(
+        [time_of_search_ms, count_of_search /* , round_of_search */].some(
             (a) => a < Infinity
         )
     );
     const all_time = time_of_search_ms;
     onprogress && onprogress(0);
-    const all_count =
-        count_of_search < Infinity
+    const all_count = count_of_search; /*  < Infinity
             ? count_of_search
-            : round_of_search * number_of_ants;
+            : round_of_search * number_of_ants; */
     let rest_count = all_count;
     let run_count = 15;
     const min_count = 10;

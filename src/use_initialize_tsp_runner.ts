@@ -1,10 +1,8 @@
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { create_TSP_Worker_comlink } from "./create_TSP_Worker_comlink";
 import { DataOfSummarize } from "./DataOfSummarize";
 import { Fun_initialize_TSP_runner } from "./Fun_initialize_TSP_runner";
-import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export function use_initialize_tsp_runner({
     onreceiveDataOfGlobalBest,
@@ -16,30 +14,21 @@ export function use_initialize_tsp_runner({
     onreceivedataofoneIteration: (data: DataOfFinishOneIteration) => void;
 }): Fun_initialize_TSP_runner {
     return async function initializeTSP_runner({
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         // onFinishIteration,
         node_coordinates,
         number_of_ants,
         onGlobalBestRouteChange,
         onLatestRouteChange,
         pheromone_volatility_coefficient_R1,
-    }: {
-        // onFinishIteration: () => void;
-        pheromone_volatility_coefficient_R1: number;
-        node_coordinates: NodeCoordinates;
-        number_of_ants: number;
-        onGlobalBestRouteChange: (
-            globalbestroute: number[],
-            node_coordinates: NodeCoordinates
-        ) => void;
-        onLatestRouteChange: (
-            latestroute: number[],
-            node_coordinates: NodeCoordinates
-        ) => void;
-    }): Promise<TSP_Worker_Remote> {
+        ...rest
+    }) {
         const runner = await create_TSP_Worker_comlink({
+            coefficient_of_pheromone_Increase_Non_Optimal_Paths,
             pheromone_volatility_coefficient_R1,
             node_coordinates,
             number_of_ants,
+            ...rest,
         });
         // console.log(runner);
         await runner.on_best_change((data) => {

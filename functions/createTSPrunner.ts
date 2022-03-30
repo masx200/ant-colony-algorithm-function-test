@@ -11,6 +11,7 @@ import {
     default_max_coefficient_of_pheromone_diffusion,
     default_max_results_of_k_opt,
     default_min_coefficient_of_pheromone_diffusion,
+    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_intensity_Q,
     // default_global_pheromone_volatilization_rate,
     default_pheromone_volatility_coefficient_R1,
@@ -36,7 +37,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { update_weight_of_opt } from "./update_weight_of_opt";
 // import { WayOfConstruct } from "./WayOfConstruct";
-export interface TSPRunner {
+export type TSPRunner = Required<TSPRunnerOptions> & {
+    coefficient_of_pheromone_Increase_Non_Optimal_Paths: number;
     min_coefficient_of_pheromone_diffusion: number;
     max_coefficient_of_pheromone_diffusion: number;
 
@@ -76,9 +78,10 @@ export interface TSPRunner {
     // searchloopcountratio: number;
     number_of_ants: number;
     runRoutes: (count: number) => void;
-}
+};
 
 export function createTSPrunner({
+    coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
 
     max_coefficient_of_pheromone_diffusion = default_max_coefficient_of_pheromone_diffusion,
@@ -90,15 +93,15 @@ export function createTSPrunner({
     beta_zero = default_beta,
     // searchloopcountratio = default_searchloopcountratio,
     number_of_ants = defaultnumber_of_ants,
-
-    ...rest
-}: TSPRunnerOptions): TSPRunner {
+    pheromone_volatility_coefficient_R1 = default_pheromone_volatility_coefficient_R1,
+}: // ...rest
+TSPRunnerOptions): TSPRunner {
     assertnumber(number_of_ants);
     asserttrue(number_of_ants >= 2);
 
-    const pheromone_volatility_coefficient_R1 =
-        rest?.pheromone_volatility_coefficient_R1 ??
-        default_pheromone_volatility_coefficient_R1;
+    // const pheromone_volatility_coefficient_R1 =
+    //     rest?.pheromone_volatility_coefficient_R1 ??
+    //     default_pheromone_volatility_coefficient_R1;
     /*  1 -
             Math.pow(
                 1 -
@@ -112,7 +115,7 @@ export function createTSPrunner({
     const pheromone_volatility_coefficient_R2 =
         //  rest?.pheromone_volatility_coefficient_R2 ??
         calc_pheromone_volatility_coefficient_R2(
-            rest?.pheromone_volatility_coefficient_R1 ??
+            pheromone_volatility_coefficient_R1 ??
                 default_pheromone_volatility_coefficient_R1,
             number_of_ants
         );
@@ -271,7 +274,9 @@ export function createTSPrunner({
         set_weight_of_opt_current,
         get_weight_of_opt_best,
         get_weight_of_opt_current,
-    } = createEachRouteGenerator();
+    } = createEachRouteGenerator({
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+    });
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
         const {
@@ -328,6 +333,7 @@ export function createTSPrunner({
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = EachIterationHandler({
+                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 min_coefficient_of_pheromone_diffusion,
 
                 max_coefficient_of_pheromone_diffusion,
@@ -413,6 +419,8 @@ export function createTSPrunner({
         }
     };
     const result: TSPRunner = {
+        max_results_of_k_opt,
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
 
         max_coefficient_of_pheromone_diffusion,
@@ -457,6 +465,6 @@ export function createTSPrunner({
         [Symbol.toStringTag]: "TSPRunner",
         runOneIteration,
     };
-    console.log("runner", result);
+    // console.log("runner", result);
     return result;
 }

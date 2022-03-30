@@ -5,8 +5,7 @@ import {
     MatrixMax,
     MatrixMultiplyNumber,
     MatrixSymmetry,
-    MatrixSymmetryCreate,
-    MatrixToArrays,
+    MatrixSymmetryCreate
 } from "@masx200/sparse-2d-matrix";
 import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/defaultnumber_of_ants";
 import { asserttrue } from "../test/asserttrue";
@@ -18,6 +17,7 @@ import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function pheromone_update_rule_after_iteration({
+    coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     // node_coordinates,
     // globalbestroute,
     iteratebestroute,
@@ -32,6 +32,7 @@ export function pheromone_update_rule_after_iteration({
     pheromoneStore,
     pheromone_volatility_coefficient_R2,
 }: {
+    coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     // node_coordinates: NodeCoordinates;
     globalbestroute: number[];
     iteratebestroute: number[];
@@ -49,7 +50,7 @@ export function pheromone_update_rule_after_iteration({
     const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
     const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
-    console.log("全局信息素更新计算开始");
+    // console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
     const deltapheromoneglobalbest = MatrixSymmetryCreate({
         row: count_of_nodes,
@@ -103,13 +104,13 @@ export function pheromone_update_rule_after_iteration({
             deltapheromoneglobalbest,
             MatrixMultiplyNumber(
                 /* 添加非最优的信息素系数 */
-                default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 deltapheromoneiteratebest
             ),
             deltapheromoneiterateworst
         )
     );
-    console.log("deltapheromone", MatrixToArrays(deltapheromone));
+    // console.log("deltapheromone", MatrixToArrays(deltapheromone));
     const oldpheromoneStore = MatrixFrom(pheromoneStore);
     const nextpheromoneStore = MatrixMax(
         MatrixMultiplyNumber(1 / 2, oldpheromoneStore),
@@ -124,11 +125,11 @@ export function pheromone_update_rule_after_iteration({
             )
         )
     );
-    console.log(" 信息素更新结束");
-    console.log({
-        oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
-        nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
-    });
+    // console.log(" 信息素更新结束");
+    // console.log({
+    //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
+    //     nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
+    // });
     asserttrue(nextpheromoneStore.values().every((a) => a > 0));
     //信息素更新
     MatrixAssign(pheromoneStore, nextpheromoneStore);

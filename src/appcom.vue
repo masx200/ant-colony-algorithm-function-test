@@ -29,6 +29,17 @@
             :disabled="disable_stop"
         />
         <hr />
+
+        <span>非最优解的信息素增量系数</span>
+        <el-input-number
+            :controls="false"
+            step-strictly
+            :step="0.001"
+            v-model.number="coefficient_of_pheromone_Increase_Non_Optimal_Paths"
+            :disabled="disablemapswitching"
+            :min="0.001"
+            :max="1"
+        /><br />
         <span>局部信息素挥发率</span>
         <el-input-number
             :controls="false"
@@ -43,7 +54,7 @@
         <el-input-number
             step-strictly
             :step="1"
-            v-model.number="numberofeachround"
+            v-model.number="number_of_ants_ref"
             :disabled="disablemapswitching"
             :min="2"
             :controls="false"
@@ -66,7 +77,7 @@
             <br />
             <button
                 v-text="'运行'"
-                @click="runtsp_by_search_rounds"
+                @click="create_and_run_tsp_by_search_rounds"
                 :disabled="is_running"
             />
         </div>
@@ -76,14 +87,14 @@
                 step-strictly
                 :step="0.001"
                 v-model.number="search_time_seconds"
-                :min="1"
+                :min="0.001"
                 :controls="false"
                 :disabled="is_running"
             />
             <br />
             <button
                 v-text="'运行'"
-                @click="run_tsp_by_time"
+                @click="create_and_run_tsp_by_search_time"
                 :disabled="is_running"
             />
         </div>

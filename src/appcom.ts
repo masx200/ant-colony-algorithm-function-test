@@ -6,6 +6,7 @@ import Datatable from "./Datatable-com.vue";
 import {
     defaultnumber_of_ants,
     defaultsearchrounds,
+    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_volatility_coefficient_R1,
     default_search_time_seconds,
 } from "./defaultnumber_of_ants";
@@ -21,20 +22,25 @@ import { StopTSPWorker } from "./StopTSPWorker";
 import { TSP_cities_data } from "./TSP_cities_data";
 import { TSP_Reset } from "./TSP_Reset";
 import TSPWorker from "./TSP_Runner.Worker?worker";
-import { TSP_workerRef } from "./TSP_workerRef";
+import { TSP_RunnerRef, TSP_workerRef } from "./TSP_workerRef";
 import { use_data_of_one_iteration } from "./use_data_of_one_iteration";
 import { use_data_of_one_route } from "./use_data_of_one_route";
 import { use_data_of_summary } from "./use_data_of_summary";
 import { use_escharts_container_pair } from "./use_escharts_container_pair"; // import { TSPRunner } from "../functions/createTSPrunner";
 import { use_history_of_best } from "./use_history_of_best";
 import { use_initialize_tsp_runner } from "./use_initialize_tsp_runner";
-import { use_run_tsp_by_search_rounds } from "./use_run_tsp-by-search-rounds";
-import { use_run_tsp_by_time } from "./use_run_tsp_by_time";
+import { run_tsp_by_search_rounds } from "./run_tsp-by-search-rounds";
+import { run_tsp_by_search_time as run_tsp_by_search_time } from "./run_tsp_by_search_time";
 import { use_submit } from "./use_submit";
 import { use_tsp_before_start } from "./use_tsp_before_start";
+import { TSP_cities_map } from "./TSP_cities_map";
+import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 export default defineComponent({
     components: { Datatable, Progresselement: Progresselement },
     setup() {
+        const coefficient_of_pheromone_Increase_Non_Optimal_Paths = ref(
+            default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths
+        );
         onMounted(() => {
             window.addEventListener("beforeunload", (e) => {
                 if (is_running.value) {
@@ -95,7 +101,7 @@ export default defineComponent({
         );
         const disablemapswitching = ref(false);
         const searchrounds = ref(defaultsearchrounds);
-        const numberofeachround = ref(defaultnumber_of_ants);
+        const number_of_ants_ref = ref(defaultnumber_of_ants);
         const selecteleref = ref<HTMLSelectElement>();
         const { container: container_of_best_chart, chart: chart_store_best } =
             use_escharts_container_pair();
@@ -234,20 +240,26 @@ export default defineComponent({
                 navbar_float.value = true;
             }
         };
-        const runtsp_by_search_rounds = use_run_tsp_by_search_rounds({
-            onprogress,
-            TSP_before_Start,
-            searchrounds,
-            numberofeachround,
-            selecteleref,
-            local_pheromone_volatilization_rate,
-            disablemapswitching,
-            is_running,
-            onGlobalBestRouteChange,
-            onLatestRouteChange,
-            finish_one_route_listener,
-            finish_one_iteration_listener,
-        });
+        const create_and_run_tsp_by_search_rounds = async () => {
+            TSP_RunnerRef.value ||= await create_runner();
+            const runner = TSP_RunnerRef.value;
+            return run_tsp_by_search_rounds({
+                runner,
+                // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                onprogress,
+                // TSP_before_Start,
+                searchrounds,
+                number_of_ants_ref,
+                // selecteleref,
+                // local_pheromone_volatilization_rate,
+                // disablemapswitching,
+                is_running,
+                // onGlobalBestRouteChange,
+                // onLatestRouteChange,
+                // finish_one_route_listener,
+                // finish_one_iteration_listener,
+            });
+        };
         const TSP_terminate = () => {
             clearDataOfHistoryOfBest();
             TSP_Reset([
@@ -280,30 +292,82 @@ export default defineComponent({
             location.reload();
         };
         const search_time_seconds = ref(default_search_time_seconds);
-        const run_tsp_by_time = use_run_tsp_by_time({
-            search_time_seconds,
-            numberofeachround,
-            selecteleref,
-            local_pheromone_volatilization_rate,
-            disablemapswitching,
-            is_running,
-            TSP_before_Start,
-            onGlobalBestRouteChange,
-            onLatestRouteChange,
-            finish_one_route_listener,
-            finish_one_iteration_listener,
-            onprogress,
-        });
+
+        async function create_runner(): Promise<TSP_Worker_Remote> {
+            const coefficient_of_pheromone_Increase_Non_Optimal_Paths_value =
+                coefficient_of_pheromone_Increase_Non_Optimal_Paths.value;
+            // const search_time_ms = search_time_seconds.value * 1000;
+            const number_of_ants_value = number_of_ants_ref.value;
+            const element = selecteleref.value;
+            // element && (element.selectedIndex = 0);
+            const node_coordinates = TSP_cities_map.get(element?.value || "");
+            const pheromone_volatility_coefficient_R1 =
+                local_pheromone_volatilization_rate.value;
+            if (
+                pheromone_volatility_coefficient_R1 > 0 &&
+                // search_time_ms > 0 &&
+                number_of_ants_value >= 2 &&
+                node_coordinates
+            ) {
+                disablemapswitching.value = true;
+                const number_of_ants = number_of_ants_value;
+                // console.log(node_coordinates);
+                assertnumber(number_of_ants);
+                // assertnumber(search_time_ms);
+                assertnumber(pheromone_volatility_coefficient_R1);
+
+                const runner = await TSP_before_Start({
+                    coefficient_of_pheromone_Increase_Non_Optimal_Paths:
+                        coefficient_of_pheromone_Increase_Non_Optimal_Paths_value,
+                    // onFinishIteration,
+                    pheromone_volatility_coefficient_R1,
+                    onGlobalBestRouteChange,
+                    node_coordinates: await node_coordinates(),
+                    number_of_ants,
+                    // round_of_search,
+                    onLatestRouteChange,
+                });
+                // console.log("runner", runner);
+                await runner.on_finish_one_route(finish_one_route_listener);
+                await runner.on_finish_one_iteration(
+                    finish_one_iteration_listener
+                );
+                return runner;
+            } else {
+                throw new Error("incorrect parameters create_runner");
+            }
+        }
+        const create_and_run_tsp_by_search_time = async () => {
+            TSP_RunnerRef.value ||= await create_runner();
+            const runner = TSP_RunnerRef.value;
+            return run_tsp_by_search_time({
+                runner: runner,
+                // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                search_time_seconds,
+                // number_of_ants_ref,
+                // selecteleref,
+                // local_pheromone_volatilization_rate,
+                // disablemapswitching,
+                is_running,
+                // TSP_before_Start,
+                // onGlobalBestRouteChange,
+                // onLatestRouteChange,
+                // finish_one_route_listener,
+                // finish_one_iteration_listener,
+                onprogress,
+            });
+        };
 
         const radio_run_way = ref(RunWay.round);
         const run_way_time = RunWay.time;
         const run_way_round = RunWay.round;
         return {
+            coefficient_of_pheromone_Increase_Non_Optimal_Paths,
             navbar_float,
             run_way_round,
             run_way_time,
             radio_run_way,
-            run_tsp_by_time,
+            create_and_run_tsp_by_search_time,
             search_time_seconds,
             indeterminate,
             TableHeadsOfHistoryOfBest,
@@ -323,11 +387,11 @@ export default defineComponent({
             oneroutetablebody,
             oneiterationtableheads,
             oneiterationtablebody,
-            numberofeachround,
+            number_of_ants_ref,
             container_of_path_number_and_current_path_length_chart,
             disablemapswitching,
             container_of_path_number_and_optimal_path_length_chart,
-            runtsp_by_search_rounds,
+            create_and_run_tsp_by_search_rounds,
             searchrounds,
             TSP_cities_data,
             submit_select_node_coordinates,

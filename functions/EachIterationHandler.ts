@@ -1,4 +1,5 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/defaultnumber_of_ants";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";
@@ -47,6 +48,7 @@ export function EachIterationHandler(opts: {
     /**最大迭代次数 */
     // maxnumberofiterations: number;
     pheromoneStore: MatrixSymmetry;
+    coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     // numberofstagnantiterations: number;
 }): {
@@ -62,6 +64,7 @@ export function EachIterationHandler(opts: {
 } {
     // console.log(opts);
     const {
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
 
         max_coefficient_of_pheromone_diffusion,
@@ -100,12 +103,12 @@ export function EachIterationHandler(opts: {
     const nextrandomselectionprobability =
         coefficient_of_diversity_increase / 8;
     const pheromoneDiffusionProbability = coefficient_of_diversity_increase / 4;
-    console.log(
-        "种群相对信息熵",
-        current_population_relative_information_entropy
-    );
-    console.log("随机选择概率", nextrandomselectionprobability);
-    console.log("信息素扩散概率", pheromoneDiffusionProbability);
+    // console.log(
+    //     "种群相对信息熵",
+    //     current_population_relative_information_entropy
+    // );
+    // console.log("随机选择概率", nextrandomselectionprobability);
+    // console.log("信息素扩散概率", pheromoneDiffusionProbability);
     asserttrue(!Number.isNaN(current_population_relative_information_entropy));
     asserttrue(!Number.isNaN(nextrandomselectionprobability));
     asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
@@ -146,6 +149,7 @@ export function EachIterationHandler(opts: {
     // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     pheromone_update_rule_after_iteration({
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         // node_coordinates,
         iteratebestroute,
         globalbestroute,
@@ -162,7 +166,7 @@ export function EachIterationHandler(opts: {
     });
     // let ispheromoneDiffusion = false;
     // if (Math.random() < pheromoneDiffusionProbability) {
-    console.log("执行信息素扩散操作");
+    // console.log("执行信息素扩散操作");
     // ispheromoneDiffusion = true;
     //信息素扩散
     performPheromoneDiffusionOperations({
