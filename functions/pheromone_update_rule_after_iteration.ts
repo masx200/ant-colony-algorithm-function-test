@@ -5,7 +5,7 @@ import {
     MatrixMax,
     MatrixMultiplyNumber,
     MatrixSymmetry,
-    MatrixSymmetryCreate
+    MatrixSymmetryCreate,
 } from "@masx200/sparse-2d-matrix";
 import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/defaultnumber_of_ants";
 import { asserttrue } from "../test/asserttrue";
