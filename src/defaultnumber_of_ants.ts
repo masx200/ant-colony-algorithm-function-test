@@ -1,5 +1,5 @@
-export const defaultnumber_of_ants = 15;
-export const defaultsearchrounds = 100;
+export const defaultnumber_of_ants = 12;
+export const defaultsearchrounds = 160;
 export const default_search_time_seconds = 900;
 export const default_pheromone_volatility_coefficient_R1 = 0.03;
 
@@ -15,4 +15,4 @@ export const default_max_results_of_k_opt = 20;
 export const default_max_coefficient_of_pheromone_diffusion = 20;
 
 export const default_min_coefficient_of_pheromone_diffusion = 10;
-export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.8;
+export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.7;
