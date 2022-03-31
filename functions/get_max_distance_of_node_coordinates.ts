@@ -1,3 +1,4 @@
+import { cache_of_max_distance_of_node_coordinates } from "./cache_of_max_distance_of_node_coordinates";
 import { getalldistancesofnodes } from "./getalldistancesofnodes";
 import { NodeCoordinates } from "./NodeCoordinates";
 /**获得所有距离中的最大值,并缓存  */
@@ -13,7 +14,3 @@ export function get_max_distance_of_node_coordinates(
     }
     return result;
 }
-const cache_of_max_distance_of_node_coordinates = new Map<
-    NodeCoordinates,
-    number
->();
