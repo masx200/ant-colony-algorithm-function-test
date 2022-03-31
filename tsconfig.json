@@ -6,7 +6,7 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": ["ESNext", "DOM", "ES2021","ESNext.Array"],
+        "lib": ["ESNext", "DOM", "ES2021", "ESNext.Array"],
         "moduleResolution": "Node",
         "strict": true,
         "sourceMap": true,

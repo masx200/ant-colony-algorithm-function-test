@@ -1,4 +1,4 @@
-import { assert_true } from "../test/assert_true";
+import { calc_state_transition_probabilities } from "./calc_state_transition_probabilities";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { pickRandomOne } from "./pickRandomOne";
@@ -51,20 +51,14 @@ export function picknextnodeRoulette(
                   availablenextnodes,
 
                   availablenextnodes.map((nextnode) => {
-                      const phermone = getpheromone(nextnode, currentnode);
-                      //console.log("phermone", phermone);
-                      assert_true(phermone > 0);
-                      const weight =
-                          Math.pow(phermone, alpha) /
-                          Math.pow(
-                              getdistancebyserialnumber(nextnode, currentnode),
-                              beta
-                          );
-                      //console.log("weight", weight);
-                      //   if (weight < 0) {
-                      //       debugger;
-                      //   }
-                      assert_true(weight > 0);
+                      const weight = calc_state_transition_probabilities({
+                          getpheromone,
+                          nextnode,
+                          currentnode,
+                          alpha,
+                          getdistancebyserialnumber,
+                          beta,
+                      });
 
                       return weight;
                   })
