@@ -26,7 +26,7 @@ export function pickRandomOne<T>(input: Array<T>, weights: number[] = []): T {
         // console.log("pickRandomOne", last, input, weights);
         return last;
     } else {
-        const index = Math.min(random(0, input.length), input.length - 1);
+        const index = Math.min(random(0, input.length-1), input.length - 1);
         assert_true(index >= 0);
         assert_true(index < input.length);
         const result = input[index];
