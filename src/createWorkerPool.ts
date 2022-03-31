@@ -13,17 +13,18 @@ export interface WorkerPool<
 }
 
 /**创建线程池 ,泛型W是一个类似于worker的对象,可终止*/
-export function createWorkerPool<W extends { terminate: () => void }>({
-    size = navigator.hardwareConcurrency,
-    createWorkerLike,
-}: {
-    size?: number;
-    createWorkerLike: () => W;
-}): WorkerPool<W> {
+export function createWorkerPool<W extends { terminate: () => void }>(
+    createWorker: () => W,
+    {
+        size = navigator.hardwareConcurrency,
+    }: {
+        size?: number;
+    }
+): WorkerPool<W> {
     const workers: W[] = [];
     function getOne(): W {
         if (workers.length !== size) {
-            workers.push(createWorkerLike());
+            workers.push(createWorker());
         }
         return pickRandomOne(workers);
     }

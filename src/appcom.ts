@@ -23,8 +23,8 @@ import { Stop_TSP_Worker } from "./Stop_TSP_Worker";
 // import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
 import { TSP_Reset } from "./TSP_Reset";
-import TSPWorker from "./TSP_Runner.Worker?worker";
-import { TSP_RunnerRef, TSP_workerRef } from "./TSP_workerRef";
+// import TSPWorker from "./TSP_Runner.Worker?worker";
+import { TSP_RunnerRef/* , TSP_workerRef */ } from "./TSP_workerRef";
 import { use_data_of_one_iteration } from "./use_data_of_one_iteration";
 import { use_data_of_one_route } from "./use_data_of_one_route";
 import { use_data_of_summary } from "./use_data_of_summary";
@@ -215,9 +215,9 @@ export default defineComponent({
             //先初始化worker
             // const endpoint = new TSPWorker();
 
-            if (process.env.NODE_ENV === "development") {
-                TSP_workerRef.value ||= new TSPWorker();
-            }
+            // if (process.env.NODE_ENV === "development") {
+            //     TSP_workerRef.value ||= new TSPWorker();
+            // }
             // watch(dataOfAllResults, () => {
             //     data_change_listener();
             // });
