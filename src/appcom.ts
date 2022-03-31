@@ -1,3 +1,5 @@
+import{Greedy_algorithm_to_solve_tsp_with_selected_start_pool}from"./thread_Greedy_algorithm_to_solve_tsp_with_selected_start"
+
 import { defineComponent, onMounted, readonly, ref, watch } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { assertnumber } from "../test/assertnumber";
@@ -363,6 +365,8 @@ export default defineComponent({
                 await runner.remote.on_finish_one_iteration(
                     finish_one_iteration_listener
                 );
+
+Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear()
                 return runner;
             } else {
                 throw new Error("incorrect parameters create_runner");
