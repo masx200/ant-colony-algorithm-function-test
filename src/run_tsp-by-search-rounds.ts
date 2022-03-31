@@ -1,10 +1,10 @@
 import { Ref } from "vue";
 import { assertnumber } from "../test/assertnumber";
 import {
-    defaultnumber_of_ants,
-    defaultsearchrounds,
+    default_number_of_ants,
+    default_search_rounds,
     default_pheromone_volatility_coefficient_R1,
-} from "./defaultnumber_of_ants";
+} from "./default_Options";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
@@ -101,8 +101,8 @@ export async function run_tsp_by_search_rounds({
     } else {
         // local_pheromone_volatilization_rate.value =
         default_pheromone_volatility_coefficient_R1;
-        searchrounds.value = defaultsearchrounds;
-        number_of_ants_ref.value = defaultnumber_of_ants;
+        searchrounds.value = default_search_rounds;
+        number_of_ants_ref.value = default_number_of_ants;
         // disablemapswitching.value = false;
         is_running.value = false;
     }

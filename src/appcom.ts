@@ -4,12 +4,12 @@ import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
 import Datatable from "./Datatable-com.vue";
 import {
-    defaultnumber_of_ants,
-    defaultsearchrounds,
+    default_number_of_ants,
+    default_search_rounds,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_volatility_coefficient_R1,
     default_search_time_seconds,
-} from "./defaultnumber_of_ants";
+} from "./default_Options";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
@@ -120,8 +120,8 @@ export default defineComponent({
             default_pheromone_volatility_coefficient_R1
         );
         const disablemapswitching = ref(false);
-        const searchrounds = ref(defaultsearchrounds);
-        const number_of_ants_ref = ref(defaultnumber_of_ants);
+        const searchrounds = ref(default_search_rounds);
+        const number_of_ants_ref = ref(default_number_of_ants);
         const selecteleref = ref<HTMLSelectElement>();
         const { container: container_of_best_chart, chart: chart_store_best } =
             use_escharts_container_pair();

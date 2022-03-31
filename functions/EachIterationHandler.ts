@@ -1,5 +1,5 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/defaultnumber_of_ants";
+import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { asserttrue } from "../test/asserttrue";

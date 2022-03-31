@@ -5,7 +5,7 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 // import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
 // import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
 import {
-    defaultnumber_of_ants,
+    default_number_of_ants,
     default_alpha,
     default_beta,
     default_max_coefficient_of_pheromone_diffusion,
@@ -15,7 +15,7 @@ import {
     default_pheromone_intensity_Q,
     // default_global_pheromone_volatilization_rate,
     default_pheromone_volatility_coefficient_R1,
-} from "../src/defaultnumber_of_ants";
+} from "../src/default_Options";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { assertnumber } from "../test/assertnumber";
 import { asserttrue } from "../test/asserttrue";
@@ -92,7 +92,7 @@ export function createTSPrunner({
     alpha_zero = default_alpha,
     beta_zero = default_beta,
     // searchloopcountratio = default_searchloopcountratio,
-    number_of_ants = defaultnumber_of_ants,
+    number_of_ants = default_number_of_ants,
     pheromone_volatility_coefficient_R1 = default_pheromone_volatility_coefficient_R1,
 }: // ...rest
 TSPRunnerOptions): TSPRunner {
