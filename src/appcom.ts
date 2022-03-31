@@ -24,7 +24,7 @@ import { Stop_TSP_Worker } from "./Stop_TSP_Worker";
 import { TSP_cities_data } from "./TSP_cities_data";
 import { TSP_Reset } from "./TSP_Reset";
 // import TSPWorker from "./TSP_Runner.Worker?worker";
-import { TSP_RunnerRef/* , TSP_workerRef */ } from "./TSP_workerRef";
+import { TSP_RunnerRef /* , TSP_workerRef */ } from "./TSP_workerRef";
 import { use_data_of_one_iteration } from "./use_data_of_one_iteration";
 import { use_data_of_one_route } from "./use_data_of_one_route";
 import { use_data_of_summary } from "./use_data_of_summary";
