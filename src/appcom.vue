@@ -59,6 +59,26 @@
             :min="2"
             :controls="false"
         /><br />
+        <span>alpha</span>
+        <el-input-number
+            :controls="false"
+            step-strictly
+            :step="0.001"
+            v-model.number="alpha"
+            :disabled="disablemapswitching"
+            :min="0.001"
+            :max="5"
+        /><br />
+        <span>beta</span>
+        <el-input-number
+            :controls="false"
+            step-strictly
+            :step="0.001"
+            v-model.number="beta"
+            :disabled="disablemapswitching"
+            :min="0.001"
+            :max="10"
+        /><br />
         <hr />
         <el-radio-group
             v-model="radio_run_way"

@@ -9,6 +9,8 @@ import {
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_volatility_coefficient_R1,
     default_search_time_seconds,
+    default_beta,
+    default_alpha,
 } from "./default_Options";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
@@ -326,7 +328,11 @@ export default defineComponent({
             const node_coordinates = TSP_cities_map.get(element?.value || "");
             const pheromone_volatility_coefficient_R1 =
                 local_pheromone_volatilization_rate.value;
+            const alpha_value = alpha.value;
+            const beta_value = beta.value;
             if (
+                beta_value > 0 &&
+                alpha_value > 0 &&
                 pheromone_volatility_coefficient_R1 > 0 &&
                 // search_time_ms > 0 &&
                 number_of_ants_value >= 2 &&
@@ -340,6 +346,8 @@ export default defineComponent({
                 assertnumber(pheromone_volatility_coefficient_R1);
 
                 const runner = await TSP_before_Start({
+                    alpha_zero: alpha_value,
+                    beta_zero: beta_value,
                     coefficient_of_pheromone_Increase_Non_Optimal_Paths:
                         coefficient_of_pheromone_Increase_Non_Optimal_Paths_value,
                     // onFinishIteration,
@@ -384,7 +392,11 @@ export default defineComponent({
         const radio_run_way = ref(RunWay.round);
         const run_way_time = RunWay.time;
         const run_way_round = RunWay.round;
+        const alpha = ref(default_alpha);
+        const beta = ref(default_beta);
         return {
+            alpha,
+            beta,
             can_run,
             show_routes_of_latest,
             show_routes_of_best,
