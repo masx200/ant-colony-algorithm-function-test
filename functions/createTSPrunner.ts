@@ -15,6 +15,7 @@ import {
     default_pheromone_intensity_Q,
     // default_global_pheromone_volatilization_rate,
     default_pheromone_volatility_coefficient_R1,
+    default_max_results_of_2_opt,
 } from "../src/default_Options";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { assertnumber } from "../test/assertnumber";
@@ -81,6 +82,7 @@ export type TSPRunner = Required<TSPRunnerOptions> & {
 };
 
 export function createTSPrunner({
+    max_results_of_2_opt = default_max_results_of_2_opt,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
 
@@ -275,6 +277,7 @@ TSPRunnerOptions): TSPRunner {
         get_weight_of_opt_best,
         get_weight_of_opt_current,
     } = createEachRouteGenerator({
+        max_results_of_2_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
     });
     function runOneRoute() {
@@ -419,6 +422,7 @@ TSPRunnerOptions): TSPRunner {
         }
     };
     const result: TSPRunner = {
+        max_results_of_2_opt,
         max_results_of_k_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,

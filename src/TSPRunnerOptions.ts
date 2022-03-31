@@ -1,6 +1,7 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 export type TSPRunnerOptions = {
+    max_results_of_2_opt?: number;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     min_coefficient_of_pheromone_diffusion?: number;
     max_coefficient_of_pheromone_diffusion?: number;

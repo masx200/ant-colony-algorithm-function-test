@@ -1,5 +1,8 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
+import {
+    default_max_results_of_2_opt,
+    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+} from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
 import { construct_one_route_all } from "./construct_one_route_all";
 import { Fun_EachRouteGenerator } from "./Fun_EachRouteGenerator";
@@ -9,8 +12,13 @@ import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
 export function createEachRouteGenerator({
+    max_results_of_2_opt = default_max_results_of_2_opt,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-}: { coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number } = {}): {
+}: {
+    coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
+
+    max_results_of_2_opt?: number;
+} = {}): {
     get_probability_of_opt_current: () => number;
     get_probability_of_opt_best: () => number;
     EachRouteGenerator: Fun_EachRouteGenerator;
@@ -106,6 +114,7 @@ export function createEachRouteGenerator({
         /* 对当前路径进行精准2-opt优化 */
         const { optimal_route: route1, optimal_length: length1 } =
             Precise_2_opt_eliminates_all_intersections({
+                max_results_of_2_opt,
                 optimal_route: oldRoute,
                 optimal_length: oldLength,
                 node_coordinates,
@@ -125,6 +134,7 @@ export function createEachRouteGenerator({
         /* length3是对route2的去交叉结果 */
         const { optimal_route: route3, optimal_length: length3 } =
             Precise_2_opt_eliminates_all_intersections({
+                max_results_of_2_opt,
                 optimal_route: route2,
                 optimal_length: length2,
                 node_coordinates,
