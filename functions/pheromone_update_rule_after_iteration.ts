@@ -12,7 +12,7 @@ import {
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
-import { cacheble_intersection_filter_with_cycle_route } from "./cacheble_intersection_filter_with_cycle_route";
+import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
@@ -105,12 +105,12 @@ export function pheromone_update_rule_after_iteration({
         //  column: count_of_nodes,
     });
     const have_intersection_in_global_best =
-        cacheble_intersection_filter_with_cycle_route({
+        cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
             cycleroute: globalbestroute,
         });
     const have_intersection_in_iterate_best =
-        cacheble_intersection_filter_with_cycle_route({
+        cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
             cycleroute: iteratebestroute,
         });

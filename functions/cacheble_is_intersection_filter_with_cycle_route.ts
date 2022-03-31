@@ -4,7 +4,7 @@ import { node_coordinates_to_no_intersect_routes_unique } from "./node_coordinat
 import { getOrCreateSetOfMapFun } from "./getOrCreateSetOfMapFun";
 import { intersection_filter_with_cycle_route_old } from "./intersection_filter_with_cycle_route_old";
 
-export function cacheble_intersection_filter_with_cycle_route({
+export function cacheble_is_intersection_filter_with_cycle_route({
     cycleroute,
     node_coordinates,
 }: {
