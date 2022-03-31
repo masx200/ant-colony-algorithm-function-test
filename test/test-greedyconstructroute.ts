@@ -3,7 +3,7 @@ import { cachebestrouteofnode_coordinates } from "../functions/cachebestrouteofn
 import { construct_all_greed_routes_and_lengths } from "../functions/construct_all_greed_routes_and_lengths";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { asserttrue } from "./asserttrue";
+import { assert_true } from "./assert_true";
 
 export function testgreedyconstructroutebest(
     node_coordinates: NodeCoordinates
@@ -45,7 +45,7 @@ export function testgreedyconstructroutebest(
             cachebestrouteofnode_coordinates.set(node_coordinates, greedypath);
         }
     }
-    asserttrue(greedypath.length === node_coordinates.length);
+    assert_true(greedypath.length === node_coordinates.length);
     console.log("贪心算法测试结束");
     return { greedypath, totallength };
 }

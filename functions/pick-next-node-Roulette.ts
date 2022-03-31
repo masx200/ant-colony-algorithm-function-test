@@ -1,4 +1,4 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { pickRandomOne } from "./pickRandomOne";
@@ -53,7 +53,7 @@ export function picknextnodeRoulette(
                   availablenextnodes.map((nextnode) => {
                       const phermone = getpheromone(nextnode, currentnode);
                       //console.log("phermone", phermone);
-                      asserttrue(phermone > 0);
+                      assert_true(phermone > 0);
                       const weight =
                           Math.pow(phermone, alpha) /
                           Math.pow(
@@ -64,7 +64,7 @@ export function picknextnodeRoulette(
                       //   if (weight < 0) {
                       //       debugger;
                       //   }
-                      asserttrue(weight > 0);
+                      assert_true(weight > 0);
 
                       return weight;
                   })

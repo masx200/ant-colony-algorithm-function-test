@@ -1,5 +1,5 @@
 // import { TSPRunner } from "../functions/createTSPrunner";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { RunWay } from "./RunWay";
 import { sleep_requestAnimationFrame_async_or_settimeout } from "./sleep_requestAnimationFrame_async_or_settimeout";
 
@@ -20,7 +20,7 @@ export async function tsp_runner_run_async({
     // number_of_ants: number;
     onprogress?: (percentage: number) => void;
 }): Promise<void> {
-    asserttrue(
+    assert_true(
         [time_of_search_ms, count_of_search /* , round_of_search */].some(
             (a) => a < Infinity
         )

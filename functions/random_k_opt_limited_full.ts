@@ -1,6 +1,6 @@
 import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
 import { random } from "lodash";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 
 export function random_k_opt_limited_full({
     // count_of_nodes,
@@ -11,7 +11,7 @@ export function random_k_opt_limited_full({
     oldRoute: number[];
     max_results_of_k_opt: number;
 }): number[][] {
-    asserttrue(oldRoute.length >= 4);
+    assert_true(oldRoute.length >= 4);
     const count_of_nodes = oldRoute.length;
     const routes_of_max: number[][] = [];
 

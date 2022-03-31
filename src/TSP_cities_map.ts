@@ -4,7 +4,7 @@ import {
     getNodeCoordinates,
 } from "@masx200/tsp-lib-test-data";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 // console.log(modules);
 const TSP_cords: Record<string, () => Promise<NodeCoordinates>> =
     Object.fromEntries(
@@ -25,7 +25,7 @@ const entries: [string, () => Promise<NodeCoordinates>][] = Object.entries(
         // asserttrue(scale > 0);
         return [`名称:${name},规模:${scale}`, entry[1]];
     });
-asserttrue(entries.length);
+assert_true(entries.length);
 export const TSP_cities_map = new Map<string, () => Promise<NodeCoordinates>>(
     entries
 );

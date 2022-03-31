@@ -1,4 +1,4 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 
 import { construct_one_step_route_of_taboo } from "./construct_one_step_route_of_taboo";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
@@ -172,7 +172,7 @@ export function taboo_backtracking_path_construction(opts: {
             route = [...route, nextnode];
         }
     }
-    asserttrue(route.length == count_of_nodes);
+    assert_true(route.length == count_of_nodes);
     console.log("路径一条构建完成,循环次数", trycount);
     // const endtime = Number(new Date());
     //console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);

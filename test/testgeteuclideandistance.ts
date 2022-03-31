@@ -3,10 +3,10 @@ import { euclideandistance } from "../functions/euclideandistance";
 import { getalldistancesofnodes } from "../functions/getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { asserttrue } from "./asserttrue";
+import { assert_true } from "./assert_true";
 export function testgeteuclideandistance() {
     // console.log("test geteuclideandistance test start");
-    asserttrue(euclideandistance([3, 4], [0, 0]) === 5);
+    assert_true(euclideandistance([3, 4], [0, 0]) === 5);
 
     let node_coordinates1: NodeCoordinates = [
         [0, 0],
@@ -14,9 +14,9 @@ export function testgeteuclideandistance() {
         [5, 5],
         [6, 8],
     ];
-    asserttrue(geteuclideandistancebyindex(0, 3, node_coordinates1) === 10);
-    asserttrue(geteuclideandistancebyindex(3, 0, node_coordinates1) === 10);
-    asserttrue(geteuclideandistancebyindex(2, 2, node_coordinates1) === 0);
+    assert_true(geteuclideandistancebyindex(0, 3, node_coordinates1) === 10);
+    assert_true(geteuclideandistancebyindex(3, 0, node_coordinates1) === 10);
+    assert_true(geteuclideandistancebyindex(2, 2, node_coordinates1) === 0);
 
     let node_coordinates2: NodeCoordinates = [
         [0, 0],
@@ -24,9 +24,9 @@ export function testgeteuclideandistance() {
         [6, 8],
         [5, 5],
     ];
-    asserttrue(geteuclideandistancebyindex(0, 2, node_coordinates2) === 10);
-    asserttrue(geteuclideandistancebyindex(2, 0, node_coordinates2) === 10);
-    asserttrue(geteuclideandistancebyindex(1, 1, node_coordinates2) === 0);
+    assert_true(geteuclideandistancebyindex(0, 2, node_coordinates2) === 10);
+    assert_true(geteuclideandistancebyindex(2, 0, node_coordinates2) === 10);
+    assert_true(geteuclideandistancebyindex(1, 1, node_coordinates2) === 0);
     // console.log(node_coordinates1);
     // console.log(node_coordinates2);
 
@@ -41,7 +41,7 @@ export function testgeteuclideandistance() {
     //         .map((a) => aboutequal(a, 0))
     //         .every(Boolean)
     // );
-    asserttrue(
+    assert_true(
         isEqual(
             [
                 4.123105625617661, 7.0710678118654755, 10, 4.123105625617661,
@@ -50,7 +50,7 @@ export function testgeteuclideandistance() {
             node1distances
         )
     );
-    asserttrue(10 === Math.max(...node1distances));
+    assert_true(10 === Math.max(...node1distances));
     // console.log("test geteuclideandistance test ok");
 }
 

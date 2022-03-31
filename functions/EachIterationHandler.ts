@@ -2,7 +2,7 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
 import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
@@ -109,9 +109,9 @@ export function EachIterationHandler(opts: {
     // );
     // console.log("随机选择概率", nextrandomselectionprobability);
     // console.log("信息素扩散概率", pheromoneDiffusionProbability);
-    asserttrue(!Number.isNaN(current_population_relative_information_entropy));
-    asserttrue(!Number.isNaN(nextrandomselectionprobability));
-    asserttrue(!Number.isNaN(pheromoneDiffusionProbability));
+    assert_true(!Number.isNaN(current_population_relative_information_entropy));
+    assert_true(!Number.isNaN(nextrandomselectionprobability));
+    assert_true(!Number.isNaN(pheromoneDiffusionProbability));
 
     //对全局最优解进行k-opt优化
 

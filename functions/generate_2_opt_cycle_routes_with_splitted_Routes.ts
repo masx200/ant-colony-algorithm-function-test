@@ -1,13 +1,13 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { reversearray } from "./reversearray";
 /* 生成2-opt的路径,使用已经分割的路径段 */
 export function generate_2_opt_cycle_routes_with_splitted_Routes(
     oldRoute: number[],
     splitted_Routes: [number[], number[]]
 ): number[][] {
-    asserttrue(oldRoute.length >= 4);
+    assert_true(oldRoute.length >= 4);
 
-    asserttrue(
+    assert_true(
         splitted_Routes.every((partial_route) => partial_route.length >= 2)
     );
     const [first, second] = splitted_Routes;
@@ -22,6 +22,6 @@ export function generate_2_opt_cycle_routes_with_splitted_Routes(
             ...(j ? reversearray(second) : second),
         ];
     });
-    asserttrue(routes.every((route) => route.length === oldRoute.length));
+    assert_true(routes.every((route) => route.length === oldRoute.length));
     return routes;
 }

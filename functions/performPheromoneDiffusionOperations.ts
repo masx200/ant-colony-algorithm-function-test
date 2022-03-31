@@ -7,7 +7,7 @@ import {
 } from "@masx200/sparse-2d-matrix";
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { euclideandistance } from "./euclideandistance";
@@ -101,8 +101,8 @@ export function performPheromoneDiffusionOperations({
 
             /*
         ); */
-            asserttrue(Array.isArray(selectedcitiesinsidecircle));
-            asserttrue(!haverepetitions(selectedcitiesinsidecircle));
+            assert_true(Array.isArray(selectedcitiesinsidecircle));
+            assert_true(!haverepetitions(selectedcitiesinsidecircle));
             const segmentsinsidecircle = [
                 ...combinations(selectedcitiesinsidecircle, 2),
             ].filter(
@@ -198,7 +198,7 @@ export function performPheromoneDiffusionOperations({
                 //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
                 //     pheromoneStorenext: MatrixToArrays(pheromoneStorenext),
                 // });
-                asserttrue(pheromoneStorenext.values().every((a) => a > 0));
+                assert_true(pheromoneStorenext.values().every((a) => a > 0));
                 MatrixAssign(pheromoneStore, pheromoneStorenext);
             }
         };

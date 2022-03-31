@@ -8,7 +8,7 @@ import {
     // MatrixToArrays,
 } from "@masx200/sparse-2d-matrix";
 import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
@@ -109,7 +109,7 @@ export function pheromone_update_rule_after_route({
     //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
     //     nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
     // });
-    asserttrue(nextpheromoneStore.values().every((a) => a > 0));
+    assert_true(nextpheromoneStore.values().every((a) => a > 0));
     //信息素更新
     MatrixAssign(pheromoneStore, nextpheromoneStore);
 }

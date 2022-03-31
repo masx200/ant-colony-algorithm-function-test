@@ -1,13 +1,13 @@
 import { random, sum } from "lodash";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 
 export function pickRandomOne<T>(input: Array<T>, weights: number[] = []): T {
-    asserttrue(input.length > 0);
+    assert_true(input.length > 0);
     if (input.length === 1) {
         return input[0];
     }
     if (weights.length) {
-        asserttrue(weights.length === input.length);
+        assert_true(weights.length === input.length);
         const sumofweights = sum(weights);
         const Roulette = weights.map((_w, i, a) => {
             return sum(a.slice(0, i + 1)) / sumofweights;
@@ -22,13 +22,13 @@ export function pickRandomOne<T>(input: Array<T>, weights: number[] = []): T {
             }
         }
         const last = input.at(-1);
-        asserttrue(typeof last !== "undefined");
+        assert_true(typeof last !== "undefined");
         // console.log("pickRandomOne", last, input, weights);
         return last;
     } else {
         const index = Math.min(random(0, input.length), input.length - 1);
-        asserttrue(index >= 0);
-        asserttrue(index < input.length);
+        assert_true(index >= 0);
+        assert_true(index < input.length);
         const result = input[index];
         // console.log("pickRandomOne", result, input);
         return result;

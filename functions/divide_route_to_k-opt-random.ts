@@ -1,5 +1,5 @@
 import { random, sum } from "lodash";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { cycle_reorganize } from "./cycle_reorganize";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { pickRandomOne } from "./pickRandomOne";
@@ -15,13 +15,13 @@ export const divide_route_to_k_opt_random = (
     k: number
 ): number[][] => {
     k = Math.round(k);
-    asserttrue(oldRoute.length >= 2 * k);
+    assert_true(oldRoute.length >= 2 * k);
     //每段路径至少含有2个城市
     const length_of_old = oldRoute.length;
     //最多切割成 N/2条路段
 
-    asserttrue(k <= length_of_old / 2);
-    asserttrue(k >= 2);
+    assert_true(k <= length_of_old / 2);
+    assert_true(k >= 2);
     //环路随机重排
     const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
 
@@ -46,9 +46,9 @@ export const divide_route_to_k_opt_random = (
     }
     const result = reversearray(routes);
     // console.log("divide_route_to_k_opt_random", oldRoute, k, result);
-    asserttrue(result.length >= 2);
-    asserttrue(result.length === k);
-    asserttrue(result.every((r) => r.length >= 2));
-    asserttrue(length_of_old === sum(result.map((a) => a.length)));
+    assert_true(result.length >= 2);
+    assert_true(result.length === k);
+    assert_true(result.every((r) => r.length >= 2));
+    assert_true(length_of_old === sum(result.map((a) => a.length)));
     return result;
 };

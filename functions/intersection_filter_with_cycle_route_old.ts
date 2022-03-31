@@ -1,4 +1,4 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { haverepetitions } from "./haverepetitions";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -15,8 +15,8 @@ export function intersection_filter_with_cycle_route_old({
     node_coordinates: NodeCoordinates;
 }): boolean {
     const count_of_nodes = node_coordinates.length;
-    asserttrue(count_of_nodes > 1);
-    asserttrue(cycleroute.length === node_coordinates.length);
+    assert_true(count_of_nodes > 1);
+    assert_true(cycleroute.length === node_coordinates.length);
     const cyclesegments = cycleroutetosegments(cycleroute);
 
     for (let [[left1, left2], [right1, right2]] of combinations(

@@ -1,15 +1,15 @@
 import { robustsegmentintersect } from "../functions/robust-segment-intersect";
-import { asserttrue } from "./asserttrue";
+import { assert_true } from "./assert_true";
 
 export function testrobustsegmentintersect() {
     // console.log("test robustsegmentintersect start");
-    asserttrue(
+    assert_true(
         robustsegmentintersect([-1, 0], [1, 0], [0, -1], [0, 1]),
         "general test"
     );
-    asserttrue(!robustsegmentintersect([0.5, 0], [1, 0], [0, -1], [0, 1]));
-    asserttrue(robustsegmentintersect([0, 0], [1, 0], [0, -1], [0, 1]));
-    asserttrue(
+    assert_true(!robustsegmentintersect([0.5, 0], [1, 0], [0, -1], [0, 1]));
+    assert_true(robustsegmentintersect([0, 0], [1, 0], [0, -1], [0, 1]));
+    assert_true(
         robustsegmentintersect(
             [0, 0],
             [100000000000000020000, 1e-12],
@@ -17,7 +17,7 @@ export function testrobustsegmentintersect() {
             [1e20, 1e-11]
         )
     );
-    asserttrue(
+    assert_true(
         !robustsegmentintersect(
             [0, 0],
             [1e20, 1e-11],
@@ -26,22 +26,22 @@ export function testrobustsegmentintersect() {
         )
     );
 
-    asserttrue(
+    assert_true(
         !robustsegmentintersect([0, 1], [0, 2], [0, -1], [0, -2]),
         "collinear, no intersect"
     );
 
-    asserttrue(
+    assert_true(
         robustsegmentintersect([0, 1], [0, 2], [0, 1.5], [0, -2]),
         "collinear, intersect"
     );
 
-    asserttrue(
+    assert_true(
         robustsegmentintersect([0, 1], [0, 2], [0, 1], [0, -2]),
         "collinear, endpoint touch"
     );
 
-    asserttrue(
+    assert_true(
         robustsegmentintersect([0, 1], [0, -1], [0, 0], [0, 1]),
         "endpoint touches"
     );

@@ -1,7 +1,7 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 
 export const appcontainer = (() => {
     const app = document.querySelector<HTMLDivElement>("#app");
-    asserttrue(app);
+    assert_true(app);
     return app;
 })();

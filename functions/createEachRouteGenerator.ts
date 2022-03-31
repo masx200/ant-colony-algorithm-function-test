@@ -1,6 +1,6 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { construct_one_route_all } from "./construct_one_route_all";
 import { Fun_EachRouteGenerator } from "./Fun_EachRouteGenerator";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
@@ -160,8 +160,8 @@ export function createEachRouteGenerator({
             setbestlength(totallength);
             setbestroute(route);
         }
-        asserttrue(get_best_length() < Infinity);
-        asserttrue(get_best_route().length === count_of_nodes);
+        assert_true(get_best_length() < Infinity);
+        assert_true(get_best_route().length === count_of_nodes);
         // 赋值全局最优
         // 局部信息素更新
         pheromone_update_rule_after_route({

@@ -1,5 +1,5 @@
 import { sum } from "lodash";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { ispathsequalinbothdirectionswithcycle } from "./ispathsequalinbothdirectionswithcycle";
 
 /* 种群相对信息熵 */
@@ -61,6 +61,6 @@ export function calc_population_relative_information_entropy(
         throw new Error("Accident ");
     }
     // console.log(result);
-    asserttrue(result <= 1);
+    assert_true(result <= 1);
     return result;
 }

@@ -1,6 +1,6 @@
 // import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 // import { construct_one_step_route_of_taboo } from "./construct_one_step_route_of_taboo";
@@ -197,7 +197,7 @@ export function generate_paths_using_state_transition_probabilities(opts: {
     //         route = [...route, nextnode];
     //     }
     // }
-    asserttrue(route.length == count_of_nodes);
+    assert_true(route.length == count_of_nodes);
     const routelength = closedtotalpathlength({
         // count_of_nodes: route.length,
         path: route,

@@ -18,7 +18,7 @@ import {
 } from "../src/default_Options";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { assertnumber } from "../test/assertnumber";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { calc_pheromone_volatility_coefficient_R1 } from "./calc_pheromone_volatility_coefficient_R1";
 import { calc_pheromone_volatility_coefficient_R2 } from "./calc_pheromone_volatility_coefficient_R2";
 // import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
@@ -97,7 +97,7 @@ export function createTSPrunner({
 }: // ...rest
 TSPRunnerOptions): TSPRunner {
     assertnumber(number_of_ants);
-    asserttrue(number_of_ants >= 2);
+    assert_true(number_of_ants >= 2);
 
     // const pheromone_volatility_coefficient_R1 =
     //     rest?.pheromone_volatility_coefficient_R1 ??
@@ -129,7 +129,7 @@ TSPRunnerOptions): TSPRunner {
     //     pheromone_volatility_coefficient_R2,
     //     pheromone_intensity_Q,
     // });
-    asserttrue(
+    assert_true(
         float64equal(
             pheromone_volatility_coefficient_R1,
             calc_pheromone_volatility_coefficient_R1(
@@ -260,7 +260,7 @@ TSPRunnerOptions): TSPRunner {
     };
     const runIterations = (iterations: number) => {
         assertnumber(iterations);
-        asserttrue(iterations > 0);
+        assert_true(iterations > 0);
 
         for (let i = 0; i < iterations; i++) {
             runOneIteration();
@@ -412,7 +412,7 @@ TSPRunnerOptions): TSPRunner {
     }
     const runRoutes = (count: number) => {
         assertnumber(count);
-        asserttrue(count > 0);
+        assert_true(count > 0);
 
         for (let i = 0; i < count; i++) {
             runOneRoute();

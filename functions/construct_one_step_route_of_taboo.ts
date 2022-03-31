@@ -1,4 +1,4 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { FilterForbiddenBeforePick } from "./FilterForbiddenBeforePick.funtype";
 import { IntersectionFilter } from "./IntersectionFilter.funtype";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -109,7 +109,7 @@ export function construct_one_step_route_of_taboo({
             getpheromone,
             getdistancebyserialnumber,
         });
-        asserttrue(!pathTabooList.has([...route, nextnode]));
+        assert_true(!pathTabooList.has([...route, nextnode]));
 
         if (route.length + 1 === count_of_nodes) {
             //已经完成一条路径退出循环

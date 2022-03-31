@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, readonly, ref, watch } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { assertnumber } from "../test/assertnumber";
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import Datatable from "./Datatable-com.vue";
 import {
     default_number_of_ants,
@@ -204,8 +204,8 @@ export default defineComponent({
             route: number[],
             node_coordinates: NodeCoordinates
         ) => {
-            asserttrue(route.length > 0);
-            asserttrue(route.length === node_coordinates.length);
+            assert_true(route.length > 0);
+            assert_true(route.length === node_coordinates.length);
             const chart = chart_store_best.value;
             if (chart) {
                 draw_best_route_debounced(route, node_coordinates, chart);

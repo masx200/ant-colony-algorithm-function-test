@@ -1,5 +1,5 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { asserttrue } from "./asserttrue";
+import { assert_true } from "./assert_true";
 import { testgreedyconstructroutebest } from "./test-greedyconstructroute";
 // import { node_coordinates6 } from "./node_coordinates6";
 
@@ -7,7 +7,7 @@ export function testgreedynode_coordinates6() {
     const { /* greedypath,  */ totallength } =
         testgreedyconstructroutebest(node_coordinates6);
 
-    asserttrue(totallength === 328.8245611270737);
+    assert_true(totallength === 328.8245611270737);
 }
 
 //export

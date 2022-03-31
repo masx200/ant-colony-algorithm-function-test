@@ -1,4 +1,4 @@
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { divide_route_to_k_opt_random } from "./divide_route_to_k-opt-random";
 import { reversearray } from "./reversearray";
 import { whether_k_sections_reverse_opt } from "./whether_k_sections_reverse-opt";
@@ -14,7 +14,7 @@ export function generate_k_opt_cycle_routes_limited({
     k: number;
     max_results: number;
 }): number[][] {
-    asserttrue(oldRoute.length >= 2 * k);
+    assert_true(oldRoute.length >= 2 * k);
     //splitted_Routes.length===k
     const splitted_Routes = divide_route_to_k_opt_random(
         oldRoute,
@@ -22,7 +22,7 @@ export function generate_k_opt_cycle_routes_limited({
     );
 
     // console.log("splitted_Routes", splitted_Routes);
-    asserttrue(
+    assert_true(
         splitted_Routes.every((partial_route) => partial_route.length >= 2)
     );
 
@@ -40,6 +40,6 @@ export function generate_k_opt_cycle_routes_limited({
             })
             .flat();
     });
-    asserttrue(routes.every((route) => route.length === oldRoute.length));
+    assert_true(routes.every((route) => route.length === oldRoute.length));
     return routes;
 }

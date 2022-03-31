@@ -1,6 +1,6 @@
 import { random } from "lodash";
 
-import { asserttrue } from "../test/asserttrue";
+import { assert_true } from "../test/assert_true";
 import { cycle_reorganize } from "./cycle_reorganize";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { pickRandomOne } from "./pickRandomOne";
@@ -8,7 +8,7 @@ import { pickRandomOne } from "./pickRandomOne";
 export function split_cycle_route_to_3_sections(
     oldRoute: number[]
 ): [number[], number[], number[]] {
-    asserttrue(oldRoute.length >= 6);
+    assert_true(oldRoute.length >= 6);
     const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
 
     const reoganized_route = cycle_reorganize(oldRoute, start);

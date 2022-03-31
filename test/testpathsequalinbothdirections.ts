@@ -1,31 +1,35 @@
 import { ispathsequalinbothdirectionswithcycle } from "../functions/ispathsequalinbothdirectionswithcycle";
-import { asserttrue } from "./asserttrue";
+import { assert_true } from "./assert_true";
 
 export function testpathsequalinbothdirections() {
     // console.log("test pathsequalinbothdirections start");
 
-    asserttrue(ispathsequalinbothdirectionswithcycle([1, 2, 3], [3, 2, 1]));
-    asserttrue(ispathsequalinbothdirectionswithcycle([1, 2, 3], [1, 2, 3]));
-    asserttrue(!ispathsequalinbothdirectionswithcycle([1, 2, 3], [0, 10, 100]));
-    asserttrue(!ispathsequalinbothdirectionswithcycle([1, 2, 3], [3, 2, 1, 4]));
-    asserttrue(ispathsequalinbothdirectionswithcycle([1, 2, 3], [3, 1, 2]));
-    asserttrue(
+    assert_true(ispathsequalinbothdirectionswithcycle([1, 2, 3], [3, 2, 1]));
+    assert_true(ispathsequalinbothdirectionswithcycle([1, 2, 3], [1, 2, 3]));
+    assert_true(
+        !ispathsequalinbothdirectionswithcycle([1, 2, 3], [0, 10, 100])
+    );
+    assert_true(
+        !ispathsequalinbothdirectionswithcycle([1, 2, 3], [3, 2, 1, 4])
+    );
+    assert_true(ispathsequalinbothdirectionswithcycle([1, 2, 3], [3, 1, 2]));
+    assert_true(
         ispathsequalinbothdirectionswithcycle([1, 2, 3, 4], [4, 1, 2, 3])
     );
-    asserttrue(
+    assert_true(
         ispathsequalinbothdirectionswithcycle([1, 2, 3, 4], [4, 3, 2, 1])
     );
 
-    asserttrue(
+    assert_true(
         ispathsequalinbothdirectionswithcycle([0, 1, 2, 3, 4], [0, 4, 3, 2, 1])
     );
-    asserttrue(
+    assert_true(
         ispathsequalinbothdirectionswithcycle([4, 0, 1, 2, 3], [0, 4, 3, 2, 1])
     );
-    asserttrue(
+    assert_true(
         ispathsequalinbothdirectionswithcycle([1, 2, 3, 4, 0], [4, 3, 2, 1, 0])
     );
-    asserttrue(
+    assert_true(
         ispathsequalinbothdirectionswithcycle([2, 3, 4, 0, 1], [4, 3, 2, 1, 0])
     );
     // console.log("test pathsequalinbothdirections ok");
