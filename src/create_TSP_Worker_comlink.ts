@@ -13,11 +13,18 @@ import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 export async function create_TSP_Worker_comlink(
     options: TSPRunnerOptions
 ): Promise<TSP_Worker_Remote> {
-    // new TSPWorker();
-    // TSP_workerRef.value ||= new TSPWorker();
-    // const endpoint = TSP_workerRef.value;
-    // const runner = comlink.wrap<TSP_Worker_API>(endpoint);
-    const runner = create_Worker_comlink<TSP_Worker_API>(() => new TSPWorker());
+    
+    const {worker,terminate,remote:runner }= create_Worker_comlink<TSP_Worker_API>(() =>{
+
+
+ const w=new TSPWorker()
+w.addEventListener("error",e=>{
+alert(e)
+throw e
+})
+return w
+
+});
     await runner.init_runner(options);
     const on_finish_one_iteration = async (
         callback: (data: DataOfFinishOneIteration) => void
@@ -45,5 +52,5 @@ export async function create_TSP_Worker_comlink(
         on_best_change: typeof on_best_change;
     };
     // console.log(runner, remote);
-    return remote;
+    return {remote,worker,terminate};
 }
