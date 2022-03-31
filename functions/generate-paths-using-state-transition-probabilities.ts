@@ -92,7 +92,10 @@ export function generate_paths_using_state_transition_probabilities(options: {
         .fill(0)
         .map((_v, i) => i);
     const startnode = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
-    let route: number[] = [startnode];
+    const route: number[] = [startnode];
+    const availablenodes = new Set<number>(
+        inputindexs.filter((v) => !route.includes(v))
+    );
     // function getroute() {
     //     return Array.from(route);
     // }
@@ -103,12 +106,6 @@ export function generate_paths_using_state_transition_probabilities(options: {
         route.length !== count_of_nodes /* &&
         trycount < count_of_nodes * searchloopcountratio */
     ) {
-        const availablenodes = new Set<number>(
-            Array(count_of_nodes)
-                .fill(0)
-                .map((_v, i) => i)
-                .filter((v) => !route.includes(v))
-        );
         const filterednodes = availablenodes;
         const nextnode = picknextnode({
             randomselectionprobability,
@@ -124,7 +121,9 @@ export function generate_paths_using_state_transition_probabilities(options: {
             getpheromone,
             getdistancebyserialnumber,
         });
-        route = [...route, nextnode];
+        // route = [...route, nextnode];
+        route.push(nextnode);
+        availablenodes.delete(nextnode);
         // route=
         // trycount++;
         //console.log(
