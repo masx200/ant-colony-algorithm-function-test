@@ -17,7 +17,7 @@ import { pickRandomOne } from "./pickRandomOne";
 
 // export type PathConstructOptions = ;
 /**使用状态转移概率生成路径. */
-export function generate_paths_using_state_transition_probabilities(opts: {
+export function generate_paths_using_state_transition_probabilities(options: {
     alpha_zero: number;
     beta_zero: number;
     randomselectionprobability: number;
@@ -73,7 +73,7 @@ export function generate_paths_using_state_transition_probabilities(opts: {
         //    ,
         beta_zero,
         // pathTabooList,
-    } = opts;
+    } = options;
 
     const count_of_nodes = node_coordinates.length;
     /**单次搜索最多循环次数 */

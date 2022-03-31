@@ -4,7 +4,7 @@ import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 export type Fun_initialize_TSP_runner = ({
     coefficient_of_pheromone_Increase_Non_Optimal_Paths,
     node_coordinates,
-    number_of_ants,
+    count_of_ants,
     onGlobalBestRouteChange,
     onLatestRouteChange,
     pheromone_volatility_coefficient_R1,

@@ -4,7 +4,7 @@ import { assertnumber } from "../test/assertnumber";
 import { assert_true } from "../test/assert_true";
 import Datatable from "./Datatable-com.vue";
 import {
-    default_number_of_ants,
+    default_count_of_ants,
     default_search_rounds,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_volatility_coefficient_R1,
@@ -19,7 +19,7 @@ import { draw_path_number_and_current_path_length_chart_debounced } from "./draw
 import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
 import Progresselement from "./Progress-element.vue";
 import { RunWay } from "./RunWay";
-import { StopTSPWorker } from "./StopTSPWorker";
+import { Stop_TSP_Worker } from "./Stop_TSP_Worker";
 // import { draw_path_number_and_optimal_path_length_chart } from "./draw_path_number_and_optimal_path_length_chart";
 import { TSP_cities_data } from "./TSP_cities_data";
 import { TSP_Reset } from "./TSP_Reset";
@@ -123,7 +123,7 @@ export default defineComponent({
         );
         const disablemapswitching = ref(false);
         const searchrounds = ref(default_search_rounds);
-        const number_of_ants_ref = ref(default_number_of_ants);
+        const count_of_ants_ref = ref(default_count_of_ants);
         const selecteleref = ref<HTMLSelectElement>();
         const { container: container_of_best_chart, chart: chart_store_best } =
             use_escharts_container_pair();
@@ -271,7 +271,7 @@ export default defineComponent({
                 onprogress,
                 // TSP_before_Start,
                 searchrounds,
-                number_of_ants_ref,
+                count_of_ants_ref,
                 // selecteleref,
                 // local_pheromone_volatilization_rate,
                 // disablemapswitching,
@@ -306,7 +306,7 @@ export default defineComponent({
         const navbar_float = ref(false);
         const can_run = ref(true);
         const stop_handler = () => {
-            StopTSPWorker();
+            Stop_TSP_Worker();
             disable_stop.value = true;
             navbar_float.value = false;
             is_running.value = false;
@@ -322,7 +322,7 @@ export default defineComponent({
             const coefficient_of_pheromone_Increase_Non_Optimal_Paths_value =
                 coefficient_of_pheromone_Increase_Non_Optimal_Paths.value;
             // const search_time_ms = search_time_seconds.value * 1000;
-            const number_of_ants_value = number_of_ants_ref.value;
+            const count_of_ants_value = count_of_ants_ref.value;
             const element = selecteleref.value;
             // element && (element.selectedIndex = 0);
             const node_coordinates = TSP_cities_map.get(element?.value || "");
@@ -335,13 +335,13 @@ export default defineComponent({
                 alpha_value > 0 &&
                 pheromone_volatility_coefficient_R1 > 0 &&
                 // search_time_ms > 0 &&
-                number_of_ants_value >= 2 &&
+                count_of_ants_value >= 2 &&
                 node_coordinates
             ) {
                 disablemapswitching.value = true;
-                const number_of_ants = number_of_ants_value;
+                const count_of_ants = count_of_ants_value;
                 // console.log(node_coordinates);
-                assertnumber(number_of_ants);
+                assertnumber(count_of_ants);
                 // assertnumber(search_time_ms);
                 assertnumber(pheromone_volatility_coefficient_R1);
 
@@ -354,7 +354,7 @@ export default defineComponent({
                     pheromone_volatility_coefficient_R1,
                     onGlobalBestRouteChange,
                     node_coordinates: await node_coordinates(),
-                    number_of_ants,
+                    count_of_ants,
                     // round_of_search,
                     onLatestRouteChange,
                 });
@@ -375,7 +375,7 @@ export default defineComponent({
                 runner: runner,
                 // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 search_time_seconds,
-                // number_of_ants_ref,
+                // count_of_ants_ref,
                 // selecteleref,
                 // local_pheromone_volatilization_rate,
                 // disablemapswitching,
@@ -426,7 +426,7 @@ export default defineComponent({
             oneroutetablebody,
             oneiterationtableheads,
             oneiterationtablebody,
-            number_of_ants_ref,
+            count_of_ants_ref,
             container_of_path_number_and_current_path_length_chart,
             disablemapswitching,
             container_of_path_number_and_optimal_path_length_chart,

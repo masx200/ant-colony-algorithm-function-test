@@ -7,11 +7,16 @@ import {
     MatrixSymmetryCreate,
     // MatrixToArrays,
 } from "@masx200/sparse-2d-matrix";
-import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
+import {
+    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+} from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
+import { cacheble_intersection_filter_with_cycle_route } from "./cacheble_intersection_filter_with_cycle_route";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
+import { NodeCoordinates } from "./NodeCoordinates";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 
 /**
@@ -19,11 +24,12 @@ import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
  * 每只蚂蚁构建完路径后的信息素更新规则,局部信息素更新
  */
 export function pheromone_update_rule_after_route({
+    cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     globalbestroute,
     current_length,
     current_route,
-    // node_coordinates,
+    node_coordinates,
     count_of_nodes,
     // globalbestroutesegments,
     globalbestlength,
@@ -35,13 +41,14 @@ export function pheromone_update_rule_after_route({
     current_length: number;
     current_route: number[];
     globalbestroute: number[];
-    // node_coordinates: NodeCoordinates;
+    node_coordinates: NodeCoordinates;
     count_of_nodes: number;
     // globalbestroutesegments: [number, number][];
     globalbestlength: number;
     pheromone_intensity_Q: number;
     pheromoneStore: MatrixSymmetry<number>;
     pheromone_volatility_coefficient_R1: number;
+    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
 }) {
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     // console.log("局部信息素更新计算开始");
@@ -79,15 +86,31 @@ export function pheromone_update_rule_after_route({
         ),
         // : undefined,
     });
-
+    const have_intersection_in_global_best =
+        cacheble_intersection_filter_with_cycle_route({
+            node_coordinates,
+            cycleroute: globalbestroute,
+        });
+    const have_intersection_in_current_route =
+        cacheble_intersection_filter_with_cycle_route({
+            node_coordinates,
+            cycleroute: current_route,
+        });
     //局部信息素更新
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
         MatrixAdd(
-            deltapheromoneglobalbest,
+            have_intersection_in_global_best
+                ? MatrixMultiplyNumber(
+                      cross_Point_Coefficient_of_Non_Optimal_Paths,
+                      deltapheromoneglobalbest
+                  )
+                : deltapheromoneglobalbest,
             MatrixMultiplyNumber(
                 /* 添加非最优的信息素系数 */
-                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                (have_intersection_in_current_route
+                    ? cross_Point_Coefficient_of_Non_Optimal_Paths
+                    : 1) * coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 deltapheromoneiteratecurrent
             )
         )

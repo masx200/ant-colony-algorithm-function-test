@@ -1,12 +1,13 @@
 import * as comlink from "comlink";
-import { createTSPrunner, TSPRunner } from "../functions/createTSPrunner";
+import { createTSPrunner } from "../functions/createTSPrunner";
+import { TSP_Runner } from "../functions/TSP_Runner";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
 // import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { TSP_Worker_API } from "./TSP_Worker_API";
-let runner: TSPRunner | undefined = undefined;
+let runner: TSP_Runner | undefined = undefined;
 function init_runner(options: TSPRunnerOptions) {
     if (runner) {
         throw new Error("cannot init runner twice");

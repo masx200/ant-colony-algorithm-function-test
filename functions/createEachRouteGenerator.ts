@@ -1,5 +1,6 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import {
+    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_max_results_of_2_opt,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
@@ -11,14 +12,13 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
-export function createEachRouteGenerator({
-    max_results_of_2_opt = default_max_results_of_2_opt,
-    coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-}: {
+export function createEachRouteGenerator(options: {
+    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
 
     max_results_of_2_opt?: number;
-} = {}): {
+    node_coordinates: NodeCoordinates;
+}): {
     get_probability_of_opt_current: () => number;
     get_probability_of_opt_best: () => number;
     EachRouteGenerator: Fun_EachRouteGenerator;
@@ -31,6 +31,11 @@ export function createEachRouteGenerator({
     set_weight_of_opt_best(value: number): void;
     // };
 } {
+    const {
+        cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+        max_results_of_2_opt = default_max_results_of_2_opt,
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+    } = options;
     let weight_of_opt_best = 1;
     let weight_of_opt_current = 1;
 
@@ -175,6 +180,8 @@ export function createEachRouteGenerator({
         // 赋值全局最优
         // 局部信息素更新
         pheromone_update_rule_after_route({
+            ...options,
+            cross_Point_Coefficient_of_Non_Optimal_Paths,
             coefficient_of_pheromone_Increase_Non_Optimal_Paths,
             globalbestroute: get_best_route(),
             current_length: totallength,

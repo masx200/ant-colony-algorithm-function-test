@@ -1,11 +1,7 @@
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
-import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-// import { createpathTabooList } from "../pathTabooList/createPathTabooList";
-// import { PathTabooList } from "../pathTabooList/PathTabooList";
-// import { isDataOfFinishOneIteration } from "./isDataOfFinishOneIteration";
-// import { isDataOfFinishOneRoute } from "./isDataOfFinishOneRoute";
+import { DefaultOptions } from "../src/default_Options";
 import {
-    default_number_of_ants,
+    default_count_of_ants,
     default_alpha,
     default_beta,
     default_max_coefficient_of_pheromone_diffusion,
@@ -13,7 +9,6 @@ import {
     default_min_coefficient_of_pheromone_diffusion,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_intensity_Q,
-    // default_global_pheromone_volatilization_rate,
     default_pheromone_volatility_coefficient_R1,
     default_max_results_of_2_opt,
 } from "../src/default_Options";
@@ -22,84 +17,62 @@ import { assertnumber } from "../test/assertnumber";
 import { assert_true } from "../test/assert_true";
 import { calc_pheromone_volatility_coefficient_R1 } from "./calc_pheromone_volatility_coefficient_R1";
 import { calc_pheromone_volatility_coefficient_R2 } from "./calc_pheromone_volatility_coefficient_R2";
-// import { construct_routes_of_one_iteration } from "./construct_routes_of_one_iteration";
+
 import { createEventPair } from "./createEventPair";
 import { createPheromoneStore } from "./createPheromoneStore";
 import { DataOfBestChange } from "./DataOfBestChange";
-// import { DataOfGlobalBest } from "./DataOfGlobalBest";
+
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { EachIterationHandler } from "./EachIterationHandler";
-// import { generate_k_opt_cycle_routes_limited } from "./generate_k_opt_cycle_routes_limited";
+
 import { createEachRouteGenerator } from "./createEachRouteGenerator";
 import { float64equal } from "./float64equal";
 import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
-import { NodeCoordinates } from "./NodeCoordinates";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { update_weight_of_opt } from "./update_weight_of_opt";
-// import { WayOfConstruct } from "./WayOfConstruct";
-export type TSPRunner = Required<TSPRunnerOptions> & {
-    coefficient_of_pheromone_Increase_Non_Optimal_Paths: number;
-    min_coefficient_of_pheromone_diffusion: number;
-    max_coefficient_of_pheromone_diffusion: number;
 
-    count_of_nodes: number;
-    get_random_selection_probability(): number;
-    get_time_of_best(): number;
-    get_search_count_of_best(): number;
-    on_best_change: (callback: (data: DataOfBestChange) => void) => void;
-    runOneRoute: () => void;
-    runOneIteration: () => void;
+import { TSP_Runner } from "./TSP_Runner";
+export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
+    const {
+        cross_Point_Coefficient_of_Non_Optimal_Paths,
+        max_results_of_2_opt = default_max_results_of_2_opt,
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+        min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
 
-    get_total_time_ms: () => number;
+        max_coefficient_of_pheromone_diffusion = default_max_coefficient_of_pheromone_diffusion,
 
-    runIterations: (iterations: number) => void;
-    on_finish_one_iteration: (
-        callback: (data: DataOfFinishOneIteration) => void
-    ) => void;
-    on_finish_one_route: (
-        callback: (data: DataOfFinishOneRoute) => void
-    ) => void;
+        max_results_of_k_opt = default_max_results_of_k_opt,
+        pheromone_intensity_Q = default_pheromone_intensity_Q,
+        node_coordinates,
+        alpha_zero = default_alpha,
+        beta_zero = default_beta,
+        // searchloopcountratio = default_searchloopcountratio,
+        count_of_ants = default_count_of_ants,
+        pheromone_volatility_coefficient_R1 = default_pheromone_volatility_coefficient_R1,
+    } = input;
 
-    get_number_of_iterations: () => number;
+    const options = Object.assign(
+        {
+            cross_Point_Coefficient_of_Non_Optimal_Paths,
+            max_results_of_2_opt,
+            coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+            min_coefficient_of_pheromone_diffusion,
+            max_coefficient_of_pheromone_diffusion,
 
-    get_best_length: () => number;
-    get_best_route: () => number[];
-    get_current_search_count: () => number;
-    pheromoneStore: MatrixSymmetry<number>;
-
-    // pathTabooList: PathTabooList<number>;
-    [Symbol.toStringTag]: string;
-    pheromone_volatility_coefficient_R2: number;
-    pheromone_volatility_coefficient_R1: number;
-    pheromone_intensity_Q: number;
-    node_coordinates: NodeCoordinates;
-    alpha_zero: number;
-    beta_zero: number;
-    // searchloopcountratio: number;
-    number_of_ants: number;
-    runRoutes: (count: number) => void;
-};
-
-export function createTSPrunner({
-    max_results_of_2_opt = default_max_results_of_2_opt,
-    coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-    min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
-
-    max_coefficient_of_pheromone_diffusion = default_max_coefficient_of_pheromone_diffusion,
-
-    max_results_of_k_opt = default_max_results_of_k_opt,
-    pheromone_intensity_Q = default_pheromone_intensity_Q,
-    node_coordinates,
-    alpha_zero = default_alpha,
-    beta_zero = default_beta,
-    // searchloopcountratio = default_searchloopcountratio,
-    number_of_ants = default_number_of_ants,
-    pheromone_volatility_coefficient_R1 = default_pheromone_volatility_coefficient_R1,
-}: // ...rest
-TSPRunnerOptions): TSPRunner {
-    assertnumber(number_of_ants);
-    assert_true(number_of_ants >= 2);
+            max_results_of_k_opt,
+            pheromone_volatility_coefficient_R1,
+            //   pheromone_volatility_coefficient_R2       ,
+            pheromone_intensity_Q,
+            node_coordinates,
+            alpha_zero,
+            beta_zero,
+            count_of_ants,
+        },
+        DefaultOptions
+    );
+    assertnumber(count_of_ants);
+    assert_true(count_of_ants >= 2);
 
     // const pheromone_volatility_coefficient_R1 =
     //     rest?.pheromone_volatility_coefficient_R1 ??
@@ -109,7 +82,7 @@ TSPRunnerOptions): TSPRunner {
                 1 -
                     (rest?.pheromone_volatility_coefficient_R2 ??
                         default_global_pheromone_volatilization_rate),
-                1 / number_of_ants
+                1 / count_of_ants
             );
 */
 
@@ -119,14 +92,14 @@ TSPRunnerOptions): TSPRunner {
         calc_pheromone_volatility_coefficient_R2(
             pheromone_volatility_coefficient_R1 ??
                 default_pheromone_volatility_coefficient_R1,
-            number_of_ants
+            count_of_ants
         );
 
     /*  const pheromone_volatility_coefficient_R1 =
-        1 - Math.pow(1 - pheromone_volatility_coefficient_R2, 1 / number_of_ants);
+        1 - Math.pow(1 - pheromone_volatility_coefficient_R2, 1 / count_of_ants);
 */
     // console.log("runner data", {
-    //     number_of_ants,
+    //     count_of_ants,
     //     pheromone_volatility_coefficient_R1,
     //     pheromone_volatility_coefficient_R2,
     //     pheromone_intensity_Q,
@@ -136,7 +109,7 @@ TSPRunnerOptions): TSPRunner {
             pheromone_volatility_coefficient_R1,
             calc_pheromone_volatility_coefficient_R1(
                 pheromone_volatility_coefficient_R2,
-                number_of_ants
+                count_of_ants
             )
         )
     );
@@ -201,7 +174,7 @@ TSPRunnerOptions): TSPRunner {
 
     // let numberofiterations = 0;
     const get_number_of_iterations = () => {
-        return current_search_count / number_of_ants;
+        return current_search_count / count_of_ants;
     };
 
     const emitter = EventEmitterTargetClass({ sync: true });
@@ -256,7 +229,7 @@ TSPRunnerOptions): TSPRunner {
     };
 
     const runOneIteration = () => {
-        for (let i = 0; i < number_of_ants; i++) {
+        for (let i = 0; i < count_of_ants; i++) {
             runOneRoute();
         }
     };
@@ -277,6 +250,7 @@ TSPRunnerOptions): TSPRunner {
         get_weight_of_opt_best,
         get_weight_of_opt_current,
     } = createEachRouteGenerator({
+        ...options,
         max_results_of_2_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
     });
@@ -288,6 +262,7 @@ TSPRunnerOptions): TSPRunner {
             // weight_of_opt_best,
             // weight_of_opt_current,
         } = EachRouteGenerator({
+            ...options,
             current_search_count,
             count_of_nodes,
             node_coordinates,
@@ -318,7 +293,7 @@ TSPRunnerOptions): TSPRunner {
             route,
             totallength,
         });
-        if (routesandlengths.length === number_of_ants) {
+        if (routesandlengths.length === count_of_ants) {
             const starttime_of_process_iteration = Number(new Date());
             //一轮搜索结束
 
@@ -336,6 +311,7 @@ TSPRunnerOptions): TSPRunner {
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = EachIterationHandler({
+                ...options,
                 coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 min_coefficient_of_pheromone_diffusion,
 
@@ -352,7 +328,7 @@ TSPRunnerOptions): TSPRunner {
                 // pathTabooList,
                 pheromoneStore,
                 node_coordinates,
-                // number_of_ants,
+                // count_of_ants,
                 // alpha_zero,
                 // beta_zero,
                 // lastrandomselectionprobability,
@@ -421,7 +397,8 @@ TSPRunnerOptions): TSPRunner {
             runOneRoute();
         }
     };
-    const result: TSPRunner = {
+    const result: TSP_Runner = {
+        ...options,
         max_results_of_2_opt,
         max_results_of_k_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
@@ -463,7 +440,7 @@ TSPRunnerOptions): TSPRunner {
         node_coordinates,
         alpha_zero,
         // searchloopcountratio,
-        number_of_ants,
+        count_of_ants,
         //    maxnumberofiterations,
         // pathTabooList,
         [Symbol.toStringTag]: "TSPRunner",

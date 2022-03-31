@@ -1,11 +1,11 @@
-import { TSPRunner } from "../functions/createTSPrunner";
+import { TSP_Runner } from "../functions/TSP_Runner";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 // import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
 
-export type TSP_Worker_API = TSPRunner & {
+export type TSP_Worker_API = TSP_Runner & {
     on_best_change: (callback: (data: DataOfBestChange) => void) => void;
     on_finish_one_iteration: (
         callback: (data: DataOfFinishOneIteration) => void

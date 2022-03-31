@@ -12,7 +12,7 @@ export function use_tsp_before_start(
             onLatestRouteChange,
             // round_of_search,
             node_coordinates,
-            number_of_ants,
+            count_of_ants,
             pheromone_volatility_coefficient_R1,
             ...rest
         }) {
@@ -25,7 +25,7 @@ export function use_tsp_before_start(
                     onGlobalBestRouteChange,
                     onLatestRouteChange,
                     node_coordinates,
-                    number_of_ants,
+                    count_of_ants,
                     ...rest,
                 });
             // TSP_RunnerRef.value?.runIterations(round_of_search);

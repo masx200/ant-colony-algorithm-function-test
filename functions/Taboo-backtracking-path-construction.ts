@@ -16,7 +16,7 @@ import { pickRandomOne } from "./pickRandomOne";
 
 // export type PathConstructOptions = ;
 /**禁忌回溯路径构建 */
-export function taboo_backtracking_path_construction(opts: {
+export function taboo_backtracking_path_construction(options: {
     alpha_zero: number;
     beta_zero: number;
     randomselectionprobability: number;
@@ -71,7 +71,7 @@ export function taboo_backtracking_path_construction(opts: {
         //    ,
         beta_zero,
         pathTabooList,
-    } = opts;
+    } = options;
 
     const count_of_nodes = node_coordinates.length;
     /**单次搜索最多循环次数 */

@@ -7,18 +7,24 @@ import {
     MatrixSymmetry,
     MatrixSymmetryCreate,
 } from "@masx200/sparse-2d-matrix";
-import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
+import {
+    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+} from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
+import { cacheble_intersection_filter_with_cycle_route } from "./cacheble_intersection_filter_with_cycle_route";
 import { cycleroutetosegments } from "./cycleroutetosegments";
 import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
+import { NodeCoordinates } from "./NodeCoordinates";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function pheromone_update_rule_after_iteration({
+    cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-    // node_coordinates,
+    node_coordinates,
     // globalbestroute,
     iteratebestroute,
     count_of_nodes,
@@ -33,7 +39,8 @@ export function pheromone_update_rule_after_iteration({
     pheromone_volatility_coefficient_R2,
 }: {
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
-    // node_coordinates: NodeCoordinates;
+    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
+    node_coordinates: NodeCoordinates;
     globalbestroute: number[];
     iteratebestroute: number[];
     count_of_nodes: number;
@@ -97,14 +104,30 @@ export function pheromone_update_rule_after_iteration({
             : undefined,
         //  column: count_of_nodes,
     });
-
+    const have_intersection_in_global_best =
+        cacheble_intersection_filter_with_cycle_route({
+            node_coordinates,
+            cycleroute: globalbestroute,
+        });
+    const have_intersection_in_iterate_best =
+        cacheble_intersection_filter_with_cycle_route({
+            node_coordinates,
+            cycleroute: iteratebestroute,
+        });
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
         MatrixAdd(
-            deltapheromoneglobalbest,
+            have_intersection_in_global_best
+                ? MatrixMultiplyNumber(
+                      cross_Point_Coefficient_of_Non_Optimal_Paths,
+                      deltapheromoneglobalbest
+                  )
+                : deltapheromoneglobalbest,
             MatrixMultiplyNumber(
                 /* 添加非最优的信息素系数 */
-                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                (have_intersection_in_iterate_best
+                    ? cross_Point_Coefficient_of_Non_Optimal_Paths
+                    : 1) * coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 deltapheromoneiteratebest
             ),
             deltapheromoneiterateworst

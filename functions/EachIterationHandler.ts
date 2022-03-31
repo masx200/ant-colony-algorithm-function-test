@@ -1,5 +1,8 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths } from "../src/default_Options";
+import {
+    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
+} from "../src/default_Options";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { assert_true } from "../test/assert_true";
@@ -15,7 +18,8 @@ import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_a
 
 // export type AdaptiveTSPSearchOptions =;
 /* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
-export function EachIterationHandler(opts: {
+export function EachIterationHandler(options: {
+    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     // max_results_of_k_opt: number;
     routesandlengths: {
         route: number[];
@@ -41,7 +45,7 @@ export function EachIterationHandler(opts: {
     /**
      * 蚂蚁数量
      */
-    // number_of_ants: number;
+    // count_of_ants: number;
     // alpha_zero: number;
     // beta_zero: number;
     // pathTabooList: PathTabooList;
@@ -62,8 +66,9 @@ export function EachIterationHandler(opts: {
     population_relative_information_entropy: number;
     // locally_optimized_length: number;
 } {
-    // console.log(opts);
+    // console.log(options);
     const {
+        cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
 
@@ -84,11 +89,11 @@ export function EachIterationHandler(opts: {
         node_coordinates,
         // maxnumberofiterations,
         // numberofstagnantiterations,
-        // number_of_ants,
+        // count_of_ants,
         get_best_length,
         get_best_route,
-    } = opts;
-    // asserttrue(typeof number_of_ants === "number");
+    } = options;
+    // asserttrue(typeof count_of_ants === "number");
     const count_of_nodes = node_coordinates.length;
 
     const routes = routesandlengths.map(({ route }) => route);
@@ -149,6 +154,8 @@ export function EachIterationHandler(opts: {
     // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
     // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     pheromone_update_rule_after_iteration({
+        ...options,
+        cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         // node_coordinates,
         iteratebestroute,

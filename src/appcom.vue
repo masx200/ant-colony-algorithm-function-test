@@ -54,7 +54,7 @@
         <el-input-number
             step-strictly
             :step="1"
-            v-model.number="number_of_ants_ref"
+            v-model.number="count_of_ants_ref"
             :disabled="disablemapswitching"
             :min="2"
             :controls="false"

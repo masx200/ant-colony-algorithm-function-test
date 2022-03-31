@@ -1,4 +1,4 @@
-import { StopTSPWorker } from "./StopTSPWorker";
+import { Stop_TSP_Worker } from "./Stop_TSP_Worker";
 
 export function TSP_Reset(clearCallbacks: Array<() => void>) {
     // return function TSP_terminate() {
@@ -10,6 +10,6 @@ export function TSP_Reset(clearCallbacks: Array<() => void>) {
     // clearDataOfResult();
     // TSP_RunnerRef.value = undefined;
     clearCallbacks.forEach((c) => c());
-    StopTSPWorker();
+    Stop_TSP_Worker();
     // };
 }
