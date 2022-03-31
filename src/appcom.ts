@@ -38,10 +38,30 @@ import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 export default defineComponent({
     components: { Datatable, Progresselement: Progresselement },
     setup() {
+        const show_summary_of_routes = ref(true);
+        const show_routes_of_best = ref(true);
+        const show_routes_of_latest = ref(true);
         const coefficient_of_pheromone_Increase_Non_Optimal_Paths = ref(
             default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths
         );
+
+        const details_shows = [
+            show_routes_of_latest,
+            show_summary_of_routes,
+            show_routes_of_best,
+        ];
         onMounted(() => {
+            watch(is_running, (running) => {
+                if (running) {
+                    details_shows.forEach((a) => (a.value = false));
+                    // show_summary_of_routes.value = false;
+                    // show_routes_of_best.value = false;
+                } else {
+                    details_shows.forEach((a) => (a.value = true));
+                    // show_summary_of_routes.value = true;
+                    // show_routes_of_best.value = true;
+                }
+            });
             window.addEventListener("beforeunload", (e) => {
                 if (is_running.value) {
                     e.returnValue = "是否要关闭";
@@ -282,10 +302,13 @@ export default defineComponent({
         };
         const disable_stop = ref(false);
         const navbar_float = ref(false);
+        const can_run = ref(true);
         const stop_handler = () => {
             StopTSPWorker();
             disable_stop.value = true;
             navbar_float.value = false;
+            is_running.value = false;
+            can_run.value = false;
         };
         const resethandler = () => {
             reset();
@@ -362,6 +385,10 @@ export default defineComponent({
         const run_way_time = RunWay.time;
         const run_way_round = RunWay.round;
         return {
+            can_run,
+            show_routes_of_latest,
+            show_routes_of_best,
+            show_summary_of_routes,
             coefficient_of_pheromone_Increase_Non_Optimal_Paths,
             navbar_float,
             run_way_round,

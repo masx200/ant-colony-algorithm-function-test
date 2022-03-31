@@ -65,7 +65,7 @@ export function drawlinechart({
         // ...
     };
     // setOption(option);
-    chart.setOption(option);
+    chart.setOption(option, { lazyUpdate: true });
     chart.resize();
     // resize();
     // chart.resize(/* getcharsizeofwindow() */);

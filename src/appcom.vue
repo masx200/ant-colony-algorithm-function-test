@@ -60,7 +60,10 @@
             :controls="false"
         /><br />
         <hr />
-        <el-radio-group v-model="radio_run_way" :disabled="is_running">
+        <el-radio-group
+            v-model="radio_run_way"
+            :disabled="!can_run || is_running"
+        >
             <el-radio :label="run_way_time">按照时间</el-radio>
             <el-radio :label="run_way_round">按照轮次</el-radio>
         </el-radio-group>
@@ -72,13 +75,13 @@
                 v-model.number="searchrounds"
                 :min="1"
                 :controls="false"
-                :disabled="is_running"
+                :disabled="!can_run || is_running"
             />
             <br />
             <button
                 v-text="'运行'"
                 @click="create_and_run_tsp_by_search_rounds"
-                :disabled="is_running"
+                :disabled="!can_run || is_running"
             />
         </div>
         <div v-show="radio_run_way === run_way_time">
@@ -89,28 +92,48 @@
                 v-model.number="search_time_seconds"
                 :min="0.001"
                 :controls="false"
-                :disabled="is_running"
+                :disabled="!can_run || is_running"
             />
             <br />
             <button
                 v-text="'运行'"
                 @click="create_and_run_tsp_by_search_time"
-                :disabled="is_running"
+                :disabled="!can_run || is_running"
             />
         </div>
         <hr />
 
         <div class="chartcontainer" style="">
-            <!-- 全局最优解的图 -->
-            <div
-                class="singlechart"
-                style=""
-                ref="container_of_best_chart"
-            ></div>
+            <details
+                class="width-100-percent"
+                :open="show_routes_of_best"
+                @toggle="show_routes_of_best = $event.target.open"
+            >
+                <summary>全局最优解的展示</summary>
+                <!-- 全局最优解的图 -->
+                <div
+                    class="singlechart"
+                    style=""
+                    ref="container_of_best_chart"
+                ></div>
+            </details>
+
             <!-- 最近一条路径的图 -->
         </div>
         <hr />
-        <div class="singlechart" style="" ref="container_of_latest_chart"></div>
+        <details
+            class="width-100-percent"
+            :open="show_routes_of_latest"
+            @toggle="show_routes_of_latest = $event.target.open"
+        >
+            <summary>最近一条路径的展示</summary>
+            <div
+                class="singlechart"
+                style=""
+                ref="container_of_latest_chart"
+            ></div>
+        </details>
+
         <hr />
         <div class="chartcontainer" style="">
             <!-- 路径序号和当前路径长度的图表 -->
@@ -162,11 +185,18 @@
             :tablebody="oneiterationtablebody"
         />
         <hr />
-        <!-- 路径结果 -->
-        <Datatable
-            :tableheads="oneroutetableheads"
-            :tablebody="oneroutetablebody"
-        />
+        <details
+            class="width-100-percent"
+            :open="show_summary_of_routes"
+            @toggle="show_summary_of_routes = $event.target.open"
+        >
+            <summary>每条路径的统计</summary>
+            <!-- 路径结果 -->
+            <Datatable
+                :tableheads="oneroutetableheads"
+                :tablebody="oneroutetablebody"
+            />
+        </details>
     </div>
 </template>
 <script lang="ts" src="./appcom.ts"></script>
@@ -236,5 +266,9 @@
 }
 .container-top {
     margin-top: 30px;
+}
+
+.width-100-percent {
+    width: 100%;
 }
 </style>
