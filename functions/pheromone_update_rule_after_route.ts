@@ -163,7 +163,9 @@ export function pheromone_update_rule_after_route({
         )
     );
     MatrixForEach(nextpheromoneStore_is_changed, (v, r, c) => {
-        pheromoneStore.set(r, c, v);
+        if (v !== 0) {
+            pheromoneStore.set(r, c, v);
+        }
     });
     // console.log(" 信息素更新结束");
     // console.log({

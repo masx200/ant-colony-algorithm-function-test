@@ -163,7 +163,10 @@ export function pheromone_update_rule_after_iteration({
     // });
 
     MatrixForEach(nextpheromoneStore_is_changed, (v, r, c) => {
-        pheromoneStore.set(r, c, v);
+        /* 只有这些路径经过的路径才更新信息素,其他不变 */
+        if (v !== 0) {
+            pheromoneStore.set(r, c, v);
+        }
     });
 
     assert_true(pheromoneStore.values().every((a) => a > 0));
