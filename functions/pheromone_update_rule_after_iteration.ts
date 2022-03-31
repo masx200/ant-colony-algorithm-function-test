@@ -69,11 +69,12 @@ export function pheromone_update_rule_after_iteration({
         route_segments: iteratebestroutesegments,
         route_length: iteratebestlength,
     });
-    /* 最差不能和最好的相同 */
-    const deltapheromoneiterateworst = !(
+    const have_iterate_worst = !(
         iteratebestlength === iterateworstlength ||
         iterateworstlength === globalbestlength
-    )
+    );
+    /* 最差不能和最好的相同 */
+    const deltapheromoneiterateworst = have_iterate_worst
         ? create_delta_pheromone_of_iterate_worst({
               count_of_nodes,
               iterateworstroutesegments,
