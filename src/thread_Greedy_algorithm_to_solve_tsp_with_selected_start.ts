@@ -8,7 +8,12 @@ const Greedy_algorithm_to_solve_tsp_with_selected_start_pool = createWorkerPool(
         return create_Worker_comlink<{
             Greedyalgorithmtosolvetspwithselectedstart: typeof Greedyalgorithmtosolvetspwithselectedstart;
         }>(() => {
-            return new Greedy_algorithm_to_solve_tsp_with_selected_start_Worker();
+            const w= new Greedy_algorithm_to_solve_tsp_with_selected_start_Worker();
+w.addEventListener("error",e=>{
+alert(e)
+throw e
+})
+return w
         });
     },
     {
@@ -20,7 +25,7 @@ export async function thread_Greedy_algorithm_to_solve_tsp_with_selected_start(
     start: number
 ): Promise<number[]> {
     const remote =
-        Greedy_algorithm_to_solve_tsp_with_selected_start_pool.getOne();
+        Greedy_algorithm_to_solve_tsp_with_selected_start_pool.getOne().remote;
 
     return remote.Greedyalgorithmtosolvetspwithselectedstart(
         node_coordinates,
