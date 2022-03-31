@@ -1,9 +1,11 @@
 import {
     MatrixAdd,
-    MatrixAssign,
+    MatrixForEach,
     // MatrixFrom,
     MatrixMultiplyNumber,
+    MatrixReduceSeries,
     MatrixSymmetry,
+    MatrixSymmetryCreate,
     // MatrixSymmetryCreate,
     // MatrixToArrays,
 } from "@masx200/sparse-2d-matrix";
@@ -127,24 +129,48 @@ export function pheromone_update_rule_after_route({
             )
         )
     );
-    // console.log("deltapheromone", MatrixToArrays(deltapheromone));
+
+    const route_segments_to_change: [number, number][] = [
+        ...current_route_segments,
+        ...globalbestroutesegments,
+    ];
+    const matrix_of_is_changed = MatrixSymmetryCreate({
+        row: count_of_nodes,
+        initializer: () => 0,
+    });
+
+    route_segments_to_change.forEach(([left, right]) => {
+        matrix_of_is_changed.set(left, right, 1);
+        matrix_of_is_changed.set(right, left, 1);
+    });
     const oldpheromoneStore = pheromoneStore;
-    const nextpheromoneStore = MatrixAdd(
+    const old_pheromone_Store_is_changed = MatrixReduceSeries(
+        (a, b) => a * b,
+        matrix_of_is_changed,
+        oldpheromoneStore
+    );
+
+    // console.log("deltapheromone", MatrixToArrays(deltapheromone));
+    /* 只有这些路径经过的路径才更新信息素,其他不变 */
+    const nextpheromoneStore_is_changed = MatrixAdd(
         MatrixMultiplyNumber(
             1 - pheromone_volatility_coefficient_R1,
-            oldpheromoneStore
+            old_pheromone_Store_is_changed
         ),
         MatrixMultiplyNumber(
             pheromone_volatility_coefficient_R1,
             deltapheromone
         )
     );
+    MatrixForEach(nextpheromoneStore_is_changed, (v, r, c) => {
+        pheromoneStore.set(r, c, v);
+    });
     // console.log(" 信息素更新结束");
     // console.log({
     //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
     //     nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
     // });
-    assert_true(nextpheromoneStore.values().every((a) => a > 0));
+    assert_true(pheromoneStore.values().every((a) => a > 0));
     //信息素更新
-    MatrixAssign(pheromoneStore, nextpheromoneStore);
+    // MatrixAssign(pheromoneStore, nextpheromoneStore);
 }
