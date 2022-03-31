@@ -1,7 +1,7 @@
 import {
     MatrixAdd,
     MatrixAssign,
-    MatrixFrom,
+    // MatrixFrom,
     MatrixSymmetry,
     MatrixSymmetryCreate,
 } from "@masx200/sparse-2d-matrix";
@@ -188,7 +188,7 @@ export function performPheromoneDiffusionOperations({
                 //     MatrixToArrays(deltapheromoneStore)
                 // );
                 const pheromoneStorenext = MatrixAdd(
-                    MatrixFrom(pheromoneStore),
+                    pheromoneStore,
                     deltapheromoneStore
                 );
                 pheromoneStorenext.set(cityA, cityB, pheromoneX0);
