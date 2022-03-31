@@ -1,7 +1,7 @@
 import { NodeCoordinates } from "./NodeCoordinates";
 import { generateUniqueStringOfCircularPath } from "./generateUniqueStringOfCircularPath";
-import { node_coordinates_to_no_intersect_routes_unique } from "./node_coordinates_to_no_intersect_routes_unique";
-import { getOrCreateSetOfMapFun } from "./getOrCreateSetOfMapFun";
+import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
+import { getOrCreateMapOfMapFun } from "./getOrCreateMapOfMapFun";
 import { intersection_filter_with_cycle_route_old } from "./intersection_filter_with_cycle_route_old";
 
 export function cacheble_is_intersection_filter_with_cycle_route({
@@ -12,23 +12,28 @@ export function cacheble_is_intersection_filter_with_cycle_route({
 
     node_coordinates: NodeCoordinates;
 }): boolean {
-    const getOrCreateSetOfMap = getOrCreateSetOfMapFun(
-        node_coordinates_to_no_intersect_routes_unique
+    const map = getOrCreateMapOfMapFun(
+        node_coordinates_to_intersect_routes_unique,
+        node_coordinates
     );
-    const set = getOrCreateSetOfMap(node_coordinates);
     const unique_string = generateUniqueStringOfCircularPath(cycleroute);
-    if (set.has(unique_string)) {
-        return false;
+    if (map.has(unique_string)) {
+        const cached = map.get(unique_string);
+        if (!cached) {
+            return false;
+        } else {
+            return true;
+        }
     }
     const result = intersection_filter_with_cycle_route_old({
         cycleroute,
         node_coordinates,
     });
-    if (result) {
-        return result;
-    } else {
-        set.add(unique_string);
+    // if (result) {
+    //     return result;
+    // } else {
+    map.set(unique_string, result);
 
-        return result;
-    }
+    return result;
+    // }
 }
