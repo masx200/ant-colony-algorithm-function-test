@@ -359,8 +359,8 @@ export default defineComponent({
                     onLatestRouteChange,
                 });
                 // console.log("runner", runner);
-                await runner.on_finish_one_route(finish_one_route_listener);
-                await runner.on_finish_one_iteration(
+                await runner.remote.on_finish_one_route(finish_one_route_listener);
+                await runner.remote.on_finish_one_iteration(
                     finish_one_iteration_listener
                 );
                 return runner;
