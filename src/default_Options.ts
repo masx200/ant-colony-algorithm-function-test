@@ -11,7 +11,7 @@ export const default_alpha = 1;
 export const default_beta = 5;
 export const default_pheromone_intensity_Q = 1;
 export const default_max_results_of_k_opt = 20;
-export const default_max_results_of_2_opt = 20;
+export const default_max_results_of_2_opt = 10;
 
 export const default_max_coefficient_of_pheromone_diffusion = 20;
 
