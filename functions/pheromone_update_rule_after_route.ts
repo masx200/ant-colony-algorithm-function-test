@@ -165,7 +165,6 @@ export function pheromone_update_rule_after_route({
     // debugger;
     MatrixForEach(nextpheromoneStore_is_changed, (v, r, c) => {
         if (v !== 0) {
-            
             pheromoneStore.set(r, c, v);
         }
     });
