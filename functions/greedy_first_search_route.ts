@@ -1,8 +1,13 @@
-import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtosolvetspwithallstartbest";
 import { NodeCoordinates } from "./NodeCoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { assert_true } from "../test/assert_true";
+import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
+import { pickRandomOne } from "./pickRandomOne";
+import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
+import { closedtotalpathlength } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
+import { cycle_reorganize } from "./cycle_reorganize";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export function greedy_first_search_route({
@@ -22,11 +27,24 @@ export function greedy_first_search_route({
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     pheromoneStore: MatrixSymmetry<number>;
 }): { route: number[]; totallength: number } {
+    const inputindexs = Array(node_coordinates.length)
+        .fill(0)
+        .map((_v, i) => i);
+    const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     // const starttime = Number(new Date());
-    const { route, totallength } = Greedyalgorithmtosolvetspwithallstartbest(
-        node_coordinates
-        // pathTabooList
+    const route = Greedyalgorithmtosolvetspwithselectedstart(
+        node_coordinates,
+        start
     );
+    const greedypath = cycle_reorganize(route, 0);
+    const totallength = closedtotalpathlength({
+        path: greedypath,
+        getdistancebyindex: creategetdistancebyindex(node_coordinates),
+    });
+    //     Greedyalgorithmtosolvetspwithallstartbest(
+    //     node_coordinates
+    //     // pathTabooList
+    // );
 
     // const countofloops = count_of_nodes * count_of_nodes;
 
