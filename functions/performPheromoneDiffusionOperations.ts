@@ -198,8 +198,9 @@ export function performPheromoneDiffusionOperations({
                 //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
                 //     pheromoneStorenext: MatrixToArrays(pheromoneStorenext),
                 // });
-                assert_true(pheromoneStorenext.values().every((a) => a > 0));
+
                 MatrixAssign(pheromoneStore, pheromoneStorenext);
+                assert_true(pheromoneStore.values().every((a) => a > 0));
             }
         };
     }

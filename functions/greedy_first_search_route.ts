@@ -2,6 +2,7 @@ import { Greedyalgorithmtosolvetspwithallstartbest } from "./Greedyalgorithmtoso
 import { NodeCoordinates } from "./NodeCoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { assert_true } from "../test/assert_true";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export function greedy_first_search_route({
@@ -34,6 +35,8 @@ export function greedy_first_search_route({
 
     //信息素初始化
     MatrixFill(pheromoneStore, 1 / count_of_nodes / totallength);
+    // debugger
+    assert_true(pheromoneStore.values().every((a) => a > 0));
     // const endtime = Number(new Date());
     // const timems = endtime - starttime;
     // emit_finish_one_route({
