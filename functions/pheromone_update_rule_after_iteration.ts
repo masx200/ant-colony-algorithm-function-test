@@ -1,7 +1,6 @@
 import {
     MatrixAdd,
     MatrixAssign,
-    MatrixFrom,
     MatrixMax,
     MatrixMultiplyNumber,
     MatrixSymmetry,
@@ -13,11 +12,11 @@ import {
 } from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
 import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
+import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
+import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
+import { create_delta_pheromone_of_iterate_worst } from "./create_delta_pheromone_of_iterate_worst";
 import { cycleroutetosegments } from "./cycleroutetosegments";
-import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
-import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
-import { iterateWorstMatrixInitializer } from "./iterateWorstMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
@@ -59,51 +58,31 @@ export function pheromone_update_rule_after_iteration({
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     // console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
-    const deltapheromoneglobalbest = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        //column: count_of_nodes,
-        initializer: /* intersection_filter_with_cycle_route({
-                cycleroute: globalbestroute,
-
-                node_coordinates,
-            }) && Math.random() < 0.5
-                ? undefined
-                : */ globalBestMatrixInitializer(
-            globalbestroutesegments,
-            globalbestlength
-        ),
+    const deltapheromoneglobalbest = create_delta_pheromone_of_global_best({
+        count_of_nodes,
+        globalbestroutesegments,
+        globalbestlength,
     });
     /* 最优路径不能有交叉点 */
-    const deltapheromoneiteratebest = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        // column: count_of_nodes,
-        /*     intersection_filter_with_cycle_route({
-                    cycleroute: iteratebestroute,
-
-                    node_coordinates,
-                }) && Math.random() < 0.5
-                    ? undefined
-                    : */
-
-        initializer: iterateBestMatrixInitializer(
-            iteratebestroutesegments,
-            iteratebestlength
-        ),
+    const deltapheromoneiteratebest = create_delta_pheromone_of_iterate_best({
+        count_of_nodes,
+        route_segments: iteratebestroutesegments,
+        route_length: iteratebestlength,
     });
     /* 最差不能和最好的相同 */
-    const deltapheromoneiterateworst = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        initializer: !(
-            iteratebestlength === iterateworstlength ||
-            iterateworstlength === globalbestlength
-        )
-            ? iterateWorstMatrixInitializer(
-                  iterateworstroutesegments,
-                  iterateworstlength
-              )
-            : undefined,
-        //  column: count_of_nodes,
-    });
+    const deltapheromoneiterateworst = !(
+        iteratebestlength === iterateworstlength ||
+        iterateworstlength === globalbestlength
+    )
+        ? create_delta_pheromone_of_iterate_worst({
+              count_of_nodes,
+              iterateworstroutesegments,
+              iterateworstlength,
+          })
+        : MatrixSymmetryCreate({
+              row: count_of_nodes,
+              initializer: () => 0,
+          });
     const have_intersection_in_global_best =
         cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
@@ -134,7 +113,7 @@ export function pheromone_update_rule_after_iteration({
         )
     );
     // console.log("deltapheromone", MatrixToArrays(deltapheromone));
-    const oldpheromoneStore = MatrixFrom(pheromoneStore);
+    const oldpheromoneStore = pheromoneStore;
     const nextpheromoneStore = MatrixMax(
         MatrixMultiplyNumber(1 / 2, oldpheromoneStore),
         MatrixAdd(

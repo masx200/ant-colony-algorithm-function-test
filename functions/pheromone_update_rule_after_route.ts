@@ -1,10 +1,10 @@
 import {
     MatrixAdd,
     MatrixAssign,
-    MatrixFrom,
+    // MatrixFrom,
     MatrixMultiplyNumber,
     MatrixSymmetry,
-    MatrixSymmetryCreate,
+    // MatrixSymmetryCreate,
     // MatrixToArrays,
 } from "@masx200/sparse-2d-matrix";
 import {
@@ -13,9 +13,11 @@ import {
 } from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
 import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
+import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
+import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
 import { cycleroutetosegments } from "./cycleroutetosegments";
-import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
-import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
+// import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
+// import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 
@@ -57,35 +59,45 @@ export function pheromone_update_rule_after_route({
     const current_route_segments = cycleroutetosegments(current_route);
 
     // 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
-    const deltapheromoneglobalbest = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        //column: count_of_nodes,
-        initializer: /*   intersection_filter_with_cycle_route({
-                cycleroute: globalbestroute,
-
-                node_coordinates,
-            }) && Math.random() < 0.5
-                ? undefined
-                : */ globalBestMatrixInitializer(
-            globalbestroutesegments,
-            globalbestlength
-        ),
+    const deltapheromoneglobalbest = create_delta_pheromone_of_global_best({
+        count_of_nodes,
+        globalbestroutesegments,
+        globalbestlength,
     });
-    const deltapheromoneiteratecurrent = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        /*  !intersection_filter_with_cycle_route({
-                cycleroute: current_route,
+    // /*  MatrixSymmetryCreate({
+    //     row: count_of_nodes,
+    //     //column: count_of_nodes,
+    //     initializer: /*   intersection_filter_with_cycle_route({
+    //             cycleroute: globalbestroute,
 
-                node_coordinates,
-            }) || Math.random() < 0.5
-                ? */
-
-        initializer: iterateBestMatrixInitializer(
-            current_route_segments,
-            current_length
-        ),
-        // : undefined,
+    //             node_coordinates,
+    //         }) && Math.random() < 0.5
+    //             ? undefined
+    //             : */ globalBestMatrixInitializer(
+    //         globalbestroutesegments,
+    //         globalbestlength
+    //     ),
+    // }); */
+    const delta_pheromone_current = create_delta_pheromone_of_iterate_best({
+        count_of_nodes,
+        route_segments: current_route_segments,
+        route_length: current_length,
     });
+    //     MatrixSymmetryCreate({
+    //     row: count_of_nodes,
+    //     /*  !intersection_filter_with_cycle_route({
+    //             cycleroute: current_route,
+
+    //             node_coordinates,
+    //         }) || Math.random() < 0.5
+    //             ? */
+
+    //     initializer: iterateBestMatrixInitializer(
+    //         current_route_segments,
+    //         current_length
+    //     ),
+    //     // : undefined,
+    // });
     const have_intersection_in_global_best =
         cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
@@ -111,12 +123,12 @@ export function pheromone_update_rule_after_route({
                 (have_intersection_in_current_route
                     ? cross_Point_Coefficient_of_Non_Optimal_Paths
                     : 1) * coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-                deltapheromoneiteratecurrent
+                delta_pheromone_current
             )
         )
     );
     // console.log("deltapheromone", MatrixToArrays(deltapheromone));
-    const oldpheromoneStore = MatrixFrom(pheromoneStore);
+    const oldpheromoneStore = pheromoneStore;
     const nextpheromoneStore = MatrixAdd(
         MatrixMultiplyNumber(
             1 - pheromone_volatility_coefficient_R1,
