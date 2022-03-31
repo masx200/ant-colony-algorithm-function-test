@@ -2,13 +2,12 @@ import * as comlink from "comlink";
 
 export function create_Worker_comlink<API>(
     createWorker: () => Worker
-): comlink.Remote<API> & { terminate: () => void } {
+): {remote:comlink.Remote<API>,worker:Worker} & { terminate: () => void } {
     const endpoint = createWorker();
-    const runner = comlink.wrap<API>(endpoint);
+    const remote = comlink.wrap<API>(endpoint);
 
-    const remote: comlink.Remote<API> & { terminate: () => void } =
-        Object.create(runner, {
-            terminate: { value: () => endpoint.terminate() },
-        });
-    return remote;
+    const result ={remote,worker:endpoint,
+terminate: () => endpoint.terminate()}
+        
+    return result;
 }
