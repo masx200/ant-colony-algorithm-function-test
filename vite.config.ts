@@ -28,8 +28,11 @@ export default defineConfig(({ mode, command }) => {
             Components({
                 resolvers: [ElementPlusResolver()],
             }),
-            checker({vueTsc: true, typescript: { root: path.resolve(__dirname) } }),
-           // checker({ vueTsc: true }),
+            checker({
+                vueTsc: true,
+                typescript: { root: path.resolve(__dirname) },
+            }),
+            // checker({ vueTsc: true }),
 
             ElementPlus({
                 // options

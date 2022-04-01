@@ -6,7 +6,6 @@ import {
     default_pheromone_volatility_coefficient_R1,
 } from "./default_Options";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
-import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export async function run_tsp_by_search_rounds({
     runner,
@@ -24,7 +23,7 @@ export async function run_tsp_by_search_rounds({
 // finish_one_route_listener,
 // finish_one_iteration_listener,
 {
-    runner: TSP_Worker_Remote;
+    runner: { runRoutes: (count: number) => Promise<void> };
     // coefficient_of_pheromone_Increase_Non_Optimal_Paths: Ref<number>;
     onprogress: (percentage: number) => void;
     // TSP_before_Start: Fun_TSP_Before_Start;
@@ -91,7 +90,7 @@ export async function run_tsp_by_search_rounds({
         const count_of_search = count_of_ants * round_of_search;
         await tsp_runner_run_async({
             count_of_search,
-            runner,
+            runner: runner,
             // round_of_search,
             // count_of_ants,
             onprogress,

@@ -1,4 +1,4 @@
-import{Greedy_algorithm_to_solve_tsp_with_selected_start_pool}from"./thread_Greedy_algorithm_to_solve_tsp_with_selected_start"
+import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "./thread_Greedy_algorithm_to_solve_tsp_with_selected_start";
 
 import { defineComponent, onMounted, readonly, ref, watch } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
@@ -268,7 +268,7 @@ export default defineComponent({
             TSP_RunnerRef.value ||= await create_runner();
             const runner = TSP_RunnerRef.value;
             return run_tsp_by_search_rounds({
-                runner,
+                runner:runner.remote,
                 // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 onprogress,
                 // TSP_before_Start,
@@ -361,12 +361,14 @@ export default defineComponent({
                     onLatestRouteChange,
                 });
                 // console.log("runner", runner);
-                await runner.remote.on_finish_one_route(finish_one_route_listener);
+                await runner.remote.on_finish_one_route(
+                    finish_one_route_listener
+                );
                 await runner.remote.on_finish_one_iteration(
                     finish_one_iteration_listener
                 );
 
-Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear()
+                Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
                 return runner;
             } else {
                 throw new Error("incorrect parameters create_runner");
@@ -376,7 +378,7 @@ Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear()
             TSP_RunnerRef.value ||= await create_runner();
             const runner = TSP_RunnerRef.value;
             return run_tsp_by_search_time({
-                runner: runner,
+                runner: runner.remote,
                 // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 search_time_seconds,
                 // count_of_ants_ref,

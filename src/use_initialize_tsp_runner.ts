@@ -31,12 +31,12 @@ export function use_initialize_tsp_runner({
             ...rest,
         });
         // console.log(runner);
-        await runner.on_best_change((data) => {
+        await runner.remote.on_best_change((data) => {
             onreceiveDataOfGlobalBest(data);
             onGlobalBestRouteChange(data.globalbestroute, node_coordinates);
         });
         // runner.on_finish_one_route(onreceivedataofoneroute);
-        await runner.on_finish_one_route((data) => {
+        await runner.remote.on_finish_one_route((data) => {
             onreceivedataofoneroute(data);
             const { route } = data;
             onLatestRouteChange(route, node_coordinates);
@@ -44,7 +44,7 @@ export function use_initialize_tsp_runner({
         // runner.onDataChange(onDataChange);
         // runner.on_finish_one_iteration(onDataChange);
         // runner.on_finish_one_route(onDataChange);
-        await runner.on_finish_one_iteration((data) => {
+        await runner.remote.on_finish_one_iteration((data) => {
             onreceivedataofoneIteration(data);
             // onGlobalBestRouteChange(data.globalbestroute, node_coordinates);
         });

@@ -1,7 +1,7 @@
 import { appcontainer } from "./appcontainer";
 import { app } from "./main";
 app.config.errorHandler = (e) => {
-alert(e)
+    alert(e);
     throw e;
 };
 app.mount(appcontainer);

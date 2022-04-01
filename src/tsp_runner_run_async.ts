@@ -3,7 +3,6 @@ import { assert_true } from "../test/assert_true";
 import { RunWay } from "./RunWay";
 import { sleep_requestAnimationFrame_async_or_settimeout } from "./sleep_requestAnimationFrame_async_or_settimeout";
 
-import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 /** time_of_search 优先于 count_of_search 优先于 round_of_search*/
 export async function tsp_runner_run_async({
     runner,
@@ -15,7 +14,7 @@ export async function tsp_runner_run_async({
 }: {
     time_of_search_ms?: number; //毫秒
     count_of_search?: number;
-    runner: TSP_Worker_Remote;
+    runner: { runRoutes: (count: number) =>Promise< void> };
     // round_of_search?: number;
     // count_of_ants: number;
     onprogress?: (percentage: number) => void;

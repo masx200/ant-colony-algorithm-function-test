@@ -1,7 +1,6 @@
 import { Ref } from "vue";
 import { assertnumber } from "../test/assertnumber";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
-import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
 
 export async function run_tsp_by_search_time({
     runner,
@@ -19,7 +18,7 @@ export async function run_tsp_by_search_time({
     // finish_one_iteration_listener,
     onprogress,
 }: {
-    runner: TSP_Worker_Remote;
+    runner: { runRoutes: (count: number) => Promise<void> };
     // coefficient_of_pheromone_Increase_Non_Optimal_Paths: Ref<number>;
     search_time_seconds: Ref<number>;
     // count_of_ants_ref: Ref<number>;
