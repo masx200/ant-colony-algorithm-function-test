@@ -1,6 +1,13 @@
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "./thread_Greedy_algorithm_to_solve_tsp_with_selected_start";
 
-import { defineComponent, onMounted, readonly, ref, watch } from "vue";
+import {
+    computed,
+    defineComponent,
+    onMounted,
+    readonly,
+    ref,
+    watch,
+} from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { assertnumber } from "../test/assertnumber";
 import { assert_true } from "../test/assert_true";
@@ -268,7 +275,7 @@ export default defineComponent({
             TSP_RunnerRef.value ||= await create_runner();
             const runner = TSP_RunnerRef.value;
             return run_tsp_by_search_rounds({
-                runner:runner.remote,
+                runner: runner.remote,
                 // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 onprogress,
                 // TSP_before_Start,
@@ -301,15 +308,18 @@ export default defineComponent({
         const reset = (/* first: boolean = false */) => {
             percentage.value = 0;
             resetold();
-            disable_stop.value = false;
+            // disable_stop.value = true;
             // first || location.reload();
         };
-        const disable_stop = ref(false);
+
+        const disable_stop = computed(() => {
+            return !is_running.value;
+        });
         const navbar_float = ref(false);
         const can_run = ref(true);
         const stop_handler = () => {
             Stop_TSP_Worker();
-            disable_stop.value = true;
+            // disable_stop.value = true;
             navbar_float.value = false;
             is_running.value = false;
             can_run.value = false;

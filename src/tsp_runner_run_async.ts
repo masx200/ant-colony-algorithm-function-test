@@ -14,7 +14,7 @@ export async function tsp_runner_run_async({
 }: {
     time_of_search_ms?: number; //毫秒
     count_of_search?: number;
-    runner: { runRoutes: (count: number) =>Promise< void> };
+    runner: { runRoutes: (count: number) => Promise<void> };
     // round_of_search?: number;
     // count_of_ants: number;
     onprogress?: (percentage: number) => void;

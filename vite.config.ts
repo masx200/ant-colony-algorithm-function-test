@@ -40,25 +40,25 @@ export default defineConfig(({ mode, command }) => {
             vuePlugin(),
             // mode === "production" &&
             //     command === "build" &&
-            isdrop &&
-                babel({
-                    sourceMaps: mode !== "production",
-                    exclude: [/node_modules/],
-                    extensions: [".ts", ".js"],
-                    //@ts-ignore
-                    plugins: [
-                        [
-                            "babel-plugin-import",
-                            {
-                                libraryName: "lodash",
-                                libraryDirectory: "",
-                                camel2DashComponentName: false, // default: true
-                            },
-                        ],
-                        isdrop && "babel-plugin-clean-code",
-                        // "@babel/plugin-syntax-typescript",
-                    ].filter(Boolean),
-                }),
+            // isdrop &&
+            babel({
+                sourceMaps: mode !== "production",
+                exclude: [/node_modules/],
+                extensions: [".ts", ".js"],
+                //@ts-ignore
+                plugins: [
+                    [
+                        "babel-plugin-import",
+                        {
+                            libraryName: "lodash",
+                            libraryDirectory: "",
+                            camel2DashComponentName: false, // default: true
+                        },
+                    ],
+                    isdrop && "babel-plugin-clean-code",
+                    // "@babel/plugin-syntax-typescript",
+                ].filter(Boolean),
+            }),
             createHtmlPlugin({
                 minify: {
                     collapseWhitespace: true,

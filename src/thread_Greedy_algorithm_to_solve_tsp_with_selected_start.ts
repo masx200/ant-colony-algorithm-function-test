@@ -12,7 +12,7 @@ export const Greedy_algorithm_to_solve_tsp_with_selected_start_pool =
                 const w =
                     new Greedy_algorithm_to_solve_tsp_with_selected_start_Worker();
                 w.addEventListener("error", (e) => {
-                    alert(e);
+                    alert(e.message);
                     throw e;
                 });
                 return w;
