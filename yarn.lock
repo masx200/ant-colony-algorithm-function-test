@@ -1729,7 +1729,7 @@ __metadata:
     "@babel/preset-typescript": ^7.16.7
     "@masx200/event-emitter-target": ^2.0.1
     "@masx200/mini-cli-args-parser": ^1.0.4
-    "@masx200/sparse-2d-matrix": ^1.1.0
+    "@masx200/sparse-2d-matrix": ^1.2.1
     "@masx200/tsp-lib-test-data": ^1.1.1
     "@rollup/plugin-babel": ^5.3.1
     "@types/find": ^0.2.1
@@ -1788,10 +1788,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@masx200/sparse-2d-matrix@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@masx200/sparse-2d-matrix@npm:1.1.0"
-  checksum: e30d0bb3f5b09356a88efff2f13e78cf8b617e1ad4177da7e5994b1dd34ab2529e12284ac48272e27bf19567dc347b1b8ea009361640c448e6206b652f291f21
+"@masx200/sparse-2d-matrix@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@masx200/sparse-2d-matrix@npm:1.2.1"
+  checksum: 3334755f3458015aba99e4b6d24ca816139416e4e7b2a6379888dbbbec60e866ed008333cb388b30f2dab74a29aaab9bb6bd90e404471ef7ab4950db5ba4ff4d
   languageName: node
   linkType: hard
 
