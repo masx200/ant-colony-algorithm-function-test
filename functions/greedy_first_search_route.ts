@@ -14,11 +14,11 @@ export function greedy_first_search_route({
     node_coordinates,
     // pathTabooList,
     count_of_nodes,
-    // set_best_length,
-    // set_best_route,
-    // emit_finish_one_route,
-    // pheromoneStore,
-}: {
+}: // set_best_length,
+// set_best_route,
+// emit_finish_one_route,
+// pheromoneStore,
+{
     // pathTabooList: PathTabooList;
     node_coordinates: NodeCoordinates;
     count_of_nodes: number;

@@ -1,4 +1,3 @@
-import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { generate_paths_using_state_transition_probabilities } from "./generate-paths-using-state-transition-probabilities";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 // import { adaptive_tabu_search_builds_a_path_and_updates_pheromone } from "./adaptive_tabu_search_builds_a_path_and_updates_pheromone";
@@ -10,29 +9,31 @@ import { SharedOptions } from "./SharedOptions";
 // import { WayOfConstruct } from "./WayOfConstruct";
 
 /* 只是生成一条路径 */
-export function construct_one_route_all(options: {
-    setPheromoneZero: (value: number) => void;
-    current_search_count: number;
-    // pathTabooList: PathTabooList<number>;
-    node_coordinates: NodeCoordinates;
-    count_of_nodes: number;
-    // set_best_length: (bestlength: number) => void;
-    // set_best_route: (route: number[]) => void;
-    // pheromoneStore: MatrixSymmetry<number>;
-    // get_best_route: () => number[];
-    // max_results_of_k_opt: number;
-    // get_best_length: () => number;
-    // searchloopcountratio: number;
-    // pheromone_intensity_Q: number;
-    // pheromone_volatility_coefficient_R1: number;
-    alpha_zero: number;
-    beta_zero: number;
-    lastrandomselectionprobability: number;
-} & SharedOptions): {
+export function construct_one_route_all(
+    options: {
+        setPheromoneZero: (value: number) => void;
+        current_search_count: number;
+        // pathTabooList: PathTabooList<number>;
+        node_coordinates: NodeCoordinates;
+        count_of_nodes: number;
+        // set_best_length: (bestlength: number) => void;
+        // set_best_route: (route: number[]) => void;
+        // pheromoneStore: MatrixSymmetry<number>;
+        // get_best_route: () => number[];
+        // max_results_of_k_opt: number;
+        // get_best_length: () => number;
+        // searchloopcountratio: number;
+        // pheromone_intensity_Q: number;
+        // pheromone_volatility_coefficient_R1: number;
+        alpha_zero: number;
+        beta_zero: number;
+        lastrandomselectionprobability: number;
+    } & SharedOptions
+): {
     route: number[];
     totallength: number;
     // way_of_construct: WayOfConstruct;
-    } {
+} {
     const {
         setPheromoneZero,
         current_search_count,
@@ -51,7 +52,7 @@ export function construct_one_route_all(options: {
         alpha_zero,
         beta_zero,
         lastrandomselectionprobability,
-    }=options;
+    } = options;
     // let route: number[] | undefined = undefined;
     // let totallength: number | undefined = undefined;
     if (current_search_count === 0) {

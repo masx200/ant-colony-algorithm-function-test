@@ -37,7 +37,7 @@ export function pheromone_update_rule_after_route({
     // globalbestroutesegments,
     globalbestlength,
     pheromone_intensity_Q,
-    // pheromoneStore,
+    pheromoneStore,
     pheromone_volatility_coefficient_R1,
 }: {
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;

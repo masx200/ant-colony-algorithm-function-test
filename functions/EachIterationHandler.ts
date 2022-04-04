@@ -1,4 +1,3 @@
-import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import {
     default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
