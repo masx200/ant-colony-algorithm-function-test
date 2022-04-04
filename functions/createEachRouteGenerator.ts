@@ -1,9 +1,3 @@
-import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import {
-    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
-    default_max_results_of_2_opt,
-    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-} from "../src/default_Options";
 import { assert_true } from "../test/assert_true";
 import { construct_one_route_all } from "./construct_one_route_all";
 import {
@@ -11,7 +5,6 @@ import {
     // Fun_EachRouteGenerator,
 } from "./Fun_EachRouteGenerator";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
-import { NodeCoordinates } from "./NodeCoordinates";
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
@@ -25,6 +18,10 @@ export function EachRouteGenerator(
     // weight_of_opt_current: number;
 } {
     const {
+        set_weight_of_opt_current,
+        set_weight_of_opt_best,
+        get_weight_of_opt_current,
+        get_weight_of_opt_best,
         setPheromoneZero,
         setPheromone,
         get_probability_of_opt_best,
@@ -131,12 +128,14 @@ export function EachRouteGenerator(
     if (totallength < get_best_length()) {
         if (length3 === totallength && select_opt_best) {
             // if () {
-            weight_of_opt_best++;
+            // weight_of_opt_best++;
+            set_weight_of_opt_best(get_weight_of_opt_best() + 1);
             //} else {
 
             //}
         } else {
-            weight_of_opt_current++;
+            // weight_of_opt_current++;
+            set_weight_of_opt_current(get_weight_of_opt_current() + 1);
         }
 
         set_best_length(totallength);

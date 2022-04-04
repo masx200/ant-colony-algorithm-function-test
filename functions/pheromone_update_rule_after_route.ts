@@ -4,7 +4,6 @@ import {
     // MatrixFrom,
     MatrixMultiplyNumber,
     MatrixReduceSeries,
-    MatrixSymmetry,
     MatrixSymmetryCreate,
     // MatrixSymmetryCreate,
     // MatrixToArrays,
@@ -13,7 +12,6 @@ import {
     default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
-import { assert_true } from "../test/assert_true";
 import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
@@ -39,7 +37,7 @@ export function pheromone_update_rule_after_route({
     // globalbestroutesegments,
     globalbestlength,
     pheromone_intensity_Q,
-    pheromoneStore,
+    // pheromoneStore,
     pheromone_volatility_coefficient_R1,
 }: {
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
@@ -51,7 +49,7 @@ export function pheromone_update_rule_after_route({
     // globalbestroutesegments: [number, number][];
     globalbestlength: number;
     pheromone_intensity_Q: number;
-    pheromoneStore: MatrixSymmetry<number>;
+    // pheromoneStore: MatrixSymmetry<number>;
     pheromone_volatility_coefficient_R1: number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
 } & SharedOptions) {
@@ -174,7 +172,7 @@ export function pheromone_update_rule_after_route({
     //     oldpheromoneStore: MatrixToArrays(oldpheromoneStore),
     //     nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
     // });
-    assert_true(pheromoneStore.values().every((a) => a > 0));
+    // assert_true(pheromoneStore.values().every((a) => a > 0));
     //信息素更新
     // MatrixAssign(pheromoneStore, nextpheromoneStore);
 }
