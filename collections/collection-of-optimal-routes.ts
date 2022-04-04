@@ -2,10 +2,10 @@ import { getUniqueStringOfCircularRoute } from "../functions/getUniqueStringOfCi
 import { assert_number } from "../test/assert_number";
 import { assert_true } from "../test/assert_true";
 import { assignOwnKeys } from "./assignOwnKeys";
+import { get_entries_by_max_value } from "./get_entries_by_max_value";
 export function create_collection_of_optimal_routes(max_size: number) {
     return new collection_of_optimal_routes(max_size);
-}
-export class collection_of_optimal_routes extends Array<number[]> {
+}export class collection_of_optimal_routes extends Array<number[]> {
     length = 0;
     #get_longest_length_of_routes():
         | { index: number; value: number }
@@ -13,20 +13,13 @@ export class collection_of_optimal_routes extends Array<number[]> {
         if (this.length === 0) {
             return;
         } else {
-            const [index, value] = Array.from(
-                this.#length_of_routes_store.entries()
-            ).reduce(
-                ([pi, pv], [ci, cv]) => {
-                    if (pv > cv) {
-                        return [pi, pv];
-                    } else {
-                        return [ci, cv];
-                    }
-                },
-                [0, 0]
+            const [index, value] = get_entries_by_max_value(
+                this.#length_of_routes_store
             );
             return { index, value };
         }
+
+        
     }
     #length_of_routes_store = new Array<number>();
 
