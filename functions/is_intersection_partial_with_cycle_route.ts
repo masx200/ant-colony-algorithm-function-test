@@ -5,7 +5,7 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
-import { generateUniqueStringOfCircularPath } from "./generateUniqueStringOfCircularPath";
+import { getUniqueStringOfCircularRoute } from "./getUniqueStringOfCircularRoute";
 import { getOrCreateMapOfMapFun } from "./getOrCreateMapOfMapFun";
 import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
 
@@ -24,7 +24,7 @@ export function is_intersection_partial_with_cycle_route({
         node_coordinates_to_intersect_routes_unique,
         node_coordinates
     );
-    const unique_string = generateUniqueStringOfCircularPath(cycle_route);
+    const unique_string = getUniqueStringOfCircularRoute(cycle_route);
     if (map.has(unique_string)) {
         const cached = map.get(unique_string);
         if (cached) {

@@ -1,5 +1,5 @@
 import { Ref } from "vue";
-import { assertnumber } from "../test/assertnumber";
+import { assert_number } from "../test/assert_number";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
 
 export async function run_tsp_by_search_time({
@@ -59,7 +59,7 @@ export async function run_tsp_by_search_time({
         // const count_of_ants = count_of_ants_value;
         // console.log(node_coordinates);
         // assertnumber(count_of_ants);
-        assertnumber(search_time_ms);
+        assert_number(search_time_ms);
         // assertnumber(pheromone_volatility_coefficient_R1);
         is_running.value = true;
         // const onFinishIteration = () => {

@@ -1,5 +1,5 @@
 import { sum } from "lodash";
-import { assertnumber } from "../test/assertnumber";
+import { assert_number } from "../test/assert_number";
 import { cycle_routetosegments } from "./cycle_routetosegments";
 import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
 /* 计算闭合总路径长度 首尾相连 */
@@ -19,7 +19,7 @@ export function closedtotalpathlength(
     return sum(
         cycle_routetosegments(route).map(function ([left, right]) {
             const distance = getdistancebyindex(left, right);
-            assertnumber(distance);
+            assert_number(distance);
             return distance;
         })
     );

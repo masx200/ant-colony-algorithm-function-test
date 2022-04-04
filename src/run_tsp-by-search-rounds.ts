@@ -1,5 +1,5 @@
 import { Ref } from "vue";
-import { assertnumber } from "../test/assertnumber";
+import { assert_number } from "../test/assert_number";
 import {
     default_count_of_ants,
     default_search_rounds,
@@ -65,8 +65,8 @@ export async function run_tsp_by_search_rounds({
         // disablemapswitching.value = true;
         const count_of_ants = count_of_ants_value;
         // console.log(node_coordinates);
-        assertnumber(count_of_ants);
-        assertnumber(round_of_search);
+        assert_number(count_of_ants);
+        assert_number(round_of_search);
         // assertnumber(pheromone_volatility_coefficient_R1);
         is_running.value = true;
         // const onFinishIteration = () => {

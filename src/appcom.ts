@@ -9,7 +9,7 @@ import {
     watch,
 } from "vue";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { assertnumber } from "../test/assertnumber";
+import { assert_number } from "../test/assert_number";
 import { assert_true } from "../test/assert_true";
 import Datatable from "./Datatable-com.vue";
 import {
@@ -262,7 +262,7 @@ export default defineComponent({
             );
         };
         const onprogress = (p: number) => {
-            assertnumber(p);
+            assert_number(p);
             const value = Math.min(100, Math.max(0, p));
             percentage.value = value;
             if (value === 100 || value === 0) {
@@ -353,9 +353,9 @@ export default defineComponent({
                 disablemapswitching.value = true;
                 const count_of_ants = count_of_ants_value;
                 // console.log(node_coordinates);
-                assertnumber(count_of_ants);
+                assert_number(count_of_ants);
                 // assertnumber(search_time_ms);
-                assertnumber(pheromone_volatility_coefficient_R1);
+                assert_number(pheromone_volatility_coefficient_R1);
 
                 const runner = await TSP_before_Start({
                     alpha_zero: alpha_value,

@@ -1,5 +1,5 @@
 import { NodeCoordinates } from "./NodeCoordinates";
-import { generateUniqueStringOfCircularPath } from "./generateUniqueStringOfCircularPath";
+import { getUniqueStringOfCircularRoute } from "./getUniqueStringOfCircularRoute";
 import { getOrCreateMapOfMapFun } from "./getOrCreateMapOfMapFun";
 import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
 import { intersection_filter_with_cycle_route_find_one_old } from "./intersection_filter_with_cycle_route_find_one_old";
@@ -19,7 +19,7 @@ export function cacheble_intersection_filter_with_cycle_route_find_one({
         node_coordinates_to_intersect_routes_unique,
         node_coordinates
     );
-    const unique_string = generateUniqueStringOfCircularPath(cycle_route);
+    const unique_string = getUniqueStringOfCircularRoute(cycle_route);
     if (map.has(unique_string)) {
         const cached = map.get(unique_string);
         if (!cached) {

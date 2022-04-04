@@ -13,7 +13,7 @@ import {
     default_max_results_of_2_opt,
 } from "../src/default_Options";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
-import { assertnumber } from "../test/assertnumber";
+import { assert_number } from "../test/assert_number";
 import { assert_true } from "../test/assert_true";
 import { calc_pheromone_volatility_coefficient_R1 } from "./calc_pheromone_volatility_coefficient_R1";
 import { calc_pheromone_volatility_coefficient_R2 } from "./calc_pheromone_volatility_coefficient_R2";
@@ -63,7 +63,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //     number_of_city_of_large,
     //     cross_Point_Coefficient_of_Non_Optimal_Paths,
     // } = options;
-    assertnumber(count_of_ants);
+    assert_number(count_of_ants);
     assert_true(count_of_ants >= 2);
 
     // const pheromone_volatility_coefficient_R1 =
@@ -260,7 +260,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         }
     };
     const runIterations = (iterations: number) => {
-        assertnumber(iterations);
+        assert_number(iterations);
         assert_true(iterations > 0);
 
         for (let i = 0; i < iterations; i++) {
@@ -451,7 +451,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         } */
     }
     const runRoutes = (count: number) => {
-        assertnumber(count);
+        assert_number(count);
         assert_true(count > 0);
 
         for (let i = 0; i < count; i++) {

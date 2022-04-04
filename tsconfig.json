@@ -3,7 +3,7 @@
         "declaration": false,
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
-        "target": "ESNext",
+        "target": "ES2018",
         "useDefineForClassFields": true,
         "module": "ESNext",
         "lib": ["ESNext", "DOM", "ES2021", "ESNext.Array"],
@@ -19,6 +19,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "include": [
+        "collections",
         "vite.config.ts",
         "src",
         "test",
