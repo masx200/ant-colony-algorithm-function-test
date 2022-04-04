@@ -117,21 +117,41 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     let totaltimems = 0;
     const count_of_nodes = node_coordinates.length;
     // const pathTabooList = createpathTabooList(count_of_nodes);
-    const pheromoneStore = Object.create(createPheromoneStore(count_of_nodes), {
-        get: { value: getPheromone },
-        set: { value: setPheromone },
+    const pheromoneStore = new Proxy(createPheromoneStore(count_of_nodes), {
+        get(target, key) {
+            if (key === "get") {
+                return (row: number, column: number) => {
+                    getPheromone(target, row, column);
+                };
+            }
+            // if (key === "set") {
+
+            // }
+            return Reflect.get(target, key);
+        },
+        // get: { value: getPheromone },
+        // set: { value: setPheromone },
     }) as MatrixSymmetry<number>;
 
     let PheromoneZero = 0;
     function setPheromoneZero(value: number) {
         PheromoneZero = value;
     }
-    function getPheromone(row: number, column: number): number {
+    function getPheromone(
+        pheromoneStore: MatrixSymmetry<number>,
+        row: number,
+        column: number
+    ): number {
         return pheromoneStore.get(row, column) || PheromoneZero;
     }
-    function setPheromone(row: number, column: number, value: number): void {
-        return pheromoneStore.set(row, column, value);
-    }
+    // function setPheromone(
+    //     pheromoneStore: MatrixSymmetry<number>,
+    //     row: number,
+    //     column: number,
+    //     value: number
+    // ): void {
+    //     return pheromoneStore.set(row, column, value);
+    // }
     let current_search_count = 0;
     let globalbestroute: number[] = [];
 
