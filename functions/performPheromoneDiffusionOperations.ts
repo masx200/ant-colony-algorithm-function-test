@@ -19,6 +19,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 
 /**执行信息素扩散操作 */
 export function performPheromoneDiffusionOperations({
+    setPheromone,
+    getPheromone,
     pheromoneDiffusionProbability,
     min_coefficient_of_pheromone_diffusion,
 
@@ -26,16 +28,18 @@ export function performPheromoneDiffusionOperations({
 
     globalbestroute,
     // globalbestroutesegments,
-    pheromoneStore,
+    // pheromoneStore,
     node_coordinates,
 }: {
+    setPheromone: (row: number, column: number, value: number) => void;
+    getPheromone: (row: number, column: number) => number;
     pheromoneDiffusionProbability: number;
     min_coefficient_of_pheromone_diffusion: number;
     max_coefficient_of_pheromone_diffusion: number;
 
     // globalbestroutesegments: [number, number][];
     globalbestroute: number[];
-    pheromoneStore: MatrixSymmetry<number>;
+    // pheromoneStore: MatrixSymmetry<number>;
     node_coordinates: NodeCoordinates;
 }): void {
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
@@ -43,26 +47,31 @@ export function performPheromoneDiffusionOperations({
         if (Math.random() < pheromoneDiffusionProbability) {
             pheromoneDiffusionCallback({
                 min_coefficient_of_pheromone_diffusion,
-
+                setPheromone,
+                getPheromone,
                 max_coefficient_of_pheromone_diffusion,
 
-                pheromoneStore,
+                // pheromoneStore,
                 node_coordinates,
                 globalbestroutesegments,
             })(segment);
         }
     });
     function pheromoneDiffusionCallback({
+        setPheromone,
+        getPheromone,
         max_coefficient_of_pheromone_diffusion,
         min_coefficient_of_pheromone_diffusion,
-        pheromoneStore,
+        // pheromoneStore,
         node_coordinates,
         globalbestroutesegments,
     }: {
+        setPheromone: (row: number, column: number, value: number) => void;
+        getPheromone: (row: number, column: number) => number;
         min_coefficient_of_pheromone_diffusion: number;
         max_coefficient_of_pheromone_diffusion: number;
 
-        pheromoneStore: MatrixSymmetry<number>;
+        // pheromoneStore: MatrixSymmetry<number>;
         node_coordinates: NodeCoordinates;
         globalbestroutesegments: [number, number][];
     }): (value: [number, number]) => void {

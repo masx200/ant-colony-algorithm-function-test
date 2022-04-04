@@ -19,6 +19,8 @@ import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_a
 // export type AdaptiveTSPSearchOptions =;
 /* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
 export function EachIterationHandler(options: {
+    setPheromone: (row: number, column: number, value: number) => void;
+    getPheromone: (row: number, column: number) => number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     // max_results_of_k_opt: number;
     routesandlengths: {
@@ -38,8 +40,8 @@ export function EachIterationHandler(options: {
     // pheromone_volatility_coefficient_R1: number;
     /**全局信息素挥发系数 */
     pheromone_volatility_coefficient_R2: number;
-    // setbestroute: (route: number[]) => void;
-    // setbestlength: (a: number) => void;
+    // set_best_route: (route: number[]) => void;
+    // set_best_length: (a: number) => void;
     get_best_length: () => number;
     node_coordinates: NodeCoordinates;
     /**
@@ -51,7 +53,7 @@ export function EachIterationHandler(options: {
     // pathTabooList: PathTabooList;
     /**最大迭代次数 */
     // maxnumberofiterations: number;
-    pheromoneStore: MatrixSymmetry;
+    // pheromoneStore: MatrixSymmetry;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
     // numberofstagnantiterations: number;
@@ -68,6 +70,8 @@ export function EachIterationHandler(options: {
 } {
     // console.log(options);
     const {
+        setPheromone,
+        getPheromone,
         cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
@@ -82,10 +86,10 @@ export function EachIterationHandler(options: {
         pheromone_intensity_Q,
         // pheromone_volatility_coefficient_R1,
         pheromone_volatility_coefficient_R2,
-        // setbestroute,
-        // setbestlength,
+        // set_best_route,
+        // set_best_length,
         // pathTabooList,
-        pheromoneStore,
+        // pheromoneStore,
         node_coordinates,
         // maxnumberofiterations,
         // numberofstagnantiterations,
@@ -126,8 +130,8 @@ export function EachIterationHandler(options: {
     //     node_coordinates,
     //     get_best_length,
     //     pathTabooList,
-    //     setbestlength,
-    //     setbestroute,
+    //     set_best_length,
+    //     set_best_route,
     // });
     // const locally_optimized_length = result.totallength;
 
@@ -168,8 +172,10 @@ export function EachIterationHandler(options: {
         iterateworstlength,
         iterateworstroute,
         pheromone_intensity_Q,
-        pheromoneStore,
+        // pheromoneStore,
         pheromone_volatility_coefficient_R2,
+        setPheromone,
+        getPheromone,
     });
     // let ispheromoneDiffusion = false;
     // if (Math.random() < pheromoneDiffusionProbability) {
@@ -183,8 +189,10 @@ export function EachIterationHandler(options: {
         max_coefficient_of_pheromone_diffusion,
 
         globalbestroute,
-        pheromoneStore,
+        // pheromoneStore,
         node_coordinates,
+        setPheromone,
+        getPheromone,
     });
     // }
 

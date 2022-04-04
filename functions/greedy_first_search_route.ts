@@ -14,16 +14,16 @@ export function greedy_first_search_route({
     node_coordinates,
     // pathTabooList,
     count_of_nodes,
-    // setbestlength,
-    // setbestroute,
+    // set_best_length,
+    // set_best_route,
     // emit_finish_one_route,
     pheromoneStore,
 }: {
     // pathTabooList: PathTabooList;
     node_coordinates: NodeCoordinates;
     count_of_nodes: number;
-    // setbestlength: (bestlength: number) => void;
-    // setbestroute: (route: number[]) => void;
+    // set_best_length: (bestlength: number) => void;
+    // set_best_route: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     pheromoneStore: MatrixSymmetry<number>;
 }): { route: number[]; totallength: number } {
@@ -48,8 +48,8 @@ export function greedy_first_search_route({
 
     // const countofloops = count_of_nodes * count_of_nodes;
 
-    // setbestlength(totallength);
-    // setbestroute(route);
+    // set_best_length(totallength);
+    // set_best_route(route);
 
     //信息素初始化
     MatrixFill(pheromoneStore, 1 / count_of_nodes / totallength);

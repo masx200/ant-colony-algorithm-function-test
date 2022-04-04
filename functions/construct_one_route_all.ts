@@ -10,13 +10,14 @@ import { NodeCoordinates } from "./NodeCoordinates";
 
 /* 只是生成一条路径 */
 export function construct_one_route_all({
+    setPheromoneZero,
     current_search_count,
     // pathTabooList,
     node_coordinates,
     count_of_nodes,
-    // setbestlength,
-    // setbestroute,
-    pheromoneStore,
+    // set_best_length,
+    // set_best_route,
+    // pheromoneStore,
     // get_best_route,
     // max_results_of_k_opt,
     // get_best_length,
@@ -27,13 +28,14 @@ export function construct_one_route_all({
     beta_zero,
     lastrandomselectionprobability,
 }: {
+    setPheromoneZero: (value: number) => void;
     current_search_count: number;
     // pathTabooList: PathTabooList<number>;
     node_coordinates: NodeCoordinates;
     count_of_nodes: number;
-    // setbestlength: (bestlength: number) => void;
-    // setbestroute: (route: number[]) => void;
-    pheromoneStore: MatrixSymmetry<number>;
+    // set_best_length: (bestlength: number) => void;
+    // set_best_route: (route: number[]) => void;
+    // pheromoneStore: MatrixSymmetry<number>;
     // get_best_route: () => number[];
     // max_results_of_k_opt: number;
     // get_best_length: () => number;
@@ -55,8 +57,8 @@ export function construct_one_route_all({
             // pathTabooList,
             node_coordinates,
             count_of_nodes,
-            // setbestlength,
-            // setbestroute,
+            // set_best_length,
+            // set_best_route,
             // emit_finish_one_route,
             pheromoneStore,
         });
@@ -103,8 +105,8 @@ export function construct_one_route_all({
     //             get_best_length,
     //             pathTabooList,
     //             pheromoneStore,
-    //             setbestlength,
-    //             setbestroute,
+    //             set_best_length,
+    //             set_best_route,
     //             get_best_route,
     //         }
     //     );
@@ -124,8 +126,8 @@ export function construct_one_route_all({
     //         node_coordinates,
     //         get_best_length,
     //         pathTabooList,
-    //         setbestlength,
-    //         setbestroute,
+    //         set_best_length,
+    //         set_best_route,
     //     });
     //     //最优解有交叉点,对最优解进行局部优化k-opt
     //     // routesandlengths.push({ route, totallength });

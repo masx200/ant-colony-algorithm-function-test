@@ -26,7 +26,7 @@ import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { EachIterationHandler } from "./EachIterationHandler";
 
-import { createEachRouteGenerator } from "./createEachRouteGenerator";
+import { EachRouteGenerator } from "./createEachRouteGenerator";
 import { float64equal } from "./float64equal";
 import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
@@ -52,25 +52,22 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         pheromone_volatility_coefficient_R1 = default_pheromone_volatility_coefficient_R1,
     } = input;
 
-    const options = Object.assign(
-        {
-            cross_Point_Coefficient_of_Non_Optimal_Paths,
-            max_results_of_2_opt,
-            coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-            min_coefficient_of_pheromone_diffusion,
-            max_coefficient_of_pheromone_diffusion,
+    const options = Object.assign(DefaultOptions, {
+        cross_Point_Coefficient_of_Non_Optimal_Paths,
+        max_results_of_2_opt,
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+        min_coefficient_of_pheromone_diffusion,
+        max_coefficient_of_pheromone_diffusion,
 
-            max_results_of_k_opt,
-            pheromone_volatility_coefficient_R1,
-            //   pheromone_volatility_coefficient_R2       ,
-            pheromone_intensity_Q,
-            node_coordinates,
-            alpha_zero,
-            beta_zero,
-            count_of_ants,
-        },
-        DefaultOptions
-    );
+        max_results_of_k_opt,
+        pheromone_volatility_coefficient_R1,
+        //   pheromone_volatility_coefficient_R2       ,
+        pheromone_intensity_Q,
+        node_coordinates,
+        alpha_zero,
+        beta_zero,
+        count_of_ants,
+    });
     assertnumber(count_of_ants);
     assert_true(count_of_ants >= 2);
 
@@ -119,6 +116,17 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const count_of_nodes = node_coordinates.length;
     // const pathTabooList = createpathTabooList(count_of_nodes);
     const pheromoneStore = createPheromoneStore(count_of_nodes);
+
+    let PheromoneZero = 0;
+    function setPheromoneZero(value: number) {
+        PheromoneZero = value;
+    }
+    function getPheromone(row: number, column: number): number {
+        return pheromoneStore.get(row, column) || PheromoneZero;
+    }
+    function setPheromone(row: number, column: number, value: number): void {
+        return pheromoneStore.set(row, column, value);
+    }
     let current_search_count = 0;
     let globalbestroute: number[] = [];
 
@@ -142,7 +150,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const get_current_search_count = () => {
         return current_search_count;
     };
-    const setbestlength = (bestlength: number) => {
+    const set_best_length = (bestlength: number) => {
         if (bestlength < globalbestlength) {
             globalbestlength = bestlength;
             /* "找到最优解的耗时秒" */
@@ -159,7 +167,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             // });
         }
     };
-    const setbestroute = (route: number[]) => {
+    const set_best_route = (route: number[]) => {
         /* 重新排序一下好看 */
         globalbestroute = generateUniqueArrayOfCircularPath(route);
     };
@@ -241,19 +249,48 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             runOneIteration();
         }
     };
-    const {
-        get_probability_of_opt_best,
-        get_probability_of_opt_current,
-        EachRouteGenerator,
-        set_weight_of_opt_best,
-        set_weight_of_opt_current,
-        get_weight_of_opt_best,
-        get_weight_of_opt_current,
-    } = createEachRouteGenerator({
-        ...options,
-        max_results_of_2_opt,
-        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-    });
+    let weight_of_opt_best = 1;
+    let weight_of_opt_current = 1;
+
+    function get_probability_of_opt_best(): number {
+        return (
+            weight_of_opt_best / (weight_of_opt_best + weight_of_opt_current)
+        );
+    }
+    function get_probability_of_opt_current(): number {
+        return (
+            weight_of_opt_current / (weight_of_opt_best + weight_of_opt_current)
+        );
+    }
+    function get_weight_of_opt_best() {
+        return weight_of_opt_best;
+    }
+    function set_weight_of_opt_best(value: number) {
+        weight_of_opt_best = value;
+    }
+    // },
+    // weight_of_opt_current: {
+    function get_weight_of_opt_current() {
+        return weight_of_opt_current;
+    }
+    function set_weight_of_opt_current(value: number) {
+        weight_of_opt_current = value;
+    }
+    // const {
+    //     // get_probability_of_opt_best,
+    //     // get_probability_of_opt_current,
+    //     EachRouteGenerator,
+    //     // set_weight_of_opt_best,
+    //     // set_weight_of_opt_current,
+    //     // get_weight_of_opt_best,
+    //     // get_weight_of_opt_current,
+    // } = createEachRouteGenerator(
+    //     // {
+    //     // ...options,
+    //     // max_results_of_2_opt,
+    //     // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+    //     // }
+    // );
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
         const {
@@ -264,9 +301,12 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         } = EachRouteGenerator({
             ...options,
             current_search_count,
+            get_probability_of_opt_best,
             count_of_nodes,
             node_coordinates,
-            pheromoneStore,
+            // pheromoneStore,
+            setPheromone,
+            getPheromone,
             alpha_zero,
             beta_zero,
             lastrandomselectionprobability,
@@ -275,8 +315,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             get_best_route,
             pheromone_volatility_coefficient_R1,
             pheromone_intensity_Q,
-            setbestlength,
-            setbestroute,
+            set_best_length,
+            set_best_route,
+            setPheromoneZero,
         });
         const endtime_of_one_route = Number(new Date());
         routesandlengths.push({ route, totallength });
@@ -321,12 +362,12 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 // max_results_of_k_opt,
                 routesandlengths,
                 // emit_finish_one_route,
-                // setbestroute,
-                // setbestlength,
+                // set_best_route,
+                // set_best_length,
                 get_best_length: get_best_length,
                 get_best_route: get_best_route,
                 // pathTabooList,
-                pheromoneStore,
+                // pheromoneStore,
                 node_coordinates,
                 // count_of_ants,
                 // alpha_zero,
@@ -336,6 +377,8 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 pheromone_volatility_coefficient_R2,
                 // pheromone_volatility_coefficient_R1,
                 pheromone_intensity_Q,
+                getPheromone,
+                setPheromone,
             });
 
             //更新局部优化的系数
@@ -397,24 +440,49 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             runOneRoute();
         }
     };
+    function get_search_count_of_best() {
+        return search_count_of_best;
+    }
+    function get_time_of_best() {
+        return time_of_best_ms;
+    }
+    function get_random_selection_probability() {
+        return lastrandomselectionprobability;
+    }
+    const shared = {
+        ...options,
+        get_random_selection_probability,
+        get_search_count_of_best,
+        pheromone_volatility_coefficient_R2,
+        set_weight_of_opt_current,
+        get_weight_of_opt_current,
+        set_weight_of_opt_best,
+        get_weight_of_opt_best,
+        get_probability_of_opt_current,
+        get_probability_of_opt_best,
+        get_best_route,
+        get_best_length,
+        set_best_route,
+        set_best_length,
+        get_current_search_count,
+        setPheromone,
+        getPheromone,
+        setPheromoneZero,
+        count_of_nodes,
+    };
     const result: TSP_Runner = {
         ...options,
         max_results_of_2_opt,
+        getPheromone,
+        setPheromone,
         max_results_of_k_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
 
         max_coefficient_of_pheromone_diffusion,
-
-        get_search_count_of_best() {
-            return search_count_of_best;
-        },
-        get_time_of_best() {
-            return time_of_best_ms;
-        },
-        get_random_selection_probability() {
-            return lastrandomselectionprobability;
-        },
+        get_search_count_of_best,
+        get_time_of_best,
+        get_random_selection_probability,
         count_of_nodes,
         runRoutes,
         on_best_change,
@@ -434,7 +502,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         get_best_length,
         get_best_route,
         get_current_search_count,
-        pheromoneStore,
+        // pheromoneStore,/
         beta_zero,
         //    maxnumberofstagnant,
         node_coordinates,
