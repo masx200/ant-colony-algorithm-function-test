@@ -1,6 +1,8 @@
+
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 export type TSPRunnerOptions = {
+    number_of_city_of_large?:number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     max_results_of_2_opt?: number;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;

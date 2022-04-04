@@ -15,7 +15,7 @@ export function Random_K_OPT_full_limited_find_best({
     max_results_of_k_opt: number;
     node_coordinates: NodeCoordinates;
     oldLength: number;
-}): { optimal_route: number[]; optimal_length: number } {
+}): { route: number[]; length: number } {
     const routes_of_k_opt = random_k_opt_limited_full({
         oldRoute: oldRoute,
         max_results_of_k_opt,
@@ -36,7 +36,7 @@ export function Random_K_OPT_full_limited_find_best({
         routesAndLengths.length
             ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
             : { route: oldRoute, totallength: oldLength };
-    let optimal_route = best_route_of_k_opt;
-    let optimal_length = best_length_of_k_opt;
-    return { optimal_route, optimal_length };
+    let route = best_route_of_k_opt;
+    let length = best_length_of_k_opt;
+    return { route, length };
 }

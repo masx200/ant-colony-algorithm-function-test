@@ -81,11 +81,11 @@ export function EachRouteGenerator(
         }
     }
     /* 对当前路径进行精准2-opt优化 */
-    const { optimal_route: route1, optimal_length: length1 } =
+    const { route: route1, length: length1 } =
         Precise_2_opt_eliminates_all_intersections({
             max_results_of_2_opt,
-            optimal_route: oldRoute,
-            optimal_length: oldLength,
+            route: oldRoute,
+            length: oldLength,
             node_coordinates,
         });
     // debugger
@@ -93,7 +93,7 @@ export function EachRouteGenerator(
     // 2-opt 去除交叉点循环
     const select_opt_best = Math.random() < get_probability_of_opt_best();
     /* 对全局最优解或当前路径进行k-opt优化 */
-    const { optimal_route: route2, optimal_length: length2 } =
+    const { route: route2, length: length2 } =
         Random_K_OPT_full_limited_find_best({
             oldRoute: select_opt_best ? get_best_route() : oldRoute,
             max_results_of_k_opt,
@@ -101,11 +101,11 @@ export function EachRouteGenerator(
             oldLength: select_opt_best ? get_best_length() : oldLength,
         });
     /* length3是对route2的去交叉结果 */
-    const { optimal_route: route3, optimal_length: length3 } =
+    const { route: route3, length: length3 } =
         Precise_2_opt_eliminates_all_intersections({
             max_results_of_2_opt,
-            optimal_route: route2,
-            optimal_length: length2,
+            route: route2,
+            length: length2,
             node_coordinates,
         });
     const temp_set_of_routes = [

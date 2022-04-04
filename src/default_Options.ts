@@ -19,6 +19,7 @@ export const default_min_coefficient_of_pheromone_diffusion = 10;
 export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.7;
 export const default_Cross_Point_Coefficient_of_Non_Optimal_Paths = 0.7;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
+    number_of_city_of_large: 200,
     cross_Point_Coefficient_of_Non_Optimal_Paths:
         default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     max_results_of_2_opt: default_max_results_of_2_opt,

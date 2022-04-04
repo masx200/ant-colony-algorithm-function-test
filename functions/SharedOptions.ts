@@ -1,7 +1,8 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { NodeCoordinates } from "./NodeCoordinates";
 
-export interface SharedOptions {
+export type SharedOptions = Required<TSPRunnerOptions> & {
     get_random_selection_probability: () => number;
     get_search_count_of_best: () => number;
     pheromone_volatility_coefficient_R2: number;
@@ -34,4 +35,4 @@ export interface SharedOptions {
     count_of_ants: number;
     node_coordinates: NodeCoordinates;
     pheromoneStore: MatrixSymmetry<number>;
-}
+};

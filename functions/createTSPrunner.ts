@@ -37,7 +37,6 @@ import { SharedOptions } from "./SharedOptions";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
-        cross_Point_Coefficient_of_Non_Optimal_Paths,
         max_results_of_2_opt = default_max_results_of_2_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
@@ -54,22 +53,16 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         pheromone_volatility_coefficient_R1 = default_pheromone_volatility_coefficient_R1,
     } = input;
 
-    const options = Object.assign(DefaultOptions, {
-        cross_Point_Coefficient_of_Non_Optimal_Paths,
-        max_results_of_2_opt,
-        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-        min_coefficient_of_pheromone_diffusion,
-        max_coefficient_of_pheromone_diffusion,
-
-        max_results_of_k_opt,
-        pheromone_volatility_coefficient_R1,
-        //   pheromone_volatility_coefficient_R2       ,
-        pheromone_intensity_Q,
-        node_coordinates,
-        alpha_zero,
-        beta_zero,
-        count_of_ants,
-    });
+    const options: Required<TSPRunnerOptions> = Object.fromEntries(
+        Object.entries(input).map(([k, v]) => [
+            k,
+            v ?? Reflect.get(DefaultOptions, k),
+        ])
+    ) as Required<TSPRunnerOptions>;
+    // const {
+    //     number_of_city_of_large,
+    //     cross_Point_Coefficient_of_Non_Optimal_Paths,
+    // } = options;
     assertnumber(count_of_ants);
     assert_true(count_of_ants >= 2);
 
