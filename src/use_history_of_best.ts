@@ -34,7 +34,7 @@ export function use_history_of_best(
     const history_of_best = reactive<
         {
             time_of_best_ms: number;
-            // globalbestroute: number[];
+            // global_best_route: number[];
             globalbestlength: number;
             // total_time_ms: number;
             // current_search_count: number;
@@ -108,7 +108,7 @@ export function use_history_of_best(
 
                       //   result.current_search_count,
                       //   result.current_iterations,
-                      //   JSON.stringify(result.globalbestroute),
+                      //   JSON.stringify(result.global_best_route),
                   ];
               })
             : //   ]

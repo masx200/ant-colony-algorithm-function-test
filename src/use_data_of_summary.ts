@@ -19,8 +19,8 @@ export function use_data_of_summary(): {
             // , string
         ][]
     >;
-    globalBestRouteHeads: string[];
-    globalBestRouteBody: ComputedRef<[string][]>;
+    global_best_routeHeads: string[];
+    global_best_routeBody: ComputedRef<[string][]>;
 } {
     const onreceiveDataOfGlobalBest = function onreceiveDataOfGlobalBest(
         data: DataOfSummarize
@@ -48,8 +48,8 @@ export function use_data_of_summary(): {
         "总计迭代次数",
         // "全局最优路径",
     ];
-    const globalBestRouteHeads = ["全局最优路径"];
-    const globalBestRouteBody: ComputedRef<[string][]> = computed(() => {
+    const global_best_routeHeads = ["全局最优路径"];
+    const global_best_routeBody: ComputedRef<[string][]> = computed(() => {
         const result = dataofresult.value;
         return result
             ? [
@@ -59,7 +59,7 @@ export function use_data_of_summary(): {
                       //    result.total_time_ms / 1000,
                       //    result.current_search_count,
                       //    result.current_iterations,
-                      JSON.stringify(result.globalbestroute),
+                      JSON.stringify(result.global_best_route),
                   ],
               ]
             : [];
@@ -86,7 +86,7 @@ export function use_data_of_summary(): {
 
                       result.current_search_count,
                       result.current_iterations,
-                      //   JSON.stringify(result.globalbestroute),
+                      //   JSON.stringify(result.global_best_route),
                   ],
               ]
             : [];
@@ -94,8 +94,8 @@ export function use_data_of_summary(): {
 
     const dataofresult = ref<DataOfSummarize>();
     return {
-        globalBestRouteHeads,
-        globalBestRouteBody,
+        global_best_routeHeads,
+        global_best_routeBody,
         dataofresult,
         onreceiveDataOfGlobalBest,
         clearDataOfResult,

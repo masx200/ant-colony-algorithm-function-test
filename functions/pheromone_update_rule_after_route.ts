@@ -16,6 +16,7 @@ import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
 import { cycle_routetosegments } from "./cycle_routetosegments";
+import { is_intersection_partial_with_cycle_route } from "./is_intersection_partial_with_cycle_route";
 // import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -27,14 +28,15 @@ import { SharedOptions } from "./SharedOptions";
  * 每只蚂蚁构建完路径后的信息素更新规则,局部信息素更新
  */
 export function pheromone_update_rule_after_route({
+    number_of_city_of_large,
     cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-    globalbestroute,
+    global_best_route,
     current_length,
     current_route,
     node_coordinates,
     count_of_nodes,
-    // globalbestroutesegments,
+    // global_best_routesegments,
     globalbestlength,
     pheromone_intensity_Q,
     pheromoneStore,
@@ -43,17 +45,17 @@ export function pheromone_update_rule_after_route({
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     current_length: number;
     current_route: number[];
-    globalbestroute: number[];
+    global_best_route: number[];
     node_coordinates: NodeCoordinates;
     count_of_nodes: number;
-    // globalbestroutesegments: [number, number][];
+    // global_best_routesegments: [number, number][];
     globalbestlength: number;
     pheromone_intensity_Q: number;
     // pheromoneStore: MatrixSymmetry<number>;
     pheromone_volatility_coefficient_R1: number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
 } & SharedOptions) {
-    const globalbestroutesegments = cycle_routetosegments(globalbestroute);
+    const global_best_routesegments = cycle_routetosegments(global_best_route);
     // console.log("局部信息素更新计算开始");
     // const current_is_best = current_length === globalbestlength;
 
@@ -62,20 +64,20 @@ export function pheromone_update_rule_after_route({
     // 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
     const deltapheromoneglobalbest = create_delta_pheromone_of_global_best({
         count_of_nodes,
-        globalbestroutesegments,
+        global_best_routesegments,
         globalbestlength,
     });
     // /*  MatrixSymmetryCreate({
     //     row: count_of_nodes,
     //     //column: count_of_nodes,
     //     initializer: /*   intersection_filter_with_cycle_route({
-    //             cycle_route: globalbestroute,
+    //             cycle_route: global_best_route,
 
     //             node_coordinates,
     //         }) && Math.random() < 0.5
     //             ? undefined
     //             : */ globalBestMatrixInitializer(
-    //         globalbestroutesegments,
+    //         global_best_routesegments,
     //         globalbestlength
     //     ),
     // }); */
@@ -99,16 +101,27 @@ export function pheromone_update_rule_after_route({
     //     ),
     //     // : undefined,
     // });
-    const have_intersection_in_global_best =
-        cacheble_is_intersection_filter_with_cycle_route({
-            node_coordinates,
-            cycle_route: globalbestroute,
-        });
-    const have_intersection_in_current_route =
-        cacheble_is_intersection_filter_with_cycle_route({
-            node_coordinates,
-            cycle_route: current_route,
-        });
+    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    const have_intersection_in_global_best = is_count_not_large
+        ? cacheble_is_intersection_filter_with_cycle_route({
+              node_coordinates,
+              cycle_route: global_best_route,
+          })
+        : is_intersection_partial_with_cycle_route({
+              max_of_segments: number_of_city_of_large,
+              node_coordinates,
+              cycle_route: global_best_route,
+          });
+    const have_intersection_in_current_route = is_count_not_large
+        ? cacheble_is_intersection_filter_with_cycle_route({
+              node_coordinates,
+              cycle_route: current_route,
+          })
+        : is_intersection_partial_with_cycle_route({
+              max_of_segments: number_of_city_of_large,
+              node_coordinates,
+              cycle_route: current_route,
+          });
     //局部信息素更新
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
@@ -131,7 +144,7 @@ export function pheromone_update_rule_after_route({
 
     const route_segments_to_change: [number, number][] = [
         ...current_route_segments,
-        ...globalbestroutesegments,
+        ...global_best_routesegments,
     ];
     const matrix_of_is_changed = MatrixSymmetryCreate({
         row: count_of_nodes,

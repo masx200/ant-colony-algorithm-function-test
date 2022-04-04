@@ -146,7 +146,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //     return pheromoneStore.set(row, column, value);
     // }
     let current_search_count = 0;
-    let globalbestroute: number[] = [];
+    let global_best_route: number[] = [];
 
     /* "找到最优解的耗时秒" */
     let time_of_best_ms = 0;
@@ -180,18 +180,18 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             //     current_iterations: get_number_of_iterations(),
             //     total_time_ms: totaltimems,
             //     time_of_best_ms,
-            //     globalbestroute,
+            //     global_best_route,
             //     globalbestlength: globalbestlength,
             // });
         }
     };
     const set_best_route = (route: number[]) => {
         /* 重新排序一下好看 */
-        globalbestroute = generateUniqueArrayOfCircularPath(route);
+        global_best_route = generateUniqueArrayOfCircularPath(route);
     };
 
     const get_best_route = () => {
-        return globalbestroute;
+        return global_best_route;
     };
 
     const get_best_length = () => {
@@ -217,7 +217,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             current_iterations: get_number_of_iterations(),
             total_time_ms: totaltimems,
             time_of_best_ms,
-            globalbestroute,
+            global_best_route,
             globalbestlength: globalbestlength,
         });
         inner_emit_finish_one_route({
@@ -244,7 +244,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         //     current_iterations: get_number_of_iterations(),
         //     total_time_ms: totaltimems,
         //     time_of_best_ms,
-        //     globalbestroute,
+        //     global_best_route,
         //     globalbestlength: globalbestlength,
         // });
         inner_emit_finish_one_iteration({
@@ -417,7 +417,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             //     current_iterations: get_number_of_iterations(),
             //     total_time_ms: totaltimems,
             //     time_of_best_ms,
-            //     globalbestroute: get_best_route(),
+            //     global_best_route: get_best_route(),
             //     globalbestlength: get_best_length(),
             // });
             totaltimems += timems_of_process_iteration;

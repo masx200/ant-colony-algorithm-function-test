@@ -189,8 +189,8 @@
         <!-- 拆分表格 -->
         <hr />
         <Datatable
-            :tableheads="globalBestRouteHeads"
-            :tablebody="globalBestRouteBody"
+            :tableheads="global_best_routeHeads"
+            :tablebody="global_best_routeBody"
         />
 
         <hr />

@@ -18,7 +18,7 @@ export async function run_tsp_by_search_rounds({
     // local_pheromone_volatilization_rate,
     // disablemapswitching,
     is_running,
-}: // onGlobalBestRouteChange,
+}: // onglobal_best_routeChange,
 // onLatestRouteChange,
 // finish_one_route_listener,
 // finish_one_iteration_listener,
@@ -33,7 +33,7 @@ export async function run_tsp_by_search_rounds({
     // local_pheromone_volatilization_rate: Ref<number>;
     // disablemapswitching: Ref<boolean>;
     is_running: Ref<boolean>;
-    // onGlobalBestRouteChange: (
+    // onglobal_best_routeChange: (
     //     route: number[],
     //     node_coordinates: NodeCoordinates
     // ) => void;
@@ -77,7 +77,7 @@ export async function run_tsp_by_search_rounds({
         //         coefficient_of_pheromone_Increase_Non_Optimal_Paths_value,
         //     // onFinishIteration,
         //     pheromone_volatility_coefficient_R1,
-        //     onGlobalBestRouteChange,
+        //     onglobal_best_routeChange,
         //     node_coordinates: await node_coordinates(),
         //     count_of_ants,
         //     // round_of_search,

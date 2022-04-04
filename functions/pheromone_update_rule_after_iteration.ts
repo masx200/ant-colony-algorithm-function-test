@@ -17,18 +17,21 @@ import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
 import { create_delta_pheromone_of_iterate_worst } from "./create_delta_pheromone_of_iterate_worst";
 import { cycle_routetosegments } from "./cycle_routetosegments";
+import { is_intersection_partial_with_cycle_route } from "./is_intersection_partial_with_cycle_route";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
+import { SharedOptions } from "./SharedOptions";
 
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function pheromone_update_rule_after_iteration({
+    number_of_city_of_large,
     cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     node_coordinates,
-    // globalbestroute,
+    // global_best_route,
     iteratebestroute,
     count_of_nodes,
-    globalbestroute,
+    global_best_route,
     globalbestlength,
     // iteratebestroute,
     iteratebestlength,
@@ -37,14 +40,14 @@ export function pheromone_update_rule_after_iteration({
     pheromone_intensity_Q,
     pheromoneStore,
     pheromone_volatility_coefficient_R2,
-}: {
+}: SharedOptions & {
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     node_coordinates: NodeCoordinates;
-    globalbestroute: number[];
+    global_best_route: number[];
     iteratebestroute: number[];
     count_of_nodes: number;
-    // globalbestroutesegments: [number, number][];
+    // global_best_routesegments: [number, number][];
     globalbestlength: number;
     // iteratebestroutesegments: [number, number][];
     iteratebestlength: number;
@@ -56,12 +59,12 @@ export function pheromone_update_rule_after_iteration({
 }) {
     const iterateworstroutesegments = cycle_routetosegments(iterateworstroute);
     const iteratebestroutesegments = cycle_routetosegments(iteratebestroute);
-    const globalbestroutesegments = cycle_routetosegments(globalbestroute);
+    const global_best_routesegments = cycle_routetosegments(global_best_route);
     // console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
     const deltapheromoneglobalbest = create_delta_pheromone_of_global_best({
         count_of_nodes,
-        globalbestroutesegments,
+        global_best_routesegments,
         globalbestlength,
     });
     /* 最优路径不能有交叉点 */
@@ -85,16 +88,27 @@ export function pheromone_update_rule_after_iteration({
               row: count_of_nodes,
               initializer: () => 0,
           });
-    const have_intersection_in_global_best =
-        cacheble_is_intersection_filter_with_cycle_route({
-            node_coordinates,
-            cycle_route: globalbestroute,
-        });
-    const have_intersection_in_iterate_best =
-        cacheble_is_intersection_filter_with_cycle_route({
-            node_coordinates,
-            cycle_route: iteratebestroute,
-        });
+    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    const have_intersection_in_global_best = is_count_not_large
+        ? cacheble_is_intersection_filter_with_cycle_route({
+              node_coordinates,
+              cycle_route: global_best_route,
+          })
+        : is_intersection_partial_with_cycle_route({
+              max_of_segments: number_of_city_of_large,
+              node_coordinates,
+              cycle_route: global_best_route,
+          });
+    const have_intersection_in_iterate_best = is_count_not_large
+        ? cacheble_is_intersection_filter_with_cycle_route({
+              node_coordinates,
+              cycle_route: iteratebestroute,
+          })
+        : is_intersection_partial_with_cycle_route({
+              max_of_segments: number_of_city_of_large,
+              node_coordinates,
+              cycle_route: iteratebestroute,
+          });
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
         MatrixAdd(
@@ -118,7 +132,7 @@ export function pheromone_update_rule_after_iteration({
 
     const route_segments_to_change: [number, number][] = [
         ...iteratebestroutesegments,
-        ...globalbestroutesegments,
+        ...global_best_routesegments,
     ];
     if (have_iterate_worst) {
         iterateworstroutesegments.forEach((v) => {

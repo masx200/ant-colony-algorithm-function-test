@@ -107,8 +107,8 @@ export default defineComponent({
             clearDataOfResult,
             resultTableHeads,
             resultTableBody,
-            globalBestRouteBody,
-            globalBestRouteHeads,
+            global_best_routeBody,
+            global_best_routeHeads,
         } = use_data_of_summary();
         // console.log(dataofresult, resultTableBody);
         const {
@@ -209,7 +209,7 @@ export default defineComponent({
             }
         };
 
-        const onGlobalBestRouteChange = (
+        const onglobal_best_routeChange = (
             route: number[],
             node_coordinates: NodeCoordinates
         ) => {
@@ -285,7 +285,7 @@ export default defineComponent({
                 // local_pheromone_volatilization_rate,
                 // disablemapswitching,
                 is_running,
-                // onGlobalBestRouteChange,
+                // onglobal_best_routeChange,
                 // onLatestRouteChange,
                 // finish_one_route_listener,
                 // finish_one_iteration_listener,
@@ -364,7 +364,7 @@ export default defineComponent({
                         coefficient_of_pheromone_Increase_Non_Optimal_Paths_value,
                     // onFinishIteration,
                     pheromone_volatility_coefficient_R1,
-                    onGlobalBestRouteChange,
+                    onglobal_best_routeChange,
                     node_coordinates: await node_coordinates(),
                     count_of_ants,
                     // round_of_search,
@@ -397,7 +397,7 @@ export default defineComponent({
                 // disablemapswitching,
                 is_running,
                 // TSP_before_Start,
-                // onGlobalBestRouteChange,
+                // onglobal_best_routeChange,
                 // onLatestRouteChange,
                 // finish_one_route_listener,
                 // finish_one_iteration_listener,
@@ -429,8 +429,8 @@ export default defineComponent({
             TableBodyOfHistoryOfBest,
             disable_stop,
             stop_handler,
-            globalBestRouteBody,
-            globalBestRouteHeads,
+            global_best_routeBody,
+            global_best_routeHeads,
             // container_of_iteration_rounds_and_relative_deviation_from_optimal,
             container_of_iteration_rounds_and_information_entropy_chart,
             is_running,

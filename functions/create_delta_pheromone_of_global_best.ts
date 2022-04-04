@@ -4,16 +4,16 @@ import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone
 
 export function create_delta_pheromone_of_global_best({
     count_of_nodes,
-    globalbestroutesegments,
+    global_best_routesegments,
     globalbestlength,
 }: {
     count_of_nodes: number;
-    globalbestroutesegments: [number, number][];
+    global_best_routesegments: [number, number][];
     globalbestlength: number;
 }) {
     return create_delta_pheromone_of_iterate_best({
         count_of_nodes,
-        route_segments: globalbestroutesegments,
+        route_segments: global_best_routesegments,
         route_length: globalbestlength,
     });
     // /* globalBestMatrixInitializer性能不好 */
@@ -21,13 +21,13 @@ export function create_delta_pheromone_of_global_best({
     //     row: count_of_nodes,
     //     //column: count_of_nodes,
     //     // initializer: /* intersection_filter_with_cycle_route({
-    //     //     cycle_route: globalbestroute,
+    //     //     cycle_route: global_best_route,
 
     //     //     node_coordinates,
     //     // }) && Math.random() < 0.5
     //     //     ? undefined
     //     //     : */ globalBestMatrixInitializer(
-    //     //     globalbestroutesegments,
+    //     //     global_best_routesegments,
     //     //     globalbestlength
     //     // ),
     // });

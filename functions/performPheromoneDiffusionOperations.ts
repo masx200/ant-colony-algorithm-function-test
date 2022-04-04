@@ -26,8 +26,8 @@ export function performPheromoneDiffusionOperations({
 
     max_coefficient_of_pheromone_diffusion,
 
-    globalbestroute,
-    // globalbestroutesegments,
+    global_best_route,
+    // global_best_routesegments,
     pheromoneStore,
     node_coordinates,
 }: {
@@ -37,13 +37,13 @@ export function performPheromoneDiffusionOperations({
     min_coefficient_of_pheromone_diffusion: number;
     max_coefficient_of_pheromone_diffusion: number;
 
-    // globalbestroutesegments: [number, number][];
-    globalbestroute: number[];
+    // global_best_routesegments: [number, number][];
+    global_best_route: number[];
     pheromoneStore: MatrixSymmetry<number>;
     node_coordinates: NodeCoordinates;
 }): void {
-    const globalbestroutesegments = cycle_routetosegments(globalbestroute);
-    globalbestroutesegments.forEach((segment) => {
+    const global_best_routesegments = cycle_routetosegments(global_best_route);
+    global_best_routesegments.forEach((segment) => {
         if (Math.random() < pheromoneDiffusionProbability) {
             pheromoneDiffusionCallback({
                 min_coefficient_of_pheromone_diffusion,
@@ -53,7 +53,7 @@ export function performPheromoneDiffusionOperations({
 
                 pheromoneStore,
                 node_coordinates,
-                globalbestroutesegments,
+                global_best_routesegments,
             })(segment);
         }
     });
@@ -64,7 +64,7 @@ export function performPheromoneDiffusionOperations({
         min_coefficient_of_pheromone_diffusion,
         pheromoneStore,
         node_coordinates,
-        globalbestroutesegments,
+        global_best_routesegments,
     }: {
         // setPheromone: (row: number, column: number, value: number) => void;
         // getPheromone: (row: number, column: number) => number;
@@ -73,7 +73,7 @@ export function performPheromoneDiffusionOperations({
 
         pheromoneStore: MatrixSymmetry<number>;
         node_coordinates: NodeCoordinates;
-        globalbestroutesegments: [number, number][];
+        global_best_routesegments: [number, number][];
     }): (value: [number, number]) => void {
         return function ([cityA, cityB]) {
             const pheromoneZ = pheromoneStore.get(cityA, cityB);
@@ -116,11 +116,12 @@ export function performPheromoneDiffusionOperations({
                 ...combinations(selectedcitiesinsidecircle, 2),
             ].filter(
                 ([left, right]) =>
-                    !globalbestroutesegments.some(([leftofbest, rightofbest]) =>
-                        ispathsequalinbothdirectionswithoutcycle(
-                            [left, right],
-                            [leftofbest, rightofbest]
-                        )
+                    !global_best_routesegments.some(
+                        ([leftofbest, rightofbest]) =>
+                            ispathsequalinbothdirectionswithoutcycle(
+                                [left, right],
+                                [leftofbest, rightofbest]
+                            )
                     )
             );
             if (segmentsinsidecircle.length) {

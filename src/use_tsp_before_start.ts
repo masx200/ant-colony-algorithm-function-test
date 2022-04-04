@@ -8,7 +8,7 @@ export function use_tsp_before_start(
         async function TSP_before_Start({
             coefficient_of_pheromone_Increase_Non_Optimal_Paths,
             // onFinishIteration,
-            onGlobalBestRouteChange,
+            onglobal_best_routeChange,
             onLatestRouteChange,
             // round_of_search,
             node_coordinates,
@@ -22,7 +22,7 @@ export function use_tsp_before_start(
                     coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                     // onFinishIteration,
                     pheromone_volatility_coefficient_R1,
-                    onGlobalBestRouteChange,
+                    onglobal_best_routeChange,
                     onLatestRouteChange,
                     node_coordinates,
                     count_of_ants,

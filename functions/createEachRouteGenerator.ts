@@ -165,7 +165,7 @@ export function EachRouteGenerator(
         // ...options,
         cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-        globalbestroute: get_best_route(),
+        global_best_route: get_best_route(),
         current_length: totallength,
         current_route: route,
         // node_coordinates,

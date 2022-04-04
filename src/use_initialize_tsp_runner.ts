@@ -18,7 +18,7 @@ export function use_initialize_tsp_runner({
         // onFinishIteration,
         node_coordinates,
         count_of_ants,
-        onGlobalBestRouteChange,
+        onglobal_best_routeChange,
         onLatestRouteChange,
         pheromone_volatility_coefficient_R1,
         ...rest
@@ -33,7 +33,7 @@ export function use_initialize_tsp_runner({
         // console.log(runner);
         await runner.remote.on_best_change((data) => {
             onreceiveDataOfGlobalBest(data);
-            onGlobalBestRouteChange(data.globalbestroute, node_coordinates);
+            onglobal_best_routeChange(data.global_best_route, node_coordinates);
         });
         // runner.on_finish_one_route(onreceivedataofoneroute);
         await runner.remote.on_finish_one_route((data) => {
@@ -46,7 +46,7 @@ export function use_initialize_tsp_runner({
         // runner.on_finish_one_route(onDataChange);
         await runner.remote.on_finish_one_iteration((data) => {
             onreceivedataofoneIteration(data);
-            // onGlobalBestRouteChange(data.globalbestroute, node_coordinates);
+            // onglobal_best_routeChange(data.global_best_route, node_coordinates);
         });
         // debugger
         return runner;

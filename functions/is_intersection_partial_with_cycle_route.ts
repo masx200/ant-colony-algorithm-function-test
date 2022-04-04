@@ -5,6 +5,9 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
+import { generateUniqueStringOfCircularPath } from "./generateUniqueStringOfCircularPath";
+import { getOrCreateMapOfMapFun } from "./getOrCreateMapOfMapFun";
+import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
 
 /**判断环路部分路径当中是否有交叉点 */
 export function is_intersection_partial_with_cycle_route({
@@ -17,6 +20,17 @@ export function is_intersection_partial_with_cycle_route({
     node_coordinates: NodeCoordinates;
     max_of_segments: number;
 }): boolean {
+    const map = getOrCreateMapOfMapFun(
+        node_coordinates_to_intersect_routes_unique,
+        node_coordinates
+    );
+    const unique_string = generateUniqueStringOfCircularPath(cycle_route);
+    if (map.has(unique_string)) {
+        const cached = map.get(unique_string);
+        if (cached) {
+            return true;
+        }
+    }
     const count_of_nodes = node_coordinates.length;
     assert_true(count_of_nodes > 1);
     assert_true(cycle_route.length === node_coordinates.length);
@@ -40,6 +54,8 @@ export function is_intersection_partial_with_cycle_route({
                     intersectparameters[3]
                 )
             ) {
+                //只缓存有交叉点的
+                map.set(unique_string, true);
                 return true;
             }
         }

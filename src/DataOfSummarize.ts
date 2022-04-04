@@ -3,7 +3,7 @@
 //     time_of_best_ms: number;
 //     total_time_ms: number;
 //     current_search_count: number;
-//     globalbestroute: number[];
+//     global_best_route: number[];
 //     current_iterations: number;
 
 import { DataOfBestChange } from "../functions/DataOfBestChange";

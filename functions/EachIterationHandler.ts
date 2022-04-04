@@ -137,7 +137,7 @@ export function EachIterationHandler(
     // });
     // const locally_optimized_length = result.totallength;
 
-    const globalbestroute = get_best_route();
+    const global_best_route = get_best_route();
     const globalbestlength = get_best_length();
 
     const worstlengthandroute =
@@ -158,16 +158,16 @@ export function EachIterationHandler(
     const optimallengthofthisround = iteratebestlength;
     // const iterateworstroutesegments = cycle_routetosegments(iterateworstroute);
     // const iteratebestroutesegments = cycle_routetosegments(iteratebestroute);
-    // const globalbestroutesegments = cycle_routetosegments(globalbestroute);
+    // const global_best_routesegments = cycle_routetosegments(global_best_route);
     pheromone_update_rule_after_iteration({
         ...options,
         cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         // node_coordinates,
         iteratebestroute,
-        globalbestroute,
+        global_best_route,
         count_of_nodes,
-        // globalbestroutesegments,
+        // global_best_routesegments,
         globalbestlength,
         // iteratebestroutesegments,
         iteratebestlength,
@@ -190,7 +190,7 @@ export function EachIterationHandler(
 
         max_coefficient_of_pheromone_diffusion,
 
-        globalbestroute,
+        global_best_route,
         pheromoneStore,
         node_coordinates,
         // setPheromone,

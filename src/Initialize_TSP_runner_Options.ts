@@ -7,8 +7,8 @@ export type Initialize_TSP_runner_Options = TSPRunnerOptions & {
     pheromone_volatility_coefficient_R1: number;
     node_coordinates: NodeCoordinates;
     count_of_ants: number;
-    onGlobalBestRouteChange: (
-        globalbestroute: number[],
+    onglobal_best_routeChange: (
+        global_best_route: number[],
         node_coordinates: NodeCoordinates
     ) => void;
     onLatestRouteChange: (
