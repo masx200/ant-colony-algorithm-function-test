@@ -1,4 +1,4 @@
-import { calcandsetdistance } from "./calcandsetdistance";
+// import { calcandsetdistance } from "./calcandsetdistance";
 import { getstoreofnode_coordinates } from "./getstoreofnode_coordinates";
 import { NodeCoordinates } from "./NodeCoordinates";
 
@@ -13,13 +13,19 @@ export function geteuclideandistancebyindex(
     //距离参数不分正反
     const euclideandistancerecord =
         getstoreofnode_coordinates(node_coordinates);
-    // console.log(euclideandistancerecord);
-    return euclideandistancerecord.has(left, right)
-        ? euclideandistancerecord.get(left, right)
-        : calcandsetdistance(
-              node_coordinates,
-              left,
-              right,
-              euclideandistancerecord
-          );
+    if (euclideandistancerecord.has(left, right)) {
+        return euclideandistancerecord.get(left, right);
+    } else {
+        throw Error("out of bounds:" + left + "," + right);
+    }
+    // // console.log(euclideandistancerecord);
+    // return euclideandistancerecord.has(left, right)
+    //     ? euclideandistancerecord.get(left, right)
+    //     : (() => { })();
+    //*  calcandsetdistance(
+    //       node_coordinates,
+    //       left,
+    //       right,
+    //       euclideandistancerecord
+    //   ); */
 }
