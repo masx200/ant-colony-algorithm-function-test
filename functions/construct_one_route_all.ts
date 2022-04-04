@@ -6,6 +6,7 @@ import { generate_paths_using_state_transition_probabilities } from "./generate-
 import { greedy_first_search_route } from "./greedy_first_search_route";
 // import { intersection_filter_with_cycle_route } from "./intersection_filter_with_cycle_route";
 import { NodeCoordinates } from "./NodeCoordinates";
+import { SharedOptions } from "./SharedOptions";
 // import { WayOfConstruct } from "./WayOfConstruct";
 
 /* 只是生成一条路径 */
@@ -45,7 +46,7 @@ export function construct_one_route_all({
     alpha_zero: number;
     beta_zero: number;
     lastrandomselectionprobability: number;
-}): {
+} & SharedOptions): {
     route: number[];
     totallength: number;
     // way_of_construct: WayOfConstruct;

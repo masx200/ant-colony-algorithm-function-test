@@ -21,6 +21,7 @@ import { cycleroutetosegments } from "./cycleroutetosegments";
 // import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
+import { SharedOptions } from "./SharedOptions";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 
 /**
@@ -53,7 +54,7 @@ export function pheromone_update_rule_after_route({
     pheromoneStore: MatrixSymmetry<number>;
     pheromone_volatility_coefficient_R1: number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
-}) {
+} & SharedOptions) {
     const globalbestroutesegments = cycleroutetosegments(globalbestroute);
     // console.log("局部信息素更新计算开始");
     // const current_is_best = current_length === globalbestlength;

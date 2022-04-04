@@ -15,35 +15,40 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
-export function EachRouteGenerator({
-    setPheromoneZero,
-    setPheromone,
-    get_probability_of_opt_best,
-    getPheromone,
-    cross_Point_Coefficient_of_Non_Optimal_Paths,
-    coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-    current_search_count,
-    max_results_of_2_opt,
-    // current_search_count,
-    count_of_nodes,
-    node_coordinates,
-    // pheromoneStore,
-    alpha_zero,
-    beta_zero,
-    lastrandomselectionprobability,
-    max_results_of_k_opt,
-    get_best_length,
-    get_best_route,
-    pheromone_volatility_coefficient_R1,
-    pheromone_intensity_Q,
-    set_best_length,
-    set_best_route,
-}: EachRouteGeneratorOptions): {
+import { SharedOptions } from "./SharedOptions";
+export function EachRouteGenerator(
+    options: EachRouteGeneratorOptions & SharedOptions
+): {
     route: number[];
     totallength: number;
     // weight_of_opt_best: number;
     // weight_of_opt_current: number;
 } {
+    const {
+        setPheromoneZero,
+        setPheromone,
+        get_probability_of_opt_best,
+        getPheromone,
+        cross_Point_Coefficient_of_Non_Optimal_Paths,
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+        current_search_count,
+        max_results_of_2_opt,
+        // current_search_count,
+        count_of_nodes,
+        node_coordinates,
+        // pheromoneStore,
+        alpha_zero,
+        beta_zero,
+        lastrandomselectionprobability,
+        max_results_of_k_opt,
+        get_best_length,
+        get_best_route,
+        pheromone_volatility_coefficient_R1,
+        pheromone_intensity_Q,
+        set_best_length,
+        set_best_route,
+        // ...rest
+    } = options;
     const {
         route: oldRoute,
         totallength: oldLength,
@@ -51,6 +56,7 @@ export function EachRouteGenerator({
         route: number[];
         totallength: number;
     } = construct_one_route_all({
+        ...options,
         setPheromoneZero,
         getPheromone,
         setPheromone,
@@ -141,6 +147,7 @@ export function EachRouteGenerator({
     // 赋值全局最优
     // 局部信息素更新
     pheromone_update_rule_after_route({
+        ...options,
         // ...options,
         cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,

@@ -33,6 +33,7 @@ import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { update_weight_of_opt } from "./update_weight_of_opt";
 
 import { TSP_Runner } from "./TSP_Runner";
+import { SharedOptions } from "./SharedOptions";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         cross_Point_Coefficient_of_Non_Optimal_Paths,
@@ -299,7 +300,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             // weight_of_opt_best,
             // weight_of_opt_current,
         } = EachRouteGenerator({
-            ...options,
+            ...shared,
             current_search_count,
             get_probability_of_opt_best,
             count_of_nodes,
@@ -352,7 +353,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 optimallengthofthisround,
                 optimalrouteofthisround,
             } = EachIterationHandler({
-                ...options,
+                ...shared,
                 coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 min_coefficient_of_pheromone_diffusion,
 
@@ -449,27 +450,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     function get_random_selection_probability() {
         return lastrandomselectionprobability;
     }
-    const shared = {
-        ...options,
-        get_random_selection_probability,
-        get_search_count_of_best,
-        pheromone_volatility_coefficient_R2,
-        set_weight_of_opt_current,
-        get_weight_of_opt_current,
-        set_weight_of_opt_best,
-        get_weight_of_opt_best,
-        get_probability_of_opt_current,
-        get_probability_of_opt_best,
-        get_best_route,
-        get_best_length,
-        set_best_route,
-        set_best_length,
-        get_current_search_count,
-        setPheromone,
-        getPheromone,
-        setPheromoneZero,
-        count_of_nodes,
-    };
+    const shared = getShared();
     const result: TSP_Runner = {
         ...options,
         max_results_of_2_opt,
@@ -515,5 +496,29 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         runOneIteration,
     };
     // console.log("runner", result);
+
+    function getShared(): SharedOptions {
+        return {
+            ...options,
+            get_random_selection_probability,
+            get_search_count_of_best,
+            pheromone_volatility_coefficient_R2,
+            set_weight_of_opt_current,
+            get_weight_of_opt_current,
+            set_weight_of_opt_best,
+            get_weight_of_opt_best,
+            get_probability_of_opt_current,
+            get_probability_of_opt_best,
+            get_best_route,
+            get_best_length,
+            set_best_route,
+            set_best_length,
+            get_current_search_count,
+            setPheromone,
+            getPheromone,
+            setPheromoneZero,
+            count_of_nodes,
+        };
+    }
     return result;
 }
