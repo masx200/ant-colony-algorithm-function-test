@@ -1,14 +1,16 @@
 // import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { DataOfBestChange } from "./DataOfBestChange";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { NodeCoordinates } from "./NodeCoordinates";
+import { SharedOptions } from "./SharedOptions";
 
 // import { WayOfConstruct } from "./WayOfConstruct";
-export type TSP_Runner = Required<TSPRunnerOptions> & {
-    getPheromone(row: number, column: number): number;
-    setPheromone(row: number, column: number, value: number): void;
+export type TSP_Runner = Required<TSPRunnerOptions> & SharedOptions&{
+    // getPheromone(row: number, column: number): number;
+    // setPheromone(row: number, column: number, value: number): void;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths: number;
     min_coefficient_of_pheromone_diffusion: number;
     max_coefficient_of_pheromone_diffusion: number;
@@ -36,7 +38,7 @@ export type TSP_Runner = Required<TSPRunnerOptions> & {
     get_best_length: () => number;
     get_best_route: () => number[];
     get_current_search_count: () => number;
-    // pheromoneStore: MatrixSymmetry<number>;
+    pheromoneStore: MatrixSymmetry<number>;
 
     // pathTabooList: PathTabooList<number>;
     [Symbol.toStringTag]: string;

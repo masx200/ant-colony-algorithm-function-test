@@ -15,49 +15,52 @@ import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusion
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
 // import { cycleroutetosegments } from "./cycleroutetosegments";
 import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_after_iteration";
+import { SharedOptions } from "./SharedOptions";
 
 // export type AdaptiveTSPSearchOptions =;
 /* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
-export function EachIterationHandler(options: {
-    setPheromone: (row: number, column: number, value: number) => void;
-    getPheromone: (row: number, column: number) => number;
-    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
-    // max_results_of_k_opt: number;
-    routesandlengths: {
-        route: number[];
-        totallength: number;
-    }[];
-    // emit_finish_one_route: Emit_Finish_One_Route;
-    // lastrandomselectionprobability: number;
-    // searchloopcountratio: number;
-    min_coefficient_of_pheromone_diffusion: number;
-    max_coefficient_of_pheromone_diffusion: number;
+export function EachIterationHandler(
+    options: SharedOptions & {
+        // setPheromone: (row: number, column: number, value: number) => void;
+        // getPheromone: (row: number, column: number) => number;
+        cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
+        // max_results_of_k_opt: number;
+        routesandlengths: {
+            route: number[];
+            totallength: number;
+        }[];
+        // emit_finish_one_route: Emit_Finish_One_Route;
+        // lastrandomselectionprobability: number;
+        // searchloopcountratio: number;
+        min_coefficient_of_pheromone_diffusion: number;
+        max_coefficient_of_pheromone_diffusion: number;
 
-    get_best_route: () => number[];
-    /**信息素强度*/
-    pheromone_intensity_Q: number;
-    /**局部信息素挥发系数 */
-    // pheromone_volatility_coefficient_R1: number;
-    /**全局信息素挥发系数 */
-    pheromone_volatility_coefficient_R2: number;
-    // set_best_route: (route: number[]) => void;
-    // set_best_length: (a: number) => void;
-    get_best_length: () => number;
-    node_coordinates: NodeCoordinates;
-    /**
-     * 蚂蚁数量
-     */
-    // count_of_ants: number;
-    // alpha_zero: number;
-    // beta_zero: number;
-    // pathTabooList: PathTabooList;
-    /**最大迭代次数 */
-    // maxnumberofiterations: number;
-    // pheromoneStore: MatrixSymmetry;
-    coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
-    /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
-    // numberofstagnantiterations: number;
-}): {
+        get_best_route: () => number[];
+        /**信息素强度*/
+        pheromone_intensity_Q: number;
+        /**局部信息素挥发系数 */
+        // pheromone_volatility_coefficient_R1: number;
+        /**全局信息素挥发系数 */
+        pheromone_volatility_coefficient_R2: number;
+        // set_best_route: (route: number[]) => void;
+        // set_best_length: (a: number) => void;
+        get_best_length: () => number;
+        node_coordinates: NodeCoordinates;
+        /**
+         * 蚂蚁数量
+         */
+        // count_of_ants: number;
+        // alpha_zero: number;
+        // beta_zero: number;
+        // pathTabooList: PathTabooList;
+        /**最大迭代次数 */
+        // maxnumberofiterations: number;
+        // pheromoneStore: MatrixSymmetry;
+        coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
+        /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
+        // numberofstagnantiterations: number;
+    }
+): {
     coefficient_of_diversity_increase: number;
     // relative_deviation_from_optimal: number;
     nextrandomselectionprobability: number;
@@ -70,8 +73,8 @@ export function EachIterationHandler(options: {
 } {
     // console.log(options);
     const {
-        setPheromone,
-        getPheromone,
+        // setPheromone,
+        // getPheromone,
         cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
@@ -89,7 +92,7 @@ export function EachIterationHandler(options: {
         // set_best_route,
         // set_best_length,
         // pathTabooList,
-        // pheromoneStore,
+        pheromoneStore,
         node_coordinates,
         // maxnumberofiterations,
         // numberofstagnantiterations,
@@ -172,10 +175,10 @@ export function EachIterationHandler(options: {
         iterateworstlength,
         iterateworstroute,
         pheromone_intensity_Q,
-        // pheromoneStore,
+        pheromoneStore,
         pheromone_volatility_coefficient_R2,
-        setPheromone,
-        getPheromone,
+        // setPheromone,
+        // getPheromone,
     });
     // let ispheromoneDiffusion = false;
     // if (Math.random() < pheromoneDiffusionProbability) {
@@ -189,10 +192,10 @@ export function EachIterationHandler(options: {
         max_coefficient_of_pheromone_diffusion,
 
         globalbestroute,
-        // pheromoneStore,
+        pheromoneStore,
         node_coordinates,
-        setPheromone,
-        getPheromone,
+        // setPheromone,
+        // getPheromone,
     });
     // }
 

@@ -305,9 +305,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             get_probability_of_opt_best,
             count_of_nodes,
             node_coordinates,
-            // pheromoneStore,
-            setPheromone,
-            getPheromone,
+            pheromoneStore,
+            // setPheromone,
+            // getPheromone,
             alpha_zero,
             beta_zero,
             lastrandomselectionprobability,
@@ -368,7 +368,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 get_best_length: get_best_length,
                 get_best_route: get_best_route,
                 // pathTabooList,
-                // pheromoneStore,
+                pheromoneStore,
                 node_coordinates,
                 // count_of_ants,
                 // alpha_zero,
@@ -378,8 +378,8 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 pheromone_volatility_coefficient_R2,
                 // pheromone_volatility_coefficient_R1,
                 pheromone_intensity_Q,
-                getPheromone,
-                setPheromone,
+                // getPheromone,
+                // setPheromone,
             });
 
             //更新局部优化的系数
@@ -452,10 +452,10 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     }
     const shared = getShared();
     const result: TSP_Runner = {
-        ...options,
+        ...shared,
         max_results_of_2_opt,
-        getPheromone,
-        setPheromone,
+        // getPheromone,
+        // setPheromone,
         max_results_of_k_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
@@ -514,8 +514,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             set_best_route,
             set_best_length,
             get_current_search_count,
-            setPheromone,
-            getPheromone,
+            pheromoneStore,
+            // setPheromone,
+            // getPheromone,
             setPheromoneZero,
             count_of_nodes,
         };

@@ -4,8 +4,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 export interface EachRouteGeneratorOptions {
     setPheromoneZero: (value: number) => void;
     get_probability_of_opt_best: () => number;
-    getPheromone(row: number, column: number): number;
-    setPheromone(row: number, column: number, value: number): void;
+    // getPheromone(row: number, column: number): number;
+    // setPheromone(row: number, column: number, value: number): void;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     max_results_of_2_opt?: number;

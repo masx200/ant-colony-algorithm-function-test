@@ -1,3 +1,4 @@
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { NodeCoordinates } from "./NodeCoordinates";
 
 export interface SharedOptions {
@@ -15,8 +16,8 @@ export interface SharedOptions {
     set_best_route: (route: number[]) => void;
     set_best_length: (bestlength: number) => void;
     get_current_search_count: () => number;
-    setPheromone: (row: number, column: number, value: number) => void;
-    getPheromone: (row: number, column: number) => number;
+    // setPheromone: (row: number, column: number, value: number) => void;
+    // getPheromone: (row: number, column: number) => number;
     setPheromoneZero: (value: number) => void;
     count_of_nodes: number;
     cross_Point_Coefficient_of_Non_Optimal_Paths: number;
@@ -32,4 +33,5 @@ export interface SharedOptions {
     beta_zero: number;
     count_of_ants: number;
     node_coordinates: NodeCoordinates;
+    pheromoneStore: MatrixSymmetry<number>;
 }
