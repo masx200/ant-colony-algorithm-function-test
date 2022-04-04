@@ -16,7 +16,7 @@ import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
 import { create_delta_pheromone_of_iterate_worst } from "./create_delta_pheromone_of_iterate_worst";
-import { cycleroutetosegments } from "./cycleroutetosegments";
+import { cycle_routetosegments } from "./cycle_routetosegments";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
 
@@ -54,9 +54,9 @@ export function pheromone_update_rule_after_iteration({
     pheromoneStore: MatrixSymmetry<number>;
     pheromone_volatility_coefficient_R2: number;
 }) {
-    const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
-    const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
-    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    const iterateworstroutesegments = cycle_routetosegments(iterateworstroute);
+    const iteratebestroutesegments = cycle_routetosegments(iteratebestroute);
+    const globalbestroutesegments = cycle_routetosegments(globalbestroute);
     // console.log("全局信息素更新计算开始");
     /* 最优路径不能有交叉点 */
     const deltapheromoneglobalbest = create_delta_pheromone_of_global_best({
@@ -88,12 +88,12 @@ export function pheromone_update_rule_after_iteration({
     const have_intersection_in_global_best =
         cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
-            cycleroute: globalbestroute,
+            cycle_route: globalbestroute,
         });
     const have_intersection_in_iterate_best =
         cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
-            cycleroute: iteratebestroute,
+            cycle_route: iteratebestroute,
         });
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,

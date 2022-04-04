@@ -21,7 +21,7 @@ export function create_delta_pheromone_of_global_best({
     //     row: count_of_nodes,
     //     //column: count_of_nodes,
     //     // initializer: /* intersection_filter_with_cycle_route({
-    //     //     cycleroute: globalbestroute,
+    //     //     cycle_route: globalbestroute,
 
     //     //     node_coordinates,
     //     // }) && Math.random() < 0.5

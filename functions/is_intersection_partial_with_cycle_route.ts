@@ -1,23 +1,28 @@
 import { assert_true } from "../test/assert_true";
-import { cycleroutetosegments } from "./cycleroutetosegments";
+import { cycle_routetosegments } from "./cycle_routetosegments";
 import { haverepetitions } from "./haverepetitions";
 import { NodeCoordinates } from "./NodeCoordinates";
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
+import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
 
-/**判断环路路径当中是否有交叉点 */
-export function intersection_filter_with_cycle_route_old({
-    cycleroute,
+/**判断环路部分路径当中是否有交叉点 */
+export function is_intersection_partial_with_cycle_route({
+    cycle_route,
+    max_of_segments,
     node_coordinates,
 }: {
-    cycleroute: number[];
+    cycle_route: number[];
 
     node_coordinates: NodeCoordinates;
+    max_of_segments: number;
 }): boolean {
     const count_of_nodes = node_coordinates.length;
     assert_true(count_of_nodes > 1);
-    assert_true(cycleroute.length === node_coordinates.length);
-    const cyclesegments = cycleroutetosegments(cycleroute);
+    assert_true(cycle_route.length === node_coordinates.length);
+    const cyclesegments = copyArrayAndShuffle(
+        cycle_routetosegments(cycle_route)
+    ).slice(0, max_of_segments);
 
     for (let [[left1, left2], [right1, right2]] of combinations(
         cyclesegments,

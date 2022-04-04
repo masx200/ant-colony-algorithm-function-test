@@ -9,7 +9,7 @@ import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
 import { assert_true } from "../test/assert_true";
 import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
-import { cycleroutetosegments } from "./cycleroutetosegments";
+import { cycle_routetosegments } from "./cycle_routetosegments";
 import { euclideandistance } from "./euclideandistance";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { get_max_distance_of_node_coordinates } from "./get_max_distance_of_node_coordinates";
@@ -42,7 +42,7 @@ export function performPheromoneDiffusionOperations({
     pheromoneStore: MatrixSymmetry<number>;
     node_coordinates: NodeCoordinates;
 }): void {
-    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    const globalbestroutesegments = cycle_routetosegments(globalbestroute);
     globalbestroutesegments.forEach((segment) => {
         if (Math.random() < pheromoneDiffusionProbability) {
             pheromoneDiffusionCallback({

@@ -15,7 +15,7 @@ export function create_delta_pheromone_of_iterate_worst({
         row: count_of_nodes,
         // column: count_of_nodes,
         /*     intersection_filter_with_cycle_route({
-                    cycleroute: iteratebestroute,
+                    cycle_route: iteratebestroute,
 
                     node_coordinates,
                 }) && Math.random() < 0.5

@@ -12,7 +12,7 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
 // import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
 // import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
-// import { cycleroutetosegments } from "./cycleroutetosegments";
+// import { cycle_routetosegments } from "./cycle_routetosegments";
 import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_after_iteration";
 import { SharedOptions } from "./SharedOptions";
 
@@ -156,9 +156,9 @@ export function EachIterationHandler(
     const iteratebestroute = iteratebestlengthandroute.route;
     const optimalrouteofthisround = iteratebestroute;
     const optimallengthofthisround = iteratebestlength;
-    // const iterateworstroutesegments = cycleroutetosegments(iterateworstroute);
-    // const iteratebestroutesegments = cycleroutetosegments(iteratebestroute);
-    // const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    // const iterateworstroutesegments = cycle_routetosegments(iterateworstroute);
+    // const iteratebestroutesegments = cycle_routetosegments(iteratebestroute);
+    // const globalbestroutesegments = cycle_routetosegments(globalbestroute);
     pheromone_update_rule_after_iteration({
         ...options,
         cross_Point_Coefficient_of_Non_Optimal_Paths,

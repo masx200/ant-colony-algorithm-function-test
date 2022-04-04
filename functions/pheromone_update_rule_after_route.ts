@@ -15,7 +15,7 @@ import {
 import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
-import { cycleroutetosegments } from "./cycleroutetosegments";
+import { cycle_routetosegments } from "./cycle_routetosegments";
 // import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -53,11 +53,11 @@ export function pheromone_update_rule_after_route({
     pheromone_volatility_coefficient_R1: number;
     cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
 } & SharedOptions) {
-    const globalbestroutesegments = cycleroutetosegments(globalbestroute);
+    const globalbestroutesegments = cycle_routetosegments(globalbestroute);
     // console.log("局部信息素更新计算开始");
     // const current_is_best = current_length === globalbestlength;
 
-    const current_route_segments = cycleroutetosegments(current_route);
+    const current_route_segments = cycle_routetosegments(current_route);
 
     // 注意:最优路径不能存在交叉点,这用于贪心算法求初始解有交叉点的极端情况,如果最优路径中存在交叉点,则视为没有最优路径
     const deltapheromoneglobalbest = create_delta_pheromone_of_global_best({
@@ -69,7 +69,7 @@ export function pheromone_update_rule_after_route({
     //     row: count_of_nodes,
     //     //column: count_of_nodes,
     //     initializer: /*   intersection_filter_with_cycle_route({
-    //             cycleroute: globalbestroute,
+    //             cycle_route: globalbestroute,
 
     //             node_coordinates,
     //         }) && Math.random() < 0.5
@@ -87,7 +87,7 @@ export function pheromone_update_rule_after_route({
     //     MatrixSymmetryCreate({
     //     row: count_of_nodes,
     //     /*  !intersection_filter_with_cycle_route({
-    //             cycleroute: current_route,
+    //             cycle_route: current_route,
 
     //             node_coordinates,
     //         }) || Math.random() < 0.5
@@ -102,12 +102,12 @@ export function pheromone_update_rule_after_route({
     const have_intersection_in_global_best =
         cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
-            cycleroute: globalbestroute,
+            cycle_route: globalbestroute,
         });
     const have_intersection_in_current_route =
         cacheble_is_intersection_filter_with_cycle_route({
             node_coordinates,
-            cycleroute: current_route,
+            cycle_route: current_route,
         });
     //局部信息素更新
     const deltapheromone = MatrixMultiplyNumber(

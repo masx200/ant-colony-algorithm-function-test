@@ -4,29 +4,20 @@ import { haverepetitions } from "./haverepetitions";
 import { NodeCoordinates } from "./NodeCoordinates";
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
-import { cycle_reorganize } from "./cycle_reorganize";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
-import { pickRandomOne } from "./pickRandomOne";
 
-/**查找环路路径当中随机找一个交叉点,如果未找到则返回 false,如果找到则返回交叉的2个线段城市序号*/
-
-export function intersection_filter_with_cycle_route_find_one_old({
+/**判断环路路径当中是否有交叉点 */
+export function is_intersection_filter_with_cycle_route_old({
     cycle_route,
     node_coordinates,
 }: {
     cycle_route: number[];
 
     node_coordinates: NodeCoordinates;
-}): [[number, number], [number, number]] | false {
+}): boolean {
     const count_of_nodes = node_coordinates.length;
     assert_true(count_of_nodes > 1);
     assert_true(cycle_route.length === node_coordinates.length);
-    const oldRoute = cycle_route;
-    //环路随机重排
-    const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
-
-    const cloned = cycle_reorganize(oldRoute, start);
-    const cyclesegments = cycle_routetosegments(cloned);
+    const cyclesegments = cycle_routetosegments(cycle_route);
 
     for (let [[left1, left2], [right1, right2]] of combinations(
         cyclesegments,
@@ -44,12 +35,25 @@ export function intersection_filter_with_cycle_route_find_one_old({
                     intersectparameters[3]
                 )
             ) {
-                return [
-                    [left1, left2],
-                    [right1, right2],
-                ];
+                return true;
             }
         }
     }
+
     return false;
+    // return Array.from(combinations(cyclesegments, 2))
+    //     .filter(([[left1, left2], [right1, right2]]) => {
+    //         return !haverepetitions([left1, right1, left2, right2]);
+    //     })
+    //     .some(([[left1, left2], [right1, right2]]) => {
+    //         const intersectparameters = [left1, left2, right1, right2].map(
+    //             (node) => node_coordinates[node]
+    //         );
+    //         return robustsegmentintersect(
+    //             intersectparameters[0],
+    //             intersectparameters[1],
+    //             intersectparameters[2],
+    //             intersectparameters[3]
+    //         );
+    //     });
 }
