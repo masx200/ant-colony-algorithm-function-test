@@ -5,7 +5,8 @@ import { assignOwnKeys } from "./assignOwnKeys";
 import { get_entries_by_max_value } from "./get_entries_by_max_value";
 export function create_collection_of_optimal_routes(max_size: number) {
     return new collection_of_optimal_routes(max_size);
-}export class collection_of_optimal_routes extends Array<number[]> {
+}
+export class collection_of_optimal_routes extends Array<number[]> {
     length = 0;
     #get_longest_length_of_routes():
         | { index: number; value: number }
@@ -18,8 +19,6 @@ export function create_collection_of_optimal_routes(max_size: number) {
             );
             return { index, value };
         }
-
-        
     }
     #length_of_routes_store = new Array<number>();
 
