@@ -1727,7 +1727,7 @@ __metadata:
     "@babel/generator": ^7.17.3
     "@babel/plugin-syntax-typescript": ^7.16.7
     "@babel/preset-typescript": ^7.16.7
-    "@masx200/event-emitter-target": ^2.0.3
+    "@masx200/event-emitter-target": ^2.0.4
     "@masx200/mini-cli-args-parser": ^1.0.4
     "@masx200/sparse-2d-matrix": ^1.2.2
     "@masx200/tsp-lib-test-data": ^1.1.1
@@ -1774,10 +1774,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@masx200/event-emitter-target@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@masx200/event-emitter-target@npm:2.0.3"
-  checksum: 317121756f3fbd23d9074f632a88eecb2d4c32fb27ff465550df708a197b165f1ad0453503cb0970fb34cf2367d8d723b06e368a2ae61a3f30e9198a0b7949eb
+"@masx200/event-emitter-target@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@masx200/event-emitter-target@npm:2.0.4"
+  dependencies:
+    regenerator-runtime: ^0.13.9
+  checksum: e4d688b82a014f206ad352979cb70af97de80b2a469aa8dcc3a09045fe07d577571a42bf8862680bc955638a3855d930bf15d6ff754a4357a3920598ba3ddb58
   languageName: node
   linkType: hard
 
@@ -6578,7 +6580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.9":
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
   checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
