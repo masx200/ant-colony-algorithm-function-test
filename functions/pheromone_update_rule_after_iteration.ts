@@ -12,7 +12,6 @@ import {
     default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
-import { assert_true } from "../test/assert_true";
 import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
@@ -169,7 +168,7 @@ export function pheromone_update_rule_after_iteration({
         }
     });
 
-    assert_true(pheromoneStore.values().every((a) => a > 0));
+    // assert_true(pheromoneStore.values().every((a) => a > 0));
     //信息素更新
     // MatrixAssign(pheromoneStore, nextpheromoneStore);
 }
