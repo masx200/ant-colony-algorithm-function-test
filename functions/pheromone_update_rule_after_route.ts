@@ -144,7 +144,10 @@ export function pheromone_update_rule_after_route({
     });
     const oldpheromoneStore = pheromoneStore;
     const old_pheromone_Store_is_changed = MatrixReduceSeries(
-        (a, b) => a * b,
+        function (a, b) {
+            // debugger
+            return a * b;
+        },
         matrix_of_is_changed,
         oldpheromoneStore
     );

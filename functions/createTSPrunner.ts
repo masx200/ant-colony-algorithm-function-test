@@ -121,7 +121,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         get(target, key) {
             if (key === "get") {
                 return (row: number, column: number) => {
-                    getPheromone(target, row, column);
+                    return getPheromone(target, row, column);
                 };
             }
             // if (key === "set") {
