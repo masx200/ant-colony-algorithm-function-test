@@ -10,25 +10,7 @@ import { SharedOptions } from "./SharedOptions";
 // import { WayOfConstruct } from "./WayOfConstruct";
 
 /* 只是生成一条路径 */
-export function construct_one_route_all({
-    setPheromoneZero,
-    current_search_count,
-    // pathTabooList,
-    node_coordinates,
-    count_of_nodes,
-    // set_best_length,
-    // set_best_route,
-    // pheromoneStore,
-    // get_best_route,
-    // max_results_of_k_opt,
-    // get_best_length,
-    // searchloopcountratio,
-    // pheromone_intensity_Q,
-    // pheromone_volatility_coefficient_R1,
-    alpha_zero,
-    beta_zero,
-    lastrandomselectionprobability,
-}: {
+export function construct_one_route_all(options: {
     setPheromoneZero: (value: number) => void;
     current_search_count: number;
     // pathTabooList: PathTabooList<number>;
@@ -50,11 +32,31 @@ export function construct_one_route_all({
     route: number[];
     totallength: number;
     // way_of_construct: WayOfConstruct;
-} {
+    } {
+    const {
+        setPheromoneZero,
+        current_search_count,
+        // pathTabooList,
+        node_coordinates,
+        count_of_nodes,
+        // set_best_length,
+        // set_best_route,
+        pheromoneStore,
+        // get_best_route,
+        // max_results_of_k_opt,
+        // get_best_length,
+        // searchloopcountratio,
+        // pheromone_intensity_Q,
+        // pheromone_volatility_coefficient_R1,
+        alpha_zero,
+        beta_zero,
+        lastrandomselectionprobability,
+    }=options;
     // let route: number[] | undefined = undefined;
     // let totallength: number | undefined = undefined;
     if (current_search_count === 0) {
         const result = greedy_first_search_route({
+            ...options,
             // pathTabooList,
             node_coordinates,
             count_of_nodes,
@@ -62,6 +64,7 @@ export function construct_one_route_all({
             // set_best_route,
             // emit_finish_one_route,
             pheromoneStore,
+            setPheromoneZero,
         });
         return { ...result /* , way_of_construct: "贪心算法" */ };
         // route = result.route;

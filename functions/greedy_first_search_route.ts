@@ -1,23 +1,23 @@
 import { NodeCoordinates } from "./NodeCoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-import { MatrixFill, MatrixSymmetry } from "@masx200/sparse-2d-matrix";
-import { assert_true } from "../test/assert_true";
 import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
 import { pickRandomOne } from "./pickRandomOne";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
 import { closedtotalpathlength } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycle_reorganize } from "./cycle_reorganize";
+import { SharedOptions } from "./SharedOptions";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 
 export function greedy_first_search_route({
+    setPheromoneZero,
     node_coordinates,
     // pathTabooList,
     count_of_nodes,
     // set_best_length,
     // set_best_route,
     // emit_finish_one_route,
-    pheromoneStore,
+    // pheromoneStore,
 }: {
     // pathTabooList: PathTabooList;
     node_coordinates: NodeCoordinates;
@@ -25,8 +25,8 @@ export function greedy_first_search_route({
     // set_best_length: (bestlength: number) => void;
     // set_best_route: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
-    pheromoneStore: MatrixSymmetry<number>;
-}): { route: number[]; totallength: number } {
+    // pheromoneStore: MatrixSymmetry<number>;
+} & SharedOptions): { route: number[]; totallength: number } {
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
@@ -52,9 +52,10 @@ export function greedy_first_search_route({
     // set_best_route(route);
 
     //信息素初始化
-    MatrixFill(pheromoneStore, 1 / count_of_nodes / totallength);
+    // MatrixFill(pheromoneStore, 1 / count_of_nodes / totallength);
+    setPheromoneZero(1 / count_of_nodes / totallength);
     // debugger
-    assert_true(pheromoneStore.values().every((a) => a > 0));
+    // assert_true(pheromoneStore.values().every((a) => a > 0));
     // const endtime = Number(new Date());
     // const timems = endtime - starttime;
     // emit_finish_one_route({

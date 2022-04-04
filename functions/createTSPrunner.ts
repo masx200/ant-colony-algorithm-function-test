@@ -34,6 +34,7 @@ import { update_weight_of_opt } from "./update_weight_of_opt";
 
 import { TSP_Runner } from "./TSP_Runner";
 import { SharedOptions } from "./SharedOptions";
+import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         cross_Point_Coefficient_of_Non_Optimal_Paths,
@@ -116,7 +117,10 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     let totaltimems = 0;
     const count_of_nodes = node_coordinates.length;
     // const pathTabooList = createpathTabooList(count_of_nodes);
-    const pheromoneStore = createPheromoneStore(count_of_nodes);
+    const pheromoneStore = Object.create(createPheromoneStore(count_of_nodes), {
+        get: { value: getPheromone },
+        set: { value: setPheromone },
+    }) as MatrixSymmetry<number>;
 
     let PheromoneZero = 0;
     function setPheromoneZero(value: number) {
