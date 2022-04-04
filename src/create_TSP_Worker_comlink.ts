@@ -20,7 +20,7 @@ export async function create_TSP_Worker_comlink(
     } = create_Worker_comlink<TSP_Worker_API>(() => {
         const w = new TSPWorker();
         w.addEventListener("error", (e) => {
-            alert(String(e)+e.message);
+            alert(String(e) + e.message);
             throw e;
         });
         return w;
