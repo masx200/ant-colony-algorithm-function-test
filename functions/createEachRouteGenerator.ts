@@ -18,6 +18,7 @@ export function EachRouteGenerator(
     // weight_of_opt_current: number;
 } {
     const {
+        number_of_city_of_large,
         set_weight_of_opt_current,
         set_weight_of_opt_best,
         get_weight_of_opt_current,
@@ -80,14 +81,21 @@ export function EachRouteGenerator(
             set_best_route(oldRoute);
         }
     }
+    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
     /* 对当前路径进行精准2-opt优化 */
-    const { route: route1, length: length1 } =
-        Precise_2_opt_eliminates_all_intersections({
-            max_results_of_2_opt,
-            route: oldRoute,
-            length: oldLength,
-            node_coordinates,
-        });
+    const { route: route1, length: length1 } = is_count_not_large
+        ? Precise_2_opt_eliminates_all_intersections({
+              max_results_of_2_opt,
+              route: oldRoute,
+              length: oldLength,
+              node_coordinates,
+          })
+        : Random_K_OPT_full_limited_find_best({
+              oldRoute: oldRoute,
+              max_results_of_k_opt,
+              node_coordinates,
+              oldLength: oldLength,
+          });
     // debugger
     // k-opt随机
     // 2-opt 去除交叉点循环
@@ -101,13 +109,20 @@ export function EachRouteGenerator(
             oldLength: select_opt_best ? get_best_length() : oldLength,
         });
     /* length3是对route2的去交叉结果 */
-    const { route: route3, length: length3 } =
-        Precise_2_opt_eliminates_all_intersections({
-            max_results_of_2_opt,
-            route: route2,
-            length: length2,
-            node_coordinates,
-        });
+    const { route: route3, length: length3 } = is_count_not_large
+        ? Precise_2_opt_eliminates_all_intersections({
+              max_results_of_2_opt,
+              route: route2,
+              length: length2,
+              node_coordinates,
+          })
+        : Random_K_OPT_full_limited_find_best({
+              oldRoute: route2,
+              max_results_of_k_opt,
+              node_coordinates,
+              oldLength: length2,
+          });
+
     const temp_set_of_routes = [
         { route: route1, totallength: length1 },
         { route: route2, totallength: length2 },
