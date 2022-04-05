@@ -299,7 +299,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             const greedy_results = await greedy_first_search_routes_parallel({
                 ...shared,
             });
-Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
+            Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
             greedy_results.forEach(({ route, total_length, time_ms }) => {
                 const oldLength = total_length;
                 const oldRoute = route;
