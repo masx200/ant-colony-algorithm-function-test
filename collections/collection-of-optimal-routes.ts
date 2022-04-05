@@ -6,7 +6,10 @@ import { get_entries_by_max_value } from "./get_entries_by_max_value";
 export function create_collection_of_optimal_routes(max_size: number) {
     return new collection_of_optimal_routes(max_size);
 }
-export class collection_of_optimal_routes extends Array<number[]> {
+export class collection_of_optimal_routes extends Array<{
+    route: number[];
+    length: number;
+}> {
     get [Symbol.toStringTag]() {
         return "CollectionOfOptimalRoutes";
     }
@@ -50,7 +53,7 @@ export class collection_of_optimal_routes extends Array<number[]> {
             }
         }
         this.#unique_string_store.push(unique_string);
-        super.push(route);
+        super.push({ route, length });
         this.#length_of_routes_store.push(length);
 
         while (this.length > this.max_size) {

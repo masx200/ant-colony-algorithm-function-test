@@ -6,14 +6,14 @@ it("test-collection_of_optimal_routes", () => {
 
     expect(cl.length).toBe(0);
 
-    cl.add([1, 2, 3], 10);
+    cl.add([1, 2, 3, 10], 10);
 
     expect(cl.length).toBe(1);
-    expect(cl[0]).toEqual([1, 2, 3]);
-    cl.add([1, 2, 3], 10);
+    expect(cl[0]).toEqual({ length: 10, route: [1, 2, 3, 10] });
+    cl.add([10, 1, 2, 3], 10);
 
     expect(cl.length).toBe(1);
-    expect(cl[0]).toEqual([1, 2, 3]);
+    expect(cl[0]).toEqual({ length: 10, route: [1, 2, 3, 10] });
 
     Array(20)
         .fill(0)
@@ -22,37 +22,37 @@ it("test-collection_of_optimal_routes", () => {
         .forEach((r, i) => {
             cl.add(r, i + 1);
         });
-    // console.log(entriesOwnKeys(cl));
+    // console.log(JSON.stringify(entriesOwnKeys(cl)));
     expect(cl.length).toBe(10);
-
-    expect(cl[0]).toEqual([1, 2, 3]);
-    expect(cl.slice(-1)[0]).toEqual([1, 2, 3, 4, 6, 9]);
+    // console.log(Array.from(cl));
+    expect(cl[0]).toEqual({ length: 10, route: [1, 2, 3, 10] });
+    expect(cl.slice(-1)[0]).toEqual({ length: 9, route: [1, 2, 3, 4, 6, 9] });
     expect(cl[Symbol.toStringTag]).toBe("CollectionOfOptimalRoutes");
     expect(cl.max_size).toBe(10);
-    // console.log(Array.from(cl));
+
     expect(Array.from(cl)).toEqual([
-        [1, 2, 3],
-        [1, 2, 3, 4, 6, 1],
-        [1, 2, 3, 4, 6, 2],
-        [1, 2, 3, 4, 6, 3],
-        [1, 2, 3, 4, 6, 4],
-        [1, 2, 3, 4, 6, 5],
-        [1, 2, 3, 4, 6, 6],
-        [1, 2, 3, 4, 6, 7],
-        [1, 2, 3, 4, 6, 8],
-        [1, 2, 3, 4, 6, 9],
+        { route: [1, 2, 3, 10], length: 10 },
+        { route: [1, 2, 3, 4, 6, 1], length: 1 },
+        { route: [1, 2, 3, 4, 6, 2], length: 2 },
+        { route: [1, 2, 3, 4, 6, 3], length: 3 },
+        { route: [1, 2, 3, 4, 6, 4], length: 4 },
+        { route: [1, 2, 3, 4, 6, 5], length: 5 },
+        { route: [1, 2, 3, 4, 6, 6], length: 6 },
+        { route: [1, 2, 3, 4, 6, 7], length: 7 },
+        { route: [1, 2, 3, 4, 6, 8], length: 8 },
+        { route: [1, 2, 3, 4, 6, 9], length: 9 },
     ]);
     expect(entriesOwnKeys(cl)).toEqual([
-        ["0", [1, 2, 3]],
-        ["1", [1, 2, 3, 4, 6, 1]],
-        ["2", [1, 2, 3, 4, 6, 2]],
-        ["3", [1, 2, 3, 4, 6, 3]],
-        ["4", [1, 2, 3, 4, 6, 4]],
-        ["5", [1, 2, 3, 4, 6, 5]],
-        ["6", [1, 2, 3, 4, 6, 6]],
-        ["7", [1, 2, 3, 4, 6, 7]],
-        ["8", [1, 2, 3, 4, 6, 8]],
-        ["9", [1, 2, 3, 4, 6, 9]],
+        ["0", { route: [1, 2, 3, 10], length: 10 }],
+        ["1", { route: [1, 2, 3, 4, 6, 1], length: 1 }],
+        ["2", { route: [1, 2, 3, 4, 6, 2], length: 2 }],
+        ["3", { route: [1, 2, 3, 4, 6, 3], length: 3 }],
+        ["4", { route: [1, 2, 3, 4, 6, 4], length: 4 }],
+        ["5", { route: [1, 2, 3, 4, 6, 5], length: 5 }],
+        ["6", { route: [1, 2, 3, 4, 6, 6], length: 6 }],
+        ["7", { route: [1, 2, 3, 4, 6, 7], length: 7 }],
+        ["8", { route: [1, 2, 3, 4, 6, 8], length: 8 }],
+        ["9", { route: [1, 2, 3, 4, 6, 9], length: 9 }],
         ["length", 10],
         ["max_size", 10],
     ]);
