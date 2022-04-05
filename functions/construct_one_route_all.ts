@@ -80,6 +80,7 @@ export function construct_one_route_all(
         //最优解无交叉点
     } else */ else {
         const result = generate_paths_using_state_transition_probabilities({
+            ...options,
             pheromoneStore,
             alpha_zero,
             beta_zero,

@@ -14,35 +14,23 @@ import { NodeCoordinates } from "./NodeCoordinates";
 import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { pickRandomOne } from "./pickRandomOne";
+import { SharedOptions } from "./SharedOptions";
 
 // export type PathConstructOptions = ;
 /**使用状态转移概率生成路径. */
-export function generate_paths_using_state_transition_probabilities(options: {
-    alpha_zero: number;
-    beta_zero: number;
-    randomselectionprobability: number;
-    /**搜索循环次数比例 */
-    // searchloopcountratio: number;
-    // get_best_length: () => number;
-    node_coordinates: NodeCoordinates;
-    /**交叉点检测器  ,如果是回路还要检查最后一条线是否有交叉点*/
-    // intersectionfilter: IntersectionFilter;
-    /**选择下一个节点使用轮盘选择法 */
-    // picknextnode(args: PickNextNodeRouletteOptions): number;
-    // pathTabooList: PathTabooList;
-    // startnode: number;
-    /**过滤禁忌表当中的节点 */
+export function generate_paths_using_state_transition_probabilities(
+    options: {
+        alpha_zero: number;
+        beta_zero: number;
+        randomselectionprobability: number;
+        /**搜索循环次数比例 */
+        // searchloopcountratio: number;
+        // get_best_length: () => number;
+        node_coordinates: NodeCoordinates;
 
-    // parameterrandomization: boolean;
-
-    /* 通过序号获得信息素 */
-    // getpheromone: GetPheromone;
-    // count_of_nodes: number;
-    /* 通过序号获得欧氏距离 */
-    // getdistancebyserialnumber: GetDistanceBySerialNumber;
-
-    pheromoneStore: MatrixSymmetry;
-}): {
+        pheromoneStore: MatrixSymmetry;
+    } & SharedOptions
+): {
     route: number[];
     totallength: number;
     // countofloops: number;
@@ -53,6 +41,7 @@ export function generate_paths_using_state_transition_probabilities(options: {
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
+        number_of_city_of_large,
         // searchloopcountratio,
 
         randomselectionprobability,
@@ -102,11 +91,12 @@ export function generate_paths_using_state_transition_probabilities(options: {
     /**循环次数 */
     // let trycount = 0;
     // const starttime = Number(new Date());
-    while (
-        route.length !== count_of_nodes /* &&
-        trycount < count_of_nodes * searchloopcountratio */
-    ) {
-        const filterednodes = availablenodes;
+    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    while (route.length !== count_of_nodes) {
+        //TODO ⑦　每一步的可选城市的组成为集合Toptimal和集合Tlatest中的路径中与当前城市相连的城市,如果可选城市数量不满NCL,则随机选择其余城市添加到可选列表,直到可选城市数量达到NCL.
+        const filterednodes = is_count_not_large
+            ? availablenodes
+            : availablenodes;
         const nextnode = picknextnode({
             randomselectionprobability,
             //   ,
@@ -115,7 +105,7 @@ export function generate_paths_using_state_transition_probabilities(options: {
             //  ,
             //   ,
             beta_zero,
-            //  parameterrandomization,
+
             currentnode: Array.from(route).slice(-1)[0],
             availablenextnodes: Array.from(filterednodes),
             getpheromone,
@@ -124,78 +114,8 @@ export function generate_paths_using_state_transition_probabilities(options: {
         // route = [...route, nextnode];
         route.push(nextnode);
         availablenodes.delete(nextnode);
-        // route=
-        // trycount++;
-        //console.log(
-        //     `第${trycount}次/${count_of_nodes * searchloopcountratio}`,
-        //     "路径构建开始",
-        //     route
-        // );
-        //接受次优解的概率;
-        // let probabilityofacceptingasuboptimalsolution = Math.max(
-        //     0,
-        //     Math.min(1, trycount / maximumnumberofloopsforasinglesearch)
-        // );
-        // route = Array.from(
-        //     construct_one_step_route_of_taboo({
-        //         // probabilityofacceptingasuboptimalsolution,
-        //         // startnode,
-        //         count_of_nodes,
-        //         get_best_length,
-        //         filternotforbiddenbeforepick,
-        //         getdistancebyserialnumber,
-        //         getpheromone,
-        //         getroute,
-        //         intersectionfilter,
-        //         node_coordinates,
-        //         pathTabooList,
-        //         picknextnode,
-        //         alpha_zero,
-        //         beta_zero,
-        //         randomselectionprobability,
-        //     })
-        // );
-        // debugger;
-        /* 路径长度检查 */
     }
 
-    // if (route.length !== count_of_nodes) {
-    //     console.warn(
-    //         "构建路径超出循环次数,使用贪心算法方式构建剩余的路径",
-    //         route
-    //     );
-
-    //     while (route.length !== count_of_nodes) {
-    //         const currentnode = route.slice(-1)[0];
-    //         const restnodes = inputindexs.filter(
-    //             (city) => !route.includes(city)
-    //         );
-
-    //         const nextnodesanddistances: {
-    //             nextnode: number;
-    //             distance: number;
-    //         }[] = restnodes.map((value) => {
-    //             return {
-    //                 nextnode: value,
-    //                 distance: geteuclideandistancebyindex(
-    //                     currentnode,
-    //                     value,
-    //                     node_coordinates
-    //                 ),
-    //             };
-    //         });
-    //         const bestnextnodeanddistance: {
-    //             nextnode: number;
-    //             distance: number;
-    //         } = nextnodesanddistances.reduce((previous, current) => {
-    //             return previous.distance < current.distance
-    //                 ? previous
-    //                 : current;
-    //         }, nextnodesanddistances[0]);
-    //         const nextnode = bestnextnodeanddistance.nextnode;
-    //         route = [...route, nextnode];
-    //     }
-    // }
     assert_true(route.length == count_of_nodes);
     const routelength = closedtotalpathlength({
         // count_of_nodes: route.length,
