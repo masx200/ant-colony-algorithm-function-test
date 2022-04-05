@@ -27,4 +27,17 @@ it("collection_of_latest_routes", () => {
     expect(cl.slice(-1)[0]).toEqual([1, 2, 3, 4, 6, 19]);
     expect(cl[Symbol.toStringTag]).toBe("CollectionOfLatestRoutes");
     expect(cl.max_size).toBe(10);
+    // console.log(Array.from(cl));
+    expect(Array.from(cl)).toEqual([
+        [1, 2, 3, 4, 6, 10],
+        [1, 2, 3, 4, 6, 11],
+        [1, 2, 3, 4, 6, 12],
+        [1, 2, 3, 4, 6, 13],
+        [1, 2, 3, 4, 6, 14],
+        [1, 2, 3, 4, 6, 15],
+        [1, 2, 3, 4, 6, 16],
+        [1, 2, 3, 4, 6, 17],
+        [1, 2, 3, 4, 6, 18],
+        [1, 2, 3, 4, 6, 19],
+    ]);
 });
