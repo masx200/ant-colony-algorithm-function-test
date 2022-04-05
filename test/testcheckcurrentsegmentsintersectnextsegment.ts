@@ -2,7 +2,7 @@ import { intersectionfilterfun } from "../functions/intersectionfilterfun";
 import { assert_true } from "./assert_true";
 import { node_coordinates21 } from "./node_coordinates21";
 import { node_coordinates12 } from "./node_coordinates12";
-import { is_intersection_filter_with_cycle_route_old } from "../functions/is_intersection_filter_with_cycle_route_old";
+import { is_intersection_filter_with_cycle_route_old } from "../cross-points/is_intersection_filter_with_cycle_route_old";
 import { node_coordinates16 } from "./node_coordinates16";
 
 export function testcheckcurrentsegmentsintersectnextsegment() {

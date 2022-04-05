@@ -1,7 +1,7 @@
-import { NodeCoordinates } from "./NodeCoordinates";
-import { getUniqueStringOfCircularRoute } from "./getUniqueStringOfCircularRoute";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { getUniqueStringOfCircularRoute } from "../functions/getUniqueStringOfCircularRoute";
 import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
-import { getOrCreateMapOfMapFun } from "./getOrCreateMapOfMapFun";
+import { getOrCreateMapOfMapFun } from "../functions/getOrCreateMapOfMapFun";
 import { is_intersection_filter_with_cycle_route_old } from "./is_intersection_filter_with_cycle_route_old";
 
 export function cacheble_is_intersection_filter_with_cycle_route({

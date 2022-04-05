@@ -1,12 +1,12 @@
 import { assert_true } from "../test/assert_true";
-import { cycle_routetosegments } from "./cycle_routetosegments";
-import { haverepetitions } from "./haverepetitions";
-import { NodeCoordinates } from "./NodeCoordinates";
+import { cycle_routetosegments } from "../functions/cycle_routetosegments";
+import { haverepetitions } from "../functions/haverepetitions";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
-import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
-import { getUniqueStringOfCircularRoute } from "./getUniqueStringOfCircularRoute";
-import { getOrCreateMapOfMapFun } from "./getOrCreateMapOfMapFun";
+import { ArrayShuffle } from "../functions/ArrayShuffle";
+import { getUniqueStringOfCircularRoute } from "../functions/getUniqueStringOfCircularRoute";
+import { getOrCreateMapOfMapFun } from "../functions/getOrCreateMapOfMapFun";
 import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
 
 /**判断环路部分路径当中是否有交叉点 */
@@ -34,7 +34,7 @@ export function is_intersection_partial_with_cycle_route({
     const count_of_nodes = node_coordinates.length;
     assert_true(count_of_nodes > 1);
     assert_true(cycle_route.length === node_coordinates.length);
-    const cyclesegments = copyArrayAndShuffle(
+    const cyclesegments = ArrayShuffle(
         cycle_routetosegments(cycle_route)
     ).slice(0, max_of_segments);
 

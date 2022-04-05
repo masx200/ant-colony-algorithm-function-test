@@ -96,12 +96,17 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         : create_collection_of_latest_routes(
               max_size_of_collection_of_latest_routes
           );
-
+    if (!is_count_not_large) {
+        console.log(collection_of_latest_routes);
+    }
     const collection_of_optimal_routes = is_count_not_large
         ? undefined
         : create_collection_of_optimal_routes(
               max_size_of_collection_of_optimal_routes
           );
+    if (!is_count_not_large) {
+        console.log(collection_of_optimal_routes);
+    }
     let lastrandomselectionprobability = 0;
     let totaltimems = 0;
 

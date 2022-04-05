@@ -1,4 +1,4 @@
-import { checkcurrentsegmentsintersectnextsegment } from "./checkcurrentsegmentsintersectnextsegment";
+import { checkcurrentsegmentsintersectnextsegment } from "../cross-points/checkcurrentsegmentsintersectnextsegment";
 import { haverepetitions } from "./haverepetitions";
 import { NodeCoordinates } from "./NodeCoordinates";
 /**判断路径当中是否有交叉点 */

@@ -1,4 +1,4 @@
-import { robustsegmentintersect } from "../functions/robust-segment-intersect";
+import { robustsegmentintersect } from "../cross-points/robust-segment-intersect";
 import { assert_true } from "./assert_true";
 
 export function testrobustsegmentintersect() {

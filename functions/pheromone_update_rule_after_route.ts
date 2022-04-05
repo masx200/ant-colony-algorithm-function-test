@@ -12,11 +12,11 @@ import {
     default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
-import { cacheble_is_intersection_filter_with_cycle_route } from "./cacheble_is_intersection_filter_with_cycle_route";
+import { cacheble_is_intersection_filter_with_cycle_route } from "../cross-points/cacheble_is_intersection_filter_with_cycle_route";
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
 import { cycle_routetosegments } from "./cycle_routetosegments";
-import { is_intersection_partial_with_cycle_route } from "./is_intersection_partial_with_cycle_route";
+import { is_intersection_partial_with_cycle_route } from "../cross-points/is_intersection_partial_with_cycle_route";
 // import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";

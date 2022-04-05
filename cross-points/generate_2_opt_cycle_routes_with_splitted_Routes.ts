@@ -1,5 +1,5 @@
 import { assert_true } from "../test/assert_true";
-import { reversearray } from "./reversearray";
+import { reversearray } from "../functions/reversearray";
 /* 生成2-opt的路径,使用已经分割的路径段 */
 export function generate_2_opt_cycle_routes_with_splitted_Routes(
     oldRoute: number[],

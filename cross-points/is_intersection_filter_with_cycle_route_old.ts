@@ -1,9 +1,9 @@
 import { assert_true } from "../test/assert_true";
-import { cycle_routetosegments } from "./cycle_routetosegments";
-import { haverepetitions } from "./haverepetitions";
-import { NodeCoordinates } from "./NodeCoordinates";
+import { cycle_routetosegments } from "../functions/cycle_routetosegments";
+import { haverepetitions } from "../functions/haverepetitions";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { combinations } from "combinatorial-generators";
-import { robustsegmentintersect } from "./robust-segment-intersect";
+import { robustsegmentintersect } from "../cross-points/robust-segment-intersect";
 
 /**判断环路路径当中是否有交叉点 */
 export function is_intersection_filter_with_cycle_route_old({

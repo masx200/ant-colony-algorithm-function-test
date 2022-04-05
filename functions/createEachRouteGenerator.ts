@@ -6,7 +6,8 @@ import {
 } from "./Fun_EachRouteGenerator";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
-import { Precise_2_opt_eliminates_all_intersections } from "./Precise_2_opt_eliminates_all_intersections";
+import { Precise_2_opt_eliminates_all_intersections } from "../cross-points/Precise_2_opt_eliminates_all_intersections";
+import { Precise_2_opt_eliminates_partial_cross_points } from "../cross-points/Precise_2_opt_eliminates_partial_cross_points";
 import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
 import { SharedOptions } from "./SharedOptions";
 export function EachRouteGenerator(
@@ -90,11 +91,11 @@ export function EachRouteGenerator(
               length: oldLength,
               node_coordinates,
           })
-        : Random_K_OPT_full_limited_find_best({
-              oldRoute: oldRoute,
-              max_results_of_k_opt,
+        : Precise_2_opt_eliminates_partial_cross_points({
+              max_results_of_2_opt,
+              route: oldRoute,
+              length: oldLength,
               node_coordinates,
-              oldLength: oldLength,
           });
     // debugger
     // k-opt随机
@@ -116,11 +117,11 @@ export function EachRouteGenerator(
               length: length2,
               node_coordinates,
           })
-        : Random_K_OPT_full_limited_find_best({
-              oldRoute: route2,
-              max_results_of_k_opt,
+        : Precise_2_opt_eliminates_partial_cross_points({
+              max_results_of_2_opt,
+              route: route2,
+              length: length2,
               node_coordinates,
-              oldLength: length2,
           });
 
     const temp_set_of_routes = [

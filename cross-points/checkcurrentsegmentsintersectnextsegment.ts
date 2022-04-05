@@ -1,4 +1,4 @@
-import { NodeCoordinates } from "./NodeCoordinates";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { robustsegmentintersect } from "./robust-segment-intersect";
 
 export function checkcurrentsegmentsintersectnextsegment(

@@ -3,7 +3,7 @@
         "declaration": false,
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
-        "target": "ES2018",
+        "target": "ES2015",
         "useDefineForClassFields": true,
         "module": "ESNext",
         "lib": ["ESNext", "DOM", "ES2021", "ESNext.Array"],
@@ -26,6 +26,7 @@
         "functions",
         "pathTabooList",
         "bin",
-        "__tests__"
+        "__tests__",
+        "cross-points/*.ts"
     ]
 }

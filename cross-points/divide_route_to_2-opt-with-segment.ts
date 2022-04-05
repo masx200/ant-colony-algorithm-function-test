@@ -1,7 +1,7 @@
 import { sum } from "lodash";
 import { assert_true } from "../test/assert_true";
-import { cycle_reorganize } from "./cycle_reorganize";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
+import { cycle_reorganize } from "../functions/cycle_reorganize";
+import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 
 //解方程
 //sum(length_of_parts)=oldRoute.length

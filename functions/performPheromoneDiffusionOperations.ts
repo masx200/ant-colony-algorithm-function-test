@@ -8,7 +8,7 @@ import {
 import { combinations } from "combinatorial-generators";
 import { sum } from "lodash";
 import { assert_true } from "../test/assert_true";
-import { copyArrayAndShuffle } from "./copyArrayAndShuffle";
+import { ArrayShuffle } from "./ArrayShuffle";
 import { cycle_routetosegments } from "./cycle_routetosegments";
 import { euclideandistance } from "./euclideandistance";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
@@ -104,7 +104,7 @@ export function performPheromoneDiffusionOperations({
                 .map((a) => a.city);
 
             /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
-            const selectedcitiesinsidecircle = copyArrayAndShuffle(
+            const selectedcitiesinsidecircle = ArrayShuffle(
                 nodesinsidecircle
             ).slice(0, min_coefficient_of_pheromone_diffusion);
 

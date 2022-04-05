@@ -1,12 +1,12 @@
 import { assert_true } from "../test/assert_true";
-import { cycle_routetosegments } from "./cycle_routetosegments";
-import { haverepetitions } from "./haverepetitions";
-import { NodeCoordinates } from "./NodeCoordinates";
+import { cycle_routetosegments } from "../functions/cycle_routetosegments";
+import { haverepetitions } from "../functions/haverepetitions";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
-import { cycle_reorganize } from "./cycle_reorganize";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
-import { pickRandomOne } from "./pickRandomOne";
+import { cycle_reorganize } from "../functions/cycle_reorganize";
+import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
+import { pickRandomOne } from "../functions/pickRandomOne";
 
 /**查找环路路径当中随机找一个交叉点,如果未找到则返回 false,如果找到则返回交叉的2个线段城市序号*/
 

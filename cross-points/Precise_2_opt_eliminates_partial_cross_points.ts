@@ -1,15 +1,15 @@
-import { NodeCoordinates } from "./NodeCoordinates";
-import { closedtotalpathlength } from "./closed-total-path-length";
-import { creategetdistancebyindex } from "./creategetdistancebyindex";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
+import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 import { cacheble_intersection_filter_with_cycle_route_find_one } from "./cacheble_intersection_filter_with_cycle_route_find_one";
 import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with-segment";
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
 import { default_max_results_of_2_opt } from "../src/default_Options";
 import { assert_true as assert_true } from "../test/assert_true";
-
-/**精准2-opt消除所有交叉点 ,尽可能去除与原路径一样的路径*/
-export function Precise_2_opt_eliminates_all_intersections({
+//TODO
+/**精准2-opt消除部分交叉点 ,尽可能去除与原路径一样的路径*/
+export function Precise_2_opt_eliminates_partial_cross_points({
     max_results_of_2_opt = default_max_results_of_2_opt,
     route,
     length,
@@ -56,13 +56,18 @@ export function Precise_2_opt_eliminates_all_intersections({
             } = routesAndLengths.length
                 ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
                 : { total_length: length, route: route };
-
-            route = best_route_of_2_opt;
-            length = best_length_of_2_opt;
-        } else {
+            if (best_length_of_2_opt <= length) {
+                route = best_route_of_2_opt;
+                length = best_length_of_2_opt;
+            }
+            // route = best_route_of_2_opt;
+            // length = best_length_of_2_opt;
+        }
+        /* 与消除所有交叉点不一样,由于只判断部分线段是否交叉,故这里可能还有交叉点 */
+        /* else {
             // break;
             return { length, route };
-        }
+        } */
         count++;
         if (count >= max_results_of_2_opt) {
             // break;
