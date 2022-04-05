@@ -92,6 +92,7 @@ export function EachRouteGenerator(
               node_coordinates,
           })
         : Precise_2_opt_eliminates_partial_cross_points({
+              max_of_segments: number_of_city_of_large,
               max_results_of_2_opt,
               route: oldRoute,
               length: oldLength,
@@ -118,6 +119,7 @@ export function EachRouteGenerator(
               node_coordinates,
           })
         : Precise_2_opt_eliminates_partial_cross_points({
+              max_of_segments: number_of_city_of_large,
               max_results_of_2_opt,
               route: route2,
               length: length2,

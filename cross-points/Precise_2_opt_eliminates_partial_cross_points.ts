@@ -2,20 +2,23 @@ import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
-import { cacheble_intersection_filter_with_cycle_route_find_one } from "./cacheble_intersection_filter_with_cycle_route_find_one";
 import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with-segment";
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
-import { default_max_results_of_2_opt } from "../src/default_Options";
 import { assert_true as assert_true } from "../test/assert_true";
-//TODO
+import { find_one_intersection_partial_with_cycle_route } from "./find_one_intersection_partial_with_cycle_route";
+
 /**精准2-opt消除部分交叉点 ,尽可能去除与原路径一样的路径*/
 export function Precise_2_opt_eliminates_partial_cross_points({
-    max_results_of_2_opt = default_max_results_of_2_opt,
+    max_of_segments,
+    max_results_of_2_opt,
     route,
     length,
     node_coordinates,
 }: {
-    max_results_of_2_opt?: number;
+    /**最多选择几个路径线段 */
+    max_of_segments: number;
+    /**最多查找几次交叉点 */
+    max_results_of_2_opt: number;
     route: number[];
     length: number;
     node_coordinates: NodeCoordinates;
@@ -23,11 +26,11 @@ export function Precise_2_opt_eliminates_partial_cross_points({
     assert_true(max_results_of_2_opt >= 1);
     let count = 0;
     while (true) {
-        const intersection =
-            cacheble_intersection_filter_with_cycle_route_find_one({
-                cycle_route: route,
-                node_coordinates,
-            });
+        const intersection = find_one_intersection_partial_with_cycle_route({
+            max_of_segments,
+            cycle_route: route,
+            node_coordinates,
+        });
         if (intersection) {
             const splitted_Routes = divide_route_to_2_opt_with_segment(
                 route,

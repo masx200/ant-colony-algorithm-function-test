@@ -1,43 +1,39 @@
+import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { assert_true } from "../test/assert_true";
 import { cycle_routetosegments } from "../functions/cycle_routetosegments";
 import { haverepetitions } from "../functions/haverepetitions";
-import { NodeCoordinates } from "../functions/NodeCoordinates";
+
 import { combinations } from "combinatorial-generators";
 import { robustsegmentintersect } from "./robust-segment-intersect";
+import { cycle_reorganize } from "../functions/cycle_reorganize";
+import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
+import { pickRandomOne } from "../functions/pickRandomOne";
 import { ArrayShuffle } from "../functions/ArrayShuffle";
-import { getUniqueStringOfCircularRoute } from "../functions/getUniqueStringOfCircularRoute";
-import { getOrCreateMapOfMapFun } from "../functions/getOrCreateMapOfMapFun";
-import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
-
-/**判断环路部分路径当中是否有交叉点 */
-export function is_intersection_partial_with_cycle_route({
-    cycle_route,
+/**判断部分路径线段是否相交  */
+export function find_one_intersection_partial_with_cycle_route({
     max_of_segments,
+    cycle_route,
     node_coordinates,
 }: {
     cycle_route: number[];
 
     node_coordinates: NodeCoordinates;
+    /**最多选择几个路径线段 */
     max_of_segments: number;
-}): boolean {
-    const map = getOrCreateMapOfMapFun(
-        node_coordinates_to_intersect_routes_unique,
-        node_coordinates
-    );
-    const unique_string = getUniqueStringOfCircularRoute(cycle_route);
-    if (map.has(unique_string)) {
-        const cached = map.get(unique_string);
-        if (cached) {
-            return true;
-        }
-    }
+}): [[number, number], [number, number]] | false {
     const count_of_nodes = node_coordinates.length;
     assert_true(count_of_nodes > 1);
     assert_true(cycle_route.length === node_coordinates.length);
-    const cyclesegments = ArrayShuffle(
-        cycle_routetosegments(cycle_route)
-    ).slice(0, max_of_segments);
+    const oldRoute = cycle_route;
+    //环路随机重排
+    const start = getnumberfromarrayofnmber(pickRandomOne(oldRoute));
 
+    const cloned = cycle_reorganize(oldRoute, start);
+    // const cyclesegments = cycle_routetosegments(cloned);
+    const cyclesegments = ArrayShuffle(cycle_routetosegments(cloned)).slice(
+        0,
+        max_of_segments
+    );
     for (let [[left1, left2], [right1, right2]] of combinations(
         cyclesegments,
         2
@@ -54,12 +50,12 @@ export function is_intersection_partial_with_cycle_route({
                     intersectparameters[3]
                 )
             ) {
-                //只缓存有交叉点的
-                map.set(unique_string, true);
-                return true;
+                return [
+                    [left1, left2],
+                    [right1, right2],
+                ];
             }
         }
     }
-
     return false;
 }
