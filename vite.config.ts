@@ -13,7 +13,7 @@ import { VitePWA } from "vite-plugin-pwa";
 const checker = vpchecker.default;
 // console.log(babel)
 export default defineConfig(({ mode, command }) => {
-    console.log(mode, command);
+    // console.log(mode, command);
     const isdrop = mode === "production" && command === "build";
     const config: UserConfigExport = {
         esbuild: {
