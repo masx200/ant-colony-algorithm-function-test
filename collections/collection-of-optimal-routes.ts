@@ -4,9 +4,9 @@ import { assert_true } from "../test/assert_true";
 import { assignOwnKeys } from "./assignOwnKeys";
 import { get_entries_by_max_value } from "./get_entries_by_max_value";
 export function create_collection_of_optimal_routes(max_size: number) {
-    return new collection_of_optimal_routes(max_size);
+    return new CollectionOfOptimalRoutes(max_size);
 }
-export class collection_of_optimal_routes extends Array<{
+export class CollectionOfOptimalRoutes extends Array<{
     route: number[];
     length: number;
 }> {

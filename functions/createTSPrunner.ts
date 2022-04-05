@@ -1,3 +1,5 @@
+import { create_get_neighbors_from_optimal_routes_and_latest_routes } from "./create_get_neighbors_from_optimal_routes_and_latest_routes";
+
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { DefaultOptions } from "../src/default_Options";
 import {
@@ -35,6 +37,8 @@ import { update_weight_of_opt } from "./update_weight_of_opt";
 import { TSP_Runner } from "./TSP_Runner";
 import { SharedOptions } from "./SharedOptions";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
+import { create_collection_of_latest_routes } from "../collections/collection-of-latest-routes";
+import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
@@ -59,24 +63,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             v ?? Reflect.get(DefaultOptions, k),
         ])
     ) as Required<TSPRunnerOptions>;
-    // const {
-    //     number_of_city_of_large,
-    //     cross_Point_Coefficient_of_Non_Optimal_Paths,
-    // } = options;
+
     assert_number(count_of_ants);
     assert_true(count_of_ants >= 2);
-
-    // const pheromone_volatility_coefficient_R1 =
-    //     rest?.pheromone_volatility_coefficient_R1 ??
-    //     default_pheromone_volatility_coefficient_R1;
-    /*  1 -
-            Math.pow(
-                1 -
-                    (rest?.pheromone_volatility_coefficient_R2 ??
-                        default_global_pheromone_volatilization_rate),
-                1 / count_of_ants
-            );
-*/
 
     //由局部信息素挥发率决定全局信息素挥发率
     const pheromone_volatility_coefficient_R2 =
@@ -87,15 +76,6 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             count_of_ants
         );
 
-    /*  const pheromone_volatility_coefficient_R1 =
-        1 - Math.pow(1 - pheromone_volatility_coefficient_R2, 1 / count_of_ants);
-*/
-    // console.log("runner data", {
-    //     count_of_ants,
-    //     pheromone_volatility_coefficient_R1,
-    //     pheromone_volatility_coefficient_R2,
-    //     pheromone_intensity_Q,
-    // });
     assert_true(
         float64equal(
             pheromone_volatility_coefficient_R1,
@@ -105,11 +85,27 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             )
         )
     );
+    const {
+        number_of_city_of_large,
+        max_size_of_collection_of_latest_routes,
+        max_size_of_collection_of_optimal_routes,
+    } = options;
+    const count_of_nodes = node_coordinates.length;
+    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    const collection_of_latest_routes = is_count_not_large
+        ? undefined
+        : create_collection_of_latest_routes(
+              max_size_of_collection_of_latest_routes
+          );
 
+    const collection_of_optimal_routes = is_count_not_large
+        ? undefined
+        : create_collection_of_optimal_routes(
+              max_size_of_collection_of_optimal_routes
+          );
     let lastrandomselectionprobability = 0;
     let totaltimems = 0;
-    const count_of_nodes = node_coordinates.length;
-    // const pathTabooList = createpathTabooList(count_of_nodes);
+
     const pheromoneStore = new Proxy(createPheromoneStore(count_of_nodes), {
         get(target, key) {
             if (key === "get") {
@@ -117,13 +113,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                     return getPheromone(target, row, column);
                 };
             }
-            // if (key === "set") {
 
-            // }
             return Reflect.get(target, key);
         },
-        // get: { value: getPheromone },
-        // set: { value: setPheromone },
     }) as MatrixSymmetry<number>;
 
     let PheromoneZero = 0;
@@ -137,14 +129,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     ): number {
         return pheromoneStore.get(row, column) || PheromoneZero;
     }
-    // function setPheromone(
-    //     pheromoneStore: MatrixSymmetry<number>,
-    //     row: number,
-    //     column: number,
-    //     value: number
-    // ): void {
-    //     return pheromoneStore.set(row, column, value);
-    // }
+
     let current_search_count = 0;
     let global_best_route: number[] = [];
 
@@ -294,21 +279,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     function set_weight_of_opt_current(value: number) {
         weight_of_opt_current = value;
     }
-    // const {
-    //     // get_probability_of_opt_best,
-    //     // get_probability_of_opt_current,
-    //     EachRouteGenerator,
-    //     // set_weight_of_opt_best,
-    //     // set_weight_of_opt_current,
-    //     // get_weight_of_opt_best,
-    //     // get_weight_of_opt_current,
-    // } = createEachRouteGenerator(
-    //     // {
-    //     // ...options,
-    //     // max_results_of_2_opt,
-    //     // coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-    //     // }
-    // );
+
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
         const {
@@ -467,6 +438,11 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     function get_random_selection_probability() {
         return lastrandomselectionprobability;
     }
+    const get_neighbors_from_optimal_routes_and_latest_routes =
+        create_get_neighbors_from_optimal_routes_and_latest_routes(
+            collection_of_latest_routes,
+            collection_of_optimal_routes
+        );
     const shared = getShared();
     const result: TSP_Runner = {
         ...shared,
@@ -517,6 +493,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     function getShared(): SharedOptions {
         return {
             ...options,
+            get_neighbors_from_optimal_routes_and_latest_routes,
             get_random_selection_probability,
             get_search_count_of_best,
             pheromone_volatility_coefficient_R2,

@@ -2,9 +2,9 @@ import { getUniqueStringOfCircularRoute } from "../functions/getUniqueStringOfCi
 import { assert_true } from "../test/assert_true";
 import { assignOwnKeys } from "./assignOwnKeys";
 export function create_collection_of_latest_routes(max_size: number) {
-    return new collection_of_latest_routes(max_size);
+    return new CollectionOfLatestRoutes(max_size);
 }
-export class collection_of_latest_routes extends Array<number[]> {
+export class CollectionOfLatestRoutes extends Array<number[]> {
     get [Symbol.toStringTag]() {
         return "CollectionOfLatestRoutes";
     }

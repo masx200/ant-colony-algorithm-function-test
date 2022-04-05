@@ -1,4 +1,3 @@
-// import { filternotforbiddenbeforepickfun } from "./filterforbiddenbeforepickfun";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { assert_true } from "../test/assert_true";
 import { closedtotalpathlength } from "./closed-total-path-length";
@@ -15,6 +14,7 @@ import { picknextnodeRoulette } from "./pick-next-node-Roulette";
 import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { pickRandomOne } from "./pickRandomOne";
 import { SharedOptions } from "./SharedOptions";
+import { select_available_cities_from_optimal_and_latest } from "./select_available_cities_from_optimal_and_latest";
 
 // export type PathConstructOptions = ;
 /**使用状态转移概率生成路径. */
@@ -41,6 +41,7 @@ export function generate_paths_using_state_transition_probabilities(
     const picknextnode: (args: PickNextNodeRouletteOptions) => number =
         picknextnodeRoulette;
     const {
+        get_neighbors_from_optimal_routes_and_latest_routes,
         number_of_city_of_large,
         // searchloopcountratio,
 
@@ -93,10 +94,17 @@ export function generate_paths_using_state_transition_probabilities(
     // const starttime = Number(new Date());
     const is_count_not_large = count_of_nodes <= number_of_city_of_large;
     while (route.length !== count_of_nodes) {
-        //TODO ⑦　每一步的可选城市的组成为集合Toptimal和集合Tlatest中的路径中与当前城市相连的城市,如果可选城市数量不满NCL,则随机选择其余城市添加到可选列表,直到可选城市数量达到NCL.
+        const current_city = Array.from(route).slice(-1)[0];
+        //　每一步的可选城市的组成为集合Toptimal和集合Tlatest中的路径中与当前城市相连的城市,如果可选城市数量不满NCL,则随机选择其余城市添加到可选列表,直到可选城市数量达到NCL.
         const filterednodes = is_count_not_large
             ? availablenodes
-            : availablenodes;
+            : select_available_cities_from_optimal_and_latest({
+                  availablenodes,
+                  get_neighbors_from_optimal_routes_and_latest_routes,
+                  current_city,
+                  max_size: number_of_city_of_large,
+              });
+
         const nextnode = picknextnode({
             randomselectionprobability,
             //   ,
@@ -106,7 +114,7 @@ export function generate_paths_using_state_transition_probabilities(
             //   ,
             beta_zero,
 
-            currentnode: Array.from(route).slice(-1)[0],
+            currentnode: current_city,
             availablenextnodes: Array.from(filterednodes),
             getpheromone,
             getdistancebyserialnumber,
@@ -132,3 +140,4 @@ export function generate_paths_using_state_transition_probabilities(
     //   );
     return { route, totallength /* countofloops: trycount  */ };
 }
+
