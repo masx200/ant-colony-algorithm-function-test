@@ -21,12 +21,12 @@ export type TSP_Runner = Required<TSPRunnerOptions> &
         get_time_of_best(): number;
         get_search_count_of_best(): number;
         on_best_change: (callback: (data: DataOfBestChange) => void) => void;
-        runOneRoute: () => void;
-        runOneIteration: () => void;
+        runOneRoute: () => Promise<void>;
+        runOneIteration: () => Promise<void>;
 
         get_total_time_ms: () => number;
 
-        runIterations: (iterations: number) => void;
+        runIterations: (iterations: number) => Promise<void>;
         on_finish_one_iteration: (
             callback: (data: DataOfFinishOneIteration) => void
         ) => void;
@@ -51,5 +51,5 @@ export type TSP_Runner = Required<TSPRunnerOptions> &
         beta_zero: number;
         // searchloopcountratio: number;
         count_of_ants: number;
-        runRoutes: (count: number) => void;
+        runRoutes: (count: number) => Promise<void>;
     };

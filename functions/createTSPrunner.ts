@@ -39,6 +39,7 @@ import { SharedOptions } from "./SharedOptions";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { create_collection_of_latest_routes } from "../collections/collection-of-latest-routes";
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
+import { greedy_first_search_routes_parallel } from "./greedy_first_search_routes_parallel";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
@@ -145,7 +146,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     /* 一次迭代的花费时间 */
     let time_ms_of_one_iteration: number = 0;
     /* 一次迭代的路径和长度 */
-    const routesandlengths: {
+    const routes_and_lengths_of_one_iteration: {
         route: number[];
         total_length: number;
     }[] = [];
@@ -243,17 +244,17 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         });
     };
 
-    const runOneIteration = () => {
+    const runOneIteration = async () => {
         for (let i = 0; i < count_of_ants; i++) {
-            runOneRoute();
+            await runOneRoute();
         }
     };
-    const runIterations = (iterations: number) => {
+    const runIterations = async (iterations: number) => {
         assert_number(iterations);
         assert_true(iterations > 0);
 
         for (let i = 0; i < iterations; i++) {
-            runOneIteration();
+            await runOneIteration();
         }
     };
     let weight_of_opt_best = 1;
@@ -291,7 +292,13 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             collection_of_latest_routes.add(route);
         }
     }
-    function runOneRoute() {
+    async function runOneRoute() {
+        if (current_search_count === 0) {
+            //TODO 并行计算贪心路径 共 max_routes_of_greedy 条
+            const greedy_results = await greedy_first_search_routes_parallel({
+                ...shared,
+            });
+        }
         const starttime_of_one_route = Number(new Date());
         const {
             route,
@@ -321,7 +328,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         });
         const endtime_of_one_route = Number(new Date());
         onRouteCreated(route, total_length);
-        routesandlengths.push({ route, total_length });
+        routes_and_lengths_of_one_iteration.push({ route, total_length });
         const time_ms_of_one_route =
             endtime_of_one_route - starttime_of_one_route;
         time_ms_of_one_iteration += time_ms_of_one_route;
@@ -335,7 +342,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             route,
             total_length,
         });
-        if (routesandlengths.length === count_of_ants) {
+        if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
             const starttime_of_process_iteration = Number(new Date());
             //一轮搜索结束
 
@@ -361,7 +368,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
 
                 // pathTabooList,
                 // max_results_of_k_opt,
-                routesandlengths,
+                routesandlengths: routes_and_lengths_of_one_iteration,
                 // emit_finish_one_route,
                 // set_best_route,
                 // set_best_length,
@@ -422,7 +429,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             });
             time_ms_of_one_iteration = 0;
             lastrandomselectionprobability = nextrandomselectionprobability;
-            routesandlengths.length = 0;
+            routes_and_lengths_of_one_iteration.length = 0;
         }
 
         /* else {
@@ -433,12 +440,12 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             totaltimems += timems;
         } */
     }
-    const runRoutes = (count: number) => {
+    const runRoutes = async (count: number) => {
         assert_number(count);
         assert_true(count > 0);
 
         for (let i = 0; i < count; i++) {
-            runOneRoute();
+            await runOneRoute();
         }
     };
     function get_search_count_of_best() {

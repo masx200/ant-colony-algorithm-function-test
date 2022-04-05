@@ -8,8 +8,9 @@ import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycle_reorganize } from "./cycle_reorganize";
 import { SharedOptions } from "./SharedOptions";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
-
-export function greedy_first_search_route({
+/**并行计算贪心算法搜索路径 */
+export async function greedy_first_search_routes_parallel({
+    max_routes_of_greedy,
     setPheromoneZero,
     node_coordinates,
     // pathTabooList,
@@ -26,7 +27,7 @@ export function greedy_first_search_route({
     // set_best_route: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     // pheromoneStore: MatrixSymmetry<number>;
-} & SharedOptions): { route: number[]; total_length: number } {
+    } & SharedOptions): Promise<[{ time_ms: number; route: number[]; total_length: number }]> {
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
@@ -64,5 +65,5 @@ export function greedy_first_search_route({
     //     timems,
     //     countofloops,
     // });
-    return { route, total_length };
+    return [{ route, total_length }];
 }
