@@ -41,5 +41,6 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     count_of_ants: default_count_of_ants,
     max_size_of_collection_of_optimal_routes: 20,
     max_size_of_collection_of_latest_routes: 20,
+    max_routes_of_greedy:15
 };
 export { DefaultOptions };
