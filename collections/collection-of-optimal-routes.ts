@@ -27,15 +27,15 @@ export class collection_of_optimal_routes extends Array<number[]> {
 
     #unique_string_store = new Array<string>();
     constructor(public max_size: number) {
-        assert_true(0 < max_size);
+        assert_true(0 < max_size,"max_size greater than 0");
         super();
         this.length = 0;
     }
 
     add(route: number[], length: number) {
-        assert_true(route.length > 0);
+        assert_true(route.length > 0,"route length is not greater than 0");
         assert_number(length);
-        assert_true(0 < length);
+        assert_true(0 < length, "length must be greater than 0");
         assert_true(Infinity > length);
         const unique_string = getUniqueStringOfCircularRoute(route);
 
@@ -53,6 +53,7 @@ export class collection_of_optimal_routes extends Array<number[]> {
         this.#length_of_routes_store.push(length);
 
         while (this.length > this.max_size) {
+            const longest = this.#get_longest_length_of_routes();
             assert_true(longest);
             const index = longest.index;
             assignOwnKeys(
