@@ -1,16 +1,16 @@
 import { NodeCoordinates } from "./NodeCoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
-import { pickRandomOne } from "./pickRandomOne";
-import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
-import { closedtotalpathlength } from "./closed-total-path-length";
-import { creategetdistancebyindex } from "./creategetdistancebyindex";
-import { cycle_reorganize } from "./cycle_reorganize";
 import { SharedOptions } from "./SharedOptions";
+import { run_greedy_once_thread } from "./run_greedy_once_thread";
+import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 /**并行计算贪心算法搜索路径 */
 export async function greedy_first_search_routes_parallel({
+    set_best_route,
     max_routes_of_greedy,
+    get_best_route,
+    set_best_length,
+    get_best_length,
     setPheromoneZero,
     node_coordinates,
     // pathTabooList,
@@ -28,23 +28,28 @@ export async function greedy_first_search_routes_parallel({
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     // pheromoneStore: MatrixSymmetry<number>;
 } & SharedOptions): Promise<
-    [{ time_ms: number; route: number[]; total_length: number }]
+    { time_ms: number; route: number[]; total_length: number }[]
 > {
-    //TODO;
+    const routes_of_greedy = Math.min(max_routes_of_greedy, count_of_nodes);
+    //
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
-    const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
-    // const starttime = Number(new Date());
-    const route = Greedyalgorithmtosolvetspwithselectedstart(
-        node_coordinates,
-        start
+    const parallel_results = await Promise.all(
+        Array<
+            Promise<{
+                total_length: number;
+                route: number[];
+                time_ms: number;
+            }>
+        >(routes_of_greedy).fill(
+            run_greedy_once_thread(inputindexs, node_coordinates)
+        )
     );
-    const greedypath = cycle_reorganize(route, 0);
-    const total_length = closedtotalpathlength({
-        path: greedypath,
-        getdistancebyindex: creategetdistancebyindex(node_coordinates),
-    });
+    // const { total_length, route,time_ms } = await run_greedy_once_thread(
+    //     inputindexs,
+    //     node_coordinates
+    // );
     //     Greedyalgorithmtosolvetspwithallstartbest(
     //     node_coordinates
     //     // pathTabooList
@@ -57,6 +62,16 @@ export async function greedy_first_search_routes_parallel({
 
     //信息素初始化
     // MatrixFill(pheromoneStore, 1 / count_of_nodes / total_length);
+
+    const { route: oldRoute, total_length: oldLength } =
+        get_best_routeOfSeriesRoutesAndLengths(parallel_results);
+    if (get_best_route().length === 0) {
+        if (oldLength < get_best_length()) {
+            set_best_length(oldLength);
+            set_best_route(oldRoute);
+        }
+    }
+    const total_length = oldLength;
     setPheromoneZero(1 / count_of_nodes / total_length);
     // debugger
     // assert_true(pheromoneStore.values().every((a) => a > 0));
@@ -68,5 +83,6 @@ export async function greedy_first_search_routes_parallel({
     //     timems,
     //     countofloops,
     // });
-    return [{ route, total_length }];
+    // return [{ route, total_length }];
+    return parallel_results;
 }

@@ -28,7 +28,7 @@ import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { EachIterationHandler } from "./EachIterationHandler";
 
-import { EachRouteGenerator } from "./createEachRouteGenerator";
+import { EachRouteGenerator } from "./EachRouteGenerator";
 import { float64equal } from "./float64equal";
 import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
 import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
