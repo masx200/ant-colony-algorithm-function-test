@@ -1,5 +1,5 @@
 import { create_get_neighbors_from_optimal_routes_and_latest_routes } from "./create_get_neighbors_from_optimal_routes_and_latest_routes";
-
+import uniq from "lodash/uniq";
 import EventEmitterTargetClass from "@masx200/event-emitter-target";
 import { DefaultOptions } from "../src/default_Options";
 import {
@@ -58,10 +58,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     } = input;
 
     const options: Required<TSPRunnerOptions> = Object.fromEntries(
-        Object.entries(input).map(([k, v]) => [
-            k,
-            v ?? Reflect.get(DefaultOptions, k),
-        ])
+        uniq([...Object.keys(DefaultOptions), ...Object.keys(input)]).map(
+            (k) => [k, Reflect.get(input, k) ?? Reflect.get(DefaultOptions, k)]
+        )
     ) as Required<TSPRunnerOptions>;
 
     assert_number(count_of_ants);

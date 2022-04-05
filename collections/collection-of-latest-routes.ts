@@ -11,7 +11,7 @@ export class CollectionOfLatestRoutes extends Array<number[]> {
 
     #unique_string_store = new Array<string>();
     constructor(public max_size: number) {
-        assert_true(0 < max_size);
+        assert_true(0 < max_size, "max_size greater than 0");
         super();
         this.length = 0;
     }

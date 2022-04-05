@@ -3,7 +3,7 @@ import { assert_Integer } from "../test/assert_Integer";
 import uniq from "lodash/uniq";
 import { CollectionOfLatestRoutes } from "../collections/collection-of-latest-routes";
 import { CollectionOfOptimalRoutes } from "../collections/collection-of-optimal-routes";
-
+import "core-js/stable/array/at";
 export function create_get_neighbors_from_optimal_routes_and_latest_routes(
     collection_of_latest_routes: CollectionOfLatestRoutes | undefined,
     collection_of_optimal_routes: CollectionOfOptimalRoutes | undefined
