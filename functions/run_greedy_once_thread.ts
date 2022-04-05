@@ -9,7 +9,7 @@ import { thread_Greedy_algorithm_to_solve_tsp_with_selected_start } from "../src
 export async function run_greedy_once_thread(
     inputindexs: number[],
     node_coordinates: NodeCoordinates
-): Promise<{ total_length: number; route: number[]; time_ms: number; }> {
+): Promise<{ total_length: number; route: number[]; time_ms: number }> {
     const start_time = Number(new Date());
     const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
 
