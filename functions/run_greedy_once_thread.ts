@@ -24,6 +24,6 @@ export async function run_greedy_once_thread(
         getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });
     const end_time = Number(new Date());
-    const time_ms = start_time - end_time;
+    const time_ms = -start_time + end_time;
     return { total_length, route: greedypath, time_ms };
 }
