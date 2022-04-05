@@ -27,13 +27,14 @@ export class collection_of_optimal_routes extends Array<number[]> {
 
     #unique_string_store = new Array<string>();
     constructor(public max_size: number) {
-        assert_true(0 < max_size,"max_size greater than 0");
+        // console.log({ max_size });
+        assert_true(0 < max_size, "max_size greater than 0");
         super();
         this.length = 0;
     }
 
     add(route: number[], length: number) {
-        assert_true(route.length > 0,"route length is not greater than 0");
+        assert_true(route.length > 0, "route length is not greater than 0");
         assert_number(length);
         assert_true(0 < length, "length must be greater than 0");
         assert_true(Infinity > length);
@@ -58,7 +59,8 @@ export class collection_of_optimal_routes extends Array<number[]> {
             const index = longest.index;
             assignOwnKeys(
                 this,
-                this.filter((_v, i) => i !== index)
+                //filter会创建一个新的数组,导致max_size==0
+                Array.from(this).filter((_v, i) => i !== index)
             );
             this.#unique_string_store = this.#unique_string_store.filter(
                 (_v, i) => i !== index
