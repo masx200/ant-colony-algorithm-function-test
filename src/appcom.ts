@@ -1,4 +1,4 @@
-import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "./thread_Greedy_algorithm_to_solve_tsp_with_selected_start";
+import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "./Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 
 import {
     computed,

@@ -31,6 +31,7 @@ export async function greedy_first_search_routes_parallel({
     { time_ms: number; route: number[]; total_length: number }[]
 > {
     const routes_of_greedy = Math.min(max_routes_of_greedy, count_of_nodes);
+    // console.log(routes_of_greedy);
     //
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
