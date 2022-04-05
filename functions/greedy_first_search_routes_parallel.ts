@@ -6,11 +6,7 @@ import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeries
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 /**并行计算贪心算法搜索路径 */
 export async function greedy_first_search_routes_parallel({
-    set_best_route,
     max_routes_of_greedy,
-    get_best_route,
-    set_best_length,
-    get_best_length,
     setPheromoneZero,
     node_coordinates,
     // pathTabooList,
@@ -37,16 +33,17 @@ export async function greedy_first_search_routes_parallel({
         .fill(0)
         .map((_v, i) => i);
     const parallel_results = await Promise.all(
-        Array<
+        Array.from<
             Promise<{
                 total_length: number;
                 route: number[];
                 time_ms: number;
             }>
-        >(routes_of_greedy).fill(
+        >({ length: routes_of_greedy }).map(() =>
             run_greedy_once_thread(inputindexs, node_coordinates)
         )
     );
+
     // const { total_length, route,time_ms } = await run_greedy_once_thread(
     //     inputindexs,
     //     node_coordinates
@@ -64,16 +61,10 @@ export async function greedy_first_search_routes_parallel({
     //信息素初始化
     // MatrixFill(pheromoneStore, 1 / count_of_nodes / total_length);
 
-    const { route: oldRoute, total_length: oldLength } =
+    const { total_length: best_length } =
         get_best_routeOfSeriesRoutesAndLengths(parallel_results);
-    if (get_best_route().length === 0) {
-        if (oldLength < get_best_length()) {
-            set_best_length(oldLength);
-            set_best_route(oldRoute);
-        }
-    }
-    const total_length = oldLength;
-    setPheromoneZero(1 / count_of_nodes / total_length);
+
+    setPheromoneZero(1 / count_of_nodes / best_length);
     // debugger
     // assert_true(pheromoneStore.values().every((a) => a > 0));
     // const endtime = Number(new Date());

@@ -40,6 +40,7 @@ import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { create_collection_of_latest_routes } from "../collections/collection-of-latest-routes";
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
 import { greedy_first_search_routes_parallel } from "./greedy_first_search_routes_parallel";
+import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
@@ -298,8 +299,20 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             const greedy_results = await greedy_first_search_routes_parallel({
                 ...shared,
             });
-
+Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
             greedy_results.forEach(({ route, total_length, time_ms }) => {
+                const oldLength = total_length;
+                const oldRoute = route;
+                if (get_best_route().length === 0) {
+                    if (oldLength < get_best_length()) {
+                        set_best_length(oldLength);
+                        set_best_route(oldRoute);
+                    }
+                }
+                if (oldLength < get_best_length()) {
+                    set_best_length(oldLength);
+                    set_best_route(oldRoute);
+                }
                 onRouteCreated(route, total_length);
 
                 emit_finish_one_route({
