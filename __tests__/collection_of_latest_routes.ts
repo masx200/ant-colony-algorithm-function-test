@@ -23,8 +23,8 @@ it("collection_of_latest_routes", () => {
         });
     expect(cl.length).toBe(10);
     // console.log(Object.entries( cl));
-    expect(cl[0]).toEqual([1, 2, 3,4,6 ,10]);
-    expect(cl.slice(-1)[0]).toEqual([1, 2, 3,4,6, 19]);
+    expect(cl[0]).toEqual([1, 2, 3, 4, 6, 10]);
+    expect(cl.slice(-1)[0]).toEqual([1, 2, 3, 4, 6, 19]);
     expect(cl[Symbol.toStringTag]).toBe("CollectionOfLatestRoutes");
     expect(cl.max_size).toBe(10);
 });

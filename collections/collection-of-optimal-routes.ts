@@ -7,7 +7,9 @@ export function create_collection_of_optimal_routes(max_size: number) {
     return new collection_of_optimal_routes(max_size);
 }
 export class collection_of_optimal_routes extends Array<number[]> {
-    get[Symbol.toStringTag](){return "CollectionOfOptimalRoutes";}
+    get [Symbol.toStringTag]() {
+        return "CollectionOfOptimalRoutes";
+    }
 
     #get_longest_length_of_routes():
         | { index: number; value: number }
