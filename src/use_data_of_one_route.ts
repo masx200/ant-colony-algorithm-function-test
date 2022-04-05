@@ -31,7 +31,7 @@ export function use_data_of_one_route() {
         return dataofoneroute.map((data, index) => {
             return [
                 index + 1,
-                data.totallength,
+                data.total_length,
                 // data.countofloops,
                 //找到这一条的路径的数据
                 data.globalbestlength,

@@ -2,18 +2,18 @@
 export function get_best_routeOfSeriesRoutesAndLengths(
     routesandlengths: {
         route: number[];
-        totallength: number;
+        total_length: number;
     }[]
 ): {
     route: number[];
-    totallength: number;
+    total_length: number;
 } {
     if (!(routesandlengths.length > 0)) {
         throw new Error("routesandlengths empty!");
     }
     const iteratebestlengthandroute = routesandlengths.reduce(
         (previous, current) => {
-            return previous.totallength < current.totallength
+            return previous.total_length < current.total_length
                 ? previous
                 : current;
         },

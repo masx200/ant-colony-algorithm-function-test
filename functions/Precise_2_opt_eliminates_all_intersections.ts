@@ -40,22 +40,22 @@ export function Precise_2_opt_eliminates_all_intersections({
                 );
             const routesAndLengths = routes_of_2_opt_accurate
                 .map((route) => {
-                    const totallength = closedtotalpathlength({
+                    const total_length = closedtotalpathlength({
                         // count_of_nodes: route.length,
                         path: route,
                         getdistancebyindex:
                             creategetdistancebyindex(node_coordinates),
                     });
-                    return { totallength, route };
+                    return { total_length, route };
                 })
-                .filter((a) => a.totallength !== length);
+                .filter((a) => a.total_length !== length);
             /* routesAndLengths可能为空了 */
             const {
                 route: best_route_of_2_opt,
-                totallength: best_length_of_2_opt,
+                total_length: best_length_of_2_opt,
             } = routesAndLengths.length
                 ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
-                : { totallength: length, route: route };
+                : { total_length: length, route: route };
 
             route = best_route_of_2_opt;
             length = best_length_of_2_opt;

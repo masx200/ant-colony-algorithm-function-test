@@ -26,7 +26,7 @@ export function greedy_first_search_route({
     // set_best_route: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     // pheromoneStore: MatrixSymmetry<number>;
-} & SharedOptions): { route: number[]; totallength: number } {
+} & SharedOptions): { route: number[]; total_length: number } {
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
@@ -37,7 +37,7 @@ export function greedy_first_search_route({
         start
     );
     const greedypath = cycle_reorganize(route, 0);
-    const totallength = closedtotalpathlength({
+    const total_length = closedtotalpathlength({
         path: greedypath,
         getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });
@@ -48,21 +48,21 @@ export function greedy_first_search_route({
 
     // const countofloops = count_of_nodes * count_of_nodes;
 
-    // set_best_length(totallength);
+    // set_best_length(total_length);
     // set_best_route(route);
 
     //信息素初始化
-    // MatrixFill(pheromoneStore, 1 / count_of_nodes / totallength);
-    setPheromoneZero(1 / count_of_nodes / totallength);
+    // MatrixFill(pheromoneStore, 1 / count_of_nodes / total_length);
+    setPheromoneZero(1 / count_of_nodes / total_length);
     // debugger
     // assert_true(pheromoneStore.values().every((a) => a > 0));
     // const endtime = Number(new Date());
     // const timems = endtime - starttime;
     // emit_finish_one_route({
     //     route,
-    //     totallength,
+    //     total_length,
     //     timems,
     //     countofloops,
     // });
-    return { route, totallength };
+    return { route, total_length };
 }

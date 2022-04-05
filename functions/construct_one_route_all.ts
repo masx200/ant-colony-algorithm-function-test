@@ -31,7 +31,7 @@ export function construct_one_route_all(
     } & SharedOptions
 ): {
     route: number[];
-    totallength: number;
+    total_length: number;
     // way_of_construct: WayOfConstruct;
 } {
     const {
@@ -54,7 +54,7 @@ export function construct_one_route_all(
         lastrandomselectionprobability,
     } = options;
     // let route: number[] | undefined = undefined;
-    // let totallength: number | undefined = undefined;
+    // let total_length: number | undefined = undefined;
     if (current_search_count === 0) {
         const result = greedy_first_search_route({
             ...options,
@@ -69,7 +69,7 @@ export function construct_one_route_all(
         });
         return { ...result /* , way_of_construct: "贪心算法" */ };
         // route = result.route;
-        // totallength = result.totallength;
+        // total_length = result.total_length;
     } /*  if (
         !intersection_filter_with_cycle_route({
             node_coordinates,
@@ -94,7 +94,7 @@ export function construct_one_route_all(
     // function 禁忌搜索(): {
     //     // way_of_construct: WayOfConstruct;
     //     route: number[];
-    //     totallength: number;
+    //     total_length: number;
     // } {
     //     const result = adaptive_tabu_search_builds_a_path_and_updates_pheromone(
     //         {
@@ -117,14 +117,14 @@ export function construct_one_route_all(
     //         }
     //     );
     //     // route = result.route;
-    //     // totallength = result.totallength;
+    //     // total_length = result.total_length;
     //     return { ...result /* , way_of_construct: "禁忌搜索" */ };
     // }
 
     // function 局部优化(): {
     //     // way_of_construct: WayOfConstruct;
     //     route: number[];
-    //     totallength: number;
+    //     total_length: number;
     // } {
     //     const result = construct_route_from_k_opt_of_global_best({
     //         get_best_route,
@@ -136,11 +136,11 @@ export function construct_one_route_all(
     //         set_best_route,
     //     });
     //     //最优解有交叉点,对最优解进行局部优化k-opt
-    //     // routesandlengths.push({ route, totallength });
+    //     // routesandlengths.push({ route, total_length });
     //     return {
     //         ...result,
     //         // way_of_construct: "局部优化",
     //     };
     // }
-    // return { route, totallength };
+    // return { route, total_length };
 }

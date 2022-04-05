@@ -23,19 +23,19 @@ export function Random_K_OPT_full_limited_find_best({
 
     const routesAndLengths = routes_of_k_opt
         .map((route) => {
-            const totallength = closedtotalpathlength({
+            const total_length = closedtotalpathlength({
                 // count_of_nodes: route.length,
                 path: route,
                 getdistancebyindex: creategetdistancebyindex(node_coordinates),
             });
-            return { totallength, route };
+            return { total_length, route };
         })
-        .filter((a) => a.totallength !== oldLength);
+        .filter((a) => a.total_length !== oldLength);
     /* routesAndLengths可能为空了 */
-    const { route: best_route_of_k_opt, totallength: best_length_of_k_opt } =
+    const { route: best_route_of_k_opt, total_length: best_length_of_k_opt } =
         routesAndLengths.length
             ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
-            : { route: oldRoute, totallength: oldLength };
+            : { route: oldRoute, total_length: oldLength };
     let route = best_route_of_k_opt;
     let length = best_length_of_k_opt;
     return { route, length };

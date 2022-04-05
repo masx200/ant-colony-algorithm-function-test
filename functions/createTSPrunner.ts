@@ -143,7 +143,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     /* 一次迭代的路径和长度 */
     const routesandlengths: {
         route: number[];
-        totallength: number;
+        total_length: number;
     }[] = [];
 
     const get_total_time_ms = () => {
@@ -279,12 +279,19 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     function set_weight_of_opt_current(value: number) {
         weight_of_opt_current = value;
     }
-
+    function onRouteCreated(route: number[], length: number) {
+        if (collection_of_optimal_routes) {
+            collection_of_optimal_routes.add(route, length);
+        }
+        if (collection_of_latest_routes) {
+            collection_of_latest_routes.add(route);
+        }
+    }
     function runOneRoute() {
         const starttime_of_one_route = Number(new Date());
         const {
             route,
-            totallength,
+            total_length,
             // weight_of_opt_best,
             // weight_of_opt_current,
         } = EachRouteGenerator({
@@ -309,7 +316,8 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             setPheromoneZero,
         });
         const endtime_of_one_route = Number(new Date());
-        routesandlengths.push({ route, totallength });
+        onRouteCreated(route, total_length);
+        routesandlengths.push({ route, total_length });
         const time_ms_of_one_route =
             endtime_of_one_route - starttime_of_one_route;
         time_ms_of_one_iteration += time_ms_of_one_route;
@@ -321,7 +329,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             // way_of_construct,
             time_ms_of_one_route: time_ms_of_one_route,
             route,
-            totallength,
+            total_length,
         });
         if (routesandlengths.length === count_of_ants) {
             const starttime_of_process_iteration = Number(new Date());

@@ -9,7 +9,7 @@ import { NodeCoordinates } from "./NodeCoordinates";
 export function Greedyalgorithmtosolvetspwithallstartbest(
     node_coordinates: NodeCoordinates
     // pathTabooList: PathTabooList
-): { route: number[]; totallength: number } {
+): { route: number[]; total_length: number } {
     // const { length } = node_coordinates;
     const greedypathsandlengths: {
         routelength: number;
@@ -18,7 +18,7 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
     const bestlengthsandroutes = get_best_routeOfSeriesRoutesAndLengths(
         greedypathsandlengths.map(({ route, routelength }) => ({
             route,
-            totallength: routelength,
+            total_length: routelength,
         }))
     );
 
@@ -31,7 +31,7 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
     //     greedypathsandlengths[0]
     // );
 
-    const bestlength = bestlengthsandroutes.totallength;
+    const bestlength = bestlengthsandroutes.total_length;
     const result = bestlengthsandroutes.route;
     // for (let [routelength, route] of) {
     //     if (routelength < bestlength) {
@@ -49,5 +49,5 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
     //         pathTabooList.add(route);
     //     }
     // });
-    return { route: result, totallength: bestlength };
+    return { route: result, total_length: bestlength };
 }

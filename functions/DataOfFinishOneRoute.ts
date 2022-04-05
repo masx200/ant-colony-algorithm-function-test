@@ -13,7 +13,7 @@ export type DataOfFinishOneRoute = {
     current_search_count: number;
     time_ms_of_one_route: number;
     route: number[];
-    totallength: number;
+    total_length: number;
     // countofloops: number;
 };
 //& DataOfGlobalBest;

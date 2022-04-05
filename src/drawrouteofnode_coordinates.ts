@@ -17,7 +17,7 @@ export function drawrouteofnode_coordinates({
 }) {
     //画图的时候重新排列一下顺序
     const greedypath = cycle_reorganize(route, 0);
-    const totallength = closedtotalpathlength({
+    const total_length = closedtotalpathlength({
         path: route,
         getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });
@@ -26,13 +26,13 @@ export function drawrouteofnode_coordinates({
     );
     // console.log("贪心算法路径结果画图坐标", linechardata);
     // console.log("贪心算法得到的路径是", greedypath);
-    // console.log("贪心算法得到的长度是", totallength);
+    // console.log("贪心算法得到的长度是", total_length);
     // console.log("test drawlinechart", route, greedypath);
     // const chart = chart;
     drawlinechart({
         // resize,
         data: linechardata,
         chart: chart,
-        titletext: `城市数:${node_coordinates.length},路径长度:${totallength}`,
+        titletext: `城市数:${node_coordinates.length},路径长度:${total_length}`,
     });
 }

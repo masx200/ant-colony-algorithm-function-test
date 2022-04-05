@@ -32,7 +32,7 @@ export function generate_paths_using_state_transition_probabilities(
     } & SharedOptions
 ): {
     route: number[];
-    totallength: number;
+    total_length: number;
     // countofloops: number;
 } {
     // const filternotforbiddenbeforepick: FilterForbiddenBeforePick =
@@ -130,7 +130,7 @@ export function generate_paths_using_state_transition_probabilities(
         path: route,
         getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });
-    const totallength = routelength;
+    const total_length = routelength;
     // console.log("路径一条构建完成,循环次数", trycount);
     // const endtime = Number(new Date());
     //console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
@@ -138,5 +138,5 @@ export function generate_paths_using_state_transition_probabilities(
     //   "路径一条构建完成,平均每次循环消耗的时间毫秒",
     //    (endtime - starttime) / trycount
     //   );
-    return { route, totallength /* countofloops: trycount  */ };
+    return { route, total_length /* countofloops: trycount  */ };
 }

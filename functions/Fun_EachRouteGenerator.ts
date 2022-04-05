@@ -48,7 +48,7 @@ export interface EachRouteGeneratorOptions {
 //     set_best_route,
 // }: EachRouteGeneratorOptions) => {
 //     route: number[];
-//     totallength: number;
+//     total_length: number;
 //     // weight_of_opt_best: number;
 //     // weight_of_opt_current: number;
 // };

@@ -9,43 +9,43 @@ export function testgreedyconstructroutebest(
     node_coordinates: NodeCoordinates
 ): {
     greedypath: number[];
-    totallength: number;
+    total_length: number;
 } {
     // console.log("贪心算法测试开始");
 
     // console.log("贪心算法要解决的问题的坐标是", node_coordinates);
     const greedypathsandlengths =
         construct_all_greed_routes_and_lengths(node_coordinates);
-    const { route: greedypath, totallength } =
+    const { route: greedypath, total_length } =
         get_best_routeOfSeriesRoutesAndLengths(
             greedypathsandlengths.map(({ route, routelength }) => ({
                 route,
-                totallength: routelength,
+                total_length: routelength,
             }))
         );
     // console.log("贪心算法得到的路径是", greedypath);
 
-    // const totallength = closedtotalpathlength(greedypath, node_coordinates);
-    // console.log("贪心算法得出的路径长度", totallength);
+    // const total_length = closedtotalpathlength(greedypath, node_coordinates);
+    // console.log("贪心算法得出的路径长度", total_length);
 
     if (
         typeof cachebestlengthofnode_coordinates.get(node_coordinates) !==
         "number"
     ) {
-        cachebestlengthofnode_coordinates.set(node_coordinates, totallength);
+        cachebestlengthofnode_coordinates.set(node_coordinates, total_length);
         cachebestrouteofnode_coordinates.set(node_coordinates, greedypath);
     } else {
         const bestlength =
             cachebestlengthofnode_coordinates.get(node_coordinates);
-        if (bestlength && bestlength > totallength) {
+        if (bestlength && bestlength > total_length) {
             cachebestlengthofnode_coordinates.set(
                 node_coordinates,
-                totallength
+                total_length
             );
             cachebestrouteofnode_coordinates.set(node_coordinates, greedypath);
         }
     }
     assert_true(greedypath.length === node_coordinates.length);
     // console.log("贪心算法测试结束");
-    return { greedypath, totallength };
+    return { greedypath, total_length };
 }
