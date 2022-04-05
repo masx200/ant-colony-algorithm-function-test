@@ -39,7 +39,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     alpha_zero: default_alpha,
     beta_zero: default_beta,
     count_of_ants: default_count_of_ants,
-    max_size_of_collection_of_optimal_routes:20,
-    max_size_of_collection_of_latest_routes:20,
+    max_size_of_collection_of_optimal_routes: 20,
+    max_size_of_collection_of_latest_routes: 20,
 };
 export { DefaultOptions };
