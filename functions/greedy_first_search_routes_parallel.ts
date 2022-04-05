@@ -27,7 +27,10 @@ export async function greedy_first_search_routes_parallel({
     // set_best_route: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     // pheromoneStore: MatrixSymmetry<number>;
-    } & SharedOptions): Promise<[{ time_ms: number; route: number[]; total_length: number }]> {
+} & SharedOptions): Promise<
+    [{ time_ms: number; route: number[]; total_length: number }]
+> {
+    //TODO;
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);

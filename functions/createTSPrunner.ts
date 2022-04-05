@@ -294,9 +294,25 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     }
     async function runOneRoute() {
         if (current_search_count === 0) {
-            //TODO 并行计算贪心路径 共 max_routes_of_greedy 条
+            // 并行计算贪心路径 共 max_routes_of_greedy 条
             const greedy_results = await greedy_first_search_routes_parallel({
                 ...shared,
+            });
+
+            greedy_results.forEach(({ route, total_length, time_ms }) => {
+                onRouteCreated(route, total_length);
+
+                emit_finish_one_route({
+                    probability_of_opt_best: get_probability_of_opt_best(),
+                    probability_of_opt_current:
+                        get_probability_of_opt_current(),
+                    // weight_of_opt_best,
+                    // weight_of_opt_current,
+                    // way_of_construct,
+                    time_ms_of_one_route: time_ms,
+                    route,
+                    total_length,
+                });
             });
         }
         const starttime_of_one_route = Number(new Date());
