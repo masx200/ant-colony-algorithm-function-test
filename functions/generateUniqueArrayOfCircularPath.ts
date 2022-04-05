@@ -4,9 +4,10 @@ import { reversearray } from "./reversearray";
 
 export function generateUniqueArrayOfCircularPath(route: number[]): number[] {
     assert_true(route.length > 2);
-    const reversed = cycle_reorganize(reversearray(route), 0);
+    const start = Math.min(...route);
+    const reversed = cycle_reorganize(reversearray(route), start);
 
-    route = cycle_reorganize(route, 0);
+    route = cycle_reorganize(route, start);
 
     return route[1] > reversed[1] ? reversed : route;
 }

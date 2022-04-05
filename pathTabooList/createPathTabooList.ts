@@ -103,21 +103,21 @@ export function createpathTabooList<N extends number = number>(
         const result = oldptl.has(route);
         if (result) {
             cacheset.add(JSON.stringify(route));
-            console.log("cacheset.size", cacheset.size);
-            console.log("oldptl.size", oldptl.size());
+            // console.log("cacheset.size", cacheset.size);
+            // console.log("oldptl.size", oldptl.size());
         }
         return result;
     }
     function cachedelete(route: number[]): boolean {
         if (!oldptl.has(route)) {
-            console.log(`Cannot delete route ${route}`);
+            // console.log(`Cannot delete route ${route}`);
             return false;
         }
-        console.log(`should delete route ${route}`);
+        // console.log(`should delete route ${route}`);
         oldptl.delete(route);
         cacheset.delete(JSON.stringify(route));
-        console.log("cacheset.size", cacheset.size);
-        console.log("oldptl.size", oldptl.size());
+        // console.log("cacheset.size", cacheset.size);
+        // console.log("oldptl.size", oldptl.size());
         cacheset.forEach((s) => {
             const value = JSON.parse(s);
 
@@ -130,18 +130,18 @@ export function createpathTabooList<N extends number = number>(
 
         return true;
     }
-    console.log(cachedelete);
+    // console.log(cachedelete);
     function cacheclear() {
         oldptl.clear();
         cacheset.clear();
-        console.log("cacheset.size", cacheset.size);
-        console.log("oldptl.size", oldptl.size());
+        // console.log("cacheset.size", cacheset.size);
+        // console.log("oldptl.size", oldptl.size());
     }
     function cachedadd(route: number[]) {
         cacheset.add(JSON.stringify(route));
         oldptl.add(route);
-        console.log("cacheset.size", cacheset.size);
-        console.log("oldptl.size", oldptl.size());
+        // console.log("cacheset.size", cacheset.size);
+        // console.log("oldptl.size", oldptl.size());
     }
     return {
         ...oldptl,

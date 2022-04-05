@@ -5,12 +5,15 @@ export function create_collection_of_latest_routes(max_size: number) {
     return new collection_of_latest_routes(max_size);
 }
 export class collection_of_latest_routes extends Array<number[]> {
-    length = 0;
+    get [Symbol.toStringTag]() {
+        return "CollectionOfLatestRoutes";
+    }
 
     #unique_string_store = new Array<string>();
     constructor(public max_size: number) {
         assert_true(0 < max_size);
         super();
+        this.length = 0;
     }
     //新的在后,旧的在前
     add(route: number[]) {

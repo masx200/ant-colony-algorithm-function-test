@@ -4,4 +4,4 @@ export const cachebestlengthofnode_coordinates = new WeakMap<
     NodeCoordinates,
     number
 >();
-console.log(cachebestlengthofnode_coordinates);
+// console.log(cachebestlengthofnode_coordinates);
