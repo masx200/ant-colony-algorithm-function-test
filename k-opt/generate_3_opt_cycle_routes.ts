@@ -1,5 +1,5 @@
 import { assert_true } from "../test/assert_true";
-import { reversearray } from "./reversearray";
+import { reversearray } from "../functions/reversearray";
 import { split_cycle_route_to_3_sections } from "./split_cycle_route_to_3_sections";
 import { whether_3_sections_reverse_opt } from "./whether_3_sections_reverse_opt";
 /* 生成3-opt的路径 */

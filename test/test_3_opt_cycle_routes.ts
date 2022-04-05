@@ -1,7 +1,7 @@
 import { sum } from "lodash";
-import { divide_route_to_k_opt_random } from "../functions/divide_route_to_k-opt-random";
-import { generate_3_opt_cycle_routes } from "../functions/generate_3_opt_cycle_routes";
-import { split_cycle_route_to_3_sections } from "../functions/split_cycle_route_to_3_sections";
+import { divide_route_to_k_opt_random } from "../k-opt/divide_route_to_k-opt-random";
+import { generate_3_opt_cycle_routes } from "../k-opt/generate_3_opt_cycle_routes";
+import { split_cycle_route_to_3_sections } from "../k-opt/split_cycle_route_to_3_sections";
 import { assert_true } from "./assert_true";
 
 export function test_3_opt_cycle_routes() {

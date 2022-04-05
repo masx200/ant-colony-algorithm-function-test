@@ -27,6 +27,7 @@
         "pathTabooList",
         "bin",
         "__tests__",
-        "cross-points/*.ts"
+        "cross-points/*.ts",
+        "k-opt/*.ts"
     ]
 }

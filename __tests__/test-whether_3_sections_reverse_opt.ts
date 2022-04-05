@@ -1,4 +1,4 @@
-import { whether_3_sections_reverse_opt } from "../functions/whether_3_sections_reverse_opt";
+import { whether_3_sections_reverse_opt } from "../k-opt/whether_3_sections_reverse_opt";
 
 it("whether_3_sections_reverse_opt", () => {
     const result = Array.from(whether_3_sections_reverse_opt());

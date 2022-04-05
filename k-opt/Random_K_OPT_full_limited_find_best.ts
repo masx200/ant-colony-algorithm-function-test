@@ -1,8 +1,9 @@
-import { NodeCoordinates } from "./NodeCoordinates";
 import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
-import { closedtotalpathlength } from "./closed-total-path-length";
-import { creategetdistancebyindex } from "./creategetdistancebyindex";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+
+import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
+import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 
 /** 有限随机k-opt优化,并找出其中的最优,尽可能去除与原路径一样的路径  */
 export function Random_K_OPT_full_limited_find_best({

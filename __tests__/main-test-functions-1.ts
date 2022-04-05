@@ -6,7 +6,6 @@ import { testpathTabooList } from "../test/testPathTabooList";
 import { testgreedynode_coordinates6 } from "../test/testgreedynode_coordinates6";
 
 it("main test functions-1", () => {
-  
     testpathTabooList();
     testcheckcurrentsegmentsintersectnextsegment();
     testclosedtotalpathlength();

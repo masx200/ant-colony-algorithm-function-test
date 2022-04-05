@@ -1,4 +1,4 @@
-import { random_k_opt_limited_full } from "../functions/random_k_opt_limited_full";
+import { random_k_opt_limited_full } from "../k-opt/random_k_opt_limited_full";
 import { assertshouldcatcherror } from "../test/assertshouldcatcherror";
 
 it("random_k_opt_limited_full", () => {

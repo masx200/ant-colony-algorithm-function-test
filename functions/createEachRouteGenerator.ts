@@ -8,7 +8,7 @@ import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeries
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 import { Precise_2_opt_eliminates_all_intersections } from "../cross-points/Precise_2_opt_eliminates_all_intersections";
 import { Precise_2_opt_eliminates_partial_cross_points } from "../cross-points/Precise_2_opt_eliminates_partial_cross_points";
-import { Random_K_OPT_full_limited_find_best } from "./Random_K_OPT_full_limited_find_best";
+import { Random_K_OPT_full_limited_find_best } from "../k-opt/Random_K_OPT_full_limited_find_best";
 import { SharedOptions } from "./SharedOptions";
 export function EachRouteGenerator(
     options: EachRouteGeneratorOptions & SharedOptions

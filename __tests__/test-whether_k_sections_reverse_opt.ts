@@ -1,4 +1,4 @@
-import { whether_k_sections_reverse_opt } from "../functions/whether_k_sections_reverse-opt";
+import { whether_k_sections_reverse_opt } from "../k-opt/whether_k_sections_reverse-opt";
 
 it("whether_k_sections_reverse_opt", () => {
     test1();

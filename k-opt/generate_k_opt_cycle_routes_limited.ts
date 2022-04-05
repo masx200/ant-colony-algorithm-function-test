@@ -1,7 +1,8 @@
 import { assert_true } from "../test/assert_true";
 import { divide_route_to_k_opt_random } from "./divide_route_to_k-opt-random";
-import { reversearray } from "./reversearray";
-import { whether_k_sections_reverse_opt } from "./whether_k_sections_reverse-opt";
+
+import { whether_k_sections_reverse_opt } from "../k-opt/whether_k_sections_reverse-opt";
+import { reversearray } from "../functions/reversearray";
 // import { split_cycle_route_to_3_sections } from "./split_cycle_route_to_3_sections";
 // import { whether_3_sections_reverse_opt } from "./whether_3_sections_reverse_opt";
 /* 生成k-opt的路径 */

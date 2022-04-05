@@ -1,9 +1,9 @@
 import { random, sum } from "lodash";
 import { assert_true } from "../test/assert_true";
-import { cycle_reorganize } from "./cycle_reorganize";
-import { getnumberfromarrayofnmber } from "./getnumberfromarrayofnmber";
-import { pickRandomOne } from "./pickRandomOne";
-import { reversearray } from "./reversearray";
+import { cycle_reorganize } from "../functions/cycle_reorganize";
+import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
+import { pickRandomOne } from "../functions/pickRandomOne";
+import { reversearray } from "../functions/reversearray";
 
 //解方程
 //sum(length_of_parts)=oldRoute.length
