@@ -1,4 +1,5 @@
 import { create_collection_of_latest_routes } from "../collections/collection-of-latest-routes";
+import { entriesOwnKeys } from "../collections/entriesOwnKeys";
 
 it("collection_of_latest_routes", () => {
     const cl = create_collection_of_latest_routes(10);
@@ -39,5 +40,19 @@ it("collection_of_latest_routes", () => {
         [1, 2, 3, 4, 6, 17],
         [1, 2, 3, 4, 6, 18],
         [1, 2, 3, 4, 6, 19],
+    ]);
+    expect(entriesOwnKeys(cl)).toEqual([
+        ["0", [1, 2, 3, 4, 6, 10]],
+        ["1", [1, 2, 3, 4, 6, 11]],
+        ["2", [1, 2, 3, 4, 6, 12]],
+        ["3", [1, 2, 3, 4, 6, 13]],
+        ["4", [1, 2, 3, 4, 6, 14]],
+        ["5", [1, 2, 3, 4, 6, 15]],
+        ["6", [1, 2, 3, 4, 6, 16]],
+        ["7", [1, 2, 3, 4, 6, 17]],
+        ["8", [1, 2, 3, 4, 6, 18]],
+        ["9", [1, 2, 3, 4, 6, 19]],
+        ["length", 10],
+        ["max_size", 10],
     ]);
 });
