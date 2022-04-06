@@ -22,7 +22,7 @@ export type TSP_Runner = Required<TSPRunnerOptions> &
         get_time_of_best(): number;
         get_search_count_of_best(): number;
         on_best_change: (callback: (data: DataOfBestChange) => void) => void;
-        runOneRoute: () => Promise<void>;
+        // runOneRoute: () => Promise<void>;
         runOneIteration: () => Promise<void>;
 
         get_total_time_ms: () => number;
@@ -55,5 +55,5 @@ export type TSP_Runner = Required<TSPRunnerOptions> &
         on_finish_greedy_iteration: (
             callback: (data: DataOfFinishGreedyIteration) => void
         ) => void;
-        runRoutes: (count: number) => Promise<void>;
+        // runRoutes: (count: number) => Promise<void>;
     };

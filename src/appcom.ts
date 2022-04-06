@@ -379,7 +379,7 @@ export default defineComponent({
                     onglobal_best_routeChange,
                     node_coordinates: await node_coordinates(),
                     count_of_ants,
-                    // round_of_search,
+                    // iterations_of_search,
                     onLatestRouteChange,
                 });
                 // console.log("runner", runner);

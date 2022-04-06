@@ -21,7 +21,7 @@ export type Fun_TSP_Before_Start = ({
         latestroute: number[],
         node_coordinates: NodeCoordinates
     ) => void;
-    // round_of_search: number;
+    // iterations_of_search: number;
     count_of_ants: number;
     node_coordinates: NodeCoordinates;
 }) => Promise<TSP_Worker_Remote>;

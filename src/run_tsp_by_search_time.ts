@@ -18,7 +18,7 @@ export async function run_tsp_by_search_time({
     // finish_one_iteration_listener,
     onprogress,
 }: {
-    runner: { runRoutes: (count: number) => Promise<void> };
+    runner: Parameters<typeof tsp_runner_run_async>[0]["runner"];
     // coefficient_of_pheromone_Increase_Non_Optimal_Paths: Ref<number>;
     search_time_seconds: Ref<number>;
     // count_of_ants_ref: Ref<number>;
@@ -73,7 +73,7 @@ export async function run_tsp_by_search_time({
         //     onglobal_best_routeChange,
         //     node_coordinates: await node_coordinates(),
         //     count_of_ants,
-        //     // round_of_search,
+        //     // iterations_of_search,
         //     onLatestRouteChange,
         // });
         // // console.log("runner", runner);

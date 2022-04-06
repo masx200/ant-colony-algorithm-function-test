@@ -13,6 +13,6 @@ export type TSP_Worker_API = TSP_Runner & {
     on_finish_one_route: (
         callback: (data: DataOfFinishOneRoute) => void
     ) => void;
-    runOneRoute: () => void;
+    // runOneRoute: () => void;
     init_runner: (options: TSPRunnerOptions) => void;
 };

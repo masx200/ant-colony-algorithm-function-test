@@ -23,7 +23,12 @@ export async function run_tsp_by_search_rounds({
 // finish_one_route_listener,
 // finish_one_iteration_listener,
 {
-    runner: { runRoutes: (count: number) => Promise<void> };
+    runner: {
+        // runOneRoute: () => Promise<void>;
+        runIterations: (iterations: number) => Promise<void>;
+        runOneIteration: () => Promise<void>;
+        // runRoutes: (count: number) => Promise<void>;
+    };
     // coefficient_of_pheromone_Increase_Non_Optimal_Paths: Ref<number>;
     onprogress: (percentage: number) => void;
     // TSP_before_Start: Fun_TSP_Before_Start;
@@ -49,7 +54,7 @@ export async function run_tsp_by_search_rounds({
     // coefficient_of_pheromone_Increase_Non_Optimal_Paths.value;
     // console.log("搜索轮次", searchrounds.value);
     // console.log("蚂蚁数量", count_of_ants_ref.value);
-    const round_of_search = searchrounds.value;
+    const iterations_of_search = searchrounds.value;
     const count_of_ants_value = count_of_ants_ref.value;
     // const element = selecteleref.value;
     // element && (element.selectedIndex = 0);
@@ -58,7 +63,7 @@ export async function run_tsp_by_search_rounds({
     // local_pheromone_volatilization_rate.value;
     if (
         // pheromone_volatility_coefficient_R1 > 0 &&
-        round_of_search > 0 &&
+        iterations_of_search > 0 &&
         count_of_ants_value >= 2 /* &&
         node_coordinates */
     ) {
@@ -66,7 +71,7 @@ export async function run_tsp_by_search_rounds({
         const count_of_ants = count_of_ants_value;
         // console.log(node_coordinates);
         assert_number(count_of_ants);
-        assert_number(round_of_search);
+        assert_number(iterations_of_search);
         // assertnumber(pheromone_volatility_coefficient_R1);
         is_running.value = true;
         // const onFinishIteration = () => {
@@ -80,18 +85,18 @@ export async function run_tsp_by_search_rounds({
         //     onglobal_best_routeChange,
         //     node_coordinates: await node_coordinates(),
         //     count_of_ants,
-        //     // round_of_search,
+        //     // iterations_of_search,
         //     onLatestRouteChange,
         // });
         // // console.log("runner", runner);
 
         // await runner.on_finish_one_route(finish_one_route_listener);
         // await runner.on_finish_one_iteration(finish_one_iteration_listener);
-        const count_of_search = count_of_ants * round_of_search;
+        // const count_of_search = count_of_ants * iterations_of_search;
         await tsp_runner_run_async({
-            count_of_search,
+            // count_of_search,
             runner: runner,
-            // round_of_search,
+            iterations_of_search,
             // count_of_ants,
             onprogress,
         });

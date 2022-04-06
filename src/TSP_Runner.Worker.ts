@@ -14,12 +14,12 @@ function init_runner(options: TSPRunnerOptions) {
     }
     runner = createTSPrunner(options);
 }
-function runOneRoute() {
-    if (!runner) {
-        throw new Error("No runner found");
-    }
-    runner.runOneRoute();
-}
+// function runOneRoute() {
+//     if (!runner) {
+//         throw new Error("No runner found");
+//     }
+//     runner.runOneRoute();
+// }
 const on_finish_one_route = (
     callback: (data: DataOfFinishOneRoute) => void
 ) => {
@@ -48,7 +48,7 @@ const API: TSP_Worker_API = new Proxy(
     {
         on_best_change,
         init_runner,
-        runOneRoute,
+        // runOneRoute,
         on_finish_one_iteration,
         on_finish_one_route,
     },

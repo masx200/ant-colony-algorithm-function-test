@@ -87,6 +87,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         )
     );
     const {
+        // max_routes_of_greedy,
         number_of_city_of_large,
         max_size_of_collection_of_latest_routes,
         max_size_of_collection_of_optimal_routes,
@@ -144,13 +145,6 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     /* 最优解的路径次数 */
     let search_count_of_best = 0;
     let globalbestlength: number = Infinity;
-    /* 一次迭代的花费时间 */
-    let time_ms_of_one_iteration: number = 0;
-    /* 一次迭代的路径和长度 */
-    const routes_and_lengths_of_one_iteration: {
-        route: number[];
-        total_length: number;
-    }[] = [];
 
     const get_total_time_ms = () => {
         return totaltimems;
@@ -247,8 +241,174 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     };
 
     const runOneIteration = async () => {
-        for (let i = 0; i < count_of_ants; i++) {
-            await runOneRoute();
+        if (current_search_count === 0) {
+            await GreedyRoutesGenerator({
+                shared,
+                get_best_route,
+                get_best_length,
+                set_best_length,
+                set_best_route,
+                onRouteCreated,
+                emit_finish_one_route,
+                get_probability_of_opt_best,
+                get_probability_of_opt_current,
+                setPheromoneZero,
+                count_of_nodes,
+                emit_finish_greedy_iteration,
+            });
+        } else {
+            /* 一次迭代的花费时间 */
+            let time_ms_of_one_iteration: number = 0;
+            /* 一次迭代的路径和长度 */
+            const routes_and_lengths_of_one_iteration: {
+                route: number[];
+                total_length: number;
+            }[] = [];
+
+            for (let i = 0; i < count_of_ants; i++) {
+                // await runOneRoute();
+                const starttime_of_one_route = Number(new Date());
+                const {
+                    route,
+                    total_length,
+                    // weight_of_opt_best,
+                    // weight_of_opt_current,
+                } = EachRouteGenerator({
+                    ...shared,
+                    current_search_count,
+                    get_probability_of_opt_best,
+                    count_of_nodes,
+                    node_coordinates,
+                    pheromoneStore,
+                    // setPheromone,
+                    // getPheromone,
+                    alpha_zero,
+                    beta_zero,
+                    lastrandomselectionprobability,
+                    max_results_of_k_opt,
+                    get_best_length,
+                    get_best_route,
+                    pheromone_volatility_coefficient_R1,
+                    pheromone_intensity_Q,
+                    set_best_length,
+                    set_best_route,
+                    setPheromoneZero,
+                });
+                const endtime_of_one_route = Number(new Date());
+                onRouteCreated(route, total_length);
+                routes_and_lengths_of_one_iteration.push({
+                    route,
+                    total_length,
+                });
+                const time_ms_of_one_route =
+                    endtime_of_one_route - starttime_of_one_route;
+                time_ms_of_one_iteration += time_ms_of_one_route;
+                emit_finish_one_route({
+                    probability_of_opt_best: get_probability_of_opt_best(),
+                    probability_of_opt_current:
+                        get_probability_of_opt_current(),
+                    // weight_of_opt_best,
+                    // weight_of_opt_current,
+                    // way_of_construct,
+                    time_ms_of_one_route: time_ms_of_one_route,
+                    route,
+                    total_length,
+                });
+                if (
+                    routes_and_lengths_of_one_iteration.length === count_of_ants
+                ) {
+                    const starttime_of_process_iteration = Number(new Date());
+                    //一轮搜索结束
+                    //后处理时间要加上
+                    const {
+                        coefficient_of_diversity_increase,
+                        // locally_optimized_length,
+                        // relative_deviation_from_optimal,
+                        nextrandomselectionprobability,
+                        //   routesandlengths,
+                        pheromoneDiffusionProbability,
+                        population_relative_information_entropy,
+                        // ispheromoneDiffusion,
+                        optimallengthofthisround,
+                        optimalrouteofthisround,
+                    } = EachIterationHandler({
+                        ...shared,
+                        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                        min_coefficient_of_pheromone_diffusion,
+                        max_coefficient_of_pheromone_diffusion,
+                        // pathTabooList,
+                        // max_results_of_k_opt,
+                        routesandlengths: routes_and_lengths_of_one_iteration,
+                        // emit_finish_one_route,
+                        // set_best_route,
+                        // set_best_length,
+                        get_best_length: get_best_length,
+                        get_best_route: get_best_route,
+                        // pathTabooList,
+                        pheromoneStore,
+                        node_coordinates,
+                        // count_of_ants,
+                        // alpha_zero,
+                        // beta_zero,
+                        // lastrandomselectionprobability,
+                        // searchloopcountratio,
+                        pheromone_volatility_coefficient_R2,
+                        // pheromone_volatility_coefficient_R1,
+                        pheromone_intensity_Q,
+                        // getPheromone,
+                        // setPheromone,
+                    });
+                    //更新局部优化的系数
+                    update_weight_of_opt({
+                        get_weight_of_opt_best,
+                        get_weight_of_opt_current,
+                        set_weight_of_opt_best,
+                        coefficient_of_diversity_increase,
+                        set_weight_of_opt_current,
+                    });
+                    const endtime_of_process_iteration = Number(new Date());
+                    //后处理时间要加上
+                    const timems_of_process_iteration =
+                        endtime_of_process_iteration -
+                        starttime_of_process_iteration;
+                    time_ms_of_one_iteration += timems_of_process_iteration;
+                    // emit_best_change({
+                    //     current_search_count,
+                    //     current_iterations: get_number_of_iterations(),
+                    //     total_time_ms: totaltimems,
+                    //     time_of_best_ms,
+                    //     global_best_route: get_best_route(),
+                    //     globalbestlength: get_best_length(),
+                    // });
+                    totaltimems += timems_of_process_iteration;
+                    emit_finish_one_iteration({
+                        // globalbestlength: globalbestlength,
+                        // time_of_best_ms,
+                        // locally_optimized_length,
+                        // relative_deviation_from_optimal,
+                        // current_iterations: get_number_of_iterations(),
+                        pheromoneDiffusionProbability,
+                        optimallengthofthisround,
+                        optimalrouteofthisround,
+                        population_relative_information_entropy,
+                        // ispheromoneDiffusion,
+                        randomselectionprobability:
+                            lastrandomselectionprobability,
+                        time_ms_of_one_iteration: time_ms_of_one_iteration,
+                    });
+                    time_ms_of_one_iteration = 0;
+                    lastrandomselectionprobability =
+                        nextrandomselectionprobability;
+                    routes_and_lengths_of_one_iteration.length = 0;
+                }
+            }
+            /* else {
+                // const endtime = Number(new Date());
+                //后处理时间要加上
+                // const timems = endtime - starttime;
+                time_ms_of_one_iteration += timems;
+                totaltimems += timems;
+            } */
         }
     };
     const runIterations = async (iterations: number) => {
@@ -298,173 +458,175 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         on: on_finish_greedy_iteration,
         emit: emit_finish_greedy_iteration,
     } = createEventPair<DataOfFinishGreedyIteration>(emitter);
-    async function runOneRoute() {
-        if (current_search_count === 0) {
-            // 并行计算贪心路径 共 max_routes_of_greedy 条
-            await GreedyRoutesGenerator({
-                shared,
-                get_best_route,
-                get_best_length,
-                set_best_length,
-                set_best_route,
-                onRouteCreated,
-                emit_finish_one_route,
-                get_probability_of_opt_best,
-                get_probability_of_opt_current,
-                setPheromoneZero,
-                count_of_nodes,
-                emit_finish_greedy_iteration,
-            });
-        }
-        const starttime_of_one_route = Number(new Date());
-        const {
-            route,
-            total_length,
-            // weight_of_opt_best,
-            // weight_of_opt_current,
-        } = EachRouteGenerator({
-            ...shared,
-            current_search_count,
-            get_probability_of_opt_best,
-            count_of_nodes,
-            node_coordinates,
-            pheromoneStore,
-            // setPheromone,
-            // getPheromone,
-            alpha_zero,
-            beta_zero,
-            lastrandomselectionprobability,
-            max_results_of_k_opt,
-            get_best_length,
-            get_best_route,
-            pheromone_volatility_coefficient_R1,
-            pheromone_intensity_Q,
-            set_best_length,
-            set_best_route,
-            setPheromoneZero,
-        });
-        const endtime_of_one_route = Number(new Date());
-        onRouteCreated(route, total_length);
-        routes_and_lengths_of_one_iteration.push({ route, total_length });
-        const time_ms_of_one_route =
-            endtime_of_one_route - starttime_of_one_route;
-        time_ms_of_one_iteration += time_ms_of_one_route;
-        emit_finish_one_route({
-            probability_of_opt_best: get_probability_of_opt_best(),
-            probability_of_opt_current: get_probability_of_opt_current(),
-            // weight_of_opt_best,
-            // weight_of_opt_current,
-            // way_of_construct,
-            time_ms_of_one_route: time_ms_of_one_route,
-            route,
-            total_length,
-        });
-        if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
-            const starttime_of_process_iteration = Number(new Date());
-            //一轮搜索结束
+    // async function runOneRoute() {
+    //     const routes_of_greedy = Math.min(max_routes_of_greedy, count_of_nodes);
+    //     if (current_search_count === 0) {
+    //         // 并行计算贪心路径 共 max_routes_of_greedy 条
+    //         await GreedyRoutesGenerator({
+    //             shared,
+    //             get_best_route,
+    //             get_best_length,
+    //             set_best_length,
+    //             set_best_route,
+    //             onRouteCreated,
+    //             emit_finish_one_route,
+    //             get_probability_of_opt_best,
+    //             get_probability_of_opt_current,
+    //             setPheromoneZero,
+    //             count_of_nodes,
+    //             emit_finish_greedy_iteration,
+    //         });
+    //     } else {
+    //         const starttime_of_one_route = Number(new Date());
+    //         const {
+    //             route,
+    //             total_length,
+    //             // weight_of_opt_best,
+    //             // weight_of_opt_current,
+    //         } = EachRouteGenerator({
+    //             ...shared,
+    //             current_search_count,
+    //             get_probability_of_opt_best,
+    //             count_of_nodes,
+    //             node_coordinates,
+    //             pheromoneStore,
+    //             // setPheromone,
+    //             // getPheromone,
+    //             alpha_zero,
+    //             beta_zero,
+    //             lastrandomselectionprobability,
+    //             max_results_of_k_opt,
+    //             get_best_length,
+    //             get_best_route,
+    //             pheromone_volatility_coefficient_R1,
+    //             pheromone_intensity_Q,
+    //             set_best_length,
+    //             set_best_route,
+    //             setPheromoneZero,
+    //         });
+    //         const endtime_of_one_route = Number(new Date());
+    //         onRouteCreated(route, total_length);
+    //         routes_and_lengths_of_one_iteration.push({ route, total_length });
+    //         const time_ms_of_one_route =
+    //             endtime_of_one_route - starttime_of_one_route;
+    //         time_ms_of_one_iteration += time_ms_of_one_route;
+    //         emit_finish_one_route({
+    //             probability_of_opt_best: get_probability_of_opt_best(),
+    //             probability_of_opt_current: get_probability_of_opt_current(),
+    //             // weight_of_opt_best,
+    //             // weight_of_opt_current,
+    //             // way_of_construct,
+    //             time_ms_of_one_route: time_ms_of_one_route,
+    //             route,
+    //             total_length,
+    //         });
+    //         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
+    //             const starttime_of_process_iteration = Number(new Date());
+    //             //一轮搜索结束
 
-            //后处理时间要加上
+    //             //后处理时间要加上
 
-            const {
-                coefficient_of_diversity_increase,
-                // locally_optimized_length,
-                // relative_deviation_from_optimal,
-                nextrandomselectionprobability,
-                //   routesandlengths,
-                pheromoneDiffusionProbability,
-                population_relative_information_entropy,
-                // ispheromoneDiffusion,
-                optimallengthofthisround,
-                optimalrouteofthisround,
-            } = EachIterationHandler({
-                ...shared,
-                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-                min_coefficient_of_pheromone_diffusion,
+    //             const {
+    //                 coefficient_of_diversity_increase,
+    //                 // locally_optimized_length,
+    //                 // relative_deviation_from_optimal,
+    //                 nextrandomselectionprobability,
+    //                 //   routesandlengths,
+    //                 pheromoneDiffusionProbability,
+    //                 population_relative_information_entropy,
+    //                 // ispheromoneDiffusion,
+    //                 optimallengthofthisround,
+    //                 optimalrouteofthisround,
+    //             } = EachIterationHandler({
+    //                 ...shared,
+    //                 coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+    //                 min_coefficient_of_pheromone_diffusion,
 
-                max_coefficient_of_pheromone_diffusion,
+    //                 max_coefficient_of_pheromone_diffusion,
 
-                // pathTabooList,
-                // max_results_of_k_opt,
-                routesandlengths: routes_and_lengths_of_one_iteration,
-                // emit_finish_one_route,
-                // set_best_route,
-                // set_best_length,
-                get_best_length: get_best_length,
-                get_best_route: get_best_route,
-                // pathTabooList,
-                pheromoneStore,
-                node_coordinates,
-                // count_of_ants,
-                // alpha_zero,
-                // beta_zero,
-                // lastrandomselectionprobability,
-                // searchloopcountratio,
-                pheromone_volatility_coefficient_R2,
-                // pheromone_volatility_coefficient_R1,
-                pheromone_intensity_Q,
-                // getPheromone,
-                // setPheromone,
-            });
+    //                 // pathTabooList,
+    //                 // max_results_of_k_opt,
+    //                 routesandlengths: routes_and_lengths_of_one_iteration,
+    //                 // emit_finish_one_route,
+    //                 // set_best_route,
+    //                 // set_best_length,
+    //                 get_best_length: get_best_length,
+    //                 get_best_route: get_best_route,
+    //                 // pathTabooList,
+    //                 pheromoneStore,
+    //                 node_coordinates,
+    //                 // count_of_ants,
+    //                 // alpha_zero,
+    //                 // beta_zero,
+    //                 // lastrandomselectionprobability,
+    //                 // searchloopcountratio,
+    //                 pheromone_volatility_coefficient_R2,
+    //                 // pheromone_volatility_coefficient_R1,
+    //                 pheromone_intensity_Q,
+    //                 // getPheromone,
+    //                 // setPheromone,
+    //             });
 
-            //更新局部优化的系数
-            update_weight_of_opt({
-                get_weight_of_opt_best,
-                get_weight_of_opt_current,
-                set_weight_of_opt_best,
-                coefficient_of_diversity_increase,
-                set_weight_of_opt_current,
-            });
-            const endtime_of_process_iteration = Number(new Date());
-            //后处理时间要加上
-            const timems_of_process_iteration =
-                endtime_of_process_iteration - starttime_of_process_iteration;
-            time_ms_of_one_iteration += timems_of_process_iteration;
-            // emit_best_change({
-            //     current_search_count,
-            //     current_iterations: get_number_of_iterations(),
-            //     total_time_ms: totaltimems,
-            //     time_of_best_ms,
-            //     global_best_route: get_best_route(),
-            //     globalbestlength: get_best_length(),
-            // });
-            totaltimems += timems_of_process_iteration;
-            emit_finish_one_iteration({
-                // globalbestlength: globalbestlength,
-                // time_of_best_ms,
+    //             //更新局部优化的系数
+    //             update_weight_of_opt({
+    //                 get_weight_of_opt_best,
+    //                 get_weight_of_opt_current,
+    //                 set_weight_of_opt_best,
+    //                 coefficient_of_diversity_increase,
+    //                 set_weight_of_opt_current,
+    //             });
+    //             const endtime_of_process_iteration = Number(new Date());
+    //             //后处理时间要加上
+    //             const timems_of_process_iteration =
+    //                 endtime_of_process_iteration -
+    //                 starttime_of_process_iteration;
+    //             time_ms_of_one_iteration += timems_of_process_iteration;
+    //             // emit_best_change({
+    //             //     current_search_count,
+    //             //     current_iterations: get_number_of_iterations(),
+    //             //     total_time_ms: totaltimems,
+    //             //     time_of_best_ms,
+    //             //     global_best_route: get_best_route(),
+    //             //     globalbestlength: get_best_length(),
+    //             // });
+    //             totaltimems += timems_of_process_iteration;
+    //             emit_finish_one_iteration({
+    //                 // globalbestlength: globalbestlength,
+    //                 // time_of_best_ms,
 
-                // locally_optimized_length,
+    //                 // locally_optimized_length,
 
-                // relative_deviation_from_optimal,
-                // current_iterations: get_number_of_iterations(),
-                pheromoneDiffusionProbability,
-                optimallengthofthisround,
-                optimalrouteofthisround,
-                population_relative_information_entropy,
-                // ispheromoneDiffusion,
-                randomselectionprobability: lastrandomselectionprobability,
-                time_ms_of_one_iteration: time_ms_of_one_iteration,
-            });
-            time_ms_of_one_iteration = 0;
-            lastrandomselectionprobability = nextrandomselectionprobability;
-            routes_and_lengths_of_one_iteration.length = 0;
-        }
+    //                 // relative_deviation_from_optimal,
+    //                 // current_iterations: get_number_of_iterations(),
+    //                 pheromoneDiffusionProbability,
+    //                 optimallengthofthisround,
+    //                 optimalrouteofthisround,
+    //                 population_relative_information_entropy,
+    //                 // ispheromoneDiffusion,
+    //                 randomselectionprobability: lastrandomselectionprobability,
+    //                 time_ms_of_one_iteration: time_ms_of_one_iteration,
+    //             });
+    //             time_ms_of_one_iteration = 0;
+    //             lastrandomselectionprobability = nextrandomselectionprobability;
+    //             routes_and_lengths_of_one_iteration.length = 0;
+    //         }
+    //     }
+    //     /* else {
+    //         // const endtime = Number(new Date());
+    //         //后处理时间要加上
+    //         // const timems = endtime - starttime;
+    //         time_ms_of_one_iteration += timems;
+    //         totaltimems += timems;
+    //     } */
+    // }
+    // const runRoutes = async (count: number) => {
+    //     assert_number(count);
+    //     assert_true(count > 0);
 
-        /* else {
-            // const endtime = Number(new Date());
-            //后处理时间要加上
-            // const timems = endtime - starttime;
-            time_ms_of_one_iteration += timems;
-            totaltimems += timems;
-        } */
-    }
-    const runRoutes = async (count: number) => {
-        assert_number(count);
-        assert_true(count > 0);
-
-        for (let i = 0; i < count; i++) {
-            await runOneRoute();
-        }
-    };
+    //     for (let i = 0; i < count; i++) {
+    //         await runOneRoute();
+    //     }
+    // };
     function get_search_count_of_best() {
         return search_count_of_best;
     }
@@ -495,9 +657,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         get_time_of_best,
         get_random_selection_probability,
         count_of_nodes,
-        runRoutes,
+        // runRoutes,
         on_best_change,
-        runOneRoute,
+        // runOneRoute,
         // onDataChange,
         pheromone_volatility_coefficient_R2,
         pheromone_volatility_coefficient_R1,

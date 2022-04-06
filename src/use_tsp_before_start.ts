@@ -10,7 +10,7 @@ export function use_tsp_before_start(
             // onFinishIteration,
             onglobal_best_routeChange,
             onLatestRouteChange,
-            // round_of_search,
+            // iterations_of_search,
             node_coordinates,
             count_of_ants,
             pheromone_volatility_coefficient_R1,
@@ -28,7 +28,7 @@ export function use_tsp_before_start(
                     count_of_ants,
                     ...rest,
                 });
-            // TSP_RunnerRef.value?.runIterations(round_of_search);
+            // TSP_RunnerRef.value?.runIterations(iterations_of_search);
             // const runner = TSP_RunnerRef.value;
             return runner;
         };
