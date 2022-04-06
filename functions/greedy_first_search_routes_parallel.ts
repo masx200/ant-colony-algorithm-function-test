@@ -2,12 +2,10 @@ import { NodeCoordinates } from "./NodeCoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { SharedOptions } from "./SharedOptions";
 import { run_greedy_once_thread } from "./run_greedy_once_thread";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 /**并行计算贪心算法搜索路径 */
 export async function greedy_first_search_routes_parallel({
     max_routes_of_greedy,
-    setPheromoneZero,
     node_coordinates,
     // pathTabooList,
     count_of_nodes,
@@ -61,10 +59,6 @@ export async function greedy_first_search_routes_parallel({
     //信息素初始化
     // MatrixFill(pheromoneStore, 1 / count_of_nodes / total_length);
 
-    const { total_length: best_length } =
-        get_best_routeOfSeriesRoutesAndLengths(parallel_results);
-
-    setPheromoneZero(1 / count_of_nodes / best_length);
     // debugger
     // assert_true(pheromoneStore.values().every((a) => a > 0));
     // const endtime = Number(new Date());

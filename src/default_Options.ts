@@ -1,6 +1,6 @@
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
 
-export const default_count_of_ants = 12;
+export const default_count_of_ants = 16;
 export const default_search_rounds = 170;
 export const default_search_time_seconds = 900;
 export const default_pheromone_volatility_coefficient_R1 = 0.03;
@@ -41,6 +41,6 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     count_of_ants: default_count_of_ants,
     max_size_of_collection_of_optimal_routes: 20,
     max_size_of_collection_of_latest_routes: 20,
-    max_routes_of_greedy: 15,
+    max_routes_of_greedy: 16,
 };
 export { DefaultOptions };

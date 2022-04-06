@@ -41,6 +41,7 @@ import { create_collection_of_latest_routes } from "../collections/collection-of
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
 import { greedy_first_search_routes_parallel } from "./greedy_first_search_routes_parallel";
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
+import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
@@ -299,6 +300,11 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             const greedy_results = await greedy_first_search_routes_parallel({
                 ...shared,
             });
+            const parallel_results = greedy_results;
+            const { total_length: best_length } =
+                get_best_routeOfSeriesRoutesAndLengths(parallel_results);
+
+            setPheromoneZero(1 / count_of_nodes / best_length);
             Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
             greedy_results.forEach(({ route, total_length, time_ms }) => {
                 const oldLength = total_length;
