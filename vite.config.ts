@@ -12,10 +12,26 @@ import { VitePWA } from "vite-plugin-pwa";
 //@ts-ignore
 const checker = vpchecker.default;
 // console.log(babel)
+//@ts-ignore
 export default defineConfig(({ mode, command }) => {
     // console.log(mode, command);
     const isdrop = mode === "production" && command === "build";
     const config: UserConfigExport = {
+        worker: {
+            plugins: [
+                //@ts-ignore
+                babel({
+                    exclude: [/node_modules/],
+                    extensions: [".ts", ".js"],
+                    plugins: [
+                        [
+                            "@babel/plugin-proposal-async-generator-functions",
+                            // { allowAllFormats: true },
+                        ],
+                    ],
+                }),
+            ],
+        },
         esbuild: {
             legalComments: "none",
             drop: isdrop ? ["console", "debugger"] : undefined,
@@ -69,6 +85,16 @@ export default defineConfig(({ mode, command }) => {
             VitePWA({
                 registerType: "autoUpdate",
                 workbox: { globPatterns: ["*/*"] },
+            }),
+            babel({
+                exclude: [/node_modules/],
+                extensions: [".ts", ".js"],
+                plugins: [
+                    [
+                        "@babel/plugin-proposal-async-generator-functions",
+                        // { allowAllFormats: true },
+                    ],
+                ],
             }),
             // getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
         ],
