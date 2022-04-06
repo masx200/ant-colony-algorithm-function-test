@@ -15,4 +15,3 @@ export interface DataOfFinishOneIteration {
     globalbestlength: number;
     // locally_optimized_length: number;
 }
-

@@ -294,10 +294,10 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             collection_of_latest_routes.add(route);
         }
     }
-     const {
-         on: on_finish_greedy_iteration,
-         emit: emit_finish_greedy_iteration,
-     } = createEventPair<DataOfFinishGreedyIteration>(emitter);
+    const {
+        on: on_finish_greedy_iteration,
+        emit: emit_finish_greedy_iteration,
+    } = createEventPair<DataOfFinishGreedyIteration>(emitter);
     async function runOneRoute() {
         if (current_search_count === 0) {
             // 并行计算贪心路径 共 max_routes_of_greedy 条
@@ -313,6 +313,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 get_probability_of_opt_current,
                 setPheromoneZero,
                 count_of_nodes,
+                emit_finish_greedy_iteration,
             });
         }
         const starttime_of_one_route = Number(new Date());
@@ -482,6 +483,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const result: TSP_Runner = {
         ...shared,
         max_results_of_2_opt,
+        on_finish_greedy_iteration,
         // getPheromone,
         // setPheromone,
         max_results_of_k_opt,

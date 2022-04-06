@@ -2,6 +2,7 @@
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 import { DataOfBestChange } from "./DataOfBestChange";
+import { DataOfFinishGreedyIteration } from "./DataOfFinishGreedyIteration";
 import { DataOfFinishOneIteration } from "./DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -51,5 +52,8 @@ export type TSP_Runner = Required<TSPRunnerOptions> &
         beta_zero: number;
         // searchloopcountratio: number;
         count_of_ants: number;
+        on_finish_greedy_iteration: (
+            callback: (data: DataOfFinishGreedyIteration) => void
+        ) => void;
         runRoutes: (count: number) => Promise<void>;
     };

@@ -3,9 +3,12 @@ import { SharedOptions } from "./SharedOptions";
 import { greedy_first_search_routes_parallel } from "./greedy_first_search_routes_parallel";
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+import { DataOfFinishGreedyIteration } from "./DataOfFinishGreedyIteration";
+import { sum } from "lodash-es";
 
 export async function GreedyRoutesGenerator({
     shared,
+    emit_finish_greedy_iteration,
     get_best_route,
     get_best_length,
     set_best_length,
@@ -18,6 +21,7 @@ export async function GreedyRoutesGenerator({
     count_of_nodes,
 }: {
     shared: SharedOptions;
+    emit_finish_greedy_iteration: (data: DataOfFinishGreedyIteration) => void;
     get_best_route: () => number[];
     get_best_length: () => number;
     set_best_length: (bestlength: number) => void;
@@ -71,9 +75,18 @@ export async function GreedyRoutesGenerator({
         });
     }
 
-    const { total_length: best_length } =
+    const { total_length: best_length, route: optimalrouteofthisround } =
         get_best_routeOfSeriesRoutesAndLengths(parallel_results);
 
     setPheromoneZero(1 / count_of_nodes / best_length);
     Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
+    const time_ms_of_one_iteration = sum(
+        parallel_results.map((r) => r.time_ms)
+    );
+    emit_finish_greedy_iteration({
+        current_iterations: 1,
+        optimallengthofthisround: best_length,
+        optimalrouteofthisround,
+        time_ms_of_one_iteration,
+    });
 }
