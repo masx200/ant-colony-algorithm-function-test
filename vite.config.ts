@@ -21,6 +21,7 @@ export default defineConfig(({ mode, command }) => {
             plugins: [
                 //@ts-ignore
                 babel({
+                    babelHelpers: "bundled",
                     exclude: [/node_modules/],
                     extensions: [".ts", ".js"],
                     plugins: [
@@ -58,6 +59,7 @@ export default defineConfig(({ mode, command }) => {
             //     command === "build" &&
             // isdrop &&
             babel({
+                babelHelpers: "bundled",
                 sourceMaps: mode !== "production",
                 exclude: [/node_modules/],
                 extensions: [".ts", ".js"],
@@ -87,6 +89,7 @@ export default defineConfig(({ mode, command }) => {
                 workbox: { globPatterns: ["*/*"] },
             }),
             babel({
+                babelHelpers: "bundled",
                 exclude: [/node_modules/],
                 extensions: [".ts", ".js"],
                 plugins: [
