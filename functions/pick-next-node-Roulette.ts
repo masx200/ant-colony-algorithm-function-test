@@ -44,27 +44,28 @@ export function picknextnodeRoulette(
     //                   beta
     //               )
     //       );
-    const result =/*  randomselection
+    const result =
+        /*  randomselection
         ? getnumberfromarrayofnmber(pickRandomOne(availablenextnodes))
         :  */
         getnumberfromarrayofnmber(
-              pickRandomOne(
-                  availablenextnodes,
+            pickRandomOne(
+                availablenextnodes,
 
-                  availablenextnodes.map((nextnode) => {
-                      const weight = calc_state_transition_probabilities({
-                          getpheromone,
-                          nextnode,
-                          currentnode,
-                          alpha,
-                          getdistancebyserialnumber,
-                          beta,
-                      });
+                availablenextnodes.map((nextnode) => {
+                    const weight = calc_state_transition_probabilities({
+                        getpheromone,
+                        nextnode,
+                        currentnode,
+                        alpha,
+                        getdistancebyserialnumber,
+                        beta,
+                    });
 
-                      return weight;
-                  })
-              )
-          );
+                    return weight;
+                })
+            )
+        );
     // debugger;
     return result;
 }
