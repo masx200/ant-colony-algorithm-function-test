@@ -11,7 +11,7 @@ export function use_data_of_greedy_iteration(): {
             number,
             number,
             // boolean,
-            number,
+            number
             // number,
             // number,
             // number,
@@ -52,7 +52,7 @@ export function use_data_of_greedy_iteration(): {
             number,
             number,
             // boolean,
-            number,
+            number
             // number,
             // number,
             // number,
@@ -62,7 +62,7 @@ export function use_data_of_greedy_iteration(): {
     >(() => {
         return dataraw.map((data, index) => {
             return [
-                index +1,
+                index + 1,
                 // data.population_relative_information_entropy,
                 // data.randomselectionprobability,
                 // data.ispheromoneDiffusion,
