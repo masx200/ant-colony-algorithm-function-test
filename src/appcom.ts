@@ -20,6 +20,7 @@ import {
     default_search_time_seconds,
     default_beta,
     default_alpha,
+    DefaultOptions,
 } from "./default_Options";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
@@ -341,8 +342,10 @@ export default defineComponent({
             const pheromone_volatility_coefficient_R1 =
                 local_pheromone_volatilization_rate.value;
             const alpha_value = alpha.value;
+            const max_routes_of_greedy_value = max_routes_of_greedy.value;
             const beta_value = beta.value;
             if (
+                max_routes_of_greedy_value > 0 &&
                 beta_value > 0 &&
                 alpha_value > 0 &&
                 pheromone_volatility_coefficient_R1 > 0 &&
@@ -358,6 +361,7 @@ export default defineComponent({
                 assert_number(pheromone_volatility_coefficient_R1);
 
                 const runner = await TSP_before_Start({
+                    max_routes_of_greedy: max_routes_of_greedy_value,
                     alpha_zero: alpha_value,
                     beta_zero: beta_value,
                     coefficient_of_pheromone_Increase_Non_Optimal_Paths:
@@ -410,7 +414,9 @@ export default defineComponent({
         const run_way_round = RunWay.round;
         const alpha = ref(default_alpha);
         const beta = ref(default_beta);
+        const max_routes_of_greedy = ref(DefaultOptions.max_routes_of_greedy);
         return {
+            max_routes_of_greedy,
             alpha,
             beta,
             can_run,

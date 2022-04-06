@@ -2,9 +2,10 @@ import { NodeCoordinates } from "./NodeCoordinates";
 // import { PureDataOfFinishOneRoute } from "./PureDataOfFinishOneRoute";
 import { SharedOptions } from "./SharedOptions";
 import { run_greedy_once_thread } from "./run_greedy_once_thread";
+import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 /**并行计算贪心算法搜索路径 */
-export async function greedy_first_search_routes_parallel({
+export async function* greedy_first_search_routes_parallel({
     max_routes_of_greedy,
     node_coordinates,
     // pathTabooList,
@@ -21,54 +22,37 @@ export async function greedy_first_search_routes_parallel({
     // set_best_route: (route: number[]) => void;
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     // pheromoneStore: MatrixSymmetry<number>;
-} & SharedOptions): Promise<
-    { time_ms: number; route: number[]; total_length: number }[]
+} & SharedOptions): AsyncGenerator<
+    { total_length: number; route: number[]; time_ms: number },
+    void,
+    unknown
 > {
     const routes_of_greedy = Math.min(max_routes_of_greedy, count_of_nodes);
-    // console.log(routes_of_greedy);
-    //
+
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
         .map((_v, i) => i);
-    const parallel_results = await Promise.all(
-        Array.from<
-            Promise<{
-                total_length: number;
-                route: number[];
-                time_ms: number;
-            }>
-        >({ length: routes_of_greedy }).map(() =>
-            run_greedy_once_thread(inputindexs, node_coordinates)
-        )
-    );
+    const max_current =
+        Greedy_algorithm_to_solve_tsp_with_selected_start_pool.size;
+    let rest_count = routes_of_greedy;
+    while (rest_count > 0) {
+        const current_threads = Math.min(max_current, rest_count);
+        const parallel_results = await Promise.all(
+            Array.from<
+                Promise<{
+                    total_length: number;
+                    route: number[];
+                    time_ms: number;
+                }>
+            >({ length: current_threads }).map(() =>
+                run_greedy_once_thread(inputindexs, node_coordinates)
+            )
+        );
+        rest_count -= current_threads;
+        for (const result of parallel_results) {
+            yield result;
+        }
+    }
 
-    // const { total_length, route,time_ms } = await run_greedy_once_thread(
-    //     inputindexs,
-    //     node_coordinates
-    // );
-    //     Greedyalgorithmtosolvetspwithallstartbest(
-    //     node_coordinates
-    //     // pathTabooList
-    // );
-
-    // const countofloops = count_of_nodes * count_of_nodes;
-
-    // set_best_length(total_length);
-    // set_best_route(route);
-
-    //信息素初始化
-    // MatrixFill(pheromoneStore, 1 / count_of_nodes / total_length);
-
-    // debugger
-    // assert_true(pheromoneStore.values().every((a) => a > 0));
-    // const endtime = Number(new Date());
-    // const timems = endtime - starttime;
-    // emit_finish_one_route({
-    //     route,
-    //     total_length,
-    //     timems,
-    //     countofloops,
-    // });
-    // return [{ route, total_length }];
-    return parallel_results;
+    // return parallel_results;
 }

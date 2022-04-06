@@ -29,7 +29,15 @@
             :disabled="disable_stop"
         />
         <hr />
-
+        <span>贪心算法路径数量</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="max_routes_of_greedy"
+            :disabled="disablemapswitching"
+            :min="2"
+            :controls="false"
+        /><br />
         <span>非最优解的信息素增量系数</span>
         <el-input-number
             :controls="false"

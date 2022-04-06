@@ -39,9 +39,8 @@ import { SharedOptions } from "./SharedOptions";
 import { MatrixSymmetry } from "@masx200/sparse-2d-matrix";
 import { create_collection_of_latest_routes } from "../collections/collection-of-latest-routes";
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
-import { greedy_first_search_routes_parallel } from "./greedy_first_search_routes_parallel";
-import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+import { GreedyRoutesGenerator } from "./GreedyRoutesGenerator";
+import { DataOfFinishGreedyIteration } from "./DataOfFinishGreedyIteration";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
@@ -224,6 +223,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         on: on_finish_one_iteration,
         emit: inner_emit_finish_one_iteration,
     } = createEventPair<DataOfFinishOneIteration>(emitter);
+
     const emit_finish_one_iteration = (
         data: Omit<
             DataOfFinishOneIteration,
@@ -294,44 +294,25 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             collection_of_latest_routes.add(route);
         }
     }
+     const {
+         on: on_finish_greedy_iteration,
+         emit: emit_finish_greedy_iteration,
+     } = createEventPair<DataOfFinishGreedyIteration>(emitter);
     async function runOneRoute() {
         if (current_search_count === 0) {
             // 并行计算贪心路径 共 max_routes_of_greedy 条
-            const greedy_results = await greedy_first_search_routes_parallel({
-                ...shared,
-            });
-            const parallel_results = greedy_results;
-            const { total_length: best_length } =
-                get_best_routeOfSeriesRoutesAndLengths(parallel_results);
-
-            setPheromoneZero(1 / count_of_nodes / best_length);
-            Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
-            greedy_results.forEach(({ route, total_length, time_ms }) => {
-                const oldLength = total_length;
-                const oldRoute = route;
-                if (get_best_route().length === 0) {
-                    if (oldLength < get_best_length()) {
-                        set_best_length(oldLength);
-                        set_best_route(oldRoute);
-                    }
-                }
-                if (oldLength < get_best_length()) {
-                    set_best_length(oldLength);
-                    set_best_route(oldRoute);
-                }
-                onRouteCreated(route, total_length);
-
-                emit_finish_one_route({
-                    probability_of_opt_best: get_probability_of_opt_best(),
-                    probability_of_opt_current:
-                        get_probability_of_opt_current(),
-                    // weight_of_opt_best,
-                    // weight_of_opt_current,
-                    // way_of_construct,
-                    time_ms_of_one_route: time_ms,
-                    route,
-                    total_length,
-                });
+            await GreedyRoutesGenerator({
+                shared,
+                get_best_route,
+                get_best_length,
+                set_best_length,
+                set_best_route,
+                onRouteCreated,
+                emit_finish_one_route,
+                get_probability_of_opt_best,
+                get_probability_of_opt_current,
+                setPheromoneZero,
+                count_of_nodes,
             });
         }
         const starttime_of_one_route = Number(new Date());
