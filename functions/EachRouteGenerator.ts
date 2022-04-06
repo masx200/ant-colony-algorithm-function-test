@@ -144,15 +144,17 @@ export function EachRouteGenerator(
     //   : { route: oldRoute, total_length: oldLength };
 
     if (total_length < get_best_length()) {
-        if (length3 === total_length && select_opt_best) {
-            // if () {
-            // weight_of_opt_best++;
+        if (length1 === total_length) {
+            //如果对当前路径优化成功
+            set_weight_of_opt_current(get_weight_of_opt_current() + 1);
+        } else if (
+            select_opt_best &&
+            (length2 === total_length || length3 === total_length)
+        ) {
+            //如果对最优解优化成功
             set_weight_of_opt_best(get_weight_of_opt_best() + 1);
-            //} else {
-
-            //}
         } else {
-            // weight_of_opt_current++;
+            //如果对当前路径优化成功
             set_weight_of_opt_current(get_weight_of_opt_current() + 1);
         }
 
