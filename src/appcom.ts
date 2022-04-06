@@ -47,6 +47,7 @@ import { use_submit } from "./use_submit";
 import { use_tsp_before_start } from "./use_tsp_before_start";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
+import { use_data_of_greedy_iteration } from "./use_data_of_greedy_iteration";
 export default defineComponent({
     components: { Datatable, Progresselement: Progresselement },
     setup() {
@@ -292,7 +293,14 @@ export default defineComponent({
                 // finish_one_iteration_listener,
             });
         };
+        const data_of_greedy_iteration = use_data_of_greedy_iteration();
+        const greedy_iteration_table_heads =
+            data_of_greedy_iteration.tableheads;
+        const greedy_iteration_table_body = data_of_greedy_iteration.tablebody;
+        const on_receive_data_of_greedy =
+            data_of_greedy_iteration.onreceivedata;
         const TSP_terminate = () => {
+            data_of_greedy_iteration.clearData();
             clearDataOfHistoryOfBest();
             TSP_Reset([
                 clearDataOfOneRoute,
@@ -381,7 +389,9 @@ export default defineComponent({
                 await runner.remote.on_finish_one_iteration(
                     finish_one_iteration_listener
                 );
-
+                await runner.remote.on_finish_greedy_iteration(
+                    on_receive_data_of_greedy
+                );
                 Greedy_algorithm_to_solve_tsp_with_selected_start_pool.clear();
                 return runner;
             } else {
@@ -416,6 +426,8 @@ export default defineComponent({
         const beta = ref(default_beta);
         const max_routes_of_greedy = ref(DefaultOptions.max_routes_of_greedy);
         return {
+            greedy_iteration_table_heads,
+            greedy_iteration_table_body,
             max_routes_of_greedy,
             alpha,
             beta,

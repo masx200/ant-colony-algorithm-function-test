@@ -88,5 +88,6 @@ export async function GreedyRoutesGenerator({
         optimallengthofthisround: best_length,
         optimalrouteofthisround,
         time_ms_of_one_iteration,
+        globalbestlength: get_best_length(),
     });
 }

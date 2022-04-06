@@ -207,11 +207,22 @@
             :tablebody="TableBodyOfHistoryOfBest"
         />
         <hr />
-        <!-- 迭代结果 -->
-        <Datatable
-            :tableheads="oneiterationtableheads"
-            :tablebody="oneiterationtablebody"
-        />
+        <details class="width-100-percent" :open="true">
+            <summary>贪心路径的统计</summary>
+            <Datatable
+                :tableheads="greedy_iteration_table_heads"
+                :tablebody="greedy_iteration_table_body"
+            />
+        </details>
+        <hr />
+        <details class="width-100-percent" :open="true">
+            <summary>每次迭代的统计</summary>
+            <!-- 迭代结果 -->
+            <Datatable
+                :tableheads="oneiterationtableheads"
+                :tablebody="oneiterationtablebody"
+            />
+        </details>
         <hr />
         <details
             class="width-100-percent"

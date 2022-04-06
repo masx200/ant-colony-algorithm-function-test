@@ -1,5 +1,6 @@
 import * as comlink from "comlink";
 import { DataOfBestChange } from "../functions/DataOfBestChange";
+import { DataOfFinishGreedyIteration } from "../functions/DataOfFinishGreedyIteration";
 import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 import { create_Worker_comlink } from "./create_Worker_comlink";
@@ -41,8 +42,13 @@ export async function create_TSP_Worker_comlink(
     ) => {
         runner.on_best_change(comlink.proxy(callback));
     };
-
+    const on_finish_greedy_iteration = async (
+        callback: (data: DataOfFinishGreedyIteration) => void
+    ) => {
+        runner.on_finish_greedy_iteration(comlink.proxy(callback));
+    };
     const remote = Object.create(runner, {
+        on_finish_greedy_iteration: { value: on_finish_greedy_iteration },
         on_finish_one_route: { value: on_finish_one_route },
         on_finish_one_iteration: { value: on_finish_one_iteration },
         on_best_change: { value: on_best_change },

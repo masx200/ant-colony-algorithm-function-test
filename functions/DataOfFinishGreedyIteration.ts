@@ -11,5 +11,5 @@ export interface DataOfFinishGreedyIteration {
     optimallengthofthisround: number;
     optimalrouteofthisround: number[];
     time_ms_of_one_iteration: number;
-    // globalbestlength: number;
+    globalbestlength: number;
 }
