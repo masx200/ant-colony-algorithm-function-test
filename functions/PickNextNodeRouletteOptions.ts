@@ -2,7 +2,7 @@ import { GetDistanceBySerialNumber } from "./GetDistanceBySerialNumber";
 import { GetPheromone } from "./GetPheromone";
 
 export type PickNextNodeRouletteOptions = {
-    randomselectionprobability: number;
+    // randomselectionprobability: number;
     // parameterrandomization: boolean;
     alpha_zero: number;
     beta_zero: number;

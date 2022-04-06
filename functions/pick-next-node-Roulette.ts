@@ -7,7 +7,7 @@ export function picknextnodeRoulette(
     args: PickNextNodeRouletteOptions
 ): number {
     const {
-        randomselectionprobability,
+        // randomselectionprobability,
         //   ,
         //  ,
         alpha_zero,
@@ -33,7 +33,7 @@ export function picknextnodeRoulette(
     //parameterrandomization
     //    ? random( ,  )
     //   : alpha_zero;
-    const randomselection = Math.random() < randomselectionprobability;
+    // const randomselection = Math.random() < randomselectionprobability;
     // const weights: number[] = randomselection
     //     ? []
     //     : availablenextnodes.map(
@@ -44,9 +44,10 @@ export function picknextnodeRoulette(
     //                   beta
     //               )
     //       );
-    const result = randomselection
+    const result =/*  randomselection
         ? getnumberfromarrayofnmber(pickRandomOne(availablenextnodes))
-        : getnumberfromarrayofnmber(
+        :  */
+        getnumberfromarrayofnmber(
               pickRandomOne(
                   availablenextnodes,
 

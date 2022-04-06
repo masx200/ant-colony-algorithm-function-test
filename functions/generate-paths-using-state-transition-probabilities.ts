@@ -96,29 +96,36 @@ export function generate_paths_using_state_transition_probabilities(
     while (route.length !== count_of_nodes) {
         const current_city = Array.from(route).slice(-1)[0];
         //　每一步的可选城市的组成为集合Toptimal和集合Tlatest中的路径中与当前城市相连的城市,如果可选城市数量不满NCL,则随机选择其余城市添加到可选列表,直到可选城市数量达到NCL.
-        const filterednodes = is_count_not_large
-            ? available_nodes
-            : select_available_cities_from_optimal_and_latest({
-                  available_nodes,
-                  get_neighbors_from_optimal_routes_and_latest_routes,
-                  current_city,
-                  max_size: number_of_city_of_large,
+
+        const randomselection = Math.random() < randomselectionprobability;
+        const get_filtered_nodes = function (): number[] | Set<number> {
+            return is_count_not_large
+                ? available_nodes
+                : select_available_cities_from_optimal_and_latest({
+                      available_nodes,
+                      get_neighbors_from_optimal_routes_and_latest_routes,
+                      current_city,
+                      max_size: number_of_city_of_large,
+                  });
+        };
+        const nextnode = randomselection
+            ? getnumberfromarrayofnmber(
+                  pickRandomOne(Array.from(available_nodes))
+              )
+            : picknextnode({
+                  // randomselectionprobability,
+                  //   ,
+                  //  ,
+                  alpha_zero,
+                  //  ,
+                  //   ,
+                  beta_zero,
+
+                  currentnode: current_city,
+                  availablenextnodes: Array.from(get_filtered_nodes()),
+                  getpheromone,
+                  getdistancebyserialnumber,
               });
-
-        const nextnode = picknextnode({
-            randomselectionprobability,
-            //   ,
-            //  ,
-            alpha_zero,
-            //  ,
-            //   ,
-            beta_zero,
-
-            currentnode: current_city,
-            availablenextnodes: Array.from(filterednodes),
-            getpheromone,
-            getdistancebyserialnumber,
-        });
         // route = [...route, nextnode];
         route.push(nextnode);
         available_nodes.delete(nextnode);
