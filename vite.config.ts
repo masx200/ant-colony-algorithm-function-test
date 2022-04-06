@@ -77,7 +77,7 @@ export default defineConfig(({ mode, command }) => {
             minify: "esbuild",
             emptyOutDir: true,
             outDir: path.resolve(__dirname, "dist"),
-            target: "es2015",
+            target: "es2018",
             // terserOptions: {
             //     compress: { drop_console: true, drop_debugger: true },
             // },
