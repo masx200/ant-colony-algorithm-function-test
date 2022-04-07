@@ -7,7 +7,7 @@ import {
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { pheromone_update_rule_after_route } from "./pheromone_update_rule_after_route";
 import { Precise_2_opt_eliminates_all_intersections } from "../cross-points/Precise_2_opt_eliminates_all_intersections";
-import { Precise_2_opt_eliminates_partial_cross_points } from "../cross-points/Precise_2_opt_eliminates_partial_cross_points";
+import { random_2_opt_eliminates_partial_cross_points } from "../cross-points/random_2_opt_eliminates_partial_cross_points";
 import { Random_K_OPT_full_limited_find_best } from "../k-opt/Random_K_OPT_full_limited_find_best";
 import { SharedOptions } from "./SharedOptions";
 export function EachRouteGenerator(
@@ -91,7 +91,7 @@ export function EachRouteGenerator(
               length: oldLength,
               node_coordinates,
           })
-        : Precise_2_opt_eliminates_partial_cross_points({
+        : random_2_opt_eliminates_partial_cross_points({
               max_of_segments: number_of_city_of_large,
               max_results_of_2_opt,
               route: oldRoute,
@@ -118,7 +118,7 @@ export function EachRouteGenerator(
               length: length2,
               node_coordinates,
           })
-        : Precise_2_opt_eliminates_partial_cross_points({
+        : random_2_opt_eliminates_partial_cross_points({
               max_of_segments: number_of_city_of_large,
               max_results_of_2_opt,
               route: route2,

@@ -3,10 +3,10 @@ import { closedtotalpathlength } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 import { assert_true as assert_true } from "../test/assert_true";
-import { generate_2_opt_routes_by_intersection_partial } from "./generate_2_opt_routes_by_intersection_partial";
+import { generate_2_opt_routes_by_random } from "./generate_2_opt_routes_by_random";
 
-/**精准2-opt消除部分交叉点 ,尽可能去除与原路径一样的路径*/
-export function Precise_2_opt_eliminates_partial_cross_points({
+/**随机2-opt尝试优化,尽可能去除与原路径一样的路径*/
+export function random_2_opt_eliminates_partial_cross_points({
     max_of_segments,
     max_results_of_2_opt,
     route,
@@ -25,10 +25,10 @@ export function Precise_2_opt_eliminates_partial_cross_points({
 
     for (let count = 0; count <= max_results_of_2_opt; count++) {
         const routes_of_2_opt_accurate =
-            generate_2_opt_routes_by_intersection_partial(
-                max_of_segments,
+            generate_2_opt_routes_by_random(
+                // max_of_segments,
                 route,
-                node_coordinates
+                // node_coordinates
             );
 
         const routesAndLengths = routes_of_2_opt_accurate

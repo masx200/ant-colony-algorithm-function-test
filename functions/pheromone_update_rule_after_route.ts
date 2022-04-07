@@ -12,11 +12,9 @@ import {
     // default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
-import { cacheble_is_intersection_filter_with_cycle_route } from "../cross-points/cacheble_is_intersection_filter_with_cycle_route";
 import { create_delta_pheromone_of_global_best } from "./create_delta_pheromone_of_global_best";
 import { create_delta_pheromone_of_iterate_best } from "./create_delta_pheromone_of_iterate_best";
 import { cycle_routetosegments } from "./cycle_routetosegments";
-import { is_intersection_partial_with_cycle_route } from "../cross-points/is_intersection_partial_with_cycle_route";
 // import { globalBestMatrixInitializer } from "./globalBestMatrixInitializer";
 // import { iterateBestMatrixInitializer } from "./iterateBestMatrixInitializer";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -28,13 +26,13 @@ import { SharedOptions } from "./SharedOptions";
  * 每只蚂蚁构建完路径后的信息素更新规则,局部信息素更新
  */
 export function pheromone_update_rule_after_route({
-    number_of_city_of_large,
+    // number_of_city_of_large,
     // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     global_best_route,
     current_length,
     current_route,
-    node_coordinates,
+    // node_coordinates,
     count_of_nodes,
     // global_best_routesegments,
     globalbestlength,
@@ -101,33 +99,33 @@ export function pheromone_update_rule_after_route({
     //     ),
     //     // : undefined,
     // });
-    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
-    const have_intersection_in_global_best = is_count_not_large
-        ? cacheble_is_intersection_filter_with_cycle_route({
-              node_coordinates,
-              cycle_route: global_best_route,
-          })
-        : is_intersection_partial_with_cycle_route({
-              max_of_segments: number_of_city_of_large,
-              node_coordinates,
-              cycle_route: global_best_route,
-          });
-    const have_intersection_in_current_route = is_count_not_large
-        ? cacheble_is_intersection_filter_with_cycle_route({
-              node_coordinates,
-              cycle_route: current_route,
-          })
-        : is_intersection_partial_with_cycle_route({
-              max_of_segments: number_of_city_of_large,
-              node_coordinates,
-              cycle_route: current_route,
-          });
+    // const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    // const have_intersection_in_global_best = is_count_not_large
+    //     ? cacheble_is_intersection_filter_with_cycle_route({
+    //           node_coordinates,
+    //           cycle_route: global_best_route,
+    //       })
+    //     : is_intersection_partial_with_cycle_route({
+    //           max_of_segments: number_of_city_of_large,
+    //           node_coordinates,
+    //           cycle_route: global_best_route,
+    //       });
+    // const have_intersection_in_current_route = is_count_not_large
+    //     ? cacheble_is_intersection_filter_with_cycle_route({
+    //           node_coordinates,
+    //           cycle_route: current_route,
+    //       })
+    //     : is_intersection_partial_with_cycle_route({
+    //           max_of_segments: number_of_city_of_large,
+    //           node_coordinates,
+    //           cycle_route: current_route,
+    //       });
     //局部信息素更新
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
         MatrixAdd(
-            have_intersection_in_global_best
-               /*  ? MatrixMultiplyNumber(
+            // have_intersection_in_global_best
+            /*  ? MatrixMultiplyNumber(
                       cross_Point_Coefficient_of_Non_Optimal_Paths,
                       deltapheromoneglobalbest
                   )
@@ -136,7 +134,7 @@ export function pheromone_update_rule_after_route({
                 /* 添加非最优的信息素系数 */
                 // (have_intersection_in_current_route
                 //     ? cross_Point_Coefficient_of_Non_Optimal_Paths
-                //     : 1) * 
+                //     : 1) *
                 coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 delta_pheromone_current
             )
