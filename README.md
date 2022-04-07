@@ -16,7 +16,7 @@ ant-colony-algorithm-function-test
 
 3.有限随机 k-opt
 
-4.精准 2-opt
+4.精准 2-opt去交叉点
 
 5.贪心算法
 
@@ -31,6 +31,8 @@ ant-colony-algorithm-function-test
 10.判断交叉点的方法
 
 11.随机 k-opt 的对象的选择的权重
+
+12.大规模不再查找交叉点
 
 #### 安装教程
 

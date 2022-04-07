@@ -24,12 +24,11 @@ export function random_2_opt_eliminates_partial_cross_points({
     assert_true(max_results_of_2_opt >= 1);
 
     for (let count = 0; count <= max_results_of_2_opt; count++) {
-        const routes_of_2_opt_accurate =
-            generate_2_opt_routes_by_random(
-                // max_of_segments,
-                route,
-                // node_coordinates
-            );
+        const routes_of_2_opt_accurate = generate_2_opt_routes_by_random(
+            // max_of_segments,
+            route
+            // node_coordinates
+        );
 
         const routesAndLengths = routes_of_2_opt_accurate
             .map((route) => {

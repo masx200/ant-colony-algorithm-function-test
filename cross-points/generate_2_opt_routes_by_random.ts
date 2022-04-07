@@ -2,7 +2,7 @@ import { generate_2_opt_cycle_routes } from "../k-opt/generate_2_opt_cycle_route
 /**如果当前部分路径还有交叉点,则使用精准的2-opt局部优化,如果当前路径没有交叉点,执行随机2-opt优化,直到达到最大次数(M2opt)为止. */
 export function generate_2_opt_routes_by_random(
     // max_of_segments: number,
-    route: number[],
+    route: number[]
     // node_coordinates: NodeCoordinates
 ): number[][] {
     // const intersection = find_one_intersection_partial_with_cycle_route({
@@ -24,6 +24,6 @@ export function generate_2_opt_routes_by_random(
     //     // route = best_route_of_2_opt;
     //     // length = best_length_of_2_opt;
     // } else {
-        return generate_2_opt_cycle_routes(route);
+    return generate_2_opt_cycle_routes(route);
     // }
 }
