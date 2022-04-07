@@ -21,6 +21,7 @@ import {
     default_beta,
     default_alpha,
     DefaultOptions,
+    show_every_route,
 } from "./default_Options";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
@@ -426,6 +427,7 @@ export default defineComponent({
         const beta = ref(default_beta);
         const max_routes_of_greedy = ref(DefaultOptions.max_routes_of_greedy);
         return {
+            show_every_route: show_every_route,
             greedy_iteration_table_heads,
             greedy_iteration_table_body,
             max_routes_of_greedy,

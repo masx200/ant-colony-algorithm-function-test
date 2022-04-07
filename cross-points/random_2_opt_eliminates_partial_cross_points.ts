@@ -7,14 +7,14 @@ import { generate_2_opt_routes_by_random } from "./generate_2_opt_routes_by_rand
 
 /**随机2-opt尝试优化,尽可能去除与原路径一样的路径*/
 export function random_2_opt_eliminates_partial_cross_points({
-    max_of_segments,
+    // max_of_segments,
     max_results_of_2_opt,
     route,
     length,
     node_coordinates,
 }: {
     /**最多选择几个路径线段 */
-    max_of_segments: number;
+    // max_of_segments: number;
     /**最多查找几次交叉点 */
     max_results_of_2_opt: number;
     route: number[];

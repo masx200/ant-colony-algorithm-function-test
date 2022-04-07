@@ -225,6 +225,7 @@
         </details>
         <hr />
         <details
+            v-if="show_every_route"
             class="width-100-percent"
             :open="show_summary_of_routes"
             @toggle="show_summary_of_routes = $event.target.open"

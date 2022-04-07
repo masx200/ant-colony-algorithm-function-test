@@ -44,3 +44,5 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_routes_of_greedy: 16,
 };
 export { DefaultOptions };
+//展示每条路径的详细信息
+export const show_every_route = false;
