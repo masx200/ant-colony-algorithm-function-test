@@ -16,7 +16,7 @@ ant-colony-algorithm-function-test
 
 3.有限随机 k-opt
 
-4.精准 2-opt去交叉点
+4.精准 2-opt 去交叉点
 
 5.贪心算法
 
