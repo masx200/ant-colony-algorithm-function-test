@@ -9,6 +9,6 @@ export function* whether_2_sections_reverse_opt(): Generator<
 > {
     /*      [false, false],等于     [true, true], */
     /*    [true, false],,等于     [false, true], */
-    yield[true, false];
-    yield[false, false];
+    yield [true, false];
+    yield [false, false];
 }
