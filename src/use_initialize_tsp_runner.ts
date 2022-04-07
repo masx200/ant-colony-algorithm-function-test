@@ -2,7 +2,6 @@ import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration"
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
 import { create_TSP_Worker_comlink } from "./create_TSP_Worker_comlink";
 import { DataOfSummarize } from "./DataOfSummarize";
-import { show_every_route } from "./default_Options";
 import { Fun_initialize_TSP_runner } from "./Fun_initialize_TSP_runner";
 
 export function use_initialize_tsp_runner({
@@ -38,7 +37,7 @@ export function use_initialize_tsp_runner({
         });
         // runner.on_finish_one_route(onreceivedataofoneroute);
         await runner.remote.on_finish_one_route((data) => {
-            show_every_route && onreceivedataofoneroute(data);
+            onreceivedataofoneroute(data);
             const { route } = data;
             onLatestRouteChange(route, node_coordinates);
         });
