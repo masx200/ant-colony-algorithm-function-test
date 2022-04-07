@@ -5,7 +5,7 @@ export type TSPRunnerOptions = {
     max_routes_of_greedy?: number;
     max_size_of_collection_of_latest_routes?: number;
     max_size_of_collection_of_optimal_routes?: number;
-    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
+    // cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     max_results_of_2_opt?: number;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
     min_coefficient_of_pheromone_diffusion?: number;

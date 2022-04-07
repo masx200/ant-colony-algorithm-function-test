@@ -9,7 +9,7 @@ import {
     // MatrixToArrays,
 } from "@masx200/sparse-2d-matrix";
 import {
-    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    // default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
 import { cacheble_is_intersection_filter_with_cycle_route } from "../cross-points/cacheble_is_intersection_filter_with_cycle_route";
@@ -29,7 +29,7 @@ import { SharedOptions } from "./SharedOptions";
  */
 export function pheromone_update_rule_after_route({
     number_of_city_of_large,
-    cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     global_best_route,
     current_length,
@@ -53,7 +53,7 @@ export function pheromone_update_rule_after_route({
     pheromone_intensity_Q: number;
     // pheromoneStore: MatrixSymmetry<number>;
     pheromone_volatility_coefficient_R1: number;
-    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
+    // cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
 } & SharedOptions) {
     const global_best_routesegments = cycle_routetosegments(global_best_route);
     // console.log("局部信息素更新计算开始");
@@ -127,16 +127,17 @@ export function pheromone_update_rule_after_route({
         pheromone_intensity_Q,
         MatrixAdd(
             have_intersection_in_global_best
-                ? MatrixMultiplyNumber(
+               /*  ? MatrixMultiplyNumber(
                       cross_Point_Coefficient_of_Non_Optimal_Paths,
                       deltapheromoneglobalbest
                   )
-                : deltapheromoneglobalbest,
+                : */ deltapheromoneglobalbest,
             MatrixMultiplyNumber(
                 /* 添加非最优的信息素系数 */
-                (have_intersection_in_current_route
-                    ? cross_Point_Coefficient_of_Non_Optimal_Paths
-                    : 1) * coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                // (have_intersection_in_current_route
+                //     ? cross_Point_Coefficient_of_Non_Optimal_Paths
+                //     : 1) * 
+                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 delta_pheromone_current
             )
         )

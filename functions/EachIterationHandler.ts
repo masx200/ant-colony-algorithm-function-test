@@ -1,5 +1,5 @@
 import {
-    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    // default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
@@ -22,7 +22,7 @@ export function EachIterationHandler(
     options: SharedOptions & {
         // setPheromone: (row: number, column: number, value: number) => void;
         // getPheromone: (row: number, column: number) => number;
-        cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
+        // cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
         // max_results_of_k_opt: number;
         routesandlengths: {
             route: number[];
@@ -74,7 +74,7 @@ export function EachIterationHandler(
     const {
         // setPheromone,
         // getPheromone,
-        cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+        // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
         min_coefficient_of_pheromone_diffusion,
 
@@ -161,7 +161,7 @@ export function EachIterationHandler(
     // const global_best_routesegments = cycle_routetosegments(global_best_route);
     pheromone_update_rule_after_iteration({
         ...options,
-        cross_Point_Coefficient_of_Non_Optimal_Paths,
+        // cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         // node_coordinates,
         iteratebestroute,

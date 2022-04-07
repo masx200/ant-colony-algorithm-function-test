@@ -24,7 +24,7 @@ export type SharedOptions = Required<TSPRunnerOptions> & {
     // getPheromone: (row: number, column: number) => number;
     setPheromoneZero: (value: number) => void;
     count_of_nodes: number;
-    cross_Point_Coefficient_of_Non_Optimal_Paths: number;
+    // cross_Point_Coefficient_of_Non_Optimal_Paths: number;
     max_results_of_2_opt: number;
     coefficient_of_pheromone_Increase_Non_Optimal_Paths: number;
     min_coefficient_of_pheromone_diffusion: number;

@@ -28,7 +28,7 @@ export function EachRouteGenerator(
         // setPheromone,
         get_probability_of_opt_best,
         // getPheromone,
-        cross_Point_Coefficient_of_Non_Optimal_Paths,
+        // cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         current_search_count,
         max_results_of_2_opt,
@@ -168,7 +168,7 @@ export function EachRouteGenerator(
     pheromone_update_rule_after_route({
         ...options,
         // ...options,
-        cross_Point_Coefficient_of_Non_Optimal_Paths,
+        // cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
         global_best_route: get_best_route(),
         current_length: total_length,

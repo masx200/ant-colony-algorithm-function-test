@@ -9,7 +9,7 @@ import {
     MatrixSymmetryCreate,
 } from "@masx200/sparse-2d-matrix";
 import {
-    default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    // default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
 } from "../src/default_Options";
 import { cacheble_is_intersection_filter_with_cycle_route } from "../cross-points/cacheble_is_intersection_filter_with_cycle_route";
@@ -25,7 +25,7 @@ import { SharedOptions } from "./SharedOptions";
 /**每轮路径搜索完后的迭代信息素更新规则 */
 export function pheromone_update_rule_after_iteration({
     number_of_city_of_large,
-    cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     node_coordinates,
     // global_best_route,
@@ -42,7 +42,7 @@ export function pheromone_update_rule_after_iteration({
     pheromone_volatility_coefficient_R2,
 }: SharedOptions & {
     coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
-    cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
+    // cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
     node_coordinates: NodeCoordinates;
     global_best_route: number[];
     iteratebestroute: number[];
@@ -112,17 +112,18 @@ export function pheromone_update_rule_after_iteration({
     const deltapheromone = MatrixMultiplyNumber(
         pheromone_intensity_Q,
         MatrixAdd(
-            have_intersection_in_global_best
-                ? MatrixMultiplyNumber(
+            // have_intersection_in_global_best
+             /*    ? MatrixMultiplyNumber(
                       cross_Point_Coefficient_of_Non_Optimal_Paths,
                       deltapheromoneglobalbest
                   )
-                : deltapheromoneglobalbest,
+                : */ deltapheromoneglobalbest,
             MatrixMultiplyNumber(
                 /* 添加非最优的信息素系数 */
-                (have_intersection_in_iterate_best
-                    ? cross_Point_Coefficient_of_Non_Optimal_Paths
-                    : 1) * coefficient_of_pheromone_Increase_Non_Optimal_Paths,
+                // (have_intersection_in_iterate_best
+                //     ? cross_Point_Coefficient_of_Non_Optimal_Paths
+                //     : 1) * 
+                coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                 deltapheromoneiteratebest
             ),
             deltapheromoneiterateworst
