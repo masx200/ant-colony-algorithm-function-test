@@ -152,10 +152,10 @@ export function EachRouteGenerator(
             (length2 === total_length || length3 === total_length)
         ) {
             //如果对最优解优化成功
-            set_weight_of_opt_best(get_weight_of_opt_best() *1.1);
+            set_weight_of_opt_best(get_weight_of_opt_best() * 1.1);
         } else {
             //如果对当前路径优化成功
-            set_weight_of_opt_current(get_weight_of_opt_current() *1.1);
+            set_weight_of_opt_current(get_weight_of_opt_current() * 1.1);
         }
 
         set_best_length(total_length);
