@@ -3,12 +3,17 @@ import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { NodeCoordinates } from "./NodeCoordinates";
 
 /* 可选起点的贪心算法 */
-export function Greedyalgorithmtosolvetspwithselectedstart(
-    node_coordinates: NodeCoordinates,
-    start: number,
+export function Greedyalgorithmtosolvetspwithselectedstart({
+    node_coordinates,
+    start,
     round = false,
-    max_cities_of_greedy = Infinity
-): number[] {
+    max_cities_of_greedy = Infinity,
+}: {
+    node_coordinates: NodeCoordinates;
+    start: number;
+    round?: boolean;
+    max_cities_of_greedy?: number;
+}): number[] {
     if (start < 0 || start >= node_coordinates.length) {
         throw new Error("incorrect start");
     }

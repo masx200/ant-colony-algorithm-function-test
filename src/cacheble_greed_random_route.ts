@@ -7,11 +7,17 @@ const node_coordinates_to_greed_random_route = new WeakMap<
     NodeCoordinates,
     Promise<number[]>
 >();
-
+// import { DefaultOptions, distance_round } from "./default_Options";
 /**可缓存的worker计算随机贪心路径 */
-export async function cacheble_greed_random_route(
-    node_coordinates: NodeCoordinates
-): Promise<number[]> {
+export async function cacheble_greed_random_route({
+    node_coordinates,
+    round = false,
+    max_cities_of_greedy = Infinity,
+}: {
+    node_coordinates: NodeCoordinates;
+    round?: boolean;
+    max_cities_of_greedy?: number;
+}): Promise<number[]> {
     const cache = node_coordinates_to_greed_random_route.get(node_coordinates);
     if (cache) {
         return cache;
@@ -22,10 +28,12 @@ export async function cacheble_greed_random_route(
         const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
         // const { greedypath, total_length } =;
         const route_promise =
-            thread_Greedy_algorithm_to_solve_tsp_with_selected_start(
+            thread_Greedy_algorithm_to_solve_tsp_with_selected_start({
                 node_coordinates,
-                start
-            );
+                start,
+                round,
+                max_cities_of_greedy,
+            });
         node_coordinates_to_greed_random_route.set(
             node_coordinates,
             route_promise

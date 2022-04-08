@@ -19,11 +19,11 @@ export function construct_all_greedy_routes_and_lengths(
         routelength: number;
         route: number[];
     } {
-        const route = Greedyalgorithmtosolvetspwithselectedstart(
+        const route = Greedyalgorithmtosolvetspwithselectedstart({
             node_coordinates,
             start,
-            round
-        );
+            round,
+        });
         const routelength = closed_total_path_length({
             round: distance_round,
             // count_of_nodes: route.length,

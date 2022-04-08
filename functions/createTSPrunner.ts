@@ -84,6 +84,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //     )
     // );
     const {
+        max_routes_of_greedy,
         pheromone_volatility_coefficient_R2,
         // max_routes_of_greedy,
         number_of_city_of_large,
@@ -183,7 +184,12 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
 
     // let numberofiterations = 0;
     const get_number_of_iterations = () => {
-        return current_search_count / count_of_ants;
+        if (current_search_count < max_routes_of_greedy) {
+            return current_search_count / max_routes_of_greedy;
+        }
+        return (
+            (current_search_count - max_routes_of_greedy) / count_of_ants + 1
+        );
     };
 
     const emitter = EventEmitterTargetClass({ sync: true });

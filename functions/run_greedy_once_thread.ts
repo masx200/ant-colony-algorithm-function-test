@@ -17,11 +17,11 @@ export async function run_greedy_once_thread({
     const start = getnumberfromarrayofnmber(pickRandomOne(inputindexs));
     const remote =
         Greedy_algorithm_to_solve_tsp_with_selected_start_pool.getOne().remote;
-    return remote.Greedy_solve_tsp_with_selected_start_length_time_ms(
+    return remote.Greedy_solve_tsp_with_selected_start_length_time_ms({
         node_coordinates,
         start,
         round,
-        max_cities_of_greedy
-    );
+        max_cities_of_greedy,
+    });
     // return { total_length, route: greedypath, time_ms };
 }
