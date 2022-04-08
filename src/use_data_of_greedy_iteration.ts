@@ -68,7 +68,7 @@ export function use_data_of_greedy_iteration(): {
                 // data.ispheromoneDiffusion,
                 // data.pheromoneDiffusionProbability,
                 data.time_ms_of_one_iteration / 1000,
-                data.optimallengthofthisround,
+                data.optimallengthofthis_iteration,
                 // data.relative_deviation_from_optimal,
                 //找到这一轮的迭代的数据
                 data.globalbestlength,

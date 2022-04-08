@@ -64,8 +64,8 @@ export function EachIterationHandler(
     // relative_deviation_from_optimal: number;
     nextrandomselectionprobability: number;
     pheromoneDiffusionProbability: number;
-    optimallengthofthisround: number;
-    optimalrouteofthisround: number[];
+    optimallengthofthis_iteration: number;
+    optimalrouteofthis_iteration: number[];
     // ispheromoneDiffusion: boolean;
     population_relative_information_entropy: number;
     // locally_optimized_length: number;
@@ -154,8 +154,8 @@ export function EachIterationHandler(
 
     const iteratebestlength = iteratebestlengthandroute.total_length;
     const iteratebestroute = iteratebestlengthandroute.route;
-    const optimalrouteofthisround = iteratebestroute;
-    const optimallengthofthisround = iteratebestlength;
+    const optimalrouteofthis_iteration = iteratebestroute;
+    const optimallengthofthis_iteration = iteratebestlength;
     // const iterateworstroutesegments = cycle_routetosegments(iterateworstroute);
     // const iteratebestroutesegments = cycle_routetosegments(iteratebestroute);
     // const global_best_routesegments = cycle_routetosegments(global_best_route);
@@ -208,8 +208,8 @@ export function EachIterationHandler(
         coefficient_of_diversity_increase,
         // locally_optimized_length,
         // relative_deviation_from_optimal,
-        optimallengthofthisround,
-        optimalrouteofthisround,
+        optimallengthofthis_iteration,
+        optimalrouteofthis_iteration,
         // ispheromoneDiffusion,
         // routesandlengths,
         nextrandomselectionprobability,

@@ -9,8 +9,8 @@ export interface DataOfFinishOneIteration {
     // ispheromoneDiffusion: boolean;
     randomselectionprobability: number;
     pheromoneDiffusionProbability: number;
-    optimallengthofthisround: number;
-    optimalrouteofthisround: number[];
+    optimallengthofthis_iteration: number;
+    optimalrouteofthis_iteration: number[];
     time_ms_of_one_iteration: number;
     globalbestlength: number;
     // locally_optimized_length: number;

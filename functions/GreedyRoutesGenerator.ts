@@ -75,7 +75,7 @@ export async function GreedyRoutesGenerator({
         });
     }
 
-    const { total_length: best_length, route: optimalrouteofthisround } =
+    const { total_length: best_length, route: optimalrouteofthis_iteration } =
         get_best_routeOfSeriesRoutesAndLengths(parallel_results);
 
     setPheromoneZero(1 / count_of_nodes / best_length);
@@ -85,8 +85,8 @@ export async function GreedyRoutesGenerator({
     );
     emit_finish_greedy_iteration({
         current_iterations: 1,
-        optimallengthofthisround: best_length,
-        optimalrouteofthisround,
+        optimallengthofthis_iteration: best_length,
+        optimalrouteofthis_iteration,
         time_ms_of_one_iteration,
         globalbestlength: get_best_length(),
     });
