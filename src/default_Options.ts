@@ -42,6 +42,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_size_of_collection_of_optimal_routes: 10,
     max_size_of_collection_of_latest_routes: 10,
     max_routes_of_greedy: 16,
+    max_segments_of_cross_point:100
 };
 export { DefaultOptions };
 //展示每条路径的详细信息

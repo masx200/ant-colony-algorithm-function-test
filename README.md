@@ -32,7 +32,7 @@ ant-colony-algorithm-function-test
 
 11.随机 k-opt 的对象的选择的权重
 
-12.大规模不再查找交叉点
+12.大规模问题部分查找交叉点
 
 #### 安装教程
 
