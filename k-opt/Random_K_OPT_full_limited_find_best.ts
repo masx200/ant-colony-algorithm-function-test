@@ -4,6 +4,7 @@ import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
+import { distance_round } from "../src/default_Options";
 
 /** 有限随机k-opt优化,并找出其中的最优,尽可能去除与原路径一样的路径  */
 export function Random_K_OPT_full_limited_find_best({
@@ -25,9 +26,13 @@ export function Random_K_OPT_full_limited_find_best({
     const routesAndLengths = routes_of_k_opt
         .map((route) => {
             const total_length = closed_total_path_length({
+                round: distance_round,
                 // count_of_nodes: route.length,
                 path: route,
-                getdistancebyindex: creategetdistancebyindex(node_coordinates),
+                getdistancebyindex: creategetdistancebyindex(
+                    node_coordinates,
+                    distance_round
+                ),
             });
             return { total_length, route };
         })

@@ -6,10 +6,16 @@ import { testgreedyconstructroutebest } from "./test-greedyconstructroute";
 export function testgreedynode_coordinates6() {
     const { /* greedypath,  */ total_length } = testgreedyconstructroutebest(
         node_coordinates6,
-        false
+        true
     );
-
-    assert_true(total_length === 328.8245611270737);
+    // console.log(total_length)
+    assert_true(
+        Math.round(total_length) ===
+            Math.round(
+                328
+                //    328.8245611270737
+            )
+    );
 }
 
 //export

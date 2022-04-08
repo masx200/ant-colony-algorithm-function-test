@@ -5,6 +5,7 @@ import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/G
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { DataOfFinishGreedyIteration } from "./DataOfFinishGreedyIteration";
 import { sum } from "lodash-es";
+import { distance_round } from "../src/default_Options";
 
 export async function GreedyRoutesGenerator({
     shared,
@@ -33,8 +34,10 @@ export async function GreedyRoutesGenerator({
     setPheromoneZero: (value: number) => void;
     count_of_nodes: number;
 }) {
+    // const { distance_round } = shared;
     const greedy_results_iter = greedy_first_search_routes_parallel({
         ...shared,
+        round: distance_round,
     });
     const parallel_results: {
         total_length: number;

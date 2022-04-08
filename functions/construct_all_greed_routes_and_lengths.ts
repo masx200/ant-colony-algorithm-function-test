@@ -1,3 +1,4 @@
+import { distance_round } from "../src/default_Options";
 import { closed_total_path_length } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
@@ -24,6 +25,7 @@ export function construct_all_greedy_routes_and_lengths(
             round
         );
         const routelength = closed_total_path_length({
+            round: distance_round,
             // count_of_nodes: route.length,
             path: route,
             getdistancebyindex: creategetdistancebyindex(

@@ -2,7 +2,10 @@ import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
-import { default_max_results_of_2_opt } from "../src/default_Options";
+import {
+    default_max_results_of_2_opt,
+    distance_round,
+} from "../src/default_Options";
 import { assert_true as assert_true } from "../test/assert_true";
 import { generate_2_opt_routes_by_intersection_all } from "./generate_2_opt_routes_by_intersection_all";
 
@@ -30,10 +33,13 @@ export function Precise_2_opt_eliminates_all_intersections({
         const routesAndLengths = routes_of_2_opt_accurate
             .map((route) => {
                 const total_length = closed_total_path_length({
+                    round: distance_round,
                     // count_of_nodes: route.length,
                     path: route,
-                    getdistancebyindex:
-                        creategetdistancebyindex(node_coordinates),
+                    getdistancebyindex: creategetdistancebyindex(
+                        node_coordinates,
+                        distance_round
+                    ),
                 });
                 return { total_length, route };
             })

@@ -10,11 +10,13 @@ export async function* greedy_first_search_routes_parallel({
     node_coordinates,
     // pathTabooList,
     count_of_nodes,
+    round = false,
 }: // set_best_length,
 // set_best_route,
 // emit_finish_one_route,
 // pheromoneStore,
 {
+    round?: boolean;
     // pathTabooList: PathTabooList;
     node_coordinates: NodeCoordinates;
     count_of_nodes: number;
@@ -45,7 +47,7 @@ export async function* greedy_first_search_routes_parallel({
                     time_ms: number;
                 }>
             >({ length: current_threads }).map(() =>
-                run_greedy_once_thread(inputindexs, node_coordinates)
+                run_greedy_once_thread(inputindexs, node_coordinates, round)
             )
         );
         rest_count -= current_threads;

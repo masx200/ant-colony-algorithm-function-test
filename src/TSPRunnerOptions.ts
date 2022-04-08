@@ -1,6 +1,7 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 export type TSPRunnerOptions = {
+    // distance_round?:boolean;
     max_segments_of_cross_point?: number;
     number_of_city_of_large?: number;
     max_routes_of_greedy?: number;

@@ -17,7 +17,12 @@ export const default_max_coefficient_of_pheromone_diffusion = 20;
 
 export const default_min_coefficient_of_pheromone_diffusion = 10;
 export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.7;
-// export const default_Cross_Point_Coefficient_of_Non_Optimal_Paths = 0.7;
+
+export { DefaultOptions };
+//展示每条路径的详细信息
+export const show_every_route = false;
+//计算距离是否四舍五入
+export const distance_round = true;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     number_of_city_of_large: 200,
     // cross_Point_Coefficient_of_Non_Optimal_Paths:
@@ -43,9 +48,5 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_size_of_collection_of_latest_routes: 10,
     max_routes_of_greedy: 16,
     max_segments_of_cross_point: 70,
+    // distance_round,
 };
-export { DefaultOptions };
-//展示每条路径的详细信息
-export const show_every_route = false;
-//计算距离是否四舍五入
-export const distance_round = true;

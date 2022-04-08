@@ -8,10 +8,12 @@ export function closed_total_path_length(
         // count_of_nodes,
         path,
         getdistancebyindex,
+        round = false,
     }: {
         // count_of_nodes: number;
         path: number[];
         getdistancebyindex: (left: number, right: number) => number;
+        round?: boolean;
     } // node_coordinates: NodeCoordinates
 ): number {
     /* 由于浮点数精度问题,重新排序,一样的路径可以输出一样的长度 */
@@ -20,7 +22,11 @@ export function closed_total_path_length(
         cycle_routetosegments(route).map(function ([left, right]) {
             const distance = getdistancebyindex(left, right);
             assert_number(distance);
-            return distance;
+            if (round) {
+                return Math.round(distance);
+            } else {
+                return distance;
+            }
         })
     );
 }

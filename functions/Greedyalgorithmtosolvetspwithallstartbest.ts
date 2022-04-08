@@ -7,14 +7,15 @@ import { NodeCoordinates } from "./NodeCoordinates";
 尝试所有起点找到最优的一个
 */
 export function Greedyalgorithmtosolvetspwithallstartbest(
-    node_coordinates: NodeCoordinates
+    node_coordinates: NodeCoordinates,
+    round = false
     // pathTabooList: PathTabooList
 ): { route: number[]; total_length: number } {
     // const { length } = node_coordinates;
     const greedypathsandlengths: {
         routelength: number;
         route: number[];
-    }[] = construct_all_greedy_routes_and_lengths(node_coordinates);
+    }[] = construct_all_greedy_routes_and_lengths(node_coordinates, round);
     const bestlengthsandroutes = get_best_routeOfSeriesRoutesAndLengths(
         greedypathsandlengths.map(({ route, routelength }) => ({
             route,

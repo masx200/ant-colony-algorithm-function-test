@@ -15,6 +15,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { pickRandomOne } from "./pickRandomOne";
 import { SharedOptions } from "./SharedOptions";
 import { select_available_cities_from_optimal_and_latest } from "./select_available_cities_from_optimal_and_latest";
+import { distance_round } from "../src/default_Options";
 
 // export type PathConstructOptions = ;
 /**使用状态转移概率生成路径. */
@@ -74,7 +75,12 @@ export function generate_paths_using_state_transition_probabilities(
         return pheromoneStore.get(left, right);
     };
     const getdistancebyserialnumber = (left: number, right: number) => {
-        return geteuclideandistancebyindex(left, right, node_coordinates);
+        return geteuclideandistancebyindex(
+            left,
+            right,
+            node_coordinates,
+            distance_round
+        );
     };
 
     // const pathTabooList: pathTabooList = createpathTabooList(count_of_nodes);
@@ -133,9 +139,13 @@ export function generate_paths_using_state_transition_probabilities(
 
     assert_true(route.length == count_of_nodes);
     const routelength = closed_total_path_length({
+        round: distance_round,
         // count_of_nodes: route.length,
         path: route,
-        getdistancebyindex: creategetdistancebyindex(node_coordinates),
+        getdistancebyindex: creategetdistancebyindex(
+            node_coordinates,
+            distance_round
+        ),
     });
     const total_length = routelength;
     // console.log("路径一条构建完成,循环次数", trycount);

@@ -5,7 +5,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 /* 计算路径片段的总长度,非环路 */
 export function totalpathlengthwithoutcycle(
     path: number[],
-    node_coordinates: NodeCoordinates
+    node_coordinates: NodeCoordinates,
+    round = false
 ): number {
     if (path.length >= node_coordinates.length) {
         throw Error("invalid path not match node_coordinates");
@@ -21,7 +22,8 @@ export function totalpathlengthwithoutcycle(
                 /* console.log(left, right);*/ geteuclideandistancebyindex(
                     left,
                     right,
-                    node_coordinates
+                    node_coordinates,
+                    round
                 )
             )
     );

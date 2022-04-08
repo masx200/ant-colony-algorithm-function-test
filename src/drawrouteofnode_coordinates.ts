@@ -4,6 +4,7 @@ import { creategetdistancebyindex } from "../functions/creategetdistancebyindex"
 import { cycle_reorganize } from "../functions/cycle_reorganize";
 import { drawlinechart } from "../functions/drawlinechart";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { distance_round } from "./default_Options";
 
 export function drawrouteofnode_coordinates({
     route,
@@ -18,8 +19,12 @@ export function drawrouteofnode_coordinates({
     //画图的时候重新排列一下顺序
     const greedypath = cycle_reorganize(route, 0);
     const total_length = closed_total_path_length({
+        round: distance_round,
         path: route,
-        getdistancebyindex: creategetdistancebyindex(node_coordinates),
+        getdistancebyindex: creategetdistancebyindex(
+            node_coordinates,
+            distance_round
+        ),
     });
     const linechardata = [...greedypath, greedypath[0]].map(
         (v) => node_coordinates[v]
