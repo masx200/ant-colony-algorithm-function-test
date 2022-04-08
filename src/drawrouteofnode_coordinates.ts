@@ -1,5 +1,5 @@
 import { EChartsType } from "echarts";
-import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { cycle_reorganize } from "../functions/cycle_reorganize";
 import { drawlinechart } from "../functions/drawlinechart";
@@ -17,7 +17,7 @@ export function drawrouteofnode_coordinates({
 }) {
     //画图的时候重新排列一下顺序
     const greedypath = cycle_reorganize(route, 0);
-    const total_length = closedtotalpathlength({
+    const total_length = closed_total_path_length({
         path: route,
         getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });

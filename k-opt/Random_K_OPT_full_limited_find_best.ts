@@ -1,7 +1,7 @@
 import { random_k_opt_limited_full } from "./random_k_opt_limited_full";
 
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 
@@ -24,7 +24,7 @@ export function Random_K_OPT_full_limited_find_best({
 
     const routesAndLengths = routes_of_k_opt
         .map((route) => {
-            const total_length = closedtotalpathlength({
+            const total_length = closed_total_path_length({
                 // count_of_nodes: route.length,
                 path: route,
                 getdistancebyindex: creategetdistancebyindex(node_coordinates),

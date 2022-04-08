@@ -7,3 +7,4 @@ export function creategetdistancebyindex(
     return (left: number, right: number) =>
         geteuclideandistancebyindex(left, right, node_coordinates);
 }
+

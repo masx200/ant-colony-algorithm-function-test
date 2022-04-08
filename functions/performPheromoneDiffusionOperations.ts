@@ -10,7 +10,7 @@ import { sum } from "lodash";
 import { assert_true } from "../test/assert_true";
 import { ArrayShuffle } from "./ArrayShuffle";
 import { cycle_routetosegments } from "./cycle_routetosegments";
-import { euclideandistance } from "./euclideandistance";
+import { euclidean_distance } from "./euclidean_distance";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { get_max_distance_of_node_coordinates } from "./get_max_distance_of_node_coordinates";
 import { haverepetitions } from "./haverepetitions";
@@ -92,7 +92,7 @@ export function performPheromoneDiffusionOperations({
                 .map((_v, i) => i);
             const nodesinsidecircle = inputindexs
                 .map((city) => ({
-                    distance: euclideandistance(
+                    distance: euclidean_distance(
                         node_coordinates[city],
                         centerofcircleE
                     ),
@@ -148,7 +148,7 @@ export function performPheromoneDiffusionOperations({
                             cityD,
                             node_coordinates
                         );
-                        const distanceofEF = euclideandistance(
+                        const distanceofEF = euclidean_distance(
                             pointF,
                             centerofcircleE
                         );

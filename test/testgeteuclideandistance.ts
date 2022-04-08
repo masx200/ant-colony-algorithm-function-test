@@ -1,12 +1,12 @@
 import { isEqual } from "lodash";
-import { euclideandistance } from "../functions/euclideandistance";
+import { euclidean_distance } from "../functions/euclidean_distance";
 import { getalldistancesofnodes } from "../functions/getalldistancesofnodes";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { assert_true } from "./assert_true";
 export function testgeteuclideandistance() {
     // console.log("test geteuclideandistance test start");
-    assert_true(euclideandistance([3, 4], [0, 0]) === 5);
+    assert_true(euclidean_distance([3, 4], [0, 0]) === 5);
 
     let node_coordinates1: NodeCoordinates = [
         [0, 0],

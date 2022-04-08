@@ -1,4 +1,4 @@
-import { closedtotalpathlength } from "./closed-total-path-length";
+import { closed_total_path_length } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -21,7 +21,7 @@ export function construct_all_greed_routes_and_lengths(
             node_coordinates,
             start
         );
-        const routelength = closedtotalpathlength({
+        const routelength = closed_total_path_length({
             // count_of_nodes: route.length,
             path: route,
             getdistancebyindex: creategetdistancebyindex(node_coordinates),

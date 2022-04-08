@@ -3,7 +3,7 @@ import { assert_number } from "../test/assert_number";
 import { cycle_routetosegments } from "./cycle_routetosegments";
 import { generateUniqueArrayOfCircularPath } from "./generateUniqueArrayOfCircularPath";
 /* 计算闭合总路径长度 首尾相连 */
-export function closedtotalpathlength(
+export function closed_total_path_length(
     {
         // count_of_nodes,
         path,

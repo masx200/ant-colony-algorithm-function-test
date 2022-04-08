@@ -47,3 +47,5 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
 export { DefaultOptions };
 //展示每条路径的详细信息
 export const show_every_route = false;
+//计算距离是否四舍五入
+export const distance_round = true;

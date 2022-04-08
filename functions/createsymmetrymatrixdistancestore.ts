@@ -1,6 +1,6 @@
 import { NodeCoordinates } from "./NodeCoordinates";
 
-import { euclideandistance } from "./euclideandistance";
+import { euclidean_distance } from "./euclidean_distance";
 import { MatrixSymmetryCreate } from "@masx200/sparse-2d-matrix";
 
 export function createsymmetrymatrixdistancestore(
@@ -14,7 +14,7 @@ export function createsymmetrymatrixdistancestore(
         initializer: (left, right) => {
             let leftpair = node_coordinates[left];
             let rightpair = node_coordinates[right];
-            let distance = euclideandistance(
+            let distance = euclidean_distance(
                 leftpair,
 
                 rightpair

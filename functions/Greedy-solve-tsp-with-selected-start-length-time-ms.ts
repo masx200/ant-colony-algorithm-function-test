@@ -1,6 +1,6 @@
 import { NodeCoordinates } from "./NodeCoordinates";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
-import { closedtotalpathlength } from "./closed-total-path-length";
+import { closed_total_path_length } from "./closed-total-path-length";
 import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { cycle_reorganize } from "./cycle_reorganize";
 /* 可选起点的贪心算法 */
@@ -14,7 +14,7 @@ export function Greedy_solve_tsp_with_selected_start_length_time_ms(
         start
     );
     const greedypath = cycle_reorganize(route, 0);
-    const total_length = closedtotalpathlength({
+    const total_length = closed_total_path_length({
         path: greedypath,
         getdistancebyindex: creategetdistancebyindex(node_coordinates),
     });

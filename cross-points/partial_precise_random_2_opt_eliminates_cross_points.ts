@@ -1,5 +1,5 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { closedtotalpathlength } from "../functions/closed-total-path-length";
+import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 import { assert_true as assert_true } from "../test/assert_true";
@@ -33,7 +33,7 @@ export function partial_precise_random_2_opt_eliminates_cross_points({
 
         const routesAndLengths = routes_of_2_opt_accurate
             .map((route) => {
-                const total_length = closedtotalpathlength({
+                const total_length = closed_total_path_length({
                     // count_of_nodes: route.length,
                     path: route,
                     getdistancebyindex:
