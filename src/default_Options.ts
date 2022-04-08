@@ -11,7 +11,7 @@ export const default_alpha = 1;
 export const default_beta = 5;
 export const default_pheromone_intensity_Q = 1;
 export const default_max_results_of_k_opt = 15;
-export const default_max_results_of_2_opt = 15;
+export const default_max_results_of_2_opt = 10;
 
 export const default_max_coefficient_of_pheromone_diffusion = 20;
 
@@ -42,7 +42,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_size_of_collection_of_optimal_routes: 10,
     max_size_of_collection_of_latest_routes: 10,
     max_routes_of_greedy: 16,
-    max_segments_of_cross_point: 100,
+    max_segments_of_cross_point: 70,
 };
 export { DefaultOptions };
 //展示每条路径的详细信息
