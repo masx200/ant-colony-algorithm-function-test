@@ -3,7 +3,7 @@ import { assert_number } from "../test/assert_number";
 import {
     default_count_of_ants,
     default_search_rounds,
-    default_pheromone_volatility_coefficient_R1,
+    // default_pheromone_volatility_coefficient_R1,
 } from "./default_Options";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
 
@@ -104,7 +104,7 @@ export async function run_tsp_by_search_rounds({
         // runner.onDataChange(data_change_listener);
     } else {
         // local_pheromone_volatilization_rate.value =
-        default_pheromone_volatility_coefficient_R1;
+        // default_pheromone_volatility_coefficient_R1;
         searchrounds.value = default_search_rounds;
         count_of_ants_ref.value = default_count_of_ants;
         // disablemapswitching.value = false;

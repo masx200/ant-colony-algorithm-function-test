@@ -20,12 +20,12 @@ export function use_initialize_tsp_runner({
         count_of_ants,
         onglobal_best_routeChange,
         onLatestRouteChange,
-        pheromone_volatility_coefficient_R1,
+        // pheromone_volatility_coefficient_R1,
         ...rest
     }) {
         const runner = await create_TSP_Worker_comlink({
             coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-            pheromone_volatility_coefficient_R1,
+            // pheromone_volatility_coefficient_R1,
             node_coordinates,
             count_of_ants,
             ...rest,

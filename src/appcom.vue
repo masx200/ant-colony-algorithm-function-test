@@ -48,12 +48,12 @@
             :min="0.001"
             :max="1"
         /><br />
-        <span>局部信息素挥发率</span>
+        <span>全局信息素挥发率</span>
         <el-input-number
             :controls="false"
             step-strictly
             :step="0.001"
-            v-model.number="local_pheromone_volatilization_rate"
+            v-model.number="global_pheromone_volatilization_rate"
             :disabled="disablemapswitching"
             :min="0.001"
             :max="0.5"
@@ -67,7 +67,7 @@
             :min="2"
             :controls="false"
         /><br />
-        <span>alpha</span>
+        <span>信息素因子</span>
         <el-input-number
             :controls="false"
             step-strictly
@@ -77,7 +77,7 @@
             :min="0.001"
             :max="5"
         /><br />
-        <span>beta</span>
+        <span>启发式因子</span>
         <el-input-number
             :controls="false"
             step-strictly

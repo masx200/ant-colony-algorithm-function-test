@@ -13,7 +13,7 @@ export function use_tsp_before_start(
             // iterations_of_search,
             node_coordinates,
             count_of_ants,
-            pheromone_volatility_coefficient_R1,
+            // pheromone_volatility_coefficient_R1,
             ...rest
         }) {
             const runner =
@@ -21,7 +21,7 @@ export function use_tsp_before_start(
                 /*  TSP_RunnerRef.value || */ await initializeTSP_runner({
                     coefficient_of_pheromone_Increase_Non_Optimal_Paths,
                     // onFinishIteration,
-                    pheromone_volatility_coefficient_R1,
+                    // pheromone_volatility_coefficient_R1,
                     onglobal_best_routeChange,
                     onLatestRouteChange,
                     node_coordinates,

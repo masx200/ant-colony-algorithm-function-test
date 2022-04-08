@@ -19,7 +19,7 @@ export interface EachRouteGeneratorOptions {
     max_results_of_k_opt: number;
     get_best_length: () => number;
     get_best_route: () => number[];
-    pheromone_volatility_coefficient_R1: number;
+    // pheromone_volatility_coefficient_R1: number;
     pheromone_intensity_Q: number;
     set_best_length: (arg0: number) => void;
     set_best_route: (arg0: number[]) => void;

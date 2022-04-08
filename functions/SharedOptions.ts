@@ -30,7 +30,7 @@ export type SharedOptions = Required<TSPRunnerOptions> & {
     min_coefficient_of_pheromone_diffusion: number;
     max_coefficient_of_pheromone_diffusion: number;
     max_results_of_k_opt: number;
-    pheromone_volatility_coefficient_R1: number;
+    // pheromone_volatility_coefficient_R1: number;
     //   pheromone_volatility_coefficient_R2       ,
     pheromone_intensity_Q: number;
     alpha_zero: number;

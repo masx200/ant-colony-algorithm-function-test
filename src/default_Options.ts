@@ -1,14 +1,14 @@
 import { TSPRunnerOptions } from "./TSPRunnerOptions";
 
-export const default_count_of_ants = 16;
+export const default_count_of_ants = 20;
 export const default_search_rounds = 170;
 export const default_search_time_seconds = 900;
-export const default_pheromone_volatility_coefficient_R1 = 0.03;
+// export const default_pheromone_volatility_coefficient_R1 = 0.03;
 
 //由局部信息素挥发率决定全局信息素挥发率
 
 export const default_alpha = 1;
-export const default_beta = 5;
+export const default_beta = 4;
 export const default_pheromone_intensity_Q = 1;
 export const default_max_results_of_k_opt = 15;
 export const default_max_results_of_2_opt = 10;
@@ -36,9 +36,9 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
         default_max_coefficient_of_pheromone_diffusion,
 
     max_results_of_k_opt: default_max_results_of_k_opt,
-    pheromone_volatility_coefficient_R1:
-        default_pheromone_volatility_coefficient_R1,
-    //   pheromone_volatility_coefficient_R2       ,
+    // pheromone_volatility_coefficient_R1:
+    // default_pheromone_volatility_coefficient_R1,
+    pheromone_volatility_coefficient_R2:0.15,
     pheromone_intensity_Q: default_pheromone_intensity_Q,
     // node_coordinates,
     alpha_zero: default_alpha,
