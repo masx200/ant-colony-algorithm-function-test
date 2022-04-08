@@ -148,7 +148,7 @@ export function pheromone_update_rule_after_iteration({
     //     matrix_of_is_changed.set(right, left, 1);
     // });
     const oldpheromoneStore = pheromoneStore;
-    
+
     // const old_pheromone_Store_is_changed = MatrixReduceSeries(
     //     (a, b) => a * b,
     //     matrix_of_is_changed,
