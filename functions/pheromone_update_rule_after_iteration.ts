@@ -1,11 +1,11 @@
 import {
     MatrixAdd,
-    MatrixForEach,
-    // MatrixAssign,
+    // MatrixForEach,
+    MatrixAssign,
     MatrixMax,
     MatrixMultiplyNumber,
     MatrixSymmetry,
-    MatrixReduceSeries,
+    // MatrixReduceSeries,
     MatrixSymmetryCreate,
 } from "@masx200/sparse-2d-matrix";
 import {
@@ -129,38 +129,38 @@ export function pheromone_update_rule_after_iteration({
     );
     // console.log("deltapheromone", MatrixToArrays(deltapheromone));
 
-    const route_segments_to_change: [number, number][] = [
-        ...iteratebestroutesegments,
-        ...global_best_routesegments,
-    ];
-    if (have_iterate_worst) {
-        iterateworstroutesegments.forEach((v) => {
-            route_segments_to_change.push(v);
-        });
-    }
-    const matrix_of_is_changed = MatrixSymmetryCreate({
-        row: count_of_nodes,
-        initializer: () => 0,
-    });
+    // const route_segments_to_change: [number, number][] = [
+    //     ...iteratebestroutesegments,
+    //     ...global_best_routesegments,
+    // ];
+    // if (have_iterate_worst) {
+    //     iterateworstroutesegments.forEach((v) => {
+    //         route_segments_to_change.push(v);
+    //     });
+    // }
+    // const matrix_of_is_changed = MatrixSymmetryCreate({
+    //     row: count_of_nodes,
+    //     initializer: () => 0,
+    // });
 
-    route_segments_to_change.forEach(([left, right]) => {
-        matrix_of_is_changed.set(left, right, 1);
-        matrix_of_is_changed.set(right, left, 1);
-    });
+    // route_segments_to_change.forEach(([left, right]) => {
+    //     matrix_of_is_changed.set(left, right, 1);
+    //     matrix_of_is_changed.set(right, left, 1);
+    // });
     const oldpheromoneStore = pheromoneStore;
-    /* 只有这些路径经过的路径才更新信息素,其他不变 */
-    const old_pheromone_Store_is_changed = MatrixReduceSeries(
-        (a, b) => a * b,
-        matrix_of_is_changed,
-        oldpheromoneStore
-    );
+    
+    // const old_pheromone_Store_is_changed = MatrixReduceSeries(
+    //     (a, b) => a * b,
+    //     matrix_of_is_changed,
+    //     oldpheromoneStore
+    // );
 
-    const nextpheromoneStore_is_changed = MatrixMax(
-        MatrixMultiplyNumber(1 / 2, old_pheromone_Store_is_changed),
+    const nextpheromoneStore = MatrixMax(
+        MatrixMultiplyNumber(1 / 2, oldpheromoneStore),
         MatrixAdd(
             MatrixMultiplyNumber(
                 1 - pheromone_volatility_coefficient_R2,
-                old_pheromone_Store_is_changed
+                oldpheromoneStore
             ),
             MatrixMultiplyNumber(
                 pheromone_volatility_coefficient_R2,
@@ -174,14 +174,15 @@ export function pheromone_update_rule_after_iteration({
     //     nextpheromoneStore: MatrixToArrays(nextpheromoneStore),
     // });
 
-    MatrixForEach(nextpheromoneStore_is_changed, (v, r, c) => {
-        /* 只有这些路径经过的路径才更新信息素,其他不变 */
-        if (v !== 0) {
-            pheromoneStore.set(r, c, v);
-        }
-    });
+    // MatrixForEach(nextpheromoneStore_is_changed, (v, r, c) => {
+    //     /* 只有这些路径经过的路径才更新信息素,其他不变 */
+    //     if (v !== 0) {
+    //         pheromoneStore.set(r, c, v);
+    //     }
+    // });
 
     // assert_true(pheromoneStore.values().every((a) => a > 0));
-    //信息素更新
-    // MatrixAssign(pheromoneStore, nextpheromoneStore);
+    // 信息素更新
+    //所有路径都更新信息素
+    MatrixAssign(pheromoneStore, nextpheromoneStore);
 }
