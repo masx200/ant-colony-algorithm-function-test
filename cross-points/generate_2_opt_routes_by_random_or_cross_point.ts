@@ -28,6 +28,6 @@ export function generate_2_opt_routes_by_random_or_cross_point(
         // route = best_route_of_2_opt;
         // length = best_length_of_2_opt;
     } else {
-    return generate_2_opt_cycle_routes(route);
+        return generate_2_opt_cycle_routes(route);
     }
 }
