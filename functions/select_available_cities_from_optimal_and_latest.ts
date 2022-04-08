@@ -22,7 +22,7 @@ export function select_available_cities_from_optimal_and_latest({
         get_neighbors_from_optimal_routes_and_latest_routes(current_city)
     );
     const rest_nodes = difference(Array.from(available_nodes), neighbors);
-    const source = [neighbors,ArrayShuffle( rest_nodes)].flat();
+    const source = [neighbors, ArrayShuffle(rest_nodes)].flat();
     const result: number[] = source.slice(0, maximum);
     return result;
 }

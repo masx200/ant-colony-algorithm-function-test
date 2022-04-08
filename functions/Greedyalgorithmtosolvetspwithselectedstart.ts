@@ -30,7 +30,8 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
         const restnodes =
             max_cities_of_greedy < Infinity
                 ? ArrayShuffle(Array.from(indexsset)).slice(
-                    0,  max_cities_of_greedy
+                      0,
+                      max_cities_of_greedy
                   )
                 : Array.from(indexsset);
         /* 计算其他点与此点的距离的最小值 */
