@@ -7,12 +7,15 @@ import { NodeCoordinates } from "./NodeCoordinates";
 export function geteuclideandistancebyindex(
     left: number,
     right: number,
-    node_coordinates: NodeCoordinates
+    node_coordinates: NodeCoordinates,
+    round = false
 ): number {
     //参数排序
     //距离参数不分正反
-    const euclideandistancerecord =
-        getstoreofnode_coordinates(node_coordinates);
+    const euclideandistancerecord = getstoreofnode_coordinates(
+        node_coordinates,
+        round
+    );
     if (euclideandistancerecord.has(left, right)) {
         return euclideandistancerecord.get(left, right);
     } else {

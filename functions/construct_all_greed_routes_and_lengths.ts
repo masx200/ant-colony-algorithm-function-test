@@ -3,8 +3,9 @@ import { creategetdistancebyindex } from "./creategetdistancebyindex";
 import { Greedyalgorithmtosolvetspwithselectedstart } from "./Greedyalgorithmtosolvetspwithselectedstart";
 import { NodeCoordinates } from "./NodeCoordinates";
 
-export function construct_all_greed_routes_and_lengths(
-    node_coordinates: NodeCoordinates
+export function construct_all_greedy_routes_and_lengths(
+    node_coordinates: NodeCoordinates,
+    round = false
 ) {
     const inputindexs = Array(node_coordinates.length)
         .fill(0)
@@ -19,12 +20,16 @@ export function construct_all_greed_routes_and_lengths(
     } {
         const route = Greedyalgorithmtosolvetspwithselectedstart(
             node_coordinates,
-            start
+            start,
+            round
         );
         const routelength = closed_total_path_length({
             // count_of_nodes: route.length,
             path: route,
-            getdistancebyindex: creategetdistancebyindex(node_coordinates),
+            getdistancebyindex: creategetdistancebyindex(
+                node_coordinates,
+                round
+            ),
         });
         return { routelength, route };
     });

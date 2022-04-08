@@ -4,7 +4,8 @@ import { euclidean_distance } from "./euclidean_distance";
 import { MatrixSymmetryCreate } from "@masx200/sparse-2d-matrix";
 
 export function createsymmetrymatrixdistancestore(
-    node_coordinates: NodeCoordinates
+    node_coordinates: NodeCoordinates,
+    round = false
 ) {
     const row = node_coordinates.length;
     return MatrixSymmetryCreate({
@@ -17,7 +18,8 @@ export function createsymmetrymatrixdistancestore(
             let distance = euclidean_distance(
                 leftpair,
 
-                rightpair
+                rightpair,
+                round
             );
             return distance;
         },

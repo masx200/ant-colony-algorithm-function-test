@@ -4,7 +4,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 /* 可选起点的贪心算法 */
 export function Greedyalgorithmtosolvetspwithselectedstart(
     node_coordinates: NodeCoordinates,
-    start: number
+    start: number,
+    round = false
 ): number[] {
     if (start < 0 || start >= node_coordinates.length) {
         throw new Error("incorrect start");
@@ -51,7 +52,8 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
                 distance: geteuclideandistancebyindex(
                     currentnode,
                     value,
-                    node_coordinates
+                    node_coordinates,
+                    round
                 ),
             };
         });

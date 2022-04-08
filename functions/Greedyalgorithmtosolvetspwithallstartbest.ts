@@ -1,5 +1,5 @@
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
-import { construct_all_greed_routes_and_lengths } from "./construct_all_greed_routes_and_lengths";
+import { construct_all_greedy_routes_and_lengths } from "./construct_all_greed_routes_and_lengths";
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { NodeCoordinates } from "./NodeCoordinates";
 
@@ -14,7 +14,7 @@ export function Greedyalgorithmtosolvetspwithallstartbest(
     const greedypathsandlengths: {
         routelength: number;
         route: number[];
-    }[] = construct_all_greed_routes_and_lengths(node_coordinates);
+    }[] = construct_all_greedy_routes_and_lengths(node_coordinates);
     const bestlengthsandroutes = get_best_routeOfSeriesRoutesAndLengths(
         greedypathsandlengths.map(({ route, routelength }) => ({
             route,
