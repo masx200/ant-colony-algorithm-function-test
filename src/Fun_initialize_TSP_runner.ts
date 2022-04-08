@@ -7,5 +7,5 @@ export type Fun_initialize_TSP_runner = ({
     count_of_ants,
     onglobal_best_routeChange,
     onLatestRouteChange,
-    // pheromone_volatility_coefficient_R1,
-}: Initialize_TSP_runner_Options) => Promise<TSP_Worker_Remote>;
+}: // pheromone_volatility_coefficient_R1,
+Initialize_TSP_runner_Options) => Promise<TSP_Worker_Remote>;

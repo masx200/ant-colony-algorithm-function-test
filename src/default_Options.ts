@@ -38,7 +38,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_results_of_k_opt: default_max_results_of_k_opt,
     // pheromone_volatility_coefficient_R1:
     // default_pheromone_volatility_coefficient_R1,
-    pheromone_volatility_coefficient_R2:0.15,
+    pheromone_volatility_coefficient_R2: 0.15,
     pheromone_intensity_Q: default_pheromone_intensity_Q,
     // node_coordinates,
     alpha_zero: default_alpha,

@@ -83,7 +83,8 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //         )
     //     )
     // );
-    const {pheromone_volatility_coefficient_R2,
+    const {
+        pheromone_volatility_coefficient_R2,
         // max_routes_of_greedy,
         number_of_city_of_large,
         max_size_of_collection_of_latest_routes,

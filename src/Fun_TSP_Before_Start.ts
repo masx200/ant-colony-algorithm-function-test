@@ -8,8 +8,8 @@ export type Fun_TSP_Before_Start = ({
     onLatestRouteChange,
     node_coordinates,
     count_of_ants,
-    // pheromone_volatility_coefficient_R1,
-}: TSPRunnerOptions & {
+}: // pheromone_volatility_coefficient_R1,
+TSPRunnerOptions & {
     coefficient_of_pheromone_Increase_Non_Optimal_Paths: number;
     // onFinishIteration: () => void;
     // pheromone_volatility_coefficient_R1: number;
