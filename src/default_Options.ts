@@ -49,4 +49,5 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_routes_of_greedy: 16,
     max_segments_of_cross_point: 70,
     // distance_round,
+    max_cities_of_greedy: 500,
 };

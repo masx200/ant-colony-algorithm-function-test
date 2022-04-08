@@ -1,3 +1,4 @@
+import { ArrayShuffle } from "./ArrayShuffle";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { NodeCoordinates } from "./NodeCoordinates";
 
@@ -5,7 +6,8 @@ import { NodeCoordinates } from "./NodeCoordinates";
 export function Greedyalgorithmtosolvetspwithselectedstart(
     node_coordinates: NodeCoordinates,
     start: number,
-    round = false
+    round = false,
+    max_cities_of_greedy = Infinity
 ): number[] {
     if (start < 0 || start >= node_coordinates.length) {
         throw new Error("incorrect start");
@@ -25,7 +27,12 @@ export function Greedyalgorithmtosolvetspwithselectedstart(
         /* 当前的节点 */
         const currentnode = result.slice(-1)[0];
         /* 剩余 的节点 */
-        const restnodes = Array.from(indexsset);
+        const restnodes =
+            max_cities_of_greedy < Infinity
+                ? ArrayShuffle(Array.from(indexsset)).slice(
+                    0,  max_cities_of_greedy
+                  )
+                : Array.from(indexsset);
         /* 计算其他点与此点的距离的最小值 */
         /*  const mindistance = Math.min(
             ...restnodes.map((value) =>

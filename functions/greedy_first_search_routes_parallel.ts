@@ -6,6 +6,7 @@ import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/G
 // import { PathTabooList } from "../pathTabooList/PathTabooList";
 /**并行计算贪心算法搜索路径 */
 export async function* greedy_first_search_routes_parallel({
+    max_cities_of_greedy,
     max_routes_of_greedy,
     node_coordinates,
     // pathTabooList,
@@ -47,7 +48,12 @@ export async function* greedy_first_search_routes_parallel({
                     time_ms: number;
                 }>
             >({ length: current_threads }).map(() =>
-                run_greedy_once_thread(inputindexs, node_coordinates, round)
+                run_greedy_once_thread({
+                    inputindexs,
+                    node_coordinates,
+                    round,
+                    max_cities_of_greedy,
+                })
             )
         );
         rest_count -= current_threads;
