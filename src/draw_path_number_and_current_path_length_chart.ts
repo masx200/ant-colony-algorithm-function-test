@@ -15,7 +15,7 @@ export function draw_path_number_and_current_path_length_chart(
         // console.log("dataofoneroute", dataofoneroute);
         const data: [number, number][] = dataofoneroute.map((a) => [
             a.current_search_count,
-            a.total_length,
+            a.length,
         ]);
         // console.log(data);
         drawlinechart({

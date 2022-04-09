@@ -5,7 +5,7 @@ import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/G
 import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
 import { DataOfFinishGreedyIteration } from "./DataOfFinishGreedyIteration";
 import { sum } from "lodash-es";
-import { distance_round } from "../src/default_Options";
+import { get_distance_round } from "../src/set_distance_round";
 
 export async function GreedyRoutesGenerator({
     shared,
@@ -34,25 +34,24 @@ export async function GreedyRoutesGenerator({
     setPheromoneZero: (value: number) => void;
     count_of_nodes: number;
 }) {
-    // const { distance_round } = shared;
     const greedy_results_iter = greedy_first_search_routes_parallel({
         ...shared,
-        round: distance_round,
+        round: get_distance_round(),
     });
     const parallel_results: {
-        total_length: number;
+        length: number;
         route: number[];
         time_ms: number;
     }[] = [];
 
-    for await (const { route, total_length, time_ms } of greedy_results_iter) {
+    for await (const { route, length, time_ms } of greedy_results_iter) {
         parallel_results.push({
             route,
-            total_length,
+            length,
             time_ms,
         });
 
-        const oldLength = total_length;
+        const oldLength = length;
         const oldRoute = route;
         if (get_best_route().length === 0) {
             if (oldLength < get_best_length()) {
@@ -64,7 +63,7 @@ export async function GreedyRoutesGenerator({
             set_best_length(oldLength);
             set_best_route(oldRoute);
         }
-        onRouteCreated(route, total_length);
+        onRouteCreated(route, length);
 
         emit_finish_one_route({
             probability_of_opt_best: get_probability_of_opt_best(),
@@ -74,11 +73,11 @@ export async function GreedyRoutesGenerator({
             // way_of_construct,
             time_ms_of_one_route: time_ms,
             route,
-            total_length,
+            length,
         });
     }
 
-    const { total_length: best_length, route: optimalrouteofthis_iteration } =
+    const { length: best_length, route: optimalrouteofthis_iteration } =
         get_best_routeOfSeriesRoutesAndLengths(parallel_results);
 
     setPheromoneZero(1 / count_of_nodes / best_length);

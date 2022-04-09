@@ -15,7 +15,7 @@ import { PickNextNodeRouletteOptions } from "./PickNextNodeRouletteOptions";
 import { pickRandomOne } from "./pickRandomOne";
 import { SharedOptions } from "./SharedOptions";
 import { select_available_cities_from_optimal_and_latest } from "./select_available_cities_from_optimal_and_latest";
-import { distance_round } from "../src/default_Options";
+import { get_distance_round } from "../src/set_distance_round";
 
 // export type PathConstructOptions = ;
 /**使用状态转移概率生成路径. */
@@ -33,7 +33,7 @@ export function generate_paths_using_state_transition_probabilities(
     } & SharedOptions
 ): {
     route: number[];
-    total_length: number;
+    length: number;
     // countofloops: number;
 } {
     // const filternotforbiddenbeforepick: FilterForbiddenBeforePick =
@@ -79,7 +79,7 @@ export function generate_paths_using_state_transition_probabilities(
             left,
             right,
             node_coordinates,
-            distance_round
+            get_distance_round()
         );
     };
 
@@ -139,15 +139,15 @@ export function generate_paths_using_state_transition_probabilities(
 
     assert_true(route.length == count_of_nodes);
     const routelength = closed_total_path_length({
-        round: distance_round,
+        round: get_distance_round(),
         // count_of_nodes: route.length,
         path: route,
         getdistancebyindex: creategetdistancebyindex(
             node_coordinates,
-            distance_round
+            get_distance_round()
         ),
     });
-    const total_length = routelength;
+    const length = routelength;
     // console.log("路径一条构建完成,循环次数", trycount);
     // const endtime = Number(new Date());
     //console.log("路径一条构建完成,消耗时间毫秒", endtime - starttime);
@@ -155,5 +155,5 @@ export function generate_paths_using_state_transition_probabilities(
     //   "路径一条构建完成,平均每次循环消耗的时间毫秒",
     //    (endtime - starttime) / trycount
     //   );
-    return { route, total_length /* countofloops: trycount  */ };
+    return { route, length /* countofloops: trycount  */ };
 }

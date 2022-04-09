@@ -18,7 +18,7 @@ export function construct_one_route_all(
     } & SharedOptions
 ): {
     route: number[];
-    total_length: number;
+    length: number;
 } {
     const {
         node_coordinates,

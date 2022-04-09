@@ -29,6 +29,20 @@
             :disabled="disable_stop"
         />
         <hr />
+        <span>结果四舍五入</span>
+        <el-radio-group v-model="round_result" :disabled="disablemapswitching">
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio> </el-radio-group
+        ><br />
+        <span>查找交叉点的最大线段数量</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="input_options.max_segments_of_cross_point"
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br />
         <span>贪心算法路径数量</span>
         <el-input-number
             step-strictly
@@ -36,6 +50,31 @@
             v-model.number="max_routes_of_greedy"
             :disabled="disablemapswitching"
             :min="2"
+            :controls="false"
+        /><br /><span>单次k-opt最大数量</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="input_options.max_results_of_k_opt"
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br /><span>单次2-opt最大次数</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="input_options.max_results_of_2_opt"
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br />
+        <span>信息素强度</span>
+        <el-input-number
+            step-strictly
+            :step="0.01"
+            v-model.number="pheromone_intensity_Q_ref"
+            :disabled="disablemapswitching"
+            :min="0.01"
             :controls="false"
         /><br />
         <span>非最优解的信息素增量系数</span>
@@ -88,12 +127,13 @@
             :max="10"
         /><br />
         <hr />
+        <span>按照终止条件</span>
         <el-radio-group
             v-model="radio_run_way"
             :disabled="!can_run || is_running"
         >
-            <el-radio :label="run_way_time">按照时间</el-radio>
-            <el-radio :label="run_way_round">按照轮次</el-radio>
+            <el-radio :label="run_way_time">时间</el-radio>
+            <el-radio :label="run_way_round">轮次</el-radio>
         </el-radio-group>
         <div v-show="radio_run_way === run_way_round">
             <span>迭代轮次数</span>

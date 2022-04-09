@@ -26,7 +26,7 @@ export async function* greedy_first_search_routes_parallel({
     // emit_finish_one_route: (data: PureDataOfFinishOneRoute) => void;
     // pheromoneStore: MatrixSymmetry<number>;
 } & SharedOptions): AsyncGenerator<
-    { total_length: number; route: number[]; time_ms: number },
+    { length: number; route: number[]; time_ms: number },
     void,
     unknown
 > {
@@ -43,7 +43,7 @@ export async function* greedy_first_search_routes_parallel({
         const parallel_results = await Promise.all(
             Array.from<
                 Promise<{
-                    total_length: number;
+                    length: number;
                     route: number[];
                     time_ms: number;
                 }>

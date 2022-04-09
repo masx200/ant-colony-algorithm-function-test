@@ -38,6 +38,7 @@ import { create_collection_of_latest_routes } from "../collections/collection-of
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
 import { GreedyRoutesGenerator } from "./GreedyRoutesGenerator";
 import { DataOfFinishGreedyIteration } from "./DataOfFinishGreedyIteration";
+import { set_distance_round } from "../src/set_distance_round";
 export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
@@ -84,6 +85,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //     )
     // );
     const {
+        distance_round,
         max_routes_of_greedy,
         pheromone_volatility_coefficient_R2,
         // max_routes_of_greedy,
@@ -91,6 +93,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         max_size_of_collection_of_latest_routes,
         max_size_of_collection_of_optimal_routes,
     } = options;
+    set_distance_round(distance_round);
     const count_of_nodes = node_coordinates.length;
     const is_count_not_large = count_of_nodes <= number_of_city_of_large;
     const collection_of_latest_routes = is_count_not_large
@@ -266,7 +269,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             /* 一次迭代的路径和长度 */
             const routes_and_lengths_of_one_iteration: {
                 route: number[];
-                total_length: number;
+                length: number;
             }[] = [];
 
             for (let i = 0; i < count_of_ants; i++) {
@@ -274,7 +277,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                 const starttime_of_one_route = Number(new Date());
                 const {
                     route,
-                    total_length,
+                    length,
                     // weight_of_opt_best,
                     // weight_of_opt_current,
                 } = EachRouteGenerator({
@@ -299,10 +302,10 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                     setPheromoneZero,
                 });
                 const endtime_of_one_route = Number(new Date());
-                onRouteCreated(route, total_length);
+                onRouteCreated(route, length);
                 routes_and_lengths_of_one_iteration.push({
                     route,
-                    total_length,
+                    length,
                 });
                 const time_ms_of_one_route =
                     endtime_of_one_route - starttime_of_one_route;
@@ -316,7 +319,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                     // way_of_construct,
                     time_ms_of_one_route: time_ms_of_one_route,
                     route,
-                    total_length,
+                    length,
                 });
                 if (
                     routes_and_lengths_of_one_iteration.length === count_of_ants
@@ -484,7 +487,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //         const starttime_of_one_route = Number(new Date());
     //         const {
     //             route,
-    //             total_length,
+    //             length,
     //             // weight_of_opt_best,
     //             // weight_of_opt_current,
     //         } = EachRouteGenerator({
@@ -509,8 +512,8 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //             setPheromoneZero,
     //         });
     //         const endtime_of_one_route = Number(new Date());
-    //         onRouteCreated(route, total_length);
-    //         routes_and_lengths_of_one_iteration.push({ route, total_length });
+    //         onRouteCreated(route, length);
+    //         routes_and_lengths_of_one_iteration.push({ route, length });
     //         const time_ms_of_one_route =
     //             endtime_of_one_route - starttime_of_one_route;
     //         time_ms_of_one_iteration += time_ms_of_one_route;
@@ -522,7 +525,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //             // way_of_construct,
     //             time_ms_of_one_route: time_ms_of_one_route,
     //             route,
-    //             total_length,
+    //             length,
     //         });
     //         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
     //             const starttime_of_process_iteration = Number(new Date());

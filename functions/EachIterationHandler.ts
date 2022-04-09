@@ -26,7 +26,7 @@ export function EachIterationHandler(
         // max_results_of_k_opt: number;
         routesandlengths: {
             route: number[];
-            total_length: number;
+            length: number;
         }[];
         // emit_finish_one_route: Emit_Finish_One_Route;
         // lastrandomselectionprobability: number;
@@ -135,7 +135,7 @@ export function EachIterationHandler(
     //     set_best_length,
     //     set_best_route,
     // });
-    // const locally_optimized_length = result.total_length;
+    // const locally_optimized_length = result.length;
 
     const global_best_route = get_best_route();
     const globalbestlength = get_best_length();
@@ -144,15 +144,15 @@ export function EachIterationHandler(
         getworstRouteOfSeriesRoutesAndLengths(routesandlengths);
 
     //     routesandlengths.reduce((previous, current) => {
-    //     return previous.total_length > current.total_length ? previous : current;
+    //     return previous.length > current.length ? previous : current;
     // }, routesandlengths[0]);
-    const iterateworstlength = worstlengthandroute.total_length;
+    const iterateworstlength = worstlengthandroute.length;
     const iterateworstroute = worstlengthandroute.route;
 
     const iteratebestlengthandroute =
         get_best_routeOfSeriesRoutesAndLengths(routesandlengths);
 
-    const iteratebestlength = iteratebestlengthandroute.total_length;
+    const iteratebestlength = iteratebestlengthandroute.length;
     const iteratebestroute = iteratebestlengthandroute.route;
     const optimalrouteofthis_iteration = iteratebestroute;
     const optimallengthofthis_iteration = iteratebestlength;
@@ -201,7 +201,7 @@ export function EachIterationHandler(
     //与最优的相对偏差
     // const relative_deviation_from_optimal: number =
     //     calc_relative_deviation_from_optimal(
-    //         routesandlengths.map(({ total_length }) => total_length),
+    //         routesandlengths.map(({ length }) => length),
     //         get_best_length()
     //     );
     return {

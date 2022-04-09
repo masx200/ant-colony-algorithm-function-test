@@ -14,7 +14,7 @@ export function EachRouteGenerator(
     options: EachRouteGeneratorOptions & SharedOptions
 ): {
     route: number[];
-    total_length: number;
+    length: number;
     // weight_of_opt_best: number;
     // weight_of_opt_current: number;
 } {
@@ -48,10 +48,10 @@ export function EachRouteGenerator(
     } = options;
     const {
         route: oldRoute,
-        total_length: oldLength,
+        length: oldLength,
     }: {
         route: number[];
-        total_length: number;
+        length: number;
     } = construct_one_route_all({
         ...options,
         setPheromoneZero,
@@ -127,29 +127,29 @@ export function EachRouteGenerator(
           });
 
     const temp_set_of_routes = [
-        { route: route1, total_length: length1 },
-        { route: route2, total_length: length2 },
-        { route: route3, total_length: length3 },
-        { route: oldRoute, total_length: oldLength },
+        { route: route1, length: length1 },
+        { route: route2, length: length2 },
+        { route: route3, length: length3 },
+        { route: oldRoute, length: oldLength },
     ];
-    //.filter((a) => a.total_length !== get_best_length());
+    //.filter((a) => a.length !== get_best_length());
     // debugger
 
     // debugger
     /* 找出最短(路径2,路径3,路径1,当前路径) */
-    const { route, total_length } =
+    const { route, length } =
         //    temp_set_of_routes.length
         //?
         get_best_routeOfSeriesRoutesAndLengths(temp_set_of_routes);
-    //   : { route: oldRoute, total_length: oldLength };
+    //   : { route: oldRoute, length: oldLength };
 
-    if (total_length < get_best_length()) {
-        if (length1 === total_length) {
+    if (length < get_best_length()) {
+        if (length1 === length) {
             //如果对当前路径优化成功
             set_weight_of_opt_current(get_weight_of_opt_current() + 1);
         } else if (
             select_opt_best &&
-            (length2 === total_length || length3 === total_length)
+            (length2 === length || length3 === length)
         ) {
             //如果对最优解优化成功
             set_weight_of_opt_best(get_weight_of_opt_best() * 1.1);
@@ -158,7 +158,7 @@ export function EachRouteGenerator(
             set_weight_of_opt_current(get_weight_of_opt_current() * 1.1);
         }
 
-        set_best_length(total_length);
+        set_best_length(length);
         set_best_route(route);
     }
     assert_true(get_best_length() < Infinity);
@@ -171,7 +171,7 @@ export function EachRouteGenerator(
     //     // cross_Point_Coefficient_of_Non_Optimal_Paths,
     //     coefficient_of_pheromone_Increase_Non_Optimal_Paths,
     //     global_best_route: get_best_route(),
-    //     current_length: total_length,
+    //     current_length: length,
     //     current_route: route,
     //     // node_coordinates,
     //     count_of_nodes,
@@ -182,7 +182,7 @@ export function EachRouteGenerator(
     // });
     return {
         route,
-        total_length,
+        length,
         // weight_of_opt_best,
         // weight_of_opt_current,
     };

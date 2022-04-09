@@ -4,7 +4,7 @@ import { creategetdistancebyindex } from "../functions/creategetdistancebyindex"
 import { get_best_routeOfSeriesRoutesAndLengths } from "../functions/get_best_routeOfSeriesRoutesAndLengths";
 import { assert_true as assert_true } from "../test/assert_true";
 import { generate_2_opt_routes_by_random_or_cross_point } from "./generate_2_opt_routes_by_random_or_cross_point";
-import { distance_round } from "../src/default_Options";
+import { get_distance_round } from "../src/set_distance_round";
 
 /**随机2-opt尝试优化,尽可能去除与原路径一样的路径*/
 export function partial_precise_random_2_opt_eliminates_cross_points({
@@ -34,25 +34,23 @@ export function partial_precise_random_2_opt_eliminates_cross_points({
 
         const routesAndLengths = routes_of_2_opt_accurate
             .map((route) => {
-                const total_length = closed_total_path_length({
-                    round: distance_round,
+                const length = closed_total_path_length({
+                    round: get_distance_round(),
                     // count_of_nodes: route.length,
                     path: route,
                     getdistancebyindex: creategetdistancebyindex(
                         node_coordinates,
-                        distance_round
+                        get_distance_round()
                     ),
                 });
-                return { total_length, route };
+                return { length, route };
             })
-            .filter((a) => a.total_length !== length);
+            .filter((a) => a.length !== length);
         /* routesAndLengths可能为空了 */
-        const {
-            route: best_route_of_2_opt,
-            total_length: best_length_of_2_opt,
-        } = routesAndLengths.length
-            ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
-            : { total_length: length, route: route };
+        const { route: best_route_of_2_opt, length: best_length_of_2_opt } =
+            routesAndLengths.length
+                ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
+                : { length: length, route: route };
         if (best_length_of_2_opt < length) {
             route = best_route_of_2_opt;
             length = best_length_of_2_opt;
@@ -76,22 +74,22 @@ export function partial_precise_random_2_opt_eliminates_cross_points({
     //             );
     //         const routesAndLengths = routes_of_2_opt_accurate
     //             .map((route) => {
-    //                 const total_length = closedtotalpathlength({
+    //                 const length = closedtotalpathlength({
     //                     // count_of_nodes: route.length,
     //                     path: route,
     //                     getdistancebyindex:
     //                         creategetdistancebyindex(node_coordinates),
     //                 });
-    //                 return { total_length, route };
+    //                 return { length, route };
     //             })
-    //             .filter((a) => a.total_length !== length);
+    //             .filter((a) => a.length !== length);
     //         /* routesAndLengths可能为空了 */
     //         const {
     //             route: best_route_of_2_opt,
-    //             total_length: best_length_of_2_opt,
+    //             length: best_length_of_2_opt,
     //         } = routesAndLengths.length
     //             ? get_best_routeOfSeriesRoutesAndLengths(routesAndLengths)
-    //             : { total_length: length, route: route };
+    //             : { length: length, route: route };
     //         if (best_length_of_2_opt <= length) {
     //             route = best_route_of_2_opt;
     //             length = best_length_of_2_opt;

@@ -1,6 +1,7 @@
 import { EChartsType } from "echarts";
 import { Ref, ShallowRef } from "vue";
-import { DefaultOptions, distance_round } from "./default_Options";
+import { DefaultOptions } from "./default_Options";
+import { get_distance_round } from "./set_distance_round";
 import { showanddrawrandomgreedyoftsp } from "./showanddrawrandomgreedyoftsp";
 import { TSP_cities_map } from "./TSP_cities_map";
 
@@ -31,7 +32,7 @@ export function use_submit({
                     // resize: latestchart.resize,
                     node_coordinates: await node_coordinates(),
                     chart: latestchart,
-                    round: distance_round,
+                    round: get_distance_round(),
                     max_cities_of_greedy: DefaultOptions.max_cities_of_greedy,
                 });
             }
@@ -43,7 +44,7 @@ export function use_submit({
                     // resize: bestchart.resize,
                     node_coordinates: await node_coordinates(),
                     chart: bestchart,
-                    round: distance_round,
+                    round: get_distance_round(),
                     max_cities_of_greedy: DefaultOptions.max_cities_of_greedy,
                 });
             }

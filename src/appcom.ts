@@ -4,6 +4,7 @@ import {
     computed,
     defineComponent,
     onMounted,
+    reactive,
     readonly,
     ref,
     watch,
@@ -22,7 +23,9 @@ import {
     default_alpha,
     DefaultOptions,
     show_every_route,
+    default_pheromone_intensity_Q,
 } from "./default_Options";
+import { get_distance_round, set_distance_round } from "./set_distance_round";
 import { draw_best_route_debounced } from "./draw_best_route_debounced";
 import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
 import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
@@ -52,6 +55,17 @@ import { use_data_of_greedy_iteration } from "./use_data_of_greedy_iteration";
 export default defineComponent({
     components: { Datatable, Progresselement: Progresselement },
     setup() {
+        const { max_segments_of_cross_point } = DefaultOptions;
+        const input_options = reactive({
+            max_segments_of_cross_point,
+            max_results_of_k_opt: DefaultOptions.max_results_of_k_opt,
+            max_results_of_2_opt: DefaultOptions.max_results_of_2_opt,
+        });
+        const pheromone_intensity_Q_ref = ref(default_pheromone_intensity_Q);
+        const round_result = ref(get_distance_round());
+        watch(round_result, (round) => {
+            set_distance_round(round);
+        });
         const global_pheromone_volatilization_rate = ref(
             DefaultOptions.pheromone_volatility_coefficient_R2
         );
@@ -344,6 +358,7 @@ export default defineComponent({
         const search_time_seconds = ref(default_search_time_seconds);
 
         async function create_runner(): Promise<TSP_Worker_Remote> {
+            const pheromone_intensity_Q = pheromone_intensity_Q_ref.value;
             const coefficient_of_pheromone_Increase_Non_Optimal_Paths_value =
                 coefficient_of_pheromone_Increase_Non_Optimal_Paths.value;
             // const search_time_ms = search_time_seconds.value * 1000;
@@ -358,7 +373,9 @@ export default defineComponent({
             const alpha_value = alpha.value;
             const max_routes_of_greedy_value = max_routes_of_greedy.value;
             const beta_value = beta.value;
+            const distance_round = round_result.value;
             if (
+                pheromone_intensity_Q > 0 &&
                 max_routes_of_greedy_value > 0 &&
                 beta_value > 0 &&
                 alpha_value > 0 &&
@@ -376,6 +393,9 @@ export default defineComponent({
                 // assert_number(pheromone_volatility_coefficient_R1);
 
                 const runner = await TSP_before_Start({
+                    ...input_options,
+                    pheromone_intensity_Q,
+                    distance_round,
                     pheromone_volatility_coefficient_R2,
                     max_routes_of_greedy: max_routes_of_greedy_value,
                     alpha_zero: alpha_value,
@@ -434,6 +454,9 @@ export default defineComponent({
         const beta = ref(default_beta);
         const max_routes_of_greedy = ref(DefaultOptions.max_routes_of_greedy);
         return {
+            input_options,
+            pheromone_intensity_Q_ref,
+            round_result,
             global_pheromone_volatilization_rate,
             show_every_route: show_every_route,
             greedy_iteration_table_heads,

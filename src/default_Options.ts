@@ -21,8 +21,6 @@ export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.7;
 export { DefaultOptions };
 //展示每条路径的详细信息
 export const show_every_route = false;
-//计算距离是否四舍五入
-export const distance_round = true;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     number_of_city_of_large: 200,
     // cross_Point_Coefficient_of_Non_Optimal_Paths:
@@ -50,4 +48,5 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_segments_of_cross_point: 70,
     // distance_round,
     max_cities_of_greedy: 500,
+    distance_round: true,
 };

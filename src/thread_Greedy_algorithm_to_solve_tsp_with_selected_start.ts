@@ -11,7 +11,10 @@ export async function thread_Greedy_algorithm_to_solve_tsp_with_selected_start({
     start: number;
     round?: boolean;
     max_cities_of_greedy?: number;
-}): Promise<number[]> {
+}): Promise<{
+    route: number[];
+    length: number;
+}> {
     const remote =
         Greedy_algorithm_to_solve_tsp_with_selected_start_pool.getOne().remote;
 

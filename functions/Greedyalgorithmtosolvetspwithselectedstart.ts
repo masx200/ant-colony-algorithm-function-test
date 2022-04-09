@@ -1,4 +1,11 @@
+import {
+    get_distance_round,
+    set_distance_round,
+} from "../src/set_distance_round";
 import { ArrayShuffle } from "./ArrayShuffle";
+import { closed_total_path_length } from "./closed-total-path-length";
+import { creategetdistancebyindex } from "./creategetdistancebyindex";
+import { cycle_reorganize } from "./cycle_reorganize";
 import { geteuclideandistancebyindex } from "./geteuclideandistancebyindex";
 import { NodeCoordinates } from "./NodeCoordinates";
 
@@ -13,7 +20,8 @@ export function Greedyalgorithmtosolvetspwithselectedstart({
     start: number;
     round?: boolean;
     max_cities_of_greedy?: number;
-}): number[] {
+}): { route: number[]; length: number } {
+    set_distance_round(round);
     if (start < 0 || start >= node_coordinates.length) {
         throw new Error("incorrect start");
     }
@@ -90,5 +98,13 @@ export function Greedyalgorithmtosolvetspwithselectedstart({
         indexsset.delete(nextnode);
         result.push(nextnode);
     }
-    return result;
+
+    const route = result;
+    const greedypath = cycle_reorganize(route, 0);
+    const length = closed_total_path_length({
+        round: get_distance_round(),
+        path: greedypath,
+        getdistancebyindex: creategetdistancebyindex(node_coordinates, round),
+    });
+    return { route: result, length: length };
 }

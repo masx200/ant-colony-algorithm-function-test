@@ -17,7 +17,7 @@ export async function showanddrawrandomgreedyoftsp({
 }) {
     // console.log(node_coordinates, chart);
 
-    const route = await cacheble_greed_random_route({
+    const { route } = await cacheble_greed_random_route({
         node_coordinates,
         round,
         max_cities_of_greedy,
