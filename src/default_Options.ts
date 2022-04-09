@@ -22,7 +22,8 @@ export { DefaultOptions };
 //展示每条路径的详细信息
 export const show_every_route = false;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
-    number_of_city_of_large: 200,
+    ///* 状态转移规则的每一步最多城市数 */
+    max_cities_of_state_transition: 200,
     // cross_Point_Coefficient_of_Non_Optimal_Paths:
     //     default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     max_results_of_2_opt: default_max_results_of_2_opt,
@@ -44,9 +45,10 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     count_of_ants: default_count_of_ants,
     max_size_of_collection_of_optimal_routes: 10,
     max_size_of_collection_of_latest_routes: 10,
-    max_routes_of_greedy: 16,
-    max_segments_of_cross_point: 70,
+    max_routes_of_greedy: 20,
+    max_segments_of_cross_point: 100,
     // distance_round,
+    /**贪心算法的每一步最多城市数 */
     max_cities_of_greedy: 500,
     distance_round: true,
 };

@@ -55,12 +55,7 @@ import { use_data_of_greedy_iteration } from "./use_data_of_greedy_iteration";
 export default defineComponent({
     components: { Datatable, Progresselement: Progresselement },
     setup() {
-        const { max_segments_of_cross_point } = DefaultOptions;
-        const input_options = reactive({
-            max_segments_of_cross_point,
-            max_results_of_k_opt: DefaultOptions.max_results_of_k_opt,
-            max_results_of_2_opt: DefaultOptions.max_results_of_2_opt,
-        });
+        const input_options = reactive(DefaultOptions);
         const pheromone_intensity_Q_ref = ref(default_pheromone_intensity_Q);
         const round_result = ref(get_distance_round());
         watch(round_result, (round) => {

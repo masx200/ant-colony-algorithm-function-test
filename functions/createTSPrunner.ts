@@ -89,13 +89,13 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         max_routes_of_greedy,
         pheromone_volatility_coefficient_R2,
         // max_routes_of_greedy,
-        number_of_city_of_large,
+        max_cities_of_state_transition,
         max_size_of_collection_of_latest_routes,
         max_size_of_collection_of_optimal_routes,
     } = options;
     set_distance_round(distance_round);
     const count_of_nodes = node_coordinates.length;
-    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    const is_count_not_large = count_of_nodes <= max_cities_of_state_transition;
     const collection_of_latest_routes = is_count_not_large
         ? undefined
         : create_collection_of_latest_routes(

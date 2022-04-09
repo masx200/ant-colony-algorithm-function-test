@@ -43,7 +43,7 @@ export function generate_paths_using_state_transition_probabilities(
         picknextnodeRoulette;
     const {
         get_neighbors_from_optimal_routes_and_latest_routes,
-        number_of_city_of_large,
+        max_cities_of_state_transition,
         // searchloopcountratio,
 
         randomselectionprobability,
@@ -98,7 +98,7 @@ export function generate_paths_using_state_transition_probabilities(
     /**循环次数 */
     // let trycount = 0;
     // const starttime = Number(new Date());
-    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    const is_count_not_large = count_of_nodes <= max_cities_of_state_transition;
     while (route.length !== count_of_nodes) {
         const current_city = Array.from(route).slice(-1)[0];
         //　每一步的可选城市的组成为集合Toptimal和集合Tlatest中的路径中与当前城市相连的城市,如果可选城市数量不满NCL,则随机选择其余城市添加到可选列表,直到可选城市数量达到NCL.
@@ -111,7 +111,7 @@ export function generate_paths_using_state_transition_probabilities(
                       available_nodes,
                       get_neighbors_from_optimal_routes_and_latest_routes,
                       current_city,
-                      max_size_of_cities: number_of_city_of_large,
+                      max_size_of_cities: max_cities_of_state_transition,
                   });
         };
         const nextnode = randomselection

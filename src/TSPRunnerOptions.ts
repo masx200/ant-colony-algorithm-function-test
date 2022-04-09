@@ -5,7 +5,7 @@ export type TSPRunnerOptions = {
     max_cities_of_greedy?: number;
     // distance_round?:boolean;
     max_segments_of_cross_point?: number;
-    number_of_city_of_large?: number;
+    max_cities_of_state_transition?: number;
     max_routes_of_greedy?: number;
     max_size_of_collection_of_latest_routes?: number;
     max_size_of_collection_of_optimal_routes?: number;

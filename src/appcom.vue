@@ -34,6 +34,25 @@
             <el-radio :label="true">是</el-radio>
             <el-radio :label="false">否</el-radio> </el-radio-group
         ><br />
+        <hr/>
+        <span>状态转移规则的每一步最多城市数</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="input_options.max_cities_of_state_transition"
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br />
+        <span>贪心算法的每一步最多城市数</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="input_options.max_cities_of_greedy"
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br />
         <span>查找交叉点的最大线段数量</span>
         <el-input-number
             step-strictly
@@ -51,7 +70,7 @@
             :disabled="disablemapswitching"
             :min="2"
             :controls="false"
-        /><br /><span>单次k-opt最大数量</span>
+        /><br /><span>每条的k-opt最大数量</span>
         <el-input-number
             step-strictly
             :step="1"
@@ -59,7 +78,7 @@
             :disabled="disablemapswitching"
             :min="1"
             :controls="false"
-        /><br /><span>单次2-opt最大次数</span>
+        /><br /><span>每条的2-opt最大次数</span>
         <el-input-number
             step-strictly
             :step="1"

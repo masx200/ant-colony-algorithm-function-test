@@ -26,7 +26,7 @@ import { SharedOptions } from "./SharedOptions";
  * 每只蚂蚁构建完路径后的信息素更新规则,局部信息素更新
  */
 export function pheromone_update_rule_after_route({
-    // number_of_city_of_large,
+    // max_cities_of_state_transition,
     // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
     coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     global_best_route,
@@ -99,14 +99,14 @@ export function pheromone_update_rule_after_route({
     //     ),
     //     // : undefined,
     // });
-    // const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    // const is_count_not_large = count_of_nodes <= max_cities_of_state_transition;
     // const have_intersection_in_global_best = is_count_not_large
     //     ? cacheble_is_intersection_filter_with_cycle_route({
     //           node_coordinates,
     //           cycle_route: global_best_route,
     //       })
     //     : is_intersection_partial_with_cycle_route({
-    //           max_of_segments: number_of_city_of_large,
+    //           max_of_segments: max_cities_of_state_transition,
     //           node_coordinates,
     //           cycle_route: global_best_route,
     //       });
@@ -116,7 +116,7 @@ export function pheromone_update_rule_after_route({
     //           cycle_route: current_route,
     //       })
     //     : is_intersection_partial_with_cycle_route({
-    //           max_of_segments: number_of_city_of_large,
+    //           max_of_segments: max_cities_of_state_transition,
     //           node_coordinates,
     //           cycle_route: current_route,
     //       });

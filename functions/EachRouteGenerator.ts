@@ -19,7 +19,7 @@ export function EachRouteGenerator(
     // weight_of_opt_current: number;
 } {
     const {
-        number_of_city_of_large,
+        // max_cities_of_state_transition,
         set_weight_of_opt_current,
         set_weight_of_opt_best,
         get_weight_of_opt_current,
@@ -80,7 +80,7 @@ export function EachRouteGenerator(
             set_best_route(oldRoute);
         }
     }
-    const is_count_not_large = count_of_nodes <= number_of_city_of_large;
+    const is_count_not_large = count_of_nodes <= max_segments_of_cross_point;
     /* 对当前路径进行精准2-opt优化 */
     const { route: route1, length: length1 } = is_count_not_large
         ? Precise_2_opt_eliminates_all_intersections({
@@ -91,7 +91,7 @@ export function EachRouteGenerator(
           })
         : partial_precise_random_2_opt_eliminates_cross_points({
               max_of_segments: max_segments_of_cross_point,
-              //   max_of_segments: number_of_city_of_large,
+              //   max_of_segments: max_cities_of_state_transition,
               max_results_of_2_opt,
               route: oldRoute,
               length: oldLength,
@@ -119,7 +119,7 @@ export function EachRouteGenerator(
           })
         : partial_precise_random_2_opt_eliminates_cross_points({
               max_of_segments: max_segments_of_cross_point,
-              //   max_of_segments: number_of_city_of_large,
+              //   max_of_segments: max_cities_of_state_transition,
               max_results_of_2_opt,
               route: route2,
               length: length2,
