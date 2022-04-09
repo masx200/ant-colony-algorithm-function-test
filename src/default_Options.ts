@@ -8,7 +8,7 @@ export const default_search_time_seconds = 900;
 //由局部信息素挥发率决定全局信息素挥发率
 
 export const default_alpha = 1;
-export const default_beta = 4;
+export const default_beta = 3;
 export const default_pheromone_intensity_Q = 1;
 export const default_max_results_of_k_opt = 15;
 export const default_max_results_of_2_opt = 10;
@@ -38,7 +38,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     /**每条的k-opt最大数量 */
     max_results_of_k_opt: default_max_results_of_k_opt,
     /**全局信息素挥发率     */
-    pheromone_volatility_coefficient_R2: 0.18,
+    pheromone_volatility_coefficient_R2: 0.15,
     /**信息素强度 */
     pheromone_intensity_Q: default_pheromone_intensity_Q,
     /**信息素因子 */
@@ -54,7 +54,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     /**贪心算法路径数量 */
     max_routes_of_greedy: 20,
     /**查找交叉点的最大线段数量 */
-    max_segments_of_cross_point: 100,
+    max_segments_of_cross_point: 80,
 
     /**贪心算法的每步最多城市数 */
     max_cities_of_greedy: 500,
