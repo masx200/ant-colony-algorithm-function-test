@@ -22,9 +22,9 @@ export function performPheromoneDiffusionOperations({
     // setPheromone,
     // getPheromone,
     pheromoneDiffusionProbability,
-    min_coefficient_of_pheromone_diffusion,
+    number_of_small_scale_cities_where_pheromone_diffuses,
 
-    max_coefficient_of_pheromone_diffusion,
+    number_of_large_scale_cities_where_pheromone_diffuses,
 
     global_best_route,
     // global_best_routesegments,
@@ -34,8 +34,8 @@ export function performPheromoneDiffusionOperations({
     // setPheromone: (row: number, column: number, value: number) => void;
     // getPheromone: (row: number, column: number) => number;
     pheromoneDiffusionProbability: number;
-    min_coefficient_of_pheromone_diffusion: number;
-    max_coefficient_of_pheromone_diffusion: number;
+    number_of_small_scale_cities_where_pheromone_diffuses: number;
+    number_of_large_scale_cities_where_pheromone_diffuses: number;
 
     // global_best_routesegments: [number, number][];
     global_best_route: number[];
@@ -46,10 +46,10 @@ export function performPheromoneDiffusionOperations({
     global_best_routesegments.forEach((segment) => {
         if (Math.random() < pheromoneDiffusionProbability) {
             pheromoneDiffusionCallback({
-                min_coefficient_of_pheromone_diffusion,
+                number_of_small_scale_cities_where_pheromone_diffuses,
                 // setPheromone,
                 // getPheromone,
-                max_coefficient_of_pheromone_diffusion,
+                number_of_large_scale_cities_where_pheromone_diffuses,
 
                 pheromoneStore,
                 node_coordinates,
@@ -60,16 +60,16 @@ export function performPheromoneDiffusionOperations({
     function pheromoneDiffusionCallback({
         // setPheromone,
         // getPheromone,
-        max_coefficient_of_pheromone_diffusion,
-        min_coefficient_of_pheromone_diffusion,
+        number_of_large_scale_cities_where_pheromone_diffuses,
+        number_of_small_scale_cities_where_pheromone_diffuses,
         pheromoneStore,
         node_coordinates,
         global_best_routesegments,
     }: {
         // setPheromone: (row: number, column: number, value: number) => void;
         // getPheromone: (row: number, column: number) => number;
-        min_coefficient_of_pheromone_diffusion: number;
-        max_coefficient_of_pheromone_diffusion: number;
+        number_of_small_scale_cities_where_pheromone_diffuses: number;
+        number_of_large_scale_cities_where_pheromone_diffuses: number;
 
         pheromoneStore: MatrixSymmetry<number>;
         node_coordinates: NodeCoordinates;
@@ -100,13 +100,13 @@ export function performPheromoneDiffusionOperations({
                 }))
                 .filter(({ distance }) => distance < theradiusofthecircle)
                 .sort((a, b) => /*从小到大排序*/ a.distance - b.distance)
-                .slice(0, max_coefficient_of_pheromone_diffusion)
+                .slice(0, number_of_large_scale_cities_where_pheromone_diffuses)
                 .map((a) => a.city);
 
             /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
             const selectedcitiesinsidecircle = ArrayShuffle(
                 nodesinsidecircle
-            ).slice(0, min_coefficient_of_pheromone_diffusion);
+            ).slice(0, number_of_small_scale_cities_where_pheromone_diffuses);
 
             /*
         ); */

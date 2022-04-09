@@ -13,31 +13,32 @@ export const default_pheromone_intensity_Q = 1;
 export const default_max_results_of_k_opt = 15;
 export const default_max_results_of_2_opt = 10;
 
-export const default_max_coefficient_of_pheromone_diffusion = 20;
+export const default_number_of_large_scale_cities_where_pheromone_diffuses = 20;
 
-export const default_min_coefficient_of_pheromone_diffusion = 10;
+export const default_number_of_small_scale_cities_where_pheromone_diffuses = 10;
 export const default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths = 0.7;
 
 export { DefaultOptions };
 //展示每条路径的详细信息
 export const show_every_route = false;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
-    ///* 状态转移规则的每一步最多城市数 */
+    ///* 状态转移规则的每步最多城市数 */
     max_cities_of_state_transition: 200,
     /**每条的2-opt最大次数 */
     max_results_of_2_opt: default_max_results_of_2_opt,
     /**非最优解的信息素增量系数 */
     coefficient_of_pheromone_Increase_Non_Optimal_Paths:
         default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-    min_coefficient_of_pheromone_diffusion:
-        default_min_coefficient_of_pheromone_diffusion,
-    max_coefficient_of_pheromone_diffusion:
-        default_max_coefficient_of_pheromone_diffusion,
+    /**信息素扩散的小范围城市数 */
+    number_of_small_scale_cities_where_pheromone_diffuses:
+        default_number_of_small_scale_cities_where_pheromone_diffuses,
+    /**信息素扩散的大范围城市数 */
+    number_of_large_scale_cities_where_pheromone_diffuses:
+        default_number_of_large_scale_cities_where_pheromone_diffuses,
     /**每条的k-opt最大数量 */
     max_results_of_k_opt: default_max_results_of_k_opt,
-    /**全局信息素挥发率
-     */
-    pheromone_volatility_coefficient_R2: 0.15,
+    /**全局信息素挥发率     */
+    pheromone_volatility_coefficient_R2: 0.18,
     /**信息素强度 */
     pheromone_intensity_Q: default_pheromone_intensity_Q,
     /**信息素因子 */
@@ -55,7 +56,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     /**查找交叉点的最大线段数量 */
     max_segments_of_cross_point: 100,
 
-    /**贪心算法的每一步最多城市数 */
+    /**贪心算法的每步最多城市数 */
     max_cities_of_greedy: 500,
     /**结果四舍五入 */
     distance_round: true,

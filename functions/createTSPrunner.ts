@@ -6,9 +6,9 @@ import {
     default_count_of_ants,
     default_alpha,
     default_beta,
-    default_max_coefficient_of_pheromone_diffusion,
+    default_number_of_large_scale_cities_where_pheromone_diffuses,
     default_max_results_of_k_opt,
-    default_min_coefficient_of_pheromone_diffusion,
+    default_number_of_small_scale_cities_where_pheromone_diffuses,
     default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     default_pheromone_intensity_Q,
     // default_pheromone_volatility_coefficient_R1,
@@ -43,9 +43,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     const {
         max_results_of_2_opt = default_max_results_of_2_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-        min_coefficient_of_pheromone_diffusion = default_min_coefficient_of_pheromone_diffusion,
+        number_of_small_scale_cities_where_pheromone_diffuses = default_number_of_small_scale_cities_where_pheromone_diffuses,
 
-        max_coefficient_of_pheromone_diffusion = default_max_coefficient_of_pheromone_diffusion,
+        number_of_large_scale_cities_where_pheromone_diffuses = default_number_of_large_scale_cities_where_pheromone_diffuses,
 
         max_results_of_k_opt = default_max_results_of_k_opt,
         pheromone_intensity_Q = default_pheromone_intensity_Q,
@@ -341,8 +341,8 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                     } = EachIterationHandler({
                         ...shared,
                         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-                        min_coefficient_of_pheromone_diffusion,
-                        max_coefficient_of_pheromone_diffusion,
+                        number_of_small_scale_cities_where_pheromone_diffuses,
+                        number_of_large_scale_cities_where_pheromone_diffuses,
                         // pathTabooList,
                         // max_results_of_k_opt,
                         routesandlengths: routes_and_lengths_of_one_iteration,
@@ -547,9 +547,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
     //             } = EachIterationHandler({
     //                 ...shared,
     //                 coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-    //                 min_coefficient_of_pheromone_diffusion,
+    //                 number_of_small_scale_cities_where_pheromone_diffuses,
 
-    //                 max_coefficient_of_pheromone_diffusion,
+    //                 number_of_large_scale_cities_where_pheromone_diffuses,
 
     //                 // pathTabooList,
     //                 // max_results_of_k_opt,
@@ -657,9 +657,9 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
         // setPheromone,
         max_results_of_k_opt,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-        min_coefficient_of_pheromone_diffusion,
+        number_of_small_scale_cities_where_pheromone_diffuses,
 
-        max_coefficient_of_pheromone_diffusion,
+        number_of_large_scale_cities_where_pheromone_diffuses,
         get_search_count_of_best,
         get_time_of_best,
         get_random_selection_probability,

@@ -31,8 +31,8 @@ export function EachIterationHandler(
         // emit_finish_one_route: Emit_Finish_One_Route;
         // lastrandomselectionprobability: number;
         // searchloopcountratio: number;
-        min_coefficient_of_pheromone_diffusion: number;
-        max_coefficient_of_pheromone_diffusion: number;
+        number_of_small_scale_cities_where_pheromone_diffuses: number;
+        number_of_large_scale_cities_where_pheromone_diffuses: number;
 
         get_best_route: () => number[];
         /**信息素强度*/
@@ -76,9 +76,9 @@ export function EachIterationHandler(
         // getPheromone,
         // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
         coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-        min_coefficient_of_pheromone_diffusion,
+        number_of_small_scale_cities_where_pheromone_diffuses,
 
-        max_coefficient_of_pheromone_diffusion,
+        number_of_large_scale_cities_where_pheromone_diffuses,
 
         // max_results_of_k_opt,
         routesandlengths,
@@ -186,9 +186,9 @@ export function EachIterationHandler(
     //信息素扩散
     performPheromoneDiffusionOperations({
         pheromoneDiffusionProbability,
-        min_coefficient_of_pheromone_diffusion,
+        number_of_small_scale_cities_where_pheromone_diffuses,
 
-        max_coefficient_of_pheromone_diffusion,
+        number_of_large_scale_cities_where_pheromone_diffuses,
 
         global_best_route,
         pheromoneStore,
