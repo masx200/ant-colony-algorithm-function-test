@@ -407,9 +407,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                     //更新随机选择概率
                     lastrandomselectionprobability = Math.max(
                         nextrandomselectionprobability,
-                        (nextrandomselectionprobability +
-                            lastrandomselectionprobability) /
-                            2
+                        lastrandomselectionprobability / 4
                     );
                     routes_and_lengths_of_one_iteration.length = 0;
                 }
