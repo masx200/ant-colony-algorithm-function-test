@@ -13,7 +13,9 @@ export function Precise_2_opt_eliminates_all_intersections({
     route,
     length,
     node_coordinates,
+    count_of_nodes,
 }: {
+    count_of_nodes: number;
     max_results_of_2_opt?: number;
     route: number[];
     length: number;
@@ -22,11 +24,12 @@ export function Precise_2_opt_eliminates_all_intersections({
     assert_true(max_results_of_2_opt >= 1);
     for (let count = 0; count <= max_results_of_2_opt; count++) {
         const routes_of_2_opt_accurate =
-            generate_2_opt_routes_by_intersection_all(
+            generate_2_opt_routes_by_intersection_all({
+                count_of_nodes,
                 // max_of_segments,
                 route,
-                node_coordinates
-            );
+                node_coordinates,
+            });
 
         const routesAndLengths = routes_of_2_opt_accurate
             .map((route) => {

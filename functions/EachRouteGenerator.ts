@@ -84,12 +84,14 @@ export function EachRouteGenerator(
     /* 对当前路径进行精准2-opt优化 */
     const { route: route1, length: length1 } = is_count_not_large
         ? Precise_2_opt_eliminates_all_intersections({
+              ...options,
               max_results_of_2_opt,
               route: oldRoute,
               length: oldLength,
               node_coordinates,
           })
         : partial_precise_random_2_opt_eliminates_cross_points({
+              ...options,
               max_of_segments: max_segments_of_cross_point,
               //   max_of_segments: max_cities_of_state_transition,
               max_results_of_2_opt,
@@ -103,7 +105,8 @@ export function EachRouteGenerator(
     const select_opt_best = Math.random() < get_probability_of_opt_best();
     /* 对全局最优解或当前路径进行k-opt优化 */
     const { route: route2, length: length2 } =
-        Random_K_OPT_full_limited_find_best({...options,
+        Random_K_OPT_full_limited_find_best({
+            ...options,
             oldRoute: select_opt_best ? get_best_route() : oldRoute,
             max_results_of_k_opt,
             node_coordinates,
@@ -112,12 +115,14 @@ export function EachRouteGenerator(
     /* length3是对route2的去交叉结果 */
     const { route: route3, length: length3 } = is_count_not_large
         ? Precise_2_opt_eliminates_all_intersections({
+              ...options,
               max_results_of_2_opt,
               route: route2,
               length: length2,
               node_coordinates,
           })
         : partial_precise_random_2_opt_eliminates_cross_points({
+              ...options,
               max_of_segments: max_segments_of_cross_point,
               //   max_of_segments: max_cities_of_state_transition,
               max_results_of_2_opt,

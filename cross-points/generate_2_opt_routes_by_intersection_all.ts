@@ -1,14 +1,21 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { divide_route_to_2_opt_with_segment } from "./divide_route_to_2-opt-with-segment";
 import { generate_2_opt_cycle_routes_with_splitted_Routes } from "./generate_2_opt_cycle_routes_with_splitted_Routes";
-import { generate_2_opt_cycle_routes } from "../k-opt/generate_2_opt_cycle_routes";
+// import { generate_2_opt_cycle_routes } from "../k-opt/generate_2_opt_cycle_routes";
 import { cacheble_intersection_filter_with_cycle_route_find_one } from "./cacheble_intersection_filter_with_cycle_route_find_one";
+import { random } from "lodash-es";
+import { generate_k_opt_cycle_routes_limited } from "../k-opt/generate_k_opt_cycle_routes_limited";
 /**如果当前路径还有交叉点,则使用精准的2-opt局部优化,如果当前路径没有交叉点,执行随机2-opt优化,直到达到最大次数(M2opt)为止. */
-export function generate_2_opt_routes_by_intersection_all(
+export function generate_2_opt_routes_by_intersection_all({
+    route,
+    node_coordinates,
+    count_of_nodes,
+}: {
     // max_of_segments: number,
-    route: number[],
-    node_coordinates: NodeCoordinates
-): number[][] {
+    route: number[];
+    node_coordinates: NodeCoordinates;
+    count_of_nodes: number;
+}): number[][] {
     const intersection = cacheble_intersection_filter_with_cycle_route_find_one(
         {
             // max_of_segments,
@@ -30,6 +37,12 @@ export function generate_2_opt_routes_by_intersection_all(
         // route = best_route_of_2_opt;
         // length = best_length_of_2_opt;
     } else {
-        return generate_2_opt_cycle_routes(route);
+        const k = Math.round(random(2, Math.floor(count_of_nodes / 2), false));
+        //如果没有交叉点就生成一条k-opt路径
+        return generate_k_opt_cycle_routes_limited({
+            k: k,
+            oldRoute: route,
+            max_results: 1,
+        });
     }
 }

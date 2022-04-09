@@ -13,7 +13,9 @@ export function partial_precise_random_2_opt_eliminates_cross_points({
     route,
     length,
     node_coordinates,
+    count_of_nodes,
 }: {
+    count_of_nodes: number;
     /**最多选择几个路径线段 */
     max_of_segments: number;
     /**最多查找几次交叉点 */
@@ -26,11 +28,12 @@ export function partial_precise_random_2_opt_eliminates_cross_points({
 
     for (let count = 0; count <= max_results_of_2_opt; count++) {
         const routes_of_2_opt_accurate =
-            generate_2_opt_routes_by_random_or_cross_point(
+            generate_2_opt_routes_by_random_or_cross_point({
+                count_of_nodes,
                 max_of_segments,
                 route,
-                node_coordinates
-            );
+                node_coordinates,
+            });
 
         const routesAndLengths = routes_of_2_opt_accurate
             .map((route) => {

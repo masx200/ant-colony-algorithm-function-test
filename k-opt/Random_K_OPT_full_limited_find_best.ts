@@ -23,15 +23,18 @@ export function Random_K_OPT_full_limited_find_best({
     oldLength: number;
 }): { route: number[]; length: number } {
     /* 先随机生成Mkopt个在[2,N/2]范围内的整数放入列表中，然后对列表中每个数作为k，生成一条k-opt路径，总共生成Mkopt条路径。 */
-    const routes_of_k_opt : number[][]= Array.from({ length: max_results_of_k_opt })
+    const routes_of_k_opt: number[][] = Array.from({
+        length: max_results_of_k_opt,
+    })
         .map(() => Math.round(random(2, Math.floor(count_of_nodes / 2), false)))
-        .map((v) =>
+        .map((k) =>
             generate_k_opt_cycle_routes_limited({
-                k: v,
+                k: k,
                 oldRoute,
                 max_results: 1,
             })
-        ).flat();
+        )
+        .flat();
     /* random_k_opt_limited_full({
             oldRoute: oldRoute,
             max_results_of_k_opt,
