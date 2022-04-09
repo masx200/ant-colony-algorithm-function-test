@@ -404,8 +404,13 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
                         time_ms_of_one_iteration: time_ms_of_one_iteration,
                     });
                     time_ms_of_one_iteration = 0;
-                    lastrandomselectionprobability =
-                        nextrandomselectionprobability;
+                    //更新随机选择概率
+                    lastrandomselectionprobability = Math.max(
+                        nextrandomselectionprobability,
+                        (nextrandomselectionprobability +
+                            lastrandomselectionprobability) /
+                            2
+                    );
                     routes_and_lengths_of_one_iteration.length = 0;
                 }
             }
