@@ -37,7 +37,7 @@ export function generate_2_opt_routes_by_random_or_cross_point({
         // length = best_length_of_2_opt;
     } else {
         const k = Math.round(random(2, Math.floor(count_of_nodes / 2), false));
-        //生成一条k-opt路径
+        //如果没有交叉点就生成一条k-opt路径
         return generate_k_opt_cycle_routes_limited({
             k: k,
             oldRoute: route,
