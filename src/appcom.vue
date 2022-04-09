@@ -34,7 +34,29 @@
             <el-radio :label="true">是</el-radio>
             <el-radio :label="false">否</el-radio> </el-radio-group
         ><br />
-        <hr/>
+        <hr />
+        <span>最优路径的集合最大大小</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="
+                input_options.max_size_of_collection_of_optimal_routes
+            "
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br />
+        <span>最新路径的集合最大大小</span>
+        <el-input-number
+            step-strictly
+            :step="1"
+            v-model.number="
+                input_options.max_size_of_collection_of_latest_routes
+            "
+            :disabled="disablemapswitching"
+            :min="1"
+            :controls="false"
+        /><br />
         <span>状态转移规则的每一步最多城市数</span>
         <el-input-number
             step-strictly

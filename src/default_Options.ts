@@ -24,31 +24,39 @@ export const show_every_route = false;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     ///* 状态转移规则的每一步最多城市数 */
     max_cities_of_state_transition: 200,
-    // cross_Point_Coefficient_of_Non_Optimal_Paths:
-    //     default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
+    /**每条的2-opt最大次数 */
     max_results_of_2_opt: default_max_results_of_2_opt,
+    /**非最优解的信息素增量系数 */
     coefficient_of_pheromone_Increase_Non_Optimal_Paths:
         default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
     min_coefficient_of_pheromone_diffusion:
         default_min_coefficient_of_pheromone_diffusion,
     max_coefficient_of_pheromone_diffusion:
         default_max_coefficient_of_pheromone_diffusion,
-
+    /**每条的k-opt最大数量 */
     max_results_of_k_opt: default_max_results_of_k_opt,
-    // pheromone_volatility_coefficient_R1:
-    // default_pheromone_volatility_coefficient_R1,
+    /**全局信息素挥发率
+     */
     pheromone_volatility_coefficient_R2: 0.15,
+    /**信息素强度 */
     pheromone_intensity_Q: default_pheromone_intensity_Q,
-    // node_coordinates,
+    /**信息素因子 */
     alpha_zero: default_alpha,
+    /**启发式因子 */
     beta_zero: default_beta,
+    /**蚂蚁数量 */
     count_of_ants: default_count_of_ants,
+    /**最优路径的集合最大大小 */
     max_size_of_collection_of_optimal_routes: 10,
+    /**最新路径的集合最大大小 */
     max_size_of_collection_of_latest_routes: 10,
+    /**贪心算法路径数量 */
     max_routes_of_greedy: 20,
+    /**查找交叉点的最大线段数量 */
     max_segments_of_cross_point: 100,
-    // distance_round,
+
     /**贪心算法的每一步最多城市数 */
     max_cities_of_greedy: 500,
+    /**结果四舍五入 */
     distance_round: true,
 };
