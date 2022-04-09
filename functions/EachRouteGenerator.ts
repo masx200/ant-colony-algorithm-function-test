@@ -103,7 +103,7 @@ export function EachRouteGenerator(
     const select_opt_best = Math.random() < get_probability_of_opt_best();
     /* 对全局最优解或当前路径进行k-opt优化 */
     const { route: route2, length: length2 } =
-        Random_K_OPT_full_limited_find_best({
+        Random_K_OPT_full_limited_find_best({...options,
             oldRoute: select_opt_best ? get_best_route() : oldRoute,
             max_results_of_k_opt,
             node_coordinates,
