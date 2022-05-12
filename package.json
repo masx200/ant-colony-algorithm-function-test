@@ -43,7 +43,7 @@
         "comlink": "^4.3.1",
         "core-js": "^3.21.1",
         "echarts": "^5.3.1",
-        "element-plus": "^2.1.4",
+        "element-plus": "^2.2.0",
         "find": "^0.3.0",
         "fs-extra": "^8.1.0",
         "husky": "^7.0.4",
