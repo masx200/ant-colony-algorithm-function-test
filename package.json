@@ -22,7 +22,7 @@
         "@babel/core": "^7.17.5",
         "@babel/generator": "^7.17.3",
         "@babel/plugin-proposal-async-generator-functions": "^7.16.8",
-        "@babel/plugin-syntax-typescript": "^7.16.7",
+        "@babel/plugin-syntax-typescript": "^7.17.12",
         "@babel/preset-typescript": "^7.16.7",
         "@masx200/event-emitter-target": "^2.0.4",
         "@masx200/mini-cli-args-parser": "^1.0.4",
