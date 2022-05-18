@@ -23,7 +23,7 @@ export { DefaultOptions };
 export const show_every_route = false;
 const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     ///* 状态转移规则的每步最多城市数 */
-    max_cities_of_state_transition: 200,
+    max_cities_of_state_transition: 80,
     /**每条的2-opt最大次数 */
     max_results_of_2_opt: default_max_results_of_2_opt,
     /**非最优解的信息素增量系数 */
@@ -54,7 +54,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     /**贪心算法路径数量 */
     max_routes_of_greedy: 20,
     /**查找交叉点的最大线段数量 */
-    max_segments_of_cross_point: 80,
+    max_segments_of_cross_point: 60,
 
     /**贪心算法的每步最多城市数 */
     max_cities_of_greedy: 500,
