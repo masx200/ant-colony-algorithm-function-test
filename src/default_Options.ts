@@ -8,9 +8,9 @@ export const default_search_time_seconds = 900;
 //由局部信息素挥发率决定全局信息素挥发率
 
 export const default_alpha = 1;
-export const default_beta = 3;
+export const default_beta = 4;
 export const default_pheromone_intensity_Q = 1;
-export const default_max_results_of_k_opt = 15;
+export const default_max_results_of_k_opt = 10;
 export const default_max_results_of_2_opt = 10;
 
 export const default_number_of_large_scale_cities_where_pheromone_diffuses = 20;
