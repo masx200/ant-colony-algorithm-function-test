@@ -57,7 +57,7 @@ const DefaultOptions: Omit<Required<TSPRunnerOptions>, "node_coordinates"> = {
     max_segments_of_cross_point: 60,
 
     /**贪心算法的每步最多城市数 */
-    max_cities_of_greedy: 500,
+    max_cities_of_greedy: 300,
     /**结果四舍五入 */
     distance_round: true,
 };
