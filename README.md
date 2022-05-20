@@ -38,6 +38,8 @@ ant-colony-algorithm-function-test
 
 12.大规模问题部分查找交叉点
 
+13.全局信息素更新
+
 #### 安装教程
 
 1.  安装
