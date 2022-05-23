@@ -7,6 +7,8 @@ import {
 } from "./tsp-interface";
 import { generateUniqueArrayOfCircularPath } from "../functions/generateUniqueArrayOfCircularPath";
 import { MatrixSymmetryCreate, MatrixFill } from "@masx200/sparse-2d-matrix";
+import { run_greedy_once_thread_with_time } from "../functions/run_greedy_once_thread_with_time";
+import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 export function tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
@@ -17,6 +19,7 @@ export function tsp_acs_execution(
     } = options;
     const count_of_nodes = node_coordinates.length;
     const pheromoneStore = MatrixSymmetryCreate({ row: count_of_nodes });
+    let pheromoneZero = Number.EPSILON;
     let greedy_length: number = Infinity;
     let total_time_ms = 0;
     const get_number_of_iterations = () => {
@@ -50,7 +53,22 @@ export function tsp_acs_execution(
     const data_of_routes: COMMON_DataOfOneRoute[] = [];
     const data_of_iterations: COMMON_DataOfOneIteration[] = [];
     const runOneIteration = async () => {
+        let time_ms_of_one_iteration: number = 0;
         if (current_search_count === 0) {
+            const {
+                length: best_length,
+                route: best_route,
+                time_ms,
+            } = await run_greedy_once_thread_with_time({
+                node_coordinates,
+                round: distance_round,
+            });
+            Greedy_algorithm_to_solve_tsp_with_selected_start_pool.destroy();
+            set_global_best(best_route, best_length);
+            total_time_ms += time_ms;
+            greedy_length = best_length;
+            pheromoneZero = 1 / count_of_nodes / greedy_length;
+            MatrixFill(pheromoneStore, pheromoneZero);
         }
     };
     return {
