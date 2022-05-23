@@ -1,220 +1,136 @@
-import {
-    // default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
-    default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-} from "../src/default_Options";
-// import { PathTabooList } from "../pathTabooList/PathTabooList";
-// import { DataOfFinishOneRoute } from "./DataOfFinishOneRoute";
+import { sum, uniqBy } from "lodash";
 import { assert_true } from "../test/assert_true";
 import { calc_population_relative_information_entropy } from "./calc_population-relative-information-entropy";
-import { getworstRouteOfSeriesRoutesAndLengths } from "./getworstRouteOfSeriesRoutesAndLengths";
-import { get_best_routeOfSeriesRoutesAndLengths } from "./get_best_routeOfSeriesRoutesAndLengths";
+import { get_best_route_Of_Series_routes_and_lengths } from "./get_best_route_Of_Series_routes_and_lengths";
+import { local_optimization_route_thread } from "./local_optimization_route_thread";
 import { NodeCoordinates } from "./NodeCoordinates";
-import { performPheromoneDiffusionOperations } from "./performPheromoneDiffusionOperations";
-// import { calc_relative_deviation_from_optimal } from "./calc_relative_deviation_from_optimal";
-// import { construct_route_from_k_opt_of_global_best } from "./construct_route_from_k_opt_of_global_best";
-// import { cycle_routetosegments } from "./cycle_routetosegments";
-import { pheromone_update_rule_after_iteration } from "./pheromone_update_rule_after_iteration";
+
 import { SharedOptions } from "./SharedOptions";
 
-// export type AdaptiveTSPSearchOptions =;
-/* 令蚁群算法迭代后, 一次轮次搜索完之后的处理 */
-export function EachIterationHandler(
+export async function EachIterationHandler(
     options: SharedOptions & {
-        // setPheromone: (row: number, column: number, value: number) => void;
-        // getPheromone: (row: number, column: number) => number;
-        // cross_Point_Coefficient_of_Non_Optimal_Paths?: number;
-        // max_results_of_k_opt: number;
-        routesandlengths: {
+        routes_and_lengths: {
             route: number[];
             length: number;
         }[];
-        // emit_finish_one_route: Emit_Finish_One_Route;
-        // lastrandomselectionprobability: number;
-        // searchloopcountratio: number;
-        number_of_small_scale_cities_where_pheromone_diffuses: number;
-        number_of_large_scale_cities_where_pheromone_diffuses: number;
 
         get_best_route: () => number[];
-        /**信息素强度*/
-        pheromone_intensity_Q: number;
-        /**局部信息素挥发系数 */
-        // pheromone_volatility_coefficient_R1: number;
-        /**全局信息素挥发系数 */
-        pheromone_volatility_coefficient_R2: number;
-        // set_best_route: (route: number[]) => void;
-        // set_best_length: (a: number) => void;
         get_best_length: () => number;
         node_coordinates: NodeCoordinates;
-        /**
-         * 蚂蚁数量
-         */
-        // count_of_ants: number;
-        // alpha_zero: number;
-        // beta_zero: number;
-        // pathTabooList: PathTabooList;
-        /**最大迭代次数 */
-        // maxnumberofiterations: number;
-        // pheromoneStore: MatrixSymmetry;
-        coefficient_of_pheromone_Increase_Non_Optimal_Paths?: number;
-        /* 停滞迭代次数.如果连续多少代无法发现新路径,则停止搜索 */
-        // numberofstagnantiterations: number;
     }
-): {
+): Promise<{
+    iterate_best_length: number;
     coefficient_of_diversity_increase: number;
-    // relative_deviation_from_optimal: number;
-    nextrandomselectionprobability: number;
-    pheromoneDiffusionProbability: number;
-    optimallengthofthis_iteration: number;
-    optimalrouteofthis_iteration: number[];
-    // ispheromoneDiffusion: boolean;
+    // nextrandom_selection_probability: number;
+
+    optimal_length_of_iteration: number;
+    optimal_route_of_iteration: number[];
+
     population_relative_information_entropy: number;
-    // locally_optimized_length: number;
-} {
-    // console.log(options);
+    time_ms: number;
+    iterate_best_route: number[];
+}> {
+    const starttime_of_process_iteration = Number(new Date());
     const {
-        // setPheromone,
-        // getPheromone,
-        // cross_Point_Coefficient_of_Non_Optimal_Paths = default_Cross_Point_Coefficient_of_Non_Optimal_Paths,
-        coefficient_of_pheromone_Increase_Non_Optimal_Paths = default_Pheromone_Increase_Coefficient_of_Non_Optimal_Paths,
-        number_of_small_scale_cities_where_pheromone_diffuses,
-
-        number_of_large_scale_cities_where_pheromone_diffuses,
-
-        // max_results_of_k_opt,
-        routesandlengths,
-        // emit_finish_one_route,
-        // searchloopcountratio,
-        // lastrandomselectionprobability,
-        pheromone_intensity_Q,
-        // pheromone_volatility_coefficient_R1,
-        pheromone_volatility_coefficient_R2,
-        // set_best_route,
-        // set_best_length,
-        // pathTabooList,
-        pheromoneStore,
-        node_coordinates,
-        // maxnumberofiterations,
-        // numberofstagnantiterations,
-        // count_of_ants,
+        set_global_best,
+        distance_round,
+        routes_and_lengths,
         get_best_length,
         get_best_route,
+        count_of_nodes,
+        max_segments_of_cross_point,
+        max_results_of_k_opt,
+        node_coordinates,
+        max_results_of_k_exchange,
+        max_results_of_2_opt,
     } = options;
-    // asserttrue(typeof count_of_ants === "number");
-    const count_of_nodes = node_coordinates.length;
+    const routes = routes_and_lengths.map(({ route }) => route);
 
-    const routes = routesandlengths.map(({ route }) => route);
-
-    /**种群相对信息熵 */
     const current_population_relative_information_entropy =
         calc_population_relative_information_entropy(routes);
 
     const coefficient_of_diversity_increase = Math.sqrt(
         1 - Math.pow(current_population_relative_information_entropy, 2)
     );
-    const nextrandomselectionprobability =
-        coefficient_of_diversity_increase / 8;
-    const pheromoneDiffusionProbability = coefficient_of_diversity_increase / 4;
-    // console.log(
-    //     "种群相对信息熵",
-    //     current_population_relative_information_entropy
-    // );
-    // console.log("随机选择概率", nextrandomselectionprobability);
-    // console.log("信息素扩散概率", pheromoneDiffusionProbability);
+
     assert_true(!Number.isNaN(current_population_relative_information_entropy));
-    assert_true(!Number.isNaN(nextrandomselectionprobability));
-    assert_true(!Number.isNaN(pheromoneDiffusionProbability));
+    // assert_true(!Number.isNaN(nextrandom_selection_probability));
 
-    //对全局最优解进行k-opt优化
+    const iterate_best_lengthandroute =
+        get_best_route_Of_Series_routes_and_lengths(routes_and_lengths);
 
-    // const result = construct_route_from_k_opt_of_global_best({
-    //     get_best_route,
-    //     max_results_of_k_opt,
-    //     node_coordinates,
-    //     get_best_length,
-    //     pathTabooList,
-    //     set_best_length,
-    //     set_best_route,
-    // });
-    // const locally_optimized_length = result.length;
+    const iterate_best_length = iterate_best_lengthandroute.length;
+    const iterate_best_route = iterate_best_lengthandroute.route;
+    const endtime_of_process_iteration = Number(new Date());
 
-    const global_best_route = get_best_route();
-    const globalbestlength = get_best_length();
+    /* 对全局最优解和这轮的路径中的长度排名前一半的路径执行三种局部优化方法 */
+    const best_half_routes = Array.from(routes_and_lengths)
+        .sort((a, b) => a.length - b.length)
+        .slice(0, routes_and_lengths.length / 2);
+    const need_to_optimization_routes_and_lengths = uniqBy(
+        [
+            { route: get_best_route(), length: get_best_length() },
+            ...best_half_routes,
+        ],
+        (a) => a.length
+    );
 
-    const worstlengthandroute =
-        getworstRouteOfSeriesRoutesAndLengths(routesandlengths);
-
-    //     routesandlengths.reduce((previous, current) => {
-    //     return previous.length > current.length ? previous : current;
-    // }, routesandlengths[0]);
-    const iterateworstlength = worstlengthandroute.length;
-    const iterateworstroute = worstlengthandroute.route;
-
-    const iteratebestlengthandroute =
-        get_best_routeOfSeriesRoutesAndLengths(routesandlengths);
-
-    const iteratebestlength = iteratebestlengthandroute.length;
-    const iteratebestroute = iteratebestlengthandroute.route;
-    const optimalrouteofthis_iteration = iteratebestroute;
-    const optimallengthofthis_iteration = iteratebestlength;
-    // const iterateworstroutesegments = cycle_routetosegments(iterateworstroute);
-    // const iteratebestroutesegments = cycle_routetosegments(iteratebestroute);
-    // const global_best_routesegments = cycle_routetosegments(global_best_route);
-    pheromone_update_rule_after_iteration({
-        ...options,
-        // cross_Point_Coefficient_of_Non_Optimal_Paths,
-        coefficient_of_pheromone_Increase_Non_Optimal_Paths,
-        // node_coordinates,
-        iteratebestroute,
-        global_best_route,
+    const optimization_results = await Promise.all(
+        need_to_optimization_routes_and_lengths.map((v) =>
+            local_optimization_route_thread({
+                count_of_nodes,
+                max_segments_of_cross_point,
+                distance_round,
+                route: v.route,
+                max_results_of_k_opt,
+                node_coordinates,
+                length: v.length,
+                max_results_of_k_exchange,
+                max_results_of_2_opt,
+            })
+        )
+    );
+    const {
+        route: optimal_route_of_iteration,
+        length: optimal_length_of_iteration,
+        // time_ms: optimal_time_ms,
+    } = get_best_route_Of_Series_routes_and_lengths(optimization_results);
+    const optimal_time_ms = sum(optimization_results.map((v) => v.time_ms));
+    /* await local_optimization_route_thread({
         count_of_nodes,
-        // global_best_routesegments,
-        globalbestlength,
-        // iteratebestroutesegments,
-        iteratebestlength,
-        iterateworstlength,
-        iterateworstroute,
-        pheromone_intensity_Q,
-        pheromoneStore,
-        pheromone_volatility_coefficient_R2,
-        // setPheromone,
-        // getPheromone,
-    });
-    // let ispheromoneDiffusion = false;
-    // if (Math.random() < pheromoneDiffusionProbability) {
-    // console.log("执行信息素扩散操作");
-    // ispheromoneDiffusion = true;
-    //信息素扩散
-    performPheromoneDiffusionOperations({
-        pheromoneDiffusionProbability,
-        number_of_small_scale_cities_where_pheromone_diffuses,
-
-        number_of_large_scale_cities_where_pheromone_diffuses,
-
-        global_best_route,
-        pheromoneStore,
+        max_segments_of_cross_point,
+        distance_round,
+        route: get_best_route(),
+        max_results_of_k_opt,
         node_coordinates,
-        // setPheromone,
-        // getPheromone,
-    });
-    // }
+        length: get_best_length(),
+        max_results_of_k_exchange,
+        max_results_of_2_opt,
+    }); */
+    if (optimal_length_of_iteration < get_best_length()) {
+        set_global_best(
+            optimal_route_of_iteration,
+            optimal_length_of_iteration
+        );
+        // set_best_length(length);
+        // set_best_route(route);
+    }
+    // const optimal_route_of_iteration = iterate_best_route;
+    // const optimal_length_of_iteration = iterate_best_length;
 
-    //与最优的相对偏差
-    // const relative_deviation_from_optimal: number =
-    //     calc_relative_deviation_from_optimal(
-    //         routesandlengths.map(({ length }) => length),
-    //         get_best_length()
-    //     );
+    const timems_of_process_iteration =
+        endtime_of_process_iteration -
+        starttime_of_process_iteration +
+        optimal_time_ms;
     return {
+        time_ms: timems_of_process_iteration,
         coefficient_of_diversity_increase,
-        // locally_optimized_length,
-        // relative_deviation_from_optimal,
-        optimallengthofthis_iteration,
-        optimalrouteofthis_iteration,
-        // ispheromoneDiffusion,
-        // routesandlengths,
-        nextrandomselectionprobability,
+        optimal_length_of_iteration,
+        optimal_route_of_iteration,
+        iterate_best_length,
+        iterate_best_route,
+        // nextrandom_selection_probability,
         population_relative_information_entropy:
             current_population_relative_information_entropy,
-        pheromoneDiffusionProbability,
     };
 }

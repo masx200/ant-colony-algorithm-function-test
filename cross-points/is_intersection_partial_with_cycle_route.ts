@@ -1,5 +1,5 @@
 import { assert_true } from "../test/assert_true";
-import { cycle_routetosegments } from "../functions/cycle_routetosegments";
+import { cycle_route_to_segments } from "../functions/cycle_route_to_segments";
 import { haverepetitions } from "../functions/haverepetitions";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 import { combinations } from "combinatorial-generators";
@@ -9,7 +9,6 @@ import { getUniqueStringOfCircularRoute } from "../functions/getUniqueStringOfCi
 import { getOrCreateMapOfMapFun } from "../functions/getOrCreateMapOfMapFun";
 import { node_coordinates_to_intersect_routes_unique } from "./node_coordinates_to_intersect_routes_unique";
 
-/**判断环路部分路径当中是否有交叉点 */
 export function is_intersection_partial_with_cycle_route({
     cycle_route,
     max_of_segments,
@@ -35,7 +34,7 @@ export function is_intersection_partial_with_cycle_route({
     assert_true(count_of_nodes > 1);
     assert_true(cycle_route.length === node_coordinates.length);
     const cyclesegments = ArrayShuffle(
-        cycle_routetosegments(cycle_route)
+        cycle_route_to_segments(cycle_route)
     ).slice(0, max_of_segments);
 
     for (let [[left1, left2], [right1, right2]] of combinations(
@@ -54,7 +53,6 @@ export function is_intersection_partial_with_cycle_route({
                     intersectparameters[3]
                 )
             ) {
-                //只缓存有交叉点的
                 map.set(unique_string, true);
                 return true;
             }

@@ -1,7 +1,7 @@
 import { EChartsType } from "echarts";
 import { ShallowRef } from "vue";
 import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-import { drawlinechart } from "../functions/drawlinechart";
+import { draw_line_chart } from "../functions/draw_line_chart";
 
 export function draw_path_number_and_optimal_path_length_chart(
     path_number_and_optimal_path_length_chart: ShallowRef<
@@ -9,21 +9,16 @@ export function draw_path_number_and_optimal_path_length_chart(
     >,
     dataofoneroute: DataOfFinishOneRoute[]
 ) {
-    const titletext = "路径序号和最优路径长度";
+    const title_text = "路径序号和最优路径长度";
     const chart = path_number_and_optimal_path_length_chart.value;
-    // debugger
     if (chart) {
-        // console.log("dataofoneroute", dataofoneroute);
         const data: [number, number][] = dataofoneroute.map((a) => [
             a.current_search_count,
-            a.globalbestlength,
+            a.global_best_length,
         ]);
-        // console.log("路径序号和最优路径长度", data);
-
-        drawlinechart({
-            // xAxis_min: 0,
+        draw_line_chart({
             yAxis_min: 0,
-            titletext,
+            title_text,
             data: data,
             chart: chart,
         });
