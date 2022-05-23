@@ -50,6 +50,11 @@ export function tsp_acs_execution(
     const get_best_length = () => {
         return global_best.length;
     };
+    function onRouteCreated(route: number[], length: number) {
+        if (length < get_best_length()) {
+            set_global_best(route, length);
+        }
+    }
     const data_of_routes: COMMON_DataOfOneRoute[] = [];
     const data_of_iterations: COMMON_DataOfOneIteration[] = [];
     const runOneIteration = async () => {
@@ -69,6 +74,24 @@ export function tsp_acs_execution(
             greedy_length = best_length;
             pheromoneZero = 1 / count_of_nodes / greedy_length;
             MatrixFill(pheromoneStore, pheromoneZero);
+        }
+        const routes_and_lengths_of_one_iteration: {
+            route: number[];
+            length: number;
+            time_ms: number;
+        }[] = await Promise.all(
+            Array.from({ length: count_of_ants }).map(() => {})
+        );
+        for (let {
+            route,
+            length,
+            time_ms: time_ms_of_one_route,
+        } of routes_and_lengths_of_one_iteration) {
+            onRouteCreated(route, length);
+
+            time_ms_of_one_iteration += time_ms_of_one_route;
+        }
+        if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
         }
     };
     return {
