@@ -2,7 +2,7 @@ import { worker_error_listener } from "../functions/worker_error_listener";
 import { createThreadPool } from "./createThreadPool";
 import { create_Worker_comlink } from "./create_Worker_comlink";
 import { GreedyWorkerAPI } from "./GreedyWorkerAPI";
-import Greedy_algorithm_to_solve_tsp_with_selected_start_Worker from "./Greedy_algorithm_to_solve_tsp_with_selected_start.worker?worker&inline";
+// import Greedy_algorithm_to_solve_tsp_with_selected_start_Worker from "./Greedy_algorithm_to_solve_tsp_with_selected_start.worker?worker&inline";
 
 export const Greedy_algorithm_to_solve_tsp_with_selected_start_pool =
     createThreadPool({
@@ -14,8 +14,16 @@ export const Greedy_algorithm_to_solve_tsp_with_selected_start_pool =
         create: () => {
             return create_Worker_comlink<GreedyWorkerAPI>(() => {
                 const w =
-                    new Greedy_algorithm_to_solve_tsp_with_selected_start_Worker();
-
+                    // new Greedy_algorithm_to_solve_tsp_with_selected_start_Worker();
+                    new Worker(
+                        new URL(
+                            "./Greedy_algorithm_to_solve_tsp_with_selected_start.worker.ts",
+                            import.meta.url
+                        ),
+                        {
+                            type: "module",
+                        }
+                    );
                 return w;
             }, worker_error_listener);
         },
