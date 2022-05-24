@@ -1,4 +1,5 @@
-import { TSP_Output_Data } from "../functions/TSP_Output_Data";
+import { COMMON_TSP_Output } from "../classic-acs/tsp-interface";
+
 import { assert_true } from "../test/assert_true";
 import { drawChartMaxWait } from "./drawChartMaxWait";
 import { RunWay } from "./RunWay";
@@ -12,7 +13,7 @@ export async function tsp_runner_run_async({
     iterations_of_search = Infinity,
     onprogress,
 }: {
-    on_update_output_data(data: TSP_Output_Data): void;
+    on_update_output_data(data: COMMON_TSP_Output): void;
     time_of_search_ms?: number;
     runner: TSP_Worker_Remote["remote"] & {
         runIterations: (iterations: number) => Promise<void>;

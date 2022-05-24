@@ -1,5 +1,6 @@
 import { Ref } from "vue";
-import { TSP_Output_Data } from "../functions/TSP_Output_Data";
+import { COMMON_TSP_Output } from "../classic-acs/tsp-interface";
+
 import { assert_number } from "../test/assert_number";
 import { tsp_runner_run_async } from "./tsp_runner_run_async";
 
@@ -11,7 +12,7 @@ export async function run_tsp_by_search_time({
 
     onprogress,
 }: {
-    on_update_output_data(data: TSP_Output_Data): void;
+    on_update_output_data(data: COMMON_TSP_Output): void;
     runner: Parameters<typeof tsp_runner_run_async>[0]["runner"];
 
     search_time_seconds: Ref<number>;

@@ -1,5 +1,6 @@
 import { Ref } from "vue";
-import { TSP_Output_Data } from "../functions/TSP_Output_Data";
+import { COMMON_TSP_Output } from "../classic-acs/tsp-interface";
+
 import { assert_number } from "../test/assert_number";
 import {
     default_count_of_ants,
@@ -15,7 +16,7 @@ export async function run_tsp_by_search_rounds({
     count_of_ants_ref,
     is_running,
 }: {
-    on_update_output_data(data: TSP_Output_Data): void;
+    on_update_output_data(data: COMMON_TSP_Output): void;
     runner: Parameters<typeof tsp_runner_run_async>[0]["runner"];
 
     onprogress: (percentage: number) => void;

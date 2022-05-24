@@ -41,7 +41,7 @@
         "comlink": "^4.3.1",
         "core-js": "^3.22.5",
         "echarts": "^5.3.2",
-        "element-plus": "^2.2.0",
+        "element-plus": "^2.2.2",
         "find": "^0.3.0",
         "fs-extra": "^10.1.0",
         "jest": "^27.5.1",
@@ -63,7 +63,7 @@
         "vite-plugin-checker": "^0.4.6",
         "vite-plugin-html": "^3.2.0",
         "vite-plugin-pwa": "^0.12.0",
-        "vue": "^3.2.33",
+        "vue": "^3.2.36",
         "vue-tsc": "^0.34.15"
     },
     "dependencies": {

@@ -6,8 +6,22 @@
             :indeterminate="indeterminate"
             v-show="show_progress"
         />
-        <h1>自适应+蚁群+k-opt+动态计算信息素-TSP-测试</h1>
+        <h1>当前算法:{{ selected_ant_colony_algorithm }}</h1>
         <hr />
+        <span>选择蚁群算法</span><br />
+        <el-select
+            :disabled="disablemapswitching"
+            v-model="selected_ant_colony_algorithm"
+            class="m-2"
+            placeholder="Select"
+        >
+            <el-option
+                v-for="(item, index) in ant_colony_algorithms"
+                :key="index"
+                :label="item"
+                :value="item"
+            />
+        </el-select>
         <span>选择城市地图</span>
         <br />
         <hr />
@@ -316,10 +330,10 @@
         </details>
         <!-- <details class="width-100-percent" :open="true">
             <summary>贪心路径的统计</summary> -->
-        <Data_table
+        <!-- <Data_table
             :tableheads="greedy_iteration_table_heads"
             :tablebody="greedy_iteration_table_body"
-        />
+        /> -->
         <!-- </details> -->
         <hr />
         <details

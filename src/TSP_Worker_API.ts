@@ -8,5 +8,5 @@ export type TSP_Worker_API = Pick<
 > &
     COMMON_TSP_EXECUTION & {
         init_runner: (options: Runner_Init_Options) => void;
-        get_ant_colony_algorithms: () => string[];
+        // get_ant_colony_algorithms: () => string[];
     };

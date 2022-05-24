@@ -24,11 +24,7 @@ import {
     // show_every_route,
 } from "./default_Options";
 import { get_distance_round, set_distance_round } from "./set_distance_round";
-// import { draw_best_route_debounced } from "./draw_best_route_debounced";
-// import { draw_iteration_rounds_and_information_entropy_chart_debounced } from "./draw_iteration_rounds_and_information_entropy_chart_debounced";
-// import { draw_latest_route_debounced } from "./draw_latest_route_debounced";
-// import { draw_path_number_and_current_path_length_chart_debounced } from "./draw_path_number_and_current_path_length_chart_debounced";
-// import { draw_path_number_and_optimal_path_length_chart_debounced } from "./draw_path_number_and_optimal_path_length_chart_debounced";
+
 import Progress_element from "./Progress-element.vue";
 import { RunWay } from "./RunWay";
 import { Stop_TSP_Worker } from "./Stop_TSP_Worker";
@@ -47,15 +43,16 @@ import { generate_greedy_preview_echarts_options } from "./generate_greedy_previ
 import { use_tsp_before_start } from "./use_tsp_before_start";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
-import { use_data_of_greedy_iteration } from "./use_data_of_greedy_iteration";
+
 import LineChart from "./LineChart.vue";
-// import { assignOwnKeys } from "../collections/assignOwnKeys";
+
 import { get_options_route_of_node_coordinates } from "./get_options_route_of_node_coordinates";
 import { get_options_route_number_and_best_length_chart } from "./get_options_route_number_and_best_length_chart";
 import { get_options_iterations_and_information_entropy_chart } from "./get_options_iterations_and_information_entropy_chart";
 import { get_options_route_number_and_current_length_chart } from "./get_options_route_number_and_current_length_chart";
-// import { ECOption } from "../functions/echarts-line";
-import { TSP_Output_Data } from "../functions/TSP_Output_Data";
+import { COMMON_TSP_Output } from "../classic-acs/tsp-interface";
+import { ant_colony_algorithms } from "./ant_colony_algorithms";
+
 export default defineComponent({
     components: {
         Data_table: Data_table,
@@ -63,6 +60,7 @@ export default defineComponent({
         LineChart,
     },
     setup() {
+        const selected_ant_colony_algorithm = ref(ant_colony_algorithms[0]);
         const selected_value = ref(TSP_cities_data[0]);
         const selected_node_coordinates = ref<NodeCoordinates>();
         const show_progress = ref(true);
@@ -284,14 +282,6 @@ export default defineComponent({
                     dataofoneiteration
                 );
             options_of_iterations_and_information_entropy_chart.value = options;
-            // assignOwnKeys(
-            //     options_of_iterations_and_information_entropy_chart,
-            //     options
-            // );
-            // draw_iteration_rounds_and_information_entropy_chart_debounced(
-            //     iteration_rounds_and_information_entropy_chart,
-            //     dataofoneiteration
-            // );
         };
 
         const finish_one_route_listener = () => {
@@ -330,14 +320,9 @@ export default defineComponent({
                 is_running,
             });
         };
-        const data_of_greedy_iteration = use_data_of_greedy_iteration();
-        const greedy_iteration_table_heads =
-            data_of_greedy_iteration.tableheads;
-        const greedy_iteration_table_body = data_of_greedy_iteration.tablebody;
-        const on_receive_data_of_greedy =
-            data_of_greedy_iteration.onreceivedata;
-        function on_update_output_data(data: TSP_Output_Data) {
-            on_receive_data_of_greedy(data.data_of_greedy[0]);
+
+        function on_update_output_data(data: COMMON_TSP_Output) {
+            // on_receive_data_of_greedy(data.data_of_greedy[0]);
             onglobal_best_routeChange(data.global_best_route);
             // onLatestRouteChange(data.latest_route);
 
@@ -347,7 +332,7 @@ export default defineComponent({
             onreceivedataofoneroute(data.data_of_routes);
         }
         const TSP_terminate = () => {
-            data_of_greedy_iteration.clearData();
+            // data_of_greedy_iteration.clearData();
             clearDataOfHistoryOfBest();
             TSP_Reset([
                 clearDataOfOneRoute,
@@ -415,17 +400,9 @@ export default defineComponent({
                     node_coordinates: await node_coordinates(),
                     count_of_ants,
                     // onLatestRouteChange,
+                    algorithm: selected_ant_colony_algorithm.value,
                 });
-                // await runner.remote.on_finish_one_route(
-                //     finish_one_route_listener
-                // );
-                // await runner.remote.on_finish_one_iteration(
-                //     finish_one_iteration_listener
-                // );
-                // await runner.remote.on_finish_greedy_iteration(
-                //     on_receive_data_of_greedy
-                // );
-                // await runner.remote.on_total_change(on_receive_Data_Of_total);
+
                 Greedy_algorithm_to_solve_tsp_with_selected_start_pool.destroy();
                 return runner;
             } else {
@@ -453,6 +430,8 @@ export default defineComponent({
         const beta = ref(default_beta);
         const max_routes_of_greedy = ref(DefaultOptions.max_routes_of_greedy);
         return {
+            ant_colony_algorithms,
+            selected_ant_colony_algorithm,
             selected_value,
             show_history_routes_of_best,
             show_progress,
@@ -468,8 +447,8 @@ export default defineComponent({
             round_result,
             // options_of_latest_route_chart,
             // show_every_route: show_every_route,
-            greedy_iteration_table_heads,
-            greedy_iteration_table_body,
+            // greedy_iteration_table_heads,
+            // greedy_iteration_table_body,
             max_routes_of_greedy,
             show_chart_of_best,
             alpha,

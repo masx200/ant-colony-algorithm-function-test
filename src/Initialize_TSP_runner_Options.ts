@@ -1,15 +1,7 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { TSPRunnerOptions } from "./TSPRunnerOptions";
+import { Runner_Init_Options } from "./Runner_Init_Options";
 
-export type Initialize_TSP_runner_Options = TSPRunnerOptions & {
+export type Initialize_TSP_runner_Options = Runner_Init_Options & {
     node_coordinates: NodeCoordinates;
     count_of_ants: number;
-    // onglobal_best_routeChange: (
-    //     global_best_route: number[],
-    //     node_coordinates: NodeCoordinates
-    // ) => void;
-    // onLatestRouteChange: (
-    //     latestroute: number[],
-    //     node_coordinates: NodeCoordinates
-    // ) => void;
 };
