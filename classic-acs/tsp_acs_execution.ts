@@ -9,6 +9,8 @@ import { generateUniqueArrayOfCircularPath } from "../functions/generateUniqueAr
 import { MatrixSymmetryCreate, MatrixFill } from "@masx200/sparse-2d-matrix";
 import { run_greedy_once_thread_with_time } from "../functions/run_greedy_once_thread_with_time";
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
+import { calc_population_relative_information_entropy } from "../functions/calc_population-relative-information-entropy";
+import { sum } from "lodash-es";
 export function tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
@@ -57,6 +59,19 @@ export function tsp_acs_execution(
     }
     const data_of_routes: COMMON_DataOfOneRoute[] = [];
     const data_of_iterations: COMMON_DataOfOneIteration[] = [];
+    function generate_paths_using_state_transition_probabilities(): {
+        route: number[];
+        length: number;
+        time_ms: number;
+    } {
+        return { time_ms, route, length };
+    }
+    function local_pheromone_update(
+        routes_and_lengths: { route: number[]; length: number }[]
+    ) {}
+    function global_pheromone_update(
+        routes_and_lengths: { route: number[]; length: number }[]
+    ) {}
     const runOneIteration = async () => {
         let time_ms_of_one_iteration: number = 0;
         if (current_search_count === 0) {
@@ -80,7 +95,9 @@ export function tsp_acs_execution(
             length: number;
             time_ms: number;
         }[] = await Promise.all(
-            Array.from({ length: count_of_ants }).map(() => {})
+            Array.from({ length: count_of_ants }).map(() => {
+                return generate_paths_using_state_transition_probabilities();
+            })
         );
         for (let {
             route,
@@ -90,8 +107,43 @@ export function tsp_acs_execution(
             onRouteCreated(route, length);
 
             time_ms_of_one_iteration += time_ms_of_one_route;
+            current_search_count++;
+            data_of_routes.push({
+                global_best_length: get_best_length(),
+                current_route_length: length,
+                current_search_count,
+                time_ms_of_one_route,
+            });
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
+            const starttime_of_process_iteration = Number(new Date());
+            local_pheromone_update(routes_and_lengths_of_one_iteration);
+            global_pheromone_update(routes_and_lengths_of_one_iteration);
+            const population_relative_information_entropy =
+                calc_population_relative_information_entropy(
+                    routes_and_lengths_of_one_iteration.map((a) => a.route)
+                );
+            const average_length_of_iteration =
+                sum(routes_and_lengths_of_one_iteration.map((a) => a.length)) /
+                routes_and_lengths_of_one_iteration.length;
+            const worst_length_of_iteration = Math.max(
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+            );
+            const iterate_best_length = Math.min(
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+            );
+            const endtime_of_process_iteration = Number(new Date());
+            time_ms_of_one_iteration +=
+                endtime_of_process_iteration - starttime_of_process_iteration;
+            data_of_iterations.push({
+                global_best_length: get_best_length(),
+                current_iterations: get_number_of_iterations(),
+                time_ms_of_one_iteration,
+                population_relative_information_entropy,
+                average_length_of_iteration,
+                worst_length_of_iteration,
+                iterate_best_length,
+            });
         }
     };
     return {
