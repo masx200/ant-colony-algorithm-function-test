@@ -22,6 +22,7 @@
                 :value="item"
             />
         </el-select>
+        <hr />
         <span>选择城市地图</span>
         <br />
         <hr />

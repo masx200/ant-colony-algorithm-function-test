@@ -245,6 +245,8 @@ export function tsp_acs_execution(
         getpheromone: (left: number, right: number) => number;
         getdistancebyserialnumber: (left: number, right: number) => number;
     }): number {
+        const beta = beta_zero;
+        const alpha = alpha_zero;
         const random = Math.random();
         if (random < route_selection_parameters_Q0) {
             const nextnode_and_weights = availablenextnodes.map((nextnode) => {
@@ -264,8 +266,7 @@ export function tsp_acs_execution(
                 return c.weight > v.weight ? c : v;
             }, nextnode_and_weights[0]).nextnode;
         }
-        const beta = beta_zero;
-        const alpha = alpha_zero;
+
         const result = pickRandomOne(
             availablenextnodes,
             availablenextnodes.map((nextnode) => {
