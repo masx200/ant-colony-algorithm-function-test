@@ -226,20 +226,7 @@
             <!-- 最近一条路径的图 -->
         </div>
         <hr />
-        <!-- <details
-            class="width-100-percent"
-            :open="show_routes_of_latest"
-            @toggle="show_routes_of_latest = $event.target.open"
-        >
-            <summary>最近一条路径的展示</summary>
-            <LineChart
-                class="singlechart"
-                style=""
-                :options="options_of_latest_route_chart"
-            ></LineChart>
-        </details>
 
-        <hr /> -->
         <details
             class="width-100-percent"
             :open="show_chart_of_latest"
@@ -348,20 +335,6 @@
             />
         </details>
         <hr />
-        <!-- <details
-            v-if="show_every_route"
-            class="width-100-percent"
-            :open="show_summary_of_routes"
-            @toggle="show_summary_of_routes = $event.target.open"
-        >
-            <summary>每条路径的统计</summary>
-路径结果 -->
-        <!-- <Data_table
-                :tableheads="oneroutetableheads"
-                :tablebody="oneroutetablebody"
-            />
-        </details> -->
-        <!-- -->
     </div>
 </template>
 <script lang="ts" src="./appcom.ts"></script>
