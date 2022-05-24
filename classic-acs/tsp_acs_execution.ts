@@ -12,6 +12,13 @@ import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/G
 import { calc_population_relative_information_entropy } from "../functions/calc_population-relative-information-entropy";
 import { sum } from "lodash-es";
 import { cycle_route_to_segments } from "../functions/cycle_route_to_segments";
+import { closed_total_path_length } from "../functions/closed-total-path-length";
+import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
+import { get_distance_round } from "../src/set_distance_round";
+import { assert_true } from "../test/assert_true";
+// import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
+import { pickRandomOne } from "../functions/pickRandomOne";
+import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 export function tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
@@ -71,7 +78,38 @@ export function tsp_acs_execution(
         time_ms: number;
     } {
         const starttime_of_one_route = Number(new Date());
+
+        const inputindexs = Array(node_coordinates.length)
+            .fill(0)
+            .map((_v, i) => i);
+        const startnode = pickRandomOne(inputindexs);
+        const route: number[] = [startnode];
+        const available_nodes = new Set<number>(
+            inputindexs.filter((v) => !route.includes(v))
+        );
+        const getpheromone = (left: number, right: number) => {
+            return pheromoneStore.get(left, right);
+        };
+        const getdistancebyserialnumber = (left: number, right: number) => {
+            return geteuclideandistancebyindex(
+                left,
+                right,
+                node_coordinates,
+                get_distance_round()
+            );
+        };
+
         local_pheromone_update(route);
+        const routelength = closed_total_path_length({
+            round: get_distance_round(),
+            path: route,
+            getdistancebyindex: creategetdistancebyindex(
+                node_coordinates,
+                get_distance_round()
+            ),
+        });
+        const length = routelength;
+        assert_true(route.length == count_of_nodes);
         const endtime_of_one_route = Number(new Date());
         const time_ms = endtime_of_one_route - starttime_of_one_route;
         return { time_ms, route, length };
