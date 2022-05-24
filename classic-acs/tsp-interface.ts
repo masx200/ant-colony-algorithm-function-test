@@ -36,7 +36,7 @@ export interface COMMON_TSP_Options {
     beta_zero?: number | undefined;
     count_of_ants?: number | undefined;
     node_coordinates: NodeCoordinates;
-    pheromone_intensity_Q?: number;
+
     pheromone_volatility_coefficient_local?: number;
     pheromone_volatility_coefficient_global?: number;
     route_selection_parameters_Q0?: number;
