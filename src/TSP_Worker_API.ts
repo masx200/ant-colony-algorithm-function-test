@@ -1,18 +1,12 @@
+import { COMMON_TSP_EXECUTION } from "../classic-acs/tsp-interface";
 import { TSP_Runner } from "../functions/TSP_Runner";
-import { DataOfBestChange } from "../functions/DataOfBestChange";
-import { DataOfFinishOneIteration } from "../functions/DataOfFinishOneIteration";
-import { DataOfFinishOneRoute } from "../functions/DataOfFinishOneRoute";
-// import { NodeCoordinates } from "../functions/NodeCoordinates";
-import { TSPRunnerOptions } from "./TSPRunnerOptions";
+import { Runner_Init_Options } from "./Runner_Init_Options";
 
-export type TSP_Worker_API = TSP_Runner & {
-    on_best_change: (callback: (data: DataOfBestChange) => void) => void;
-    on_finish_one_iteration: (
-        callback: (data: DataOfFinishOneIteration) => void
-    ) => void;
-    on_finish_one_route: (
-        callback: (data: DataOfFinishOneRoute) => void
-    ) => void;
-    // runOneRoute: () => void;
-    init_runner: (options: TSPRunnerOptions) => void;
-};
+export type TSP_Worker_API = Pick<
+    TSP_Runner,
+    "runOneIteration" | "runIterations"
+> &
+    COMMON_TSP_EXECUTION & {
+        init_runner: (options: Runner_Init_Options) => void;
+        // get_ant_colony_algorithms: () => string[];
+    };

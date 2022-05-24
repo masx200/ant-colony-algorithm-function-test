@@ -1,14 +1,35 @@
 <template>
     <div :class="{ 'container-top': navbar_float }">
-        <Progresselement
+        <Progress_element
             :class="{ 'fixed-top-navbar': navbar_float }"
             :percentage="percentage"
             :indeterminate="indeterminate"
+            v-show="show_progress"
         />
-        <h1>自适应+奖惩+蚁群+k-opt 测试</h1>
+        <h1>当前算法:{{ selected_ant_colony_algorithm }}</h1>
+        <hr />
+        <span>选择蚁群算法</span><br />
+        <el-select
+            :disabled="disablemapswitching"
+            v-model="selected_ant_colony_algorithm"
+            class="m-2"
+            placeholder="Select"
+        >
+            <el-option
+                v-for="(item, index) in ant_colony_algorithms"
+                :key="index"
+                :label="item"
+                :value="item"
+            />
+        </el-select>
         <hr />
         <span>选择城市地图</span>
+        <br />
+        <hr />
+        <span>当前地图:{{ selected_value }}</span>
+        <br />
         <select
+            v-model="selected_value"
             ref="selecteleref"
             :disabled="disablemapswitching"
             @change="submit_select_node_coordinates"
@@ -22,173 +43,141 @@
             </option>
         </select>
         <br />
-        <button v-text="'重置'" @click="resethandler" />
+        <button v-text="'重置'" @click="resethandler" /><br />
         <button
             v-text="'停止'"
             @click="stop_handler"
             :disabled="disable_stop"
         />
         <hr />
-        <span>结果四舍五入</span>
-        <el-radio-group v-model="round_result" :disabled="disablemapswitching">
-            <el-radio :label="true">是</el-radio>
-            <el-radio :label="false">否</el-radio> </el-radio-group
-        ><br />
+        <span v-text="'显示进度条'"></span>
+        <el-switch
+            v-model="show_progress"
+            active-text="Open"
+            inactive-text="Close"
+        />
         <hr />
-        <span>信息素扩散的小范围城市数</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="
-                input_options.number_of_small_scale_cities_where_pheromone_diffuses
-            "
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>信息素扩散的大范围城市数</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="
-                input_options.number_of_large_scale_cities_where_pheromone_diffuses
-            "
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>最优路径的集合最大大小</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="
-                input_options.max_size_of_collection_of_optimal_routes
-            "
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>最新路径的集合最大大小</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="
-                input_options.max_size_of_collection_of_latest_routes
-            "
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>状态转移规则的每步最多城市数</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="input_options.max_cities_of_state_transition"
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>贪心算法的每步最多城市数</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="input_options.max_cities_of_greedy"
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>查找交叉点的最大线段数量</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="input_options.max_segments_of_cross_point"
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>贪心算法路径数量</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="max_routes_of_greedy"
-            :disabled="disablemapswitching"
-            :min="2"
-            :controls="false"
-        /><br /><span>每条的k-opt最大数量</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="input_options.max_results_of_k_opt"
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br /><span>每条的2-opt最大次数</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="input_options.max_results_of_2_opt"
-            :disabled="disablemapswitching"
-            :min="1"
-            :controls="false"
-        /><br />
-        <span>信息素强度</span>
-        <el-input-number
-            step-strictly
-            :step="0.01"
-            v-model.number="pheromone_intensity_Q_ref"
-            :disabled="disablemapswitching"
-            :min="0.01"
-            :controls="false"
-        /><br />
-        <span>非最优解的信息素增量系数</span>
-        <el-input-number
-            :controls="false"
-            step-strictly
-            :step="0.001"
-            v-model.number="coefficient_of_pheromone_Increase_Non_Optimal_Paths"
-            :disabled="disablemapswitching"
-            :min="0.001"
-            :max="1"
-        /><br />
-        <span>全局信息素挥发率</span>
-        <el-input-number
-            :controls="false"
-            step-strictly
-            :step="0.001"
-            v-model.number="global_pheromone_volatilization_rate"
-            :disabled="disablemapswitching"
-            :min="0.001"
-            :max="0.5"
-        /><br />
-        <span>蚂蚁数量</span>
-        <el-input-number
-            step-strictly
-            :step="1"
-            v-model.number="count_of_ants_ref"
-            :disabled="disablemapswitching"
-            :min="2"
-            :controls="false"
-        /><br />
-        <span>信息素因子</span>
-        <el-input-number
-            :controls="false"
-            step-strictly
-            :step="0.001"
-            v-model.number="alpha"
-            :disabled="disablemapswitching"
-            :min="0.001"
-            :max="5"
-        /><br />
-        <span>启发式因子</span>
-        <el-input-number
-            :controls="false"
-            step-strictly
-            :step="0.001"
-            v-model.number="beta"
-            :disabled="disablemapswitching"
-            :min="0.001"
-            :max="10"
-        /><br />
+        <details
+            class="width-100-percent"
+            :open="show_configurations"
+            @toggle="show_configurations = $event.target.open"
+        >
+            <summary>蚁群的参数配置</summary>
+            <span>结果四舍五入</span>
+            <el-radio-group
+                v-model="round_result"
+                :disabled="disablemapswitching"
+            >
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio> </el-radio-group
+            ><br />
+            <hr />
+
+            <span>最优路径的集合最大大小</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="
+                    input_options.max_size_of_collection_of_optimal_routes
+                "
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br />
+
+            <span>状态转移规则的每步最多可选城市数</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="input_options.max_cities_of_state_transition"
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br />
+            <span>贪心算法的每步最多城市数</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="input_options.max_cities_of_greedy"
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br />
+            <span>查找交叉点的最大线段数量</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="input_options.max_segments_of_cross_point"
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br />
+            <span>贪心算法路径数量</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="max_routes_of_greedy"
+                :disabled="disablemapswitching"
+                :min="2"
+                :controls="false"
+            /><br /><span>每条的k-opt最大数量</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="input_options.max_results_of_k_opt"
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br />
+            <span>每条的k-exchange最大次数</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="input_options.max_results_of_k_exchange"
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br /><span>每条的2-opt最大次数</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="input_options.max_results_of_2_opt"
+                :disabled="disablemapswitching"
+                :min="1"
+                :controls="false"
+            /><br />
+
+            <span>蚂蚁数量</span>
+            <el-input-number
+                step-strictly
+                :step="1"
+                v-model.number="count_of_ants_ref"
+                :disabled="disablemapswitching"
+                :min="2"
+                :controls="false"
+            /><br />
+            <span>信息素因子</span>
+            <el-input-number
+                :controls="false"
+                step-strictly
+                :step="0.001"
+                v-model.number="alpha"
+                :disabled="disablemapswitching"
+                :min="0.001"
+                :max="5"
+            /><br />
+            <span>启发式因子</span>
+            <el-input-number
+                :controls="false"
+                step-strictly
+                :step="0.001"
+                v-model.number="beta"
+                :disabled="disablemapswitching"
+                :min="0.001"
+                :max="10"
+            /><br />
+        </details>
+
         <hr />
         <span>按照终止条件</span>
         <el-radio-group
@@ -240,106 +229,127 @@
                 :open="show_routes_of_best"
                 @toggle="show_routes_of_best = $event.target.open"
             >
-                <summary>全局最优解的展示</summary>
+                <summary>全局最优路径的展示</summary>
                 <!-- 全局最优解的图 -->
-                <div
+                <LineChart
                     class="singlechart"
                     style=""
-                    ref="container_of_best_chart"
-                ></div>
+                    :options="options_of_best_route_chart"
+                ></LineChart>
             </details>
 
             <!-- 最近一条路径的图 -->
         </div>
         <hr />
+
         <details
             class="width-100-percent"
-            :open="show_routes_of_latest"
-            @toggle="show_routes_of_latest = $event.target.open"
+            :open="show_chart_of_latest"
+            @toggle="show_chart_of_latest = $event.target.open"
         >
-            <summary>最近一条路径的展示</summary>
-            <div
-                class="singlechart"
-                style=""
-                ref="container_of_latest_chart"
-            ></div>
+            <summary>迭代次数和相对信息熵</summary>
+            <div class="chartcontainer" style="">
+                <!-- 路径序号和当前路径长度的图表 -->
+                <LineChart
+                    class="singlechart"
+                    style=""
+                    :options="
+                        options_of_iterations_and_information_entropy_chart
+                    "
+                ></LineChart>
+                <!-- 路径序号和最优路径长度的图表 -->
+            </div>
         </details>
-
         <hr />
-        <div class="chartcontainer" style="">
-            <!-- 路径序号和当前路径长度的图表 -->
-            <div
+        <details
+            class="width-100-percent"
+            :open="show_chart_of_entropy"
+            @toggle="show_chart_of_entropy = $event.target.open"
+        >
+            <summary>路径序号和当前路径长度</summary>
+            <div class="chartcontainer" style="">
+                <!-- 迭代轮次和相对信息熵的图表 -->
+                <LineChart
+                    class="singlechart"
+                    style=""
+                    :options="options_of_current_path_length_chart"
+                ></LineChart>
+            </div>
+        </details>
+        <hr />
+        <details
+            class="width-100-percent"
+            :open="show_chart_of_best"
+            @toggle="show_chart_of_best = $event.target.open"
+        >
+            <summary>路径序号和最优路径长度</summary>
+            <LineChart
                 class="singlechart"
                 style=""
-                ref="container_of_path_number_and_current_path_length_chart"
-            ></div>
-            <!-- 路径序号和最优路径长度的图表 -->
-        </div>
-        <hr />
-        <div class="chartcontainer" style="">
-            <!-- 迭代轮次和相对信息熵的图表 -->
-            <div
-                class="singlechart"
-                style=""
-                ref="container_of_iteration_rounds_and_information_entropy_chart"
-            ></div>
-        </div>
-        <hr />
-        <div
-            class="singlechart"
-            style=""
-            ref="container_of_path_number_and_optimal_path_length_chart"
-        ></div>
+                :options="options_of_best_path_length_chart"
+            ></LineChart>
+        </details>
         <hr />
 
         <!-- //汇总结果 -->
-        <Datatable
-            :tableheads="resultTableHeads"
-            :tablebody="resultTableBody"
+        <Data_table
+            :tableheads="summary_best_TableHeads"
+            :tablebody="summary_best_TableBody"
         />
         <!-- 拆分表格 -->
         <hr />
-        <Datatable
-            :tableheads="global_best_routeHeads"
-            :tablebody="global_best_routeBody"
+        <Data_table
+            :tableheads="summary_total_TableHeads"
+            :tablebody="summary_total_TableBody"
         />
-
+        <!-- 拆分表格 -->
         <hr />
-        <Datatable
-            :tableheads="TableHeadsOfHistoryOfBest"
-            :tablebody="TableBodyOfHistoryOfBest"
-        />
-        <hr />
-        <details class="width-100-percent" :open="true">
-            <summary>贪心路径的统计</summary>
-            <Datatable
-                :tableheads="greedy_iteration_table_heads"
-                :tablebody="greedy_iteration_table_body"
+        <details
+            class="width-100-percent"
+            :open="show_array_routes_of_best"
+            @toggle="show_array_routes_of_best = $event.target.open"
+        >
+            <summary>最优路径的数组展示</summary>
+            <Data_table
+                :tableheads="global_best_routeHeads"
+                :tablebody="global_best_routeBody"
             />
+
+            <hr />
         </details>
+        <details
+            class="width-100-percent"
+            :open="show_history_routes_of_best"
+            @toggle="show_history_routes_of_best = $event.target.open"
+        >
+            <summary>最优路径的变化历史</summary>
+            <Data_table
+                :tableheads="TableHeadsOfHistoryOfBest"
+                :tablebody="TableBodyOfHistoryOfBest"
+            />
+            <hr />
+        </details>
+        <!-- <details class="width-100-percent" :open="true">
+            <summary>贪心路径的统计</summary> -->
+        <!-- <Data_table
+            :tableheads="greedy_iteration_table_heads"
+            :tablebody="greedy_iteration_table_body"
+        /> -->
+        <!-- </details> -->
         <hr />
-        <details class="width-100-percent" :open="true">
+        <details
+            class="width-100-percent"
+            :open="show_summary_of_iterations"
+            @toggle="show_summary_of_iterations = $event.target.open"
+        >
             <summary>每次迭代的统计</summary>
             <!-- 迭代结果 -->
-            <Datatable
+            <Data_table
                 :tableheads="oneiterationtableheads"
                 :tablebody="oneiterationtablebody"
             />
         </details>
         <hr />
-        <details
-            v-if="show_every_route"
-            class="width-100-percent"
-            :open="show_summary_of_routes"
-            @toggle="show_summary_of_routes = $event.target.open"
-        >
-            <summary>每条路径的统计</summary>
-            <!-- 路径结果 -->
-            <Datatable
-                :tableheads="oneroutetableheads"
-                :tablebody="oneroutetablebody"
-            />
-        </details>
     </div>
 </template>
 <script lang="ts" src="./appcom.ts"></script>

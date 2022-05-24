@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+        "jsx": "preserve",
+        "checkJs": false,
+        "allowJs": false,
         "declaration": false,
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
@@ -18,6 +21,7 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
     },
+    "exclude": ["node_modules"],
     "include": [
         "collections",
         "vite.config.ts",
@@ -28,6 +32,8 @@
         "bin",
         "__tests__",
         "cross-points/*.ts",
-        "k-opt/*.ts"
+        "k-opt/*.ts",
+        "*.ts",
+        "*/*.ts"
     ]
 }

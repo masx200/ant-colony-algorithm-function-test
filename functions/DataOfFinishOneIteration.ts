@@ -1,17 +1,16 @@
 export interface DataOfFinishOneIteration {
-    /* "找到最优解的耗时秒" */
-
-    // time_of_best_ms: number;
-    // global_best_route: number[];
-    // relative_deviation_from_optimal: number;
+    average_length_of_iteration: number;
     current_iterations: number;
     population_relative_information_entropy: number;
-    // ispheromoneDiffusion: boolean;
-    randomselectionprobability: number;
-    pheromoneDiffusionProbability: number;
-    optimallengthofthis_iteration: number;
-    optimalrouteofthis_iteration: number[];
+
+    random_selection_probability: number;
+
+    worst_length_of_iteration: number;
+    optimal_length_of_iteration: number;
+    // optimal_route_of_iteration: number[];
     time_ms_of_one_iteration: number;
-    globalbestlength: number;
-    // locally_optimized_length: number;
+    global_best_length: number;
+    convergence_coefficient: number;
+    // iterate_best_route: number[];
+    iterate_best_length: number;
 }

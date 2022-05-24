@@ -1,25 +1,26 @@
-import { assert_true } from "../test/assert_true";
 import { assert_Integer } from "../test/assert_Integer";
 import uniq from "lodash/uniq";
-import { CollectionOfLatestRoutes } from "../collections/collection-of-latest-routes";
-import { CollectionOfOptimalRoutes } from "../collections/collection-of-optimal-routes";
+
 import "core-js/stable/array/at";
+
 export function create_get_neighbors_from_optimal_routes_and_latest_routes(
-    collection_of_latest_routes: CollectionOfLatestRoutes | undefined,
-    collection_of_optimal_routes: CollectionOfOptimalRoutes | undefined
-): (city: number) => number[] {
-    return function get_neighbors_from_optimal_routes_and_latest_routes(
+    latest_and_optimal_routes: {
+        route: number[];
+        length: number;
+    }[]
+): { get: (city: number) => number[]; clear(): void } {
+    const cache = new Map<number, number[]>();
+    function get_neighbors_from_optimal_routes_and_latest_routes(
         city: number
     ): number[] {
-        assert_true(collection_of_latest_routes);
-        assert_true(collection_of_optimal_routes);
         assert_Integer(city);
-
-        return uniq(
-            [
-                ...collection_of_latest_routes,
-                ...collection_of_optimal_routes.map(({ route }) => route),
-            ]
+        const cached = cache.get(city);
+        if (cached) {
+            return cached;
+        }
+        const result = uniq(
+            latest_and_optimal_routes
+                .map(({ route }) => route)
                 .map((route) => {
                     const index = route.findIndex((v) => v === city);
 
@@ -30,9 +31,17 @@ export function create_get_neighbors_from_optimal_routes_and_latest_routes(
                     return [
                         route.at((index - 1 + route.length) % route.length),
                         route.at((index + 1 + route.length) % route.length),
-                    ].filter(Boolean) as number[];
+                    ].filter((n) => typeof n === "number") as number[];
                 })
                 .flat()
         );
+        cache.set(city, result);
+        return result;
+    }
+    return {
+        get: get_neighbors_from_optimal_routes_and_latest_routes,
+        clear() {
+            cache.clear();
+        },
     };
 }
