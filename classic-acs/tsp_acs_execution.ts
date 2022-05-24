@@ -11,6 +11,7 @@ import { run_greedy_once_thread_with_time } from "../functions/run_greedy_once_t
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 import { calc_population_relative_information_entropy } from "../functions/calc_population-relative-information-entropy";
 import { sum } from "lodash-es";
+import { cycle_route_to_segments } from "../functions/cycle_route_to_segments";
 export function tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
@@ -18,6 +19,11 @@ export function tsp_acs_execution(
         count_of_ants = 20,
         node_coordinates,
         distance_round = true,
+        pheromone_volatility_coefficient_local = 0.1,
+        pheromone_volatility_coefficient_global = 0.1,
+        beta_zero = 2,
+        alpha_zero = 1,
+        route_selection_parameters_Q0 = 0.1,
     } = options;
     const count_of_nodes = node_coordinates.length;
     const pheromoneStore = MatrixSymmetryCreate({ row: count_of_nodes });
@@ -64,14 +70,34 @@ export function tsp_acs_execution(
         length: number;
         time_ms: number;
     } {
+        const starttime_of_one_route = Number(new Date());
+        local_pheromone_update(route);
+        const endtime_of_one_route = Number(new Date());
+        const time_ms = endtime_of_one_route - starttime_of_one_route;
         return { time_ms, route, length };
     }
-    function local_pheromone_update(
-        routes_and_lengths: { route: number[]; length: number }[]
-    ) {}
-    function global_pheromone_update(
-        routes_and_lengths: { route: number[]; length: number }[]
-    ) {}
+    function local_pheromone_update(route: number[]) {
+        for (const [city1, city2] of cycle_route_to_segments(route)) {
+            const changed_pheromone =
+                (1 - pheromone_volatility_coefficient_local) *
+                    pheromoneStore.get(city1, city2) +
+                pheromone_volatility_coefficient_local * pheromoneZero;
+            pheromoneStore.set(city1, city2, changed_pheromone);
+        }
+    }
+    function global_pheromone_update() {
+        const best_route = get_best_route();
+        const best_length = get_best_length();
+
+        const delta_pheromone = 1 / best_length;
+        for (const [city1, city2] of cycle_route_to_segments(best_route)) {
+            const changed_pheromone =
+                (1 - pheromone_volatility_coefficient_global) *
+                    pheromoneStore.get(city1, city2) +
+                pheromone_volatility_coefficient_global * delta_pheromone;
+            pheromoneStore.set(city1, city2, changed_pheromone);
+        }
+    }
     const runOneIteration = async () => {
         let time_ms_of_one_iteration: number = 0;
         if (current_search_count === 0) {
@@ -85,7 +111,8 @@ export function tsp_acs_execution(
             });
             Greedy_algorithm_to_solve_tsp_with_selected_start_pool.destroy();
             set_global_best(best_route, best_length);
-            total_time_ms += time_ms;
+
+            time_ms_of_one_iteration += time_ms;
             greedy_length = best_length;
             pheromoneZero = 1 / count_of_nodes / greedy_length;
             MatrixFill(pheromoneStore, pheromoneZero);
@@ -117,12 +144,14 @@ export function tsp_acs_execution(
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
             const starttime_of_process_iteration = Number(new Date());
-            local_pheromone_update(routes_and_lengths_of_one_iteration);
-            global_pheromone_update(routes_and_lengths_of_one_iteration);
+
+            const current_routes = routes_and_lengths_of_one_iteration.map(
+                (a) => a.route
+            );
+
+            global_pheromone_update();
             const population_relative_information_entropy =
-                calc_population_relative_information_entropy(
-                    routes_and_lengths_of_one_iteration.map((a) => a.route)
-                );
+                calc_population_relative_information_entropy(current_routes);
             const average_length_of_iteration =
                 sum(routes_and_lengths_of_one_iteration.map((a) => a.length)) /
                 routes_and_lengths_of_one_iteration.length;
@@ -135,6 +164,7 @@ export function tsp_acs_execution(
             const endtime_of_process_iteration = Number(new Date());
             time_ms_of_one_iteration +=
                 endtime_of_process_iteration - starttime_of_process_iteration;
+            total_time_ms += time_ms_of_one_iteration;
             data_of_iterations.push({
                 global_best_length: get_best_length(),
                 current_iterations: get_number_of_iterations(),
