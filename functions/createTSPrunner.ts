@@ -47,6 +47,7 @@ import { PheromoneCache } from "./PheromoneCache";
 import { max_number_of_stagnation } from "./max_number_of_stagnation";
 import { TSP_Output_Data } from "./TSP_Output_Data";
 import { cycle_route_to_segments } from "./cycle_route_to_segments";
+import { create_run_iterations } from "./create_run_iterations";
 // import { Data_Of_best } from "./Data_Of_best";
 // import { reactive } from "@vue/reactivity";
 
@@ -510,14 +511,7 @@ export function createTSPrunner(input: TSPRunnerOptions): TSP_Runner {
             }
         }
     };
-    const runIterations = async (iterations: number) => {
-        assert_number(iterations);
-        assert_true(iterations > 0);
-
-        for (let i = 0; i < iterations; i++) {
-            await runOneIteration();
-        }
-    };
+    const runIterations = create_run_iterations(runOneIteration);
 
     function onRouteCreated(route: number[], length: number) {
         // latest_route = route;

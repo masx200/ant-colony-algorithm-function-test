@@ -1,13 +1,13 @@
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 export type TSPRunnerOptions = {
-    max_results_of_k_exchange: number;
+    max_results_of_k_exchange?: number;
     distance_round?: boolean;
     max_cities_of_greedy?: number;
     max_segments_of_cross_point?: number;
     max_cities_of_state_transition?: number;
     max_routes_of_greedy?: number;
-    // max_size_of_collection_of_latest_routes?: number;
+
     max_size_of_collection_of_optimal_routes?: number;
     max_results_of_2_opt?: number;
 
