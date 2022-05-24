@@ -10,7 +10,7 @@ export function picknextnodeRoulette(
 ): number {
     const {
         alpha_zero,
-        get_convergence_coefficient,
+        // get_convergence_coefficient,
         beta_zero,
         getpheromone,
         getdistancebyserialnumber,
@@ -28,9 +28,8 @@ export function picknextnodeRoulette(
         availablenextnodes,
         availablenextnodes.map((nextnode) => {
             const weight = calc_state_transition_probabilities({
-                ...options,
                 getpheromone,
-                get_convergence_coefficient,
+
                 nextnode,
                 currentnode,
                 alpha,

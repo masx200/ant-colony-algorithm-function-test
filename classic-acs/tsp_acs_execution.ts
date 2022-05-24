@@ -19,6 +19,7 @@ import { assert_true } from "../test/assert_true";
 // import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
 import { pickRandomOne } from "../functions/pickRandomOne";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
+import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
 export function tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
@@ -98,6 +99,21 @@ export function tsp_acs_execution(
                 get_distance_round()
             );
         };
+        while (route.length !== count_of_nodes) {
+            const current_city = Array.from(route).slice(-1)[0];
+
+            const nextnode = picknextnode({
+                alpha_zero,
+                beta_zero,
+
+                currentnode: current_city,
+                availablenextnodes: Array.from(available_nodes),
+                getpheromone,
+                getdistancebyserialnumber,
+            });
+            route.push(nextnode);
+            available_nodes.delete(nextnode);
+        }
 
         local_pheromone_update(route);
         const routelength = closed_total_path_length({
@@ -214,6 +230,61 @@ export function tsp_acs_execution(
             });
         }
     };
+    function picknextnode({
+        beta_zero,
+        alpha_zero,
+        currentnode,
+        getpheromone,
+        getdistancebyserialnumber,
+        availablenextnodes,
+    }: {
+        alpha_zero: number;
+        beta_zero: number;
+        currentnode: number;
+        availablenextnodes: number[];
+        getpheromone: (left: number, right: number) => number;
+        getdistancebyserialnumber: (left: number, right: number) => number;
+    }): number {
+        const random = Math.random();
+        if (random < route_selection_parameters_Q0) {
+            const nextnode_and_weights = availablenextnodes.map((nextnode) => {
+                const weight = calc_state_transition_probabilities({
+                    getpheromone,
+
+                    nextnode,
+                    currentnode,
+                    alpha,
+                    getdistancebyserialnumber,
+                    beta,
+                });
+                return { nextnode, weight };
+            });
+
+            return nextnode_and_weights.reduce((c, v) => {
+                return c.weight > v.weight ? c : v;
+            }, nextnode_and_weights[0]).nextnode;
+        }
+        const beta = beta_zero;
+        const alpha = alpha_zero;
+        const result = pickRandomOne(
+            availablenextnodes,
+            availablenextnodes.map((nextnode) => {
+                const weight = calc_state_transition_probabilities({
+                    getpheromone,
+
+                    nextnode,
+                    currentnode,
+                    alpha,
+                    getdistancebyserialnumber,
+                    beta,
+                });
+
+                return weight;
+            })
+        );
+        return result;
+    }
+
     return {
         runOneIteration: runOneIteration,
         get_output_data: (): COMMON_TSP_Output => {
