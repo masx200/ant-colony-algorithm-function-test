@@ -69,17 +69,7 @@
                 :min="1"
                 :controls="false"
             /><br />
-            <!-- <span>最新路径的集合最大大小</span>
-            <el-input-number
-                step-strictly
-                :step="1"
-                v-model.number="
-                    input_options.max_size_of_collection_of_latest_routes
-                "
-                :disabled="disablemapswitching"
-                :min="1"
-                :controls="false"
-            /><br /> -->
+
             <span>状态转移规则的每步最多可选城市数</span>
             <el-input-number
                 step-strictly
