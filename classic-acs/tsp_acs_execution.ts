@@ -285,21 +285,22 @@ export function tsp_acs_execution(
         return result;
     }
 
+    function get_output_data(): COMMON_TSP_Output {
+        const output: COMMON_TSP_Output = {
+            data_of_routes,
+            data_of_iterations,
+            time_of_best_ms,
+            total_time_ms,
+            search_count_of_best,
+            global_best_length: get_best_length(),
+            current_search_count,
+            current_iterations: get_number_of_iterations(),
+            global_best_route: get_best_route(),
+        };
+        return output;
+    }
     return {
         runOneIteration: runOneIteration,
-        get_output_data: (): COMMON_TSP_Output => {
-            const output: COMMON_TSP_Output = {
-                data_of_routes,
-                data_of_iterations,
-                time_of_best_ms,
-                total_time_ms,
-                search_count_of_best,
-                global_best_length: get_best_length(),
-                current_search_count,
-                current_iterations: get_number_of_iterations(),
-                global_best_route: get_best_route(),
-            };
-            return output;
-        },
+        get_output_data: get_output_data,
     };
 }
