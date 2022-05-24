@@ -72,7 +72,37 @@
                 <el-radio :label="false">否</el-radio> </el-radio-group
             ><br />
             <hr />
-
+            <span>局部信息素挥发率</span>
+            <el-input-number
+                step-strictly
+                :step="0.01"
+                v-model.number="
+                    input_options.pheromone_volatility_coefficient_local
+                "
+                :disabled="disablemapswitching"
+                :min="0.01"
+                :controls="false"
+            /><br />
+            <span>全局信息素挥发率</span>
+            <el-input-number
+                step-strictly
+                :step="0.01"
+                v-model.number="
+                    input_options.pheromone_volatility_coefficient_global
+                "
+                :disabled="disablemapswitching"
+                :min="0.01"
+                :controls="false"
+            /><br />
+            <span>路径选择参数Q0</span>
+            <el-input-number
+                step-strictly
+                :step="0.01"
+                v-model.number="input_options.route_selection_parameters_Q0"
+                :disabled="disablemapswitching"
+                :min="0.01"
+                :controls="false"
+            /><br />
             <span>最优路径的集合最大大小</span>
             <el-input-number
                 step-strictly
