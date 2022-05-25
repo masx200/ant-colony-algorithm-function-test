@@ -30,7 +30,7 @@ export interface COMMON_DataOfOneIteration {
     worst_length_of_iteration: number;
     time_ms_of_one_iteration: number;
 }
-export interface COMMON_TSP_Options {
+export type COMMON_TSP_Options = {
     distance_round?: boolean;
     alpha_zero?: number | undefined;
     beta_zero?: number | undefined;
@@ -40,5 +40,6 @@ export interface COMMON_TSP_Options {
     pheromone_volatility_coefficient_local?: number;
     pheromone_volatility_coefficient_global?: number;
     route_selection_parameters_Q0?: number;
-}
+} & TSPRunnerOptions;
 import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { TSPRunnerOptions } from "../src/TSPRunnerOptions";

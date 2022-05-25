@@ -3,12 +3,12 @@ import {
     COMMON_TSP_EXECUTION,
     COMMON_TSP_Options,
 } from "../classic-acs/tsp-interface";
-import { tsp_acs_execution } from "../classic-acs/tsp_acs_execution";
 import { create_run_iterations } from "../functions/create_run_iterations";
 
 import { TSP_Runner } from "../functions/TSP_Runner";
 import { assert_true } from "../test/assert_true";
 import { ant_colony_algorithms } from "./ant_colony_algorithms";
+import { ant_colony_algorithms_to_creator } from "./ant_colony_algorithms_to_creator";
 import { Runner_Init_Options } from "./Runner_Init_Options";
 
 import { TSP_Worker_API } from "./TSP_Worker_API";
@@ -38,12 +38,6 @@ function init_runner(options: Runner_Init_Options) {
         runIterations: create_run_iterations(rawrunner.runOneIteration),
     });
 }
-const ant_colony_algorithms_to_creator: Record<
-    string,
-    (options: COMMON_TSP_Options) => COMMON_TSP_EXECUTION
-> = {
-    "经典蚁群算法,ACS": tsp_acs_execution,
-};
 // function get_ant_colony_algorithms() {
 //     return Object.keys(ant_colony_algorithms);
 // }
