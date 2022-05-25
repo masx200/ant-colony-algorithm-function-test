@@ -4,6 +4,7 @@ import { ant_colony_algorithms } from "./ant_colony_algorithms";
 import { ant_colony_algorithms_to_creator } from "./ant_colony_algorithms_to_creator";
 import { appcontainer } from "./appcontainer";
 import { app } from "./main";
+//worker里动态加载assert_true出问题????????????
 
 assert_true(
     ant_colony_algorithms.every((algorithm) => {

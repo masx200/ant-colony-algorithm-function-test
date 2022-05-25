@@ -4,7 +4,7 @@ import { create_Worker_comlink } from "../src/create_Worker_comlink";
 import { local_optimization_route_api } from "./local_optimization_route_api";
 import { worker_error_listener } from "./worker_error_listener";
 export const local_optimization_route_pool = createThreadPool({
-    minThreads: 1,
+    minThreads: 0,
     terminate(w) {
         w.terminate();
     },
