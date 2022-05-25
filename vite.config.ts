@@ -18,6 +18,7 @@ export default defineConfig(({ mode, command }) => {
     const isdrop = mode === "production" && command === "build";
     const config: UserConfigExport = {
         worker: {
+            format: "es",
             plugins: [
                 //@ts-ignore
                 babel({
