@@ -16,7 +16,7 @@ let runner:
     | (Pick<TSP_Runner, "runOneIteration" | "runIterations"> &
           COMMON_TSP_EXECUTION)
     | undefined = undefined;
-function init_runner(options: Runner_Init_Options) {
+async function init_runner(options: Runner_Init_Options) {
     const { algorithm } = options;
     if (
         !(
@@ -29,7 +29,9 @@ function init_runner(options: Runner_Init_Options) {
     if (runner) {
         throw new Error("cannot init runner twice");
     }
-    const createTSPrunner = ant_colony_algorithms_to_creator[algorithm] as (
+    const get_tsp_creator = ant_colony_algorithms_to_creator[algorithm];
+    assert_true(typeof get_tsp_creator === "function");
+    const createTSPrunner = (await get_tsp_creator()) as (
         options: COMMON_TSP_Options
     ) => COMMON_TSP_EXECUTION;
     assert_true(typeof createTSPrunner === "function");
@@ -38,11 +40,9 @@ function init_runner(options: Runner_Init_Options) {
         runIterations: create_run_iterations(rawrunner.runOneIteration),
     });
 }
-// function get_ant_colony_algorithms() {
-//     return Object.keys(ant_colony_algorithms);
-// }
+
 const API: TSP_Worker_API = new Proxy(
-    { /* get_ant_colony_algorithms,  */ init_runner },
+    { init_runner },
     {
         ownKeys(target) {
             return [

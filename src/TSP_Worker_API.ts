@@ -7,6 +7,5 @@ export type TSP_Worker_API = Pick<
     "runOneIteration" | "runIterations"
 > &
     COMMON_TSP_EXECUTION & {
-        init_runner: (options: Runner_Init_Options) => void;
-        // get_ant_colony_algorithms: () => string[];
+        init_runner: (options: Runner_Init_Options) => Promise<void>;
     };
