@@ -1,6 +1,16 @@
 import "core-js/stable/array/at";
+import { assert_true } from "../test/assert_true";
+import { ant_colony_algorithms } from "./ant_colony_algorithms";
+import { ant_colony_algorithms_to_creator } from "./ant_colony_algorithms_to_creator";
 import { appcontainer } from "./appcontainer";
 import { app } from "./main";
+
+assert_true(
+    ant_colony_algorithms.every((algorithm) => {
+        return Reflect.has(ant_colony_algorithms_to_creator, algorithm);
+    })
+);
+
 app.config.errorHandler = (e: any) => {
     typeof alert === "function" &&
         alert?.(

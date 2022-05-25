@@ -204,26 +204,6 @@ export function tsp_acs_execution_and_local_optimization(
             });
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
-            const starttime_of_process_iteration = Number(new Date());
-
-            const current_routes = routes_and_lengths_of_one_iteration.map(
-                (a) => a.route
-            );
-
-            global_pheromone_update();
-            const population_relative_information_entropy =
-                calc_population_relative_information_entropy(current_routes);
-            const average_length_of_iteration =
-                sum(routes_and_lengths_of_one_iteration.map((a) => a.length)) /
-                routes_and_lengths_of_one_iteration.length;
-            const worst_length_of_iteration = Math.max(
-                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
-            );
-            const iterate_best_length = Math.min(
-                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
-            );
-            const endtime_of_process_iteration = Number(new Date());
-
             //三种局部优化方法
             const routes_and_lengths = routes_and_lengths_of_one_iteration;
             const best_half_routes = Array.from(routes_and_lengths)
@@ -267,6 +247,26 @@ export function tsp_acs_execution_and_local_optimization(
                 optimal_length_of_iteration
             );
             //三种局部优化方法
+            const starttime_of_process_iteration = Number(new Date());
+
+            const current_routes = routes_and_lengths_of_one_iteration.map(
+                (a) => a.route
+            );
+
+            global_pheromone_update();
+            const population_relative_information_entropy =
+                calc_population_relative_information_entropy(current_routes);
+            const average_length_of_iteration =
+                sum(routes_and_lengths_of_one_iteration.map((a) => a.length)) /
+                routes_and_lengths_of_one_iteration.length;
+            const worst_length_of_iteration = Math.max(
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+            );
+            const iterate_best_length = Math.min(
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+            );
+            const endtime_of_process_iteration = Number(new Date());
+
             time_ms_of_one_iteration +=
                 optimal_time_ms +
                 endtime_of_process_iteration -
