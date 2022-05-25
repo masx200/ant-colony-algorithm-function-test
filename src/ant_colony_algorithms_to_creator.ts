@@ -4,7 +4,9 @@ import {
 } from "../classic-acs/tsp-interface";
 import { tsp_acs_execution } from "../classic-acs/tsp_acs_execution";
 import { tsp_acs_execution_and_local_optimization } from "../classic-acs/tsp_acs_execution_and_local_optimization";
-
+import { assert_true } from "../test/assert_true";
+import { ant_colony_algorithms } from "./ant_colony_algorithms";
+// import { ant_colony_algorithms_to_creator } from "./ant_colony_algorithms_to_creator";
 export const ant_colony_algorithms_to_creator: Record<
     string,
     () => Promise<(options: COMMON_TSP_Options) => COMMON_TSP_EXECUTION>
@@ -22,3 +24,8 @@ export const ant_colony_algorithms_to_creator: Record<
         return tsp_acs_execution_and_local_optimization;
     },
 };
+assert_true(
+    ant_colony_algorithms.every((algorithm) => {
+        return Reflect.has(ant_colony_algorithms_to_creator, algorithm);
+    })
+);
