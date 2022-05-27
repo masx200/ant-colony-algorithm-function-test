@@ -1,6 +1,6 @@
 import intersection from "lodash/intersection";
 import difference from "lodash/difference";
-import { ArrayShuffle } from "./ArrayShuffle";
+// import { ArrayShuffle } from "./ArrayShuffle";
 
 export function select_available_cities_from_optimal_and_latest({
     available_nodes,
@@ -25,7 +25,7 @@ export function select_available_cities_from_optimal_and_latest({
         0,
         maximum - neighbors.length
     );
-    const source = [...neighbors, ...ArrayShuffle(rest_nodes)]; //.flat();
+    const source = [...neighbors, ...rest_nodes]; //.flat();
     const result: number[] = source;
     // const result: number[] = source.slice(0, maximum);
     return result;
