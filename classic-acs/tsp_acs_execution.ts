@@ -21,6 +21,7 @@ import { pickRandomOne } from "../functions/pickRandomOne";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
 import { DefaultOptions } from "../src/default_Options";
+/**经典acs */
 export function tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {

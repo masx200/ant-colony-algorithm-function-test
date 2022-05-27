@@ -31,7 +31,7 @@ async function init_runner(options: Runner_Init_Options) {
     }
     const get_tsp_creator = ant_colony_algorithms_to_creator[algorithm];
     assert_true(typeof get_tsp_creator === "function");
-    const createTSPrunner = (await get_tsp_creator()) as (
+    const createTSPrunner = get_tsp_creator() as (
         options: COMMON_TSP_Options
     ) => COMMON_TSP_EXECUTION;
     assert_true(typeof createTSPrunner === "function");
