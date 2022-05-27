@@ -21,8 +21,12 @@ export function select_available_cities_from_optimal_and_latest({
         Array.from(available_nodes),
         get_neighbors_from_optimal_routes_and_latest_routes(current_city)
     );
-    const rest_nodes = difference(Array.from(available_nodes), neighbors);
-    const source = [neighbors, ArrayShuffle(rest_nodes)].flat();
-    const result: number[] = source.slice(0, maximum);
+    const rest_nodes = difference(Array.from(available_nodes), neighbors).slice(
+        0,
+        maximum - neighbors.length
+    );
+    const source = [...neighbors, ...ArrayShuffle(rest_nodes)]; //.flat();
+    const result: number[] = source;
+    // const result: number[] = source.slice(0, maximum);
     return result;
 }
