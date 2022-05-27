@@ -2,6 +2,8 @@
 // import difference from "lodash/difference";
 // import { ArrayShuffle } from "./ArrayShuffle";
 
+import { assert_true } from "../test/assert_true";
+
 export function select_available_cities_from_optimal_and_latest({
     available_nodes,
     get_neighbors_from_optimal_routes_and_latest_routes,
@@ -15,7 +17,7 @@ export function select_available_cities_from_optimal_and_latest({
     current_city: number;
     max_size_of_cities: number;
 }): number[] | Set<number> {
-    const maximum = Math.max(max_size_of_cities, available_nodes.size);
+    const maximum = Math.min(max_size_of_cities, available_nodes.size);
     const slice_from_start = Math.random() < 0.5;
     // const neighbors = intersection(
     //     get_neighbors_from_optimal_routes_and_latest_routes(current_city),
@@ -54,5 +56,7 @@ export function select_available_cities_from_optimal_and_latest({
     }
     const result = Array.from(source);
     // const result: number[] = Array.from(source).slice(0, maximum);
+    assert_true(result.length <= available_nodes.size);
+    assert_true(result.length <= max_size_of_cities);
     return result;
 }
