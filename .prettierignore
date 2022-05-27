@@ -141,4 +141,4 @@ dist-ssr
 *.sln
 *.sw?
 src/components.d.ts
-src/auto-imports.d.d.ts
+src/auto-imports.d.ts

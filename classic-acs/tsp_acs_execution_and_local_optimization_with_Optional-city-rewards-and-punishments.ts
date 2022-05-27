@@ -58,8 +58,7 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
         for (const city of node_coordinates.keys()) {
             const result = uniq(
                 latest_and_optimal_routes
-                    .map(({ route }) => route)
-                    .map((route) => {
+                    .map(({ route }) => {
                         const index = route.findIndex((v) => v === city);
 
                         if (index < 0) {
@@ -127,12 +126,11 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
             []
         );
     };
+    const is_count_not_large = count_of_nodes <= max_cities_of_state_transition;
     const get_filtered_nodes = function (
         current_city: number,
         available_nodes: Set<number>
     ): number[] | Set<number> {
-        const is_count_not_large =
-            count_of_nodes <= max_cities_of_state_transition;
         return is_count_not_large
             ? available_nodes
             : select_available_cities_from_optimal_and_latest({
@@ -244,7 +242,9 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
             pheromoneZero = 1 / count_of_nodes / greedy_length;
             MatrixFill(pheromoneStore, pheromoneZero);
         }
-        update_neighbors_from_optimal_routes();
+        if (!is_count_not_large) {
+            update_neighbors_from_optimal_routes();
+        }
         const routes_and_lengths_of_one_iteration: {
             route: number[];
             length: number;
