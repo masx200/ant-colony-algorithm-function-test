@@ -20,7 +20,7 @@ const DefaultOptions: Omit<
 > = {
     pheromone_volatility_coefficient_local: 0.1,
     pheromone_volatility_coefficient_global: 0.1,
-    route_selection_parameters_Q0: 0.3,
+    route_selection_parameters_Q0: 0.8,
     max_results_of_k_exchange: default_max_results_of_k_exchange,
     max_cities_of_state_transition: 40,
     max_results_of_2_opt: default_max_results_of_2_opt,
