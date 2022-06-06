@@ -21,6 +21,14 @@ import { pickRandomOne } from "../functions/pickRandomOne";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
 import { DefaultOptions } from "../src/default_Options";
+import {
+    Cached_hash_table_of_path_lengths_and_path_segments,
+    update_Cached_hash_table_of_path_lengths_and_path_segments,
+} from "../functions/Cached_hash_table_of_path_lengths_and_path_segments";
+import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
+import { update_last_random_selection_probability } from "../functions/update_last_random_selection_probability";
+import { max_number_of_stagnation } from "../functions/max_number_of_stagnation";
+import { update_convergence_coefficient } from "../functions/update_convergence_coefficient";
 /**经典acs +动态信息素*/
 export function tsp_acs_execution_with_dynamic_pheromone(
     options: COMMON_TSP_Options
@@ -29,12 +37,20 @@ export function tsp_acs_execution_with_dynamic_pheromone(
         count_of_ants = DefaultOptions.count_of_ants,
         node_coordinates,
         distance_round = true,
-        pheromone_volatility_coefficient_local = DefaultOptions.pheromone_volatility_coefficient_local,
-        pheromone_volatility_coefficient_global = DefaultOptions.pheromone_volatility_coefficient_global,
+        max_size_of_collection_of_optimal_routes = DefaultOptions.max_size_of_collection_of_optimal_routes,
         beta_zero = DefaultOptions.beta_zero,
         alpha_zero = DefaultOptions.alpha_zero,
         route_selection_parameters_Q0 = DefaultOptions.route_selection_parameters_Q0,
     } = options;
+    let pheromone_exceeds_maximum_range = false;
+    const routes_segments_cache: Cached_hash_table_of_path_lengths_and_path_segments =
+        new Map();
+    const collection_of_optimal_routes = create_collection_of_optimal_routes(
+        max_size_of_collection_of_optimal_routes
+    );
+    let convergence_coefficient = 1;
+    let number_of_stagnation = 0;
+    let lastrandom_selection_probability = 0;
     const count_of_nodes = node_coordinates.length;
     const pheromoneStore = MatrixSymmetryCreate({ row: count_of_nodes });
     let pheromoneZero = Number.EPSILON;
@@ -71,6 +87,9 @@ export function tsp_acs_execution_with_dynamic_pheromone(
     function onRouteCreated(route: number[], length: number) {
         if (length < get_best_length()) {
             set_global_best(route, length);
+        }
+        if (collection_of_optimal_routes) {
+            collection_of_optimal_routes.add(route, length);
         }
     }
     const data_of_routes: COMMON_DataOfOneRoute[] = [];
@@ -132,7 +151,9 @@ export function tsp_acs_execution_with_dynamic_pheromone(
         return { time_ms, route, length };
     }
 
-    function global_pheromone_update() {}
+    function global_pheromone_update() {
+        pheromone_exceeds_maximum_range = false;
+    }
     const runOneIteration = async () => {
         let time_ms_of_one_iteration: number = 0;
         if (current_search_count === 0) {
@@ -151,6 +172,10 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             greedy_length = best_length;
             pheromoneZero = 1 / count_of_nodes / greedy_length;
             MatrixFill(pheromoneStore, pheromoneZero);
+            update_Cached_hash_table_of_path_lengths_and_path_segments(
+                routes_segments_cache,
+                collection_of_optimal_routes
+            );
             global_pheromone_update();
         }
         const routes_and_lengths_of_one_iteration: {
@@ -184,7 +209,10 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             const current_routes = routes_and_lengths_of_one_iteration.map(
                 (a) => a.route
             );
-
+            update_Cached_hash_table_of_path_lengths_and_path_segments(
+                routes_segments_cache,
+                collection_of_optimal_routes
+            );
             global_pheromone_update();
             const population_relative_information_entropy =
                 calc_population_relative_information_entropy(current_routes);
@@ -197,6 +225,28 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             const iterate_best_length = Math.min(
                 ...routes_and_lengths_of_one_iteration.map((a) => a.length)
             );
+            const current_population_relative_information_entropy =
+                population_relative_information_entropy;
+            const coefficient_of_diversity_increase = Math.sqrt(
+                1 - Math.pow(current_population_relative_information_entropy, 2)
+            );
+            convergence_coefficient = update_convergence_coefficient({
+                number_of_stagnation,
+                coefficient_of_diversity_increase,
+                convergence_coefficient,
+                iterate_best_length,
+                greedy_length,
+            });
+            if (number_of_stagnation >= max_number_of_stagnation) {
+                number_of_stagnation = 0;
+            }
+            number_of_stagnation++;
+
+            lastrandom_selection_probability =
+                update_last_random_selection_probability({
+                    coefficient_of_diversity_increase,
+                    lastrandom_selection_probability,
+                });
             const endtime_of_process_iteration = Number(new Date());
             time_ms_of_one_iteration +=
                 endtime_of_process_iteration - starttime_of_process_iteration;
