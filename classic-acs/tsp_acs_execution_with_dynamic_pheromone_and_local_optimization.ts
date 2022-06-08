@@ -496,7 +496,8 @@ function update_pheromone_segment(
     const min_value = Number.EPSILON;
     let value = Math.min(result, max_value);
     value = Math.max(value, min_value);
-
+    const phermone = value;
+    assert_true(!Number.isNaN(phermone), "phermone should not be NaN");
     pheromoneStore.set(city1, city2, value);
     return pheromone_exceeds_maximum_range;
 }

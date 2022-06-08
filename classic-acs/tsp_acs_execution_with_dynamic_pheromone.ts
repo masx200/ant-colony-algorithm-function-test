@@ -35,95 +35,6 @@ import { pickRandomOne } from "../functions/pickRandomOne";
 import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 
-function create_picknextnode(route_selection_parameters_Q0: number) {
-    return function picknextnode({
-        beta_zero,
-        alpha_zero,
-        currentnode,
-        getpheromone,
-        getdistancebyserialnumber,
-        availablenextnodes,
-    }: {
-        alpha_zero: number;
-        beta_zero: number;
-        currentnode: number;
-        availablenextnodes: number[];
-        getpheromone: (left: number, right: number) => number;
-        getdistancebyserialnumber: (left: number, right: number) => number;
-    }): number {
-        const beta = beta_zero;
-        const alpha = alpha_zero;
-        const random = Math.random();
-        if (random < route_selection_parameters_Q0) {
-            const nextnode_and_weights = availablenextnodes.map((nextnode) => {
-                const weight = calc_state_transition_probabilities({
-                    getpheromone,
-
-                    nextnode,
-                    currentnode,
-                    alpha,
-                    getdistancebyserialnumber,
-                    beta,
-                });
-                return { nextnode, weight };
-            });
-
-            return nextnode_and_weights.reduce((c, v) => {
-                return c.weight > v.weight ? c : v;
-            }, nextnode_and_weights[0]).nextnode;
-        }
-
-        const weights = availablenextnodes.map((nextnode) => {
-            const weight = calc_state_transition_probabilities({
-                getpheromone,
-
-                nextnode,
-                currentnode,
-                alpha,
-                getdistancebyserialnumber,
-                beta,
-            });
-
-            return weight;
-        });
-        // debugger
-        const result = pickRandomOne(availablenextnodes, weights);
-        return result;
-    };
-}
-
-function update_pheromone_segment(
-    collection_of_optimal_routes: CollectionOfOptimalRoutes,
-    city1: number,
-    city2: number,
-    greedy_length: number,
-    convergence_coefficient: number,
-    routes_segments_cache: Cached_hash_table_of_path_lengths_and_path_segments,
-    pheromone_exceeds_maximum_range: boolean,
-    pheromoneStore: MatrixSymmetry<number>
-) {
-    const result = calc_pheromone_dynamic({
-        latest_and_optimal_routes: collection_of_optimal_routes,
-        // PheromoneZero,
-        row: city1,
-        column: city2,
-        greedy_length,
-        convergence_coefficient,
-        routes_segments_cache: routes_segments_cache,
-    });
-    if (result > Number.MAX_VALUE) {
-        /* 信息素可能太大.如果有信息素超过浮点数最大范围,则在构建一条路径时,直接返回全局最优路径. */
-        pheromone_exceeds_maximum_range = true;
-    }
-    const max_value = Number.MAX_VALUE;
-    const min_value = Number.EPSILON;
-    let value = Math.min(result, max_value);
-    value = Math.max(value, min_value);
-
-    pheromoneStore.set(city1, city2, value);
-    return pheromone_exceeds_maximum_range;
-}
-
 /**经典acs +动态信息素*/
 export function tsp_acs_execution_with_dynamic_pheromone(
     options: COMMON_TSP_Options
@@ -267,6 +178,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             time_ms_of_one_iteration += time_ms;
             greedy_length = best_length;
             pheromoneZero = 1 / count_of_nodes / greedy_length;
+
             MatrixFill(pheromoneStore, pheromoneZero);
             update_Cached_hash_table_of_path_lengths_and_path_segments(
                 routes_segments_cache,
@@ -473,4 +385,93 @@ function create_generate_paths_using_state_transition_probabilities(
         const time_ms = endtime_of_one_route - starttime_of_one_route;
         return { time_ms, route, length };
     };
+}
+function create_picknextnode(route_selection_parameters_Q0: number) {
+    return function picknextnode({
+        beta_zero,
+        alpha_zero,
+        currentnode,
+        getpheromone,
+        getdistancebyserialnumber,
+        availablenextnodes,
+    }: {
+        alpha_zero: number;
+        beta_zero: number;
+        currentnode: number;
+        availablenextnodes: number[];
+        getpheromone: (left: number, right: number) => number;
+        getdistancebyserialnumber: (left: number, right: number) => number;
+    }): number {
+        const beta = beta_zero;
+        const alpha = alpha_zero;
+        const random = Math.random();
+        if (random < route_selection_parameters_Q0) {
+            const nextnode_and_weights = availablenextnodes.map((nextnode) => {
+                const weight = calc_state_transition_probabilities({
+                    getpheromone,
+
+                    nextnode,
+                    currentnode,
+                    alpha,
+                    getdistancebyserialnumber,
+                    beta,
+                });
+                return { nextnode, weight };
+            });
+
+            return nextnode_and_weights.reduce((c, v) => {
+                return c.weight > v.weight ? c : v;
+            }, nextnode_and_weights[0]).nextnode;
+        }
+
+        const weights = availablenextnodes.map((nextnode) => {
+            const weight = calc_state_transition_probabilities({
+                getpheromone,
+
+                nextnode,
+                currentnode,
+                alpha,
+                getdistancebyserialnumber,
+                beta,
+            });
+
+            return weight;
+        });
+        // debugger
+        const result = pickRandomOne(availablenextnodes, weights);
+        return result;
+    };
+}
+
+function update_pheromone_segment(
+    collection_of_optimal_routes: CollectionOfOptimalRoutes,
+    city1: number,
+    city2: number,
+    greedy_length: number,
+    convergence_coefficient: number,
+    routes_segments_cache: Cached_hash_table_of_path_lengths_and_path_segments,
+    pheromone_exceeds_maximum_range: boolean,
+    pheromoneStore: MatrixSymmetry<number>
+) {
+    const result = calc_pheromone_dynamic({
+        latest_and_optimal_routes: collection_of_optimal_routes,
+        // PheromoneZero,
+        row: city1,
+        column: city2,
+        greedy_length,
+        convergence_coefficient,
+        routes_segments_cache: routes_segments_cache,
+    });
+    if (result > Number.MAX_VALUE) {
+        /* 信息素可能太大.如果有信息素超过浮点数最大范围,则在构建一条路径时,直接返回全局最优路径. */
+        pheromone_exceeds_maximum_range = true;
+    }
+    const max_value = Number.MAX_VALUE;
+    const min_value = Number.EPSILON;
+    let value = Math.min(result, max_value);
+    value = Math.max(value, min_value);
+    const phermone = value;
+    assert_true(!Number.isNaN(phermone), "phermone should not be NaN");
+    pheromoneStore.set(city1, city2, value);
+    return pheromone_exceeds_maximum_range;
 }
