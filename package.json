@@ -1,5 +1,5 @@
 {
-    "version": "5.6.0",
+    "version": "5.6.1",
     "resolutions": {
         "minimist": "1.2.6",
         "async": "3.2.3",
