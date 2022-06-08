@@ -52,7 +52,7 @@
         "robust-segment-intersect": "^1.0.1",
         "rollup": "^2.74.1",
         "terser": "^5.13.1",
-        "ts-jest": "^28.0.3",
+        "ts-jest": "^28.0.4",
         "ts-node": "^10.8.0",
         "tslib": "^2.4.0",
         "typescript": "^4.7.2",
