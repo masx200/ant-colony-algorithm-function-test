@@ -22,7 +22,8 @@ export const ant_colony_algorithms_to_creator: Record<
     "ACS+三种局部优化方法+最优路径集合的可选城市奖惩": function () {
         return tsp_acs_execution_and_local_optimization_with_Optional_city_rewards_and_punishments;
     },
-    "ACS+动态信息素": () => tsp_acs_execution_with_dynamic_pheromone,
+    "ACS+基于收敛系数的动态信息素更新": () =>
+        tsp_acs_execution_with_dynamic_pheromone,
 };
 assert_true(
     ant_colony_algorithms.every((algorithm) => {
