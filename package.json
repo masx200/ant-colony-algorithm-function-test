@@ -67,6 +67,7 @@
         "vue-tsc": "^0.36.1"
     },
     "dependencies": {
-        "@masx200/universal-thread-pool": "^1.0.6"
+        "@masx200/universal-thread-pool": "^1.0.6",
+        "weighted-randomly-select": "^1.0.6"
     }
 }
