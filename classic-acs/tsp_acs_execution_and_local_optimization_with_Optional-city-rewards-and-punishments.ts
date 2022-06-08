@@ -10,7 +10,7 @@ import { MatrixSymmetryCreate, MatrixFill } from "@masx200/sparse-2d-matrix";
 import { run_greedy_once_thread_with_time } from "../functions/run_greedy_once_thread_with_time";
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 import { calc_population_relative_information_entropy } from "../functions/calc_population-relative-information-entropy";
-import { sum, uniq, uniqBy } from "lodash-es";
+import { sum, uniq } from "lodash-es";
 import { cycle_route_to_segments } from "../functions/cycle_route_to_segments";
 import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
@@ -20,11 +20,10 @@ import { assert_true } from "../test/assert_true";
 import { pickRandomOne } from "../functions/pickRandomOne";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
-import { local_optimization_route_thread } from "../functions/local_optimization_route_thread";
-import { get_best_route_Of_Series_routes_and_lengths } from "../functions/get_best_route_Of_Series_routes_and_lengths";
 import { DefaultOptions } from "../src/default_Options";
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
 import { select_available_cities_from_optimal_and_latest } from "../functions/select_available_cities_from_optimal_and_latest";
+import { run_local_optimization } from "./run_local_optimization";
 /**acs+三种局部优化方法+对可选城市的奖惩 */
 export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewards_and_punishments(
     options: COMMON_TSP_Options
@@ -272,46 +271,18 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
             //三种局部优化方法
-            const routes_and_lengths = routes_and_lengths_of_one_iteration;
-            const best_half_routes = Array.from(routes_and_lengths)
-                .sort((a, b) => a.length - b.length)
-                .slice(0, routes_and_lengths.length / 2);
-            const need_to_optimization_routes_and_lengths = uniqBy(
-                [
-                    { route: get_best_route(), length: get_best_length() },
-                    ...best_half_routes,
-                ],
-                (a) => a.length
-            );
-            const optimization_results = await Promise.all(
-                need_to_optimization_routes_and_lengths.map((v) =>
-                    local_optimization_route_thread({
-                        count_of_nodes,
-                        max_segments_of_cross_point,
-                        distance_round,
-                        route: v.route,
-                        max_results_of_k_opt,
-                        node_coordinates,
-                        length: v.length,
-                        max_results_of_k_exchange,
-                        max_results_of_2_opt,
-                    })
-                )
-            );
-            const {
-                route: optimal_route_of_iteration,
-                length: optimal_length_of_iteration,
-                // time_ms: optimal_time_ms,
-            } =
-                get_best_route_Of_Series_routes_and_lengths(
-                    optimization_results
-                );
-            const optimal_time_ms = sum(
-                optimization_results.map((v) => v.time_ms)
-            );
-            onRouteCreated(
-                optimal_route_of_iteration,
-                optimal_length_of_iteration
+            const optimal_time_ms = await run_local_optimization(
+                routes_and_lengths_of_one_iteration,
+                get_best_route,
+                get_best_length,
+                count_of_nodes,
+                max_segments_of_cross_point,
+                distance_round,
+                max_results_of_k_opt,
+                node_coordinates,
+                max_results_of_k_exchange,
+                max_results_of_2_opt,
+                onRouteCreated
             );
             //三种局部优化方法
             const starttime_of_process_iteration = Number(new Date());

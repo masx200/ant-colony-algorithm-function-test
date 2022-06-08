@@ -8,7 +8,7 @@ import { tsp_acs_execution_and_local_optimization_with_Optional_city_rewards_and
 import { tsp_acs_execution_with_dynamic_pheromone } from "../classic-acs/tsp_acs_execution_with_dynamic_pheromone";
 import { assert_true } from "../test/assert_true";
 import { ant_colony_algorithms } from "./ant_colony_algorithms";
-import { tsp_acs_execution_with_dynamic_pheromone_and_local_optimization } from "../classic-acs/tsp_acs_execution_with_dynamic_pheromone_and_local_optimization.ts";
+import { tsp_acs_execution_with_dynamic_pheromone_and_local_optimization } from "../classic-acs/tsp_acs_execution_with_dynamic_pheromone_and_local_optimization";
 
 export const ant_colony_algorithms_to_creator: Record<
     string,
