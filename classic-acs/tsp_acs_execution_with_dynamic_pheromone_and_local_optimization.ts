@@ -189,6 +189,7 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
                 "pheromone should not be NaN"
             );
             MatrixFill(pheromoneStore, pheromoneZero);
+            onRouteCreated(best_route, best_length);
             update_Cached_hash_table_of_path_lengths_and_path_segments(
                 routes_segments_cache,
                 collection_of_optimal_routes
