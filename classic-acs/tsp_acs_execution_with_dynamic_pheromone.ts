@@ -125,12 +125,12 @@ export function tsp_acs_execution_with_dynamic_pheromone(
         pheromone_exceeds_maximum_range = false;
 
         if (last_convergence_coefficient < convergence_coefficient) {
-            const routes_should_update_pheremone: number[][] = [
+            const routes_should_update_pheromone: number[][] = [
                 ...routes_and_lengths_of_one_iteration,
                 ...collection_of_optimal_routes,
             ].map((a) => a.route);
 
-            for (const route of routes_should_update_pheremone) {
+            for (const route of routes_should_update_pheromone) {
                 for (const [city1, city2] of cycle_route_to_segments(route)) {
                     pheromone_exceeds_maximum_range = update_pheromone_segment(
                         collection_of_optimal_routes,
@@ -178,7 +178,11 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             time_ms_of_one_iteration += time_ms;
             greedy_length = best_length;
             pheromoneZero = 1 / count_of_nodes / greedy_length;
-
+            const pheromone = pheromoneZero;
+            assert_true(
+                !Number.isNaN(pheromone),
+                "pheromone should not be NaN"
+            );
             MatrixFill(pheromoneStore, pheromoneZero);
             update_Cached_hash_table_of_path_lengths_and_path_segments(
                 routes_segments_cache,
@@ -470,8 +474,8 @@ function update_pheromone_segment(
     const min_value = Number.EPSILON;
     let value = Math.min(result, max_value);
     value = Math.max(value, min_value);
-    const phermone = value;
-    assert_true(!Number.isNaN(phermone), "phermone should not be NaN");
+    const pheromone = value;
+    assert_true(!Number.isNaN(pheromone), "pheromone should not be NaN");
     pheromoneStore.set(city1, city2, value);
     return pheromone_exceeds_maximum_range;
 }
