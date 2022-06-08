@@ -475,6 +475,9 @@ function update_pheromone_segment(
     let value = Math.min(result, max_value);
     value = Math.max(value, min_value);
     const pheromone = value;
+    // if (Number.isNaN(pheromone)) {
+    //     debugger;
+    // }
     assert_true(!Number.isNaN(pheromone), "pheromone should not be NaN");
     pheromoneStore.set(city1, city2, value);
     return pheromone_exceeds_maximum_range;
