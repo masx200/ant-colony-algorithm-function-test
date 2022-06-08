@@ -280,6 +280,10 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
                     lastrandom_selection_probability,
                 });
             const endtime_of_process_iteration = Number(new Date());
+            // console.log(JSON.stringify( {
+            //     current_iterations: get_number_of_iterations(),
+            //     convergence_coefficient,
+            // }));
             time_ms_of_one_iteration +=
                 optimal_time_ms +
                 endtime_of_process_iteration -
