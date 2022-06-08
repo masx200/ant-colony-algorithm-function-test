@@ -10,7 +10,7 @@ import { MatrixSymmetryCreate, MatrixFill } from "@masx200/sparse-2d-matrix";
 import { run_greedy_once_thread_with_time } from "../functions/run_greedy_once_thread_with_time";
 import { Greedy_algorithm_to_solve_tsp_with_selected_start_pool } from "../src/Greedy_algorithm_to_solve_tsp_with_selected_start_pool";
 import { calc_population_relative_information_entropy } from "../functions/calc_population-relative-information-entropy";
-import { sum } from "lodash-es";
+import { sum, uniqBy } from "lodash-es";
 import { cycle_route_to_segments } from "../functions/cycle_route_to_segments";
 import { closed_total_path_length } from "../functions/closed-total-path-length";
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
@@ -34,12 +34,18 @@ import { calc_pheromone_dynamic } from "../functions/calc_pheromone_dynamic";
 import { pickRandomOne } from "../functions/pickRandomOne";
 import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
+import { get_best_route_Of_Series_routes_and_lengths } from "../functions/get_best_route_Of_Series_routes_and_lengths";
+import { local_optimization_route_thread } from "../functions/local_optimization_route_thread";
 
 /**经典acs +动态信息素*/
 export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
     const {
+        max_results_of_2_opt = DefaultOptions.max_results_of_2_opt,
+        max_segments_of_cross_point = DefaultOptions.max_segments_of_cross_point,
+        max_results_of_k_opt = DefaultOptions.max_results_of_k_opt,
+        max_results_of_k_exchange = DefaultOptions.max_results_of_k_exchange,
         count_of_ants = DefaultOptions.count_of_ants,
         node_coordinates,
         distance_round = true,
@@ -213,6 +219,49 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
             });
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
+            //三种局部优化方法
+            const routes_and_lengths = routes_and_lengths_of_one_iteration;
+            const best_half_routes = Array.from(routes_and_lengths)
+                .sort((a, b) => a.length - b.length)
+                .slice(0, routes_and_lengths.length / 2);
+            const need_to_optimization_routes_and_lengths = uniqBy(
+                [
+                    { route: get_best_route(), length: get_best_length() },
+                    ...best_half_routes,
+                ],
+                (a) => a.length
+            );
+            const optimization_results = await Promise.all(
+                need_to_optimization_routes_and_lengths.map((v) =>
+                    local_optimization_route_thread({
+                        count_of_nodes,
+                        max_segments_of_cross_point,
+                        distance_round,
+                        route: v.route,
+                        max_results_of_k_opt,
+                        node_coordinates,
+                        length: v.length,
+                        max_results_of_k_exchange,
+                        max_results_of_2_opt,
+                    })
+                )
+            );
+            const {
+                route: optimal_route_of_iteration,
+                length: optimal_length_of_iteration,
+                // time_ms: optimal_time_ms,
+            } =
+                get_best_route_Of_Series_routes_and_lengths(
+                    optimization_results
+                );
+            const optimal_time_ms = sum(
+                optimization_results.map((v) => v.time_ms)
+            );
+            onRouteCreated(
+                optimal_route_of_iteration,
+                optimal_length_of_iteration
+            );
+            //三种局部优化方法
             const starttime_of_process_iteration = Number(new Date());
             const last_convergence_coefficient = convergence_coefficient;
             const current_routes = routes_and_lengths_of_one_iteration.map(
@@ -261,7 +310,9 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
                 });
             const endtime_of_process_iteration = Number(new Date());
             time_ms_of_one_iteration +=
-                endtime_of_process_iteration - starttime_of_process_iteration;
+                optimal_time_ms +
+                endtime_of_process_iteration -
+                starttime_of_process_iteration;
             total_time_ms += time_ms_of_one_iteration;
             data_of_iterations.push({
                 global_best_length: get_best_length(),
