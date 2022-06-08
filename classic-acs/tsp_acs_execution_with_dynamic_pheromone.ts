@@ -73,22 +73,21 @@ function create_picknextnode(route_selection_parameters_Q0: number) {
             }, nextnode_and_weights[0]).nextnode;
         }
 
-        const result = pickRandomOne(
-            availablenextnodes,
-            availablenextnodes.map((nextnode) => {
-                const weight = calc_state_transition_probabilities({
-                    getpheromone,
+        const weights = availablenextnodes.map((nextnode) => {
+            const weight = calc_state_transition_probabilities({
+                getpheromone,
 
-                    nextnode,
-                    currentnode,
-                    alpha,
-                    getdistancebyserialnumber,
-                    beta,
-                });
+                nextnode,
+                currentnode,
+                alpha,
+                getdistancebyserialnumber,
+                beta,
+            });
 
-                return weight;
-            })
-        );
+            return weight;
+        });
+        // debugger
+        const result = pickRandomOne(availablenextnodes, weights);
         return result;
     };
 }
