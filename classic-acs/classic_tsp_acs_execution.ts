@@ -27,7 +27,7 @@ import { calc_state_transition_probabilities } from "../functions/calc_state_tra
 import { DefaultOptions } from "../src/default_Options";
 import { NodeCoordinates } from "../functions/NodeCoordinates";
 /**经典acs */
-export function tsp_acs_execution(
+export function classic_tsp_acs_execution(
     options: COMMON_TSP_Options
 ): COMMON_TSP_EXECUTION {
     const {
