@@ -68,6 +68,7 @@
     },
     "dependencies": {
         "@masx200/universal-thread-pool": "^1.0.6",
+        "@types/core-js": "^2.5.5",
         "weighted-randomly-select": "^1.0.6"
     }
 }

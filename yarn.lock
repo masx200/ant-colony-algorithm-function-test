@@ -1978,6 +1978,7 @@ __metadata:
     "@masx200/tsp-lib-test-data": ^1.1.1
     "@masx200/universal-thread-pool": ^1.0.6
     "@rollup/plugin-babel": ^5.3.1
+    "@types/core-js": ^2.5.5
     "@types/find": ^0.2.1
     "@types/fs-extra": ^9.0.13
     "@types/html-minifier-terser": ^6.1.0
@@ -2301,6 +2302,13 @@ __metadata:
   dependencies:
     "@babel/types": ^7.3.0
   checksum: a797ea09c72307569e3ee08aa3900ca744ce3091114084f2dc59b67a45ee7d01df7865252790dbfa787a7915ce892cdc820c9b920f3683292765fc656b08dc63
+  languageName: node
+  linkType: hard
+
+"@types/core-js@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "@types/core-js@npm:2.5.5"
+  checksum: 54eb91dc52206d8e524771cd079be4bed6a41947d08183a7954df7a3dc25ae21c8b7176143dc7203df82a6e5ff1df8998edc8d407c4a082bdbf0ede35369c5c3
   languageName: node
   linkType: hard
 
