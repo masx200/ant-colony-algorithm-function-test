@@ -64,6 +64,6 @@ export function calc_pheromone_dynamic({
             })
         ) / length_of_routes;
     // debugger;
-    assert_true(Number.isFinite(result), "pheromone should  be finite");
+    assert_true(!Number.isNaN(result), "pheromone should  be not NaN");
     return result;
 }
