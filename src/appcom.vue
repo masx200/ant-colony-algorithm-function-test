@@ -337,7 +337,8 @@
         <details
             class="width-100-percent"
             :open="show_array_routes_of_best"
-            @toggle="show_array_routes_of_best = $event.target.open"  style="
+            @toggle="show_array_routes_of_best = $event.target.open"
+            style="
                 width: 95%;
                 margin-left: 20px;
                 margin-right: 20px;
