@@ -337,7 +337,13 @@
         <details
             class="width-100-percent"
             :open="show_array_routes_of_best"
-            @toggle="show_array_routes_of_best = $event.target.open"
+            @toggle="show_array_routes_of_best = $event.target.open"  style="
+                width: 95%;
+                margin-left: 20px;
+                margin-right: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            "
         >
             <summary>最优路径的数组展示</summary>
             <Data_table
@@ -365,8 +371,8 @@
             :tableheads="greedy_iteration_table_heads"
             :tablebody="greedy_iteration_table_body"
         /> -->
-        <!-- </details> -->
-        <hr />
+        <!-- </details>
+        <hr />-->
         <details
             class="width-100-percent"
             :open="show_summary_of_iterations"
