@@ -1,13 +1,13 @@
 export interface COMMON_TSP_EXECUTION {
     runOneIteration: () => Promise<void>;
-    get_output_data: () => COMMON_TSP_Output;
+    get_output_data_and_consume_iteration_data: () => COMMON_TSP_Output;
 }
 export interface COMMON_TSP_Output {
     total_time_ms: number;
     current_iterations: number;
     current_search_count: number;
     data_of_routes: COMMON_DataOfOneRoute[];
-    data_of_iterations: COMMON_DataOfOneIteration[];
+    delta_data_of_iterations: COMMON_DataOfOneIteration[];
     time_of_best_ms: number;
     global_best_route: number[];
     global_best_length: number;

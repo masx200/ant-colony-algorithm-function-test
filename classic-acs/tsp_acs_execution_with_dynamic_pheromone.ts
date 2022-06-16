@@ -99,7 +99,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
         }
     }
     const data_of_routes: COMMON_DataOfOneRoute[] = [];
-    const data_of_iterations: COMMON_DataOfOneIteration[] = [];
+    const delta_data_of_iterations: COMMON_DataOfOneIteration[] = [];
     const picknextnode = create_picknextnode(route_selection_parameters_Q0);
 
     const generate_paths_using_state_transition_probabilities =
@@ -269,7 +269,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             time_ms_of_one_iteration +=
                 endtime_of_process_iteration - starttime_of_process_iteration;
             total_time_ms += time_ms_of_one_iteration;
-            data_of_iterations.push({
+            delta_data_of_iterations.push({
                 global_best_length: get_best_length(),
                 current_iterations: get_number_of_iterations(),
                 time_ms_of_one_iteration,
@@ -281,10 +281,10 @@ export function tsp_acs_execution_with_dynamic_pheromone(
         }
     };
 
-    function get_output_data(): COMMON_TSP_Output {
+    function get_output_data_and_consume_iteration_data(): COMMON_TSP_Output {
         const output: COMMON_TSP_Output = {
             data_of_routes,
-            data_of_iterations,
+            delta_data_of_iterations: Array.from(delta_data_of_iterations),
             time_of_best_ms,
             total_time_ms,
             search_count_of_best,
@@ -293,11 +293,13 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             current_iterations: get_number_of_iterations(),
             global_best_route: get_best_route(),
         };
+        delta_data_of_iterations.length = 0;
         return output;
     }
     return {
         runOneIteration: runOneIteration,
-        get_output_data: get_output_data,
+        get_output_data_and_consume_iteration_data:
+            get_output_data_and_consume_iteration_data,
     };
 }
 function create_generate_paths_using_state_transition_probabilities(

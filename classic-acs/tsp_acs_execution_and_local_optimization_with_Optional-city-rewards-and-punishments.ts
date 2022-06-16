@@ -116,7 +116,7 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
         }
     }
     const data_of_routes: COMMON_DataOfOneRoute[] = [];
-    const data_of_iterations: COMMON_DataOfOneIteration[] = [];
+    const delta_data_of_iterations: COMMON_DataOfOneIteration[] = [];
     const get_neighbors_from_optimal_routes_and_latest_routes = function (
         current_city: number
     ): number[] {
@@ -311,7 +311,7 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
                 endtime_of_process_iteration -
                 starttime_of_process_iteration;
             total_time_ms += time_ms_of_one_iteration;
-            data_of_iterations.push({
+            delta_data_of_iterations.push({
                 global_best_length: get_best_length(),
                 current_iterations: get_number_of_iterations(),
                 time_ms_of_one_iteration,
@@ -378,10 +378,10 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
         return result;
     }
 
-    function get_output_data(): COMMON_TSP_Output {
+    function get_output_data_and_consume_iteration_data(): COMMON_TSP_Output {
         const output: COMMON_TSP_Output = {
             data_of_routes,
-            data_of_iterations,
+            delta_data_of_iterations: Array.from(delta_data_of_iterations),
             time_of_best_ms,
             total_time_ms,
             search_count_of_best,
@@ -390,11 +390,13 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
             current_iterations: get_number_of_iterations(),
             global_best_route: get_best_route(),
         };
+        delta_data_of_iterations.length = 0;
         return output;
     }
 
     return {
         runOneIteration: runOneIteration,
-        get_output_data: get_output_data,
+        get_output_data_and_consume_iteration_data:
+            get_output_data_and_consume_iteration_data,
     };
 }
