@@ -1,5 +1,5 @@
 {
-  "version": "5.7.1",
+  "version": "5.8.0",
   "resolutions": {
     "terser": "5.14.2",
     "minimist": "1.2.6",
