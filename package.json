@@ -63,7 +63,7 @@
     },
     "dependencies": {
         "@masx200/universal-thread-pool": "^1.0.6",
-        "@masx200/weighted-randomly-select": "^2.0.0",
+        "@masx200/weighted-randomly-select": "^2.1.1",
         "@types/core-js": "^2.5.5",
         "@types/robust-segment-intersect": "^1.0.0"
     }
