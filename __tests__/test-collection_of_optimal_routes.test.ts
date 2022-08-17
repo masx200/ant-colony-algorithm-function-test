@@ -1,6 +1,6 @@
 import { create_collection_of_optimal_routes } from "../collections/collection-of-optimal-routes";
 // import { entriesOwnKeys } from "../collections/entriesOwnKeys";
-
+import { it } from "vitest";
 it("test-collection_of_optimal_routes", () => {
     const cl = create_collection_of_optimal_routes(10);
 

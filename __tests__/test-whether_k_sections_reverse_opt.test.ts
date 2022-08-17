@@ -1,5 +1,5 @@
 import { whether_k_sections_reverse_opt } from "../k-opt/whether_k_sections_reverse-opt";
-
+import { it } from "vitest";
 it("whether_k_sections_reverse_opt", () => {
     test1();
 

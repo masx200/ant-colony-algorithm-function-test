@@ -1,6 +1,6 @@
 import { random_k_opt_limited_full } from "../k-opt/random_k_opt_limited_full";
 import { assertshouldcatcherror } from "../test/assertshouldcatcherror";
-
+import { it } from "vitest";
 it("random_k_opt_limited_full", () => {
     assertshouldcatcherror(() => {
         random_k_opt_limited_full({ oldRoute: [], max_results_of_k_opt: 7 });
