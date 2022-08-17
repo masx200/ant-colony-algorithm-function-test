@@ -39,7 +39,10 @@ export default defineConfig(({ mode, command }) => {
             legalComments: "none",
             drop: isdrop ? ["console", "debugger"] : undefined,
         },
-        root: path.resolve(__dirname),
+        root:
+            mode === "test"
+                ? path.resolve(__dirname)
+                : path.resolve(__dirname, "src"),
         plugins: [
             AutoImport({
                 resolvers: [ElementPlusResolver()],
@@ -105,7 +108,8 @@ export default defineConfig(({ mode, command }) => {
         ],
         build: {
             rollupOptions: {
-                input: [resolve(__dirname, "src", "index.html")],
+                input: resolve(__dirname, "src", "index.html"),
+                // output: { file: resolve(__dirname, "dist", "index.html") },
             },
             cssCodeSplit: false,
             minify: "esbuild",
