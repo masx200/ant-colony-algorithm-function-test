@@ -51,7 +51,7 @@ export default defineConfig(({ mode, command }) => {
                 resolvers: [ElementPlusResolver()],
             }),
             checker({
-                vueTsc: mode === "test" ? false : true,
+                // vueTsc: mode === "test" ? false : true,
                 typescript: { root: path.resolve(__dirname) },
             }),
             // checker({ vueTsc: true }),
