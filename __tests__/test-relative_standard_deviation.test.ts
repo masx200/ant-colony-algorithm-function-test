@@ -1,5 +1,6 @@
 import { calc_relative_deviation_from_optimal } from "../functions/calc_relative_deviation_from_optimal";
 import { it } from "vitest";
+import { expect } from "vitest";
 //与最优的相对偏差
 it("relative_deviation_from_optimal", () => {
     // console.log("relative_deviation_from_optimal start");

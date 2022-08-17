@@ -1,6 +1,6 @@
 import { babel } from "@rollup/plugin-babel";
 import vuePlugin from "@vitejs/plugin-vue";
-import path from "path";
+import path, { resolve } from "path";
 import AutoImport from "unplugin-auto-import/vite";
 import ElementPlus from "unplugin-element-plus/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
@@ -15,6 +15,7 @@ const checker = vpchecker.default;
 //@ts-ignore
 export default defineConfig(({ mode, command }) => {
     // console.log(mode, command);
+
     const isdrop = mode === "production" && command === "build";
     const config: UserConfigExport = {
         worker: {
@@ -38,7 +39,7 @@ export default defineConfig(({ mode, command }) => {
             legalComments: "none",
             drop: isdrop ? ["console", "debugger"] : undefined,
         },
-        root: path.resolve(__dirname, "src"),
+        root: path.resolve(__dirname),
         plugins: [
             AutoImport({
                 resolvers: [ElementPlusResolver()],
@@ -47,7 +48,7 @@ export default defineConfig(({ mode, command }) => {
                 resolvers: [ElementPlusResolver()],
             }),
             checker({
-                vueTsc: true,
+                vueTsc: mode === "test" ? false : true,
                 typescript: { root: path.resolve(__dirname) },
             }),
             // checker({ vueTsc: true }),
@@ -103,6 +104,9 @@ export default defineConfig(({ mode, command }) => {
             // getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
         ],
         build: {
+            rollupOptions: {
+                input: [resolve(__dirname, "src", "index.html")],
+            },
             cssCodeSplit: false,
             minify: "esbuild",
             emptyOutDir: true,
