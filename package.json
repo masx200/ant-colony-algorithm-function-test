@@ -59,6 +59,7 @@
         "vue-tsc": "^0.40.1"
     },
     "dependencies": {
+        "@masx200/tsp-lib-test-data": "^2.0.1",
         "@masx200/universal-thread-pool": "^1.0.6",
         "@masx200/weighted-randomly-select": "^2.1.1",
         "@types/core-js": "^2.5.5",
