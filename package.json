@@ -12,8 +12,8 @@
     "scripts": {
         "test": "vitest run",
         "dev": "vite -c vite.config.ts",
-        "build": "vue-tsc --noEmit && vite build",
-        "check": "vue-tsc --noEmit",
+        "build": "tsc --noEmit && vite build",
+        "check": "tsc --noEmit",
         "preview": "vite preview",
         "format": " prettier --write  *.ts */*.html */*.ts */*.css *.md  */*.vue *.json"
     },
