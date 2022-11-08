@@ -1,4 +1,4 @@
-import * as comlink from "comlink";
+import { expose } from "comlink";
 import {
     COMMON_TSP_EXECUTION,
     COMMON_TSP_Options,
@@ -71,4 +71,4 @@ const API: TSP_Worker_API = new Proxy(
     }
 ) as TSP_Worker_API;
 
-comlink.expose(API);
+expose(API);
