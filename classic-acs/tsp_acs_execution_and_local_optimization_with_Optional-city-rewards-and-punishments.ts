@@ -54,6 +54,7 @@ export function tsp_acs_execution_and_local_optimization_with_Optional_city_rewa
     const latest_and_optimal_routes = collection_of_optimal_routes;
     function update_neighbors_from_optimal_routes() {
         const cache = neighbors_from_optimal_routes_and_latest_routes;
+        cache.clear();
         for (const city of node_coordinates.keys()) {
             const result = uniq(
                 latest_and_optimal_routes
