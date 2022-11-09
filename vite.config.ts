@@ -5,35 +5,28 @@ import AutoImport from "unplugin-auto-import/vite";
 import ElementPlus from "unplugin-element-plus/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
-import { defineConfig, UserConfigExport } from "vite";
+import { defineConfig, PluginOption, UserConfig } from "vite";
 import vpchecker from "vite-plugin-checker";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { VitePWA } from "vite-plugin-pwa";
-//@ts-ignore
-const checker = vpchecker;
-// console.log(babel)
-//@ts-ignore
-export default defineConfig(({ mode, command }) => {
-    // console.log(mode, command);
 
+const checker = vpchecker;
+
+export default defineConfig(function ({ mode, command }): UserConfig {
     const isdrop = mode === "production" && command === "build";
-    const config: UserConfigExport = {
+    const config: UserConfig = {
         worker: {
             format: "es",
             plugins: [
-                //@ts-ignore
                 babel({
                     babelHelpers: "bundled",
                     exclude: [/node_modules/],
                     extensions: [".ts", ".js"],
                     plugins: [
-                        [
-                            "@babel/plugin-proposal-async-generator-functions",
-                            // { allowAllFormats: true },
-                        ],
+                        ["@babel/plugin-proposal-async-generator-functions"],
                     ],
                 }),
-            ],
+            ] as PluginOption[],
         },
         esbuild: {
             legalComments: "none",
@@ -51,35 +44,29 @@ export default defineConfig(({ mode, command }) => {
                 resolvers: [ElementPlusResolver()],
             }),
             checker({
-                // vueTsc: mode === "test" ? false : true,
                 typescript: { root: path.resolve(__dirname) },
             }),
-            // checker({ vueTsc: true }),
 
-            ElementPlus({
-                // options
-            }),
+            ElementPlus({}),
             vuePlugin(),
-            // mode === "production" &&
-            //     command === "build" &&
-            // isdrop &&
+
             babel({
                 babelHelpers: "bundled",
                 sourceMaps: mode !== "production",
                 exclude: [/node_modules/],
                 extensions: [".ts", ".js"],
-                //@ts-ignore
+
                 plugins: [
+                    ["@babel/plugin-proposal-async-generator-functions"],
                     [
                         "babel-plugin-import",
                         {
                             libraryName: "lodash",
                             libraryDirectory: "",
-                            camel2DashComponentName: false, // default: true
+                            camel2DashComponentName: false,
                         },
                     ],
                     isdrop && "babel-plugin-clean-code",
-                    // "@babel/plugin-syntax-typescript",
                 ].filter(Boolean),
             }),
             createHtmlPlugin({
@@ -93,32 +80,16 @@ export default defineConfig(({ mode, command }) => {
                 registerType: "autoUpdate",
                 workbox: { globPatterns: ["*/*"] },
             }),
-            babel({
-                babelHelpers: "bundled",
-                exclude: [/node_modules/],
-                extensions: [".ts", ".js"],
-                plugins: [
-                    [
-                        "@babel/plugin-proposal-async-generator-functions",
-                        // { allowAllFormats: true },
-                    ],
-                ],
-            }),
-            // getBabelOutputPlugin({ plugins: ["babel-plugin-clean-code"] }),
         ],
         build: {
             rollupOptions: {
                 input: resolve(__dirname, "src", "index.html"),
-                // output: { file: resolve(__dirname, "dist", "index.html") },
             },
             cssCodeSplit: false,
             minify: "esbuild",
             emptyOutDir: true,
             outDir: path.resolve(__dirname, "dist"),
             target: "es2019",
-            // terserOptions: {
-            //     compress: { drop_console: true, drop_debugger: true },
-            // },
         },
     };
     return config;
