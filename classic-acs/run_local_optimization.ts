@@ -17,9 +17,8 @@ export async function run_local_optimization(
     max_results_of_k_opt: number,
     node_coordinates: NodeCoordinates,
     max_results_of_k_exchange: number,
-    max_results_of_2_opt: number,
-    onRouteCreated: (route: number[], length: number) => void
-): Promise<number> {
+    max_results_of_2_opt: number
+): Promise<{ time_ms: number; length: number; route: number[] }> {
     const routes_and_lengths = routes_and_lengths_of_one_iteration;
     const best_half_routes = Array.from(routes_and_lengths)
         .sort((a, b) => a.length - b.length)
@@ -49,9 +48,12 @@ export async function run_local_optimization(
     const {
         route: optimal_route_of_iteration,
         length: optimal_length_of_iteration,
-        // time_ms: optimal_time_ms,
     } = get_best_route_Of_Series_routes_and_lengths(optimization_results);
     const optimal_time_ms = sum(optimization_results.map((v) => v.time_ms));
-    onRouteCreated(optimal_route_of_iteration, optimal_length_of_iteration);
-    return optimal_time_ms;
+
+    return {
+        time_ms: optimal_time_ms,
+        length: optimal_length_of_iteration,
+        route: optimal_route_of_iteration,
+    };
 }

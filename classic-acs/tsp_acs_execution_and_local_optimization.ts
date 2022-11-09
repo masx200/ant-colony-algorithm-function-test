@@ -16,7 +16,7 @@ import { closed_total_path_length } from "../functions/closed-total-path-length"
 import { creategetdistancebyindex } from "../functions/creategetdistancebyindex";
 import { get_distance_round } from "../src/set_distance_round";
 import { assert_true } from "../test/assert_true";
-// import { getnumberfromarrayofnmber } from "../functions/getnumberfromarrayofnmber";
+
 import { pickRandomOne } from "../functions/pickRandomOne";
 import { geteuclideandistancebyindex } from "../functions/geteuclideandistancebyindex";
 import { calc_state_transition_probabilities } from "../functions/calc_state_transition_probabilities";
@@ -159,7 +159,7 @@ export function tsp_acs_execution_and_local_optimization(
             pheromoneStore.set(city1, city2, changed_pheromone);
         }
     }
-    const runOneIteration = async () => {
+    async function runOneIteration() {
         let time_ms_of_one_iteration: number = 0;
         if (current_search_count === 0) {
             const {
@@ -204,8 +204,11 @@ export function tsp_acs_execution_and_local_optimization(
             });
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
-            //三种局部优化方法
-            const optimal_time_ms = await run_local_optimization(
+            const {
+                time_ms: optimal_time_ms,
+                length: optimal_length_of_iteration,
+                route: optimal_route_of_iteration,
+            } = await run_local_optimization(
                 routes_and_lengths_of_one_iteration,
                 get_best_route,
                 get_best_length,
@@ -215,10 +218,12 @@ export function tsp_acs_execution_and_local_optimization(
                 max_results_of_k_opt,
                 node_coordinates,
                 max_results_of_k_exchange,
-                max_results_of_2_opt,
-                onRouteCreated
+                max_results_of_2_opt
             );
-            //三种局部优化方法
+            onRouteCreated(
+                optimal_route_of_iteration,
+                optimal_length_of_iteration
+            );
             const starttime_of_process_iteration = Number(new Date());
 
             const current_routes = routes_and_lengths_of_one_iteration.map(
@@ -254,7 +259,7 @@ export function tsp_acs_execution_and_local_optimization(
                 iterate_best_length,
             });
         }
-    };
+    }
     function picknextnode({
         beta_zero,
         alpha_zero,

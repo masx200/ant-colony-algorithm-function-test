@@ -224,8 +224,11 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
             });
         }
         if (routes_and_lengths_of_one_iteration.length === count_of_ants) {
-            //三种局部优化方法
-            const optimal_time_ms = await run_local_optimization(
+            const {
+                time_ms: optimal_time_ms,
+                length: optimal_length_of_iteration,
+                route: optimal_route_of_iteration,
+            } = await run_local_optimization(
                 routes_and_lengths_of_one_iteration,
                 get_best_route,
                 get_best_length,
@@ -235,10 +238,12 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
                 max_results_of_k_opt,
                 node_coordinates,
                 max_results_of_k_exchange,
-                max_results_of_2_opt,
-                onRouteCreated
+                max_results_of_2_opt
             );
-            //三种局部优化方法
+            onRouteCreated(
+                optimal_route_of_iteration,
+                optimal_length_of_iteration
+            );
             const starttime_of_process_iteration = Number(new Date());
             const last_convergence_coefficient = convergence_coefficient;
             const current_routes = routes_and_lengths_of_one_iteration.map(
@@ -286,10 +291,7 @@ export function tsp_acs_execution_with_dynamic_pheromone_and_local_optimization(
                     lastrandom_selection_probability,
                 });
             const endtime_of_process_iteration = Number(new Date());
-            // console.log(JSON.stringify( {
-            //     current_iterations: get_number_of_iterations(),
-            //     convergence_coefficient,
-            // }));
+
             time_ms_of_one_iteration +=
                 optimal_time_ms +
                 endtime_of_process_iteration -
@@ -360,7 +362,6 @@ function create_generate_paths_using_state_transition_probabilities(
         time_ms: number;
     } {
         if (pheromone_exceeds_maximum_range) {
-            /* 信息素可能太大.如果有信息素超过浮点数最大范围,则在构建一条路径时,直接返回全局最优路径. */
             return {
                 time_ms: 0,
                 length: get_best_length(),
@@ -489,7 +490,7 @@ function update_pheromone_segment(
 ) {
     const result = calc_pheromone_dynamic({
         latest_and_optimal_routes: collection_of_optimal_routes,
-        // PheromoneZero,
+
         row: city1,
         column: city2,
         greedy_length,
@@ -497,7 +498,6 @@ function update_pheromone_segment(
         routes_segments_cache: routes_segments_cache,
     });
     if (result > Number.MAX_VALUE) {
-        /* 信息素可能太大.如果有信息素超过浮点数最大范围,则在构建一条路径时,直接返回全局最优路径. */
         pheromone_exceeds_maximum_range = true;
     }
     const max_value = Number.MAX_VALUE;
