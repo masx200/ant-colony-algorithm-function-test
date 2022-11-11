@@ -1,3 +1,4 @@
+import { COMMON_TSP_EXECUTION } from "../classic-acs/tsp-interface";
 import { TSPRunnerOptions } from "../src/TSPRunnerOptions";
 
 import { NodeCoordinates } from "./NodeCoordinates";
@@ -33,4 +34,4 @@ export type TSP_Runner = Required<TSPRunnerOptions> &
         count_of_ants: number;
 
         get_output_data_and_consume_iteration_data: () => TSP_Output_Data;
-    };
+    } & COMMON_TSP_EXECUTION;
