@@ -61,7 +61,7 @@ export default defineComponent({
         const selected_ant_colony_algorithm = ref(ant_colony_algorithms[0]);
         const selected_value = ref(TSP_cities_data[0]);
         const selected_node_coordinates = ref<NodeCoordinates>();
-        const show_progress = ref(true);
+        // const show_progress = ref(true);
         const input_options = reactive(DefaultOptions);
 
         const round_result = ref(get_distance_round());
@@ -394,7 +394,7 @@ export default defineComponent({
             selected_ant_colony_algorithm,
             selected_value,
             show_history_routes_of_best,
-            show_progress,
+            // show_progress,
             show_array_routes_of_best,
             show_configurations,
             summary_best_TableHeads,
