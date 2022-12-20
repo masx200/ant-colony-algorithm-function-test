@@ -1,4 +1,4 @@
-import { sum } from "lodash";
+import { sum } from "lodash-es";
 import { createandsetaset } from "../functions/createandsetaset";
 import { assertIsArray } from "../test/assertIsArray";
 import { is_route_equals } from "./is_route_equals";

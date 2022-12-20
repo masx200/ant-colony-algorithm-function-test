@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import { createpathTabooList } from "../pathTabooList/createPathTabooList";
 import { ispathTabooList } from "../pathTabooList/isPathTabooList";
 import { pathTabooListFrom } from "../pathTabooList/PathTabooListFrom";
