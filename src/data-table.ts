@@ -1,6 +1,5 @@
 import { defineComponent, PropType } from "vue";
 
-
 export default defineComponent({
     props: {
         tableheads: { type: Array as PropType<string[]>, required: true },

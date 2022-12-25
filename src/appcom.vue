@@ -267,7 +267,7 @@
                     class="single-chart"
                     style=""
                     :options="options_of_best_route_chart"
-                    :v-if="show_routes_of_best"
+                    v-if="show_routes_of_best"
                 ></LineChart>
             </details>
 
@@ -289,7 +289,7 @@
                     :options="
                         options_of_iterations_and_information_entropy_chart
                     "
-                    :v-if="show_chart_of_latest"
+                    v-if="show_chart_of_latest"
                 ></LineChart>
                 <!-- 路径序号和最优路径长度的图表 -->
             </div>
@@ -304,7 +304,7 @@
             <div class="chart-container" style="">
                 <!-- 迭代轮次和相对信息熵的图表 -->
                 <LineChart
-                    :v-if="show_chart_of_entropy"
+                    v-if="show_chart_of_entropy"
                     class="single-chart"
                     style=""
                     :options="options_of_current_path_length_chart"
@@ -319,7 +319,7 @@
         >
             <summary>路径序号和最优路径长度</summary>
             <LineChart
-                :v-if="show_chart_of_best"
+                v-if="show_chart_of_best"
                 class="single-chart"
                 style=""
                 :options="options_of_best_path_length_chart"
@@ -389,7 +389,7 @@
             <summary>每次迭代的统计</summary>
             <!-- 迭代结果 -->
             <Data_table
-                :v-if="show_summary_of_iterations"
+                v-if="show_summary_of_iterations"
                 :tableheads="oneiterationtableheads"
                 :tablebody="oneiterationtablebody"
             />
