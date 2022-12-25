@@ -1,5 +1,6 @@
 import { defineComponent, PropType } from "vue";
 
+
 export default defineComponent({
     props: {
         tableheads: { type: Array as PropType<string[]>, required: true },
@@ -8,7 +9,4 @@ export default defineComponent({
             type: Array as PropType<Array<string | number | boolean>>,
         },
     },
-    // setup({ tableheads, tablebody }) {
-    //     return { tableheads, tablebody };
-    // },
 });

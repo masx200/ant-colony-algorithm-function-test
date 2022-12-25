@@ -10,7 +10,7 @@
         </tr>
     </table>
 </template>
-<script lang="ts" src="./datatable.ts"></script>
+<script lang="ts" src="./data-table.ts"></script>
 <style scoped>
 .wordwrap {
     white-space: normal;
