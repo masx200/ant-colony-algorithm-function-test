@@ -397,7 +397,7 @@
         <hr />
     </div>
 </template>
-<script lang="ts" src="./appcom.ts"></script>
+<script lang="ts" src="./app-com.ts"></script>
 <style scoped>
 .fixed-top-navbar {
     z-index: 10;
