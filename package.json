@@ -1,4 +1,7 @@
 {
+    "overrides": {
+        "vite": "4.0.4"
+    },
     "version": "6.2.0",
     "resolutions": {
         "terser": "5.14.2",
