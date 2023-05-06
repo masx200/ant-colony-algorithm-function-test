@@ -2,7 +2,8 @@ import { babel } from "@rollup/plugin-babel";
 import vuePlugin from "@vitejs/plugin-vue";
 import path, { resolve } from "path";
 import AutoImport from "unplugin-auto-import/vite";
-import ElementPlus from "unplugin-element-plus/vite";
+//@ts-ignore
+import ElementPlus from "unplugin-element-plus/dist/vite.js";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
 import { defineConfig, PluginOption, UserConfig } from "vite";
