@@ -18,16 +18,19 @@ export default defineConfig(function ({ mode, command }): UserConfig {
     const config: UserConfig = {
         worker: {
             format: "es",
-            plugins: [
-                babel({
-                    babelHelpers: "bundled",
-                    exclude: [/node_modules/],
-                    extensions: [".ts", ".js"],
-                    plugins: [
-                        ["@babel/plugin-proposal-async-generator-functions"],
-                    ],
-                }),
-            ] as PluginOption[],
+            plugins: () =>
+                [
+                    babel({
+                        babelHelpers: "bundled",
+                        exclude: [/node_modules/],
+                        extensions: [".ts", ".js"],
+                        plugins: [
+                            [
+                                "@babel/plugin-proposal-async-generator-functions",
+                            ],
+                        ],
+                    }),
+                ] as PluginOption[],
         },
         esbuild: {
             legalComments: "none",
