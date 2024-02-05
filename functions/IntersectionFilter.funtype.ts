@@ -7,5 +7,5 @@ export type IntersectionFilter = (
 
         nextnode: number;
         node_coordinates: NodeCoordinates;
-    }
+    },
 ) => boolean;

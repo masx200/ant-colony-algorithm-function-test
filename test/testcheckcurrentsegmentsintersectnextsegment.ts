@@ -10,19 +10,19 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
         is_intersection_filter_with_cycle_route_old({
             cycle_route: [8, 0, 9, 6, 5, 14, 13, 12, 11, 15, 7, 3, 1, 2, 4, 10],
             node_coordinates: node_coordinates16,
-        })
+        }),
     );
     assert_true(
         !is_intersection_filter_with_cycle_route_old({
             cycle_route: [10, 11, 4, 5, 9, 3, 0, 1, 2, 6, 7, 8],
             node_coordinates: node_coordinates12,
-        })
+        }),
     );
     assert_true(
         is_intersection_filter_with_cycle_route_old({
             cycle_route: [7, 6, 4, 5, 1, 2, 0, 3, 9, 11, 8, 10],
             node_coordinates: node_coordinates12,
-        })
+        }),
     );
     // console.log("  testcheckcurrentsegmentsintersectnextsegment start");
     assert_true(
@@ -31,7 +31,7 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
 
             nextnode: 2,
             node_coordinates: node_coordinates12,
-        })
+        }),
     );
     assert_true(
         !intersectionfilterfun({
@@ -39,7 +39,7 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
 
             nextnode: 4,
             node_coordinates: node_coordinates12,
-        })
+        }),
     );
     assert_true(
         !intersectionfilterfun({
@@ -47,7 +47,7 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
 
             nextnode: 3,
             node_coordinates: node_coordinates12,
-        })
+        }),
     );
     assert_true(
         intersectionfilterfun({
@@ -58,7 +58,7 @@ export function testcheckcurrentsegmentsintersectnextsegment() {
 
             nextnode: 16,
             node_coordinates: node_coordinates21,
-        })
+        }),
     );
     // console.log("  testcheckcurrentsegmentsintersectnextsegment end");
 }

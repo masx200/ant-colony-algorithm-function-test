@@ -37,7 +37,7 @@ import { NodeCoordinates } from "../functions/NodeCoordinates";
 
 /**经典acs +动态信息素*/
 export function tsp_acs_execution_with_dynamic_pheromone(
-    options: COMMON_TSP_Options
+    options: COMMON_TSP_Options,
 ): COMMON_TSP_EXECUTION {
     const {
         count_of_ants = DefaultOptions.count_of_ants,
@@ -52,7 +52,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
     const routes_segments_cache: Cached_hash_table_of_path_lengths_and_path_segments =
         new Map();
     const collection_of_optimal_routes = create_collection_of_optimal_routes(
-        max_size_of_collection_of_optimal_routes
+        max_size_of_collection_of_optimal_routes,
     );
     let convergence_coefficient = 1;
     let number_of_stagnation = 0;
@@ -111,7 +111,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             count_of_nodes,
             picknextnode,
             alpha_zero,
-            beta_zero
+            beta_zero,
         );
 
     function global_pheromone_update(
@@ -120,7 +120,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             route: number[];
             length: number;
             time_ms: number;
-        }[]
+        }[],
     ) {
         pheromone_exceeds_maximum_range = false;
 
@@ -140,7 +140,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
                         convergence_coefficient,
                         routes_segments_cache,
                         pheromone_exceeds_maximum_range,
-                        pheromoneStore
+                        pheromoneStore,
                     );
                 }
             }
@@ -156,7 +156,7 @@ export function tsp_acs_execution_with_dynamic_pheromone(
                     convergence_coefficient,
                     routes_segments_cache,
                     pheromone_exceeds_maximum_range,
-                    pheromoneStore
+                    pheromoneStore,
                 );
             }
         }
@@ -181,13 +181,13 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             const pheromone = pheromoneZero;
             assert_true(
                 !Number.isNaN(pheromone),
-                "pheromone should not be NaN"
+                "pheromone should not be NaN",
             );
             MatrixFill(pheromoneStore, pheromoneZero);
             onRouteCreated(best_route, best_length);
             update_Cached_hash_table_of_path_lengths_and_path_segments(
                 routes_segments_cache,
-                collection_of_optimal_routes
+                collection_of_optimal_routes,
             );
             global_pheromone_update(convergence_coefficient, []);
         }
@@ -198,9 +198,9 @@ export function tsp_acs_execution_with_dynamic_pheromone(
         }[] = await Promise.all(
             Array.from({ length: count_of_ants }).map(() => {
                 return generate_paths_using_state_transition_probabilities(
-                    pheromone_exceeds_maximum_range
+                    pheromone_exceeds_maximum_range,
                 );
-            })
+            }),
         );
         for (let {
             route,
@@ -222,15 +222,15 @@ export function tsp_acs_execution_with_dynamic_pheromone(
             const starttime_of_process_iteration = Number(new Date());
             const last_convergence_coefficient = convergence_coefficient;
             const current_routes = routes_and_lengths_of_one_iteration.map(
-                (a) => a.route
+                (a) => a.route,
             );
             update_Cached_hash_table_of_path_lengths_and_path_segments(
                 routes_segments_cache,
-                collection_of_optimal_routes
+                collection_of_optimal_routes,
             );
             global_pheromone_update(
                 last_convergence_coefficient,
-                routes_and_lengths_of_one_iteration
+                routes_and_lengths_of_one_iteration,
             );
             const population_relative_information_entropy =
                 calc_population_relative_information_entropy(current_routes);
@@ -238,15 +238,19 @@ export function tsp_acs_execution_with_dynamic_pheromone(
                 sum(routes_and_lengths_of_one_iteration.map((a) => a.length)) /
                 routes_and_lengths_of_one_iteration.length;
             const worst_length_of_iteration = Math.max(
-                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length),
             );
             const iterate_best_length = Math.min(
-                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length),
             );
             const current_population_relative_information_entropy =
                 population_relative_information_entropy;
             const coefficient_of_diversity_increase = Math.sqrt(
-                1 - Math.pow(current_population_relative_information_entropy, 2)
+                1 -
+                    Math.pow(
+                        current_population_relative_information_entropy,
+                        2,
+                    ),
             );
             convergence_coefficient = update_convergence_coefficient({
                 number_of_stagnation,
@@ -324,10 +328,10 @@ function create_generate_paths_using_state_transition_probabilities(
         getdistancebyserialnumber: (left: number, right: number) => number;
     }) => number,
     alpha_zero: number,
-    beta_zero: number
+    beta_zero: number,
 ) {
     return function generate_paths_using_state_transition_probabilities(
-        pheromone_exceeds_maximum_range: boolean
+        pheromone_exceeds_maximum_range: boolean,
     ): {
         route: number[];
         length: number;
@@ -349,7 +353,7 @@ function create_generate_paths_using_state_transition_probabilities(
         const startnode = pickRandomOne(inputindexs);
         const route: number[] = [startnode];
         const available_nodes = new Set<number>(
-            inputindexs.filter((v) => !route.includes(v))
+            inputindexs.filter((v) => !route.includes(v)),
         );
         const getpheromone = (left: number, right: number) => {
             return pheromoneStore.get(left, right);
@@ -359,7 +363,7 @@ function create_generate_paths_using_state_transition_probabilities(
                 left,
                 right,
                 node_coordinates,
-                get_distance_round()
+                get_distance_round(),
             );
         };
         while (route.length !== count_of_nodes) {
@@ -383,7 +387,7 @@ function create_generate_paths_using_state_transition_probabilities(
             path: route,
             getdistancebyindex: creategetdistancebyindex(
                 node_coordinates,
-                get_distance_round()
+                get_distance_round(),
             ),
         });
         const length = routelength;
@@ -458,7 +462,7 @@ function update_pheromone_segment(
     convergence_coefficient: number,
     routes_segments_cache: Cached_hash_table_of_path_lengths_and_path_segments,
     pheromone_exceeds_maximum_range: boolean,
-    pheromoneStore: MatrixSymmetry<number>
+    pheromoneStore: MatrixSymmetry<number>,
 ) {
     const result = calc_pheromone_dynamic({
         latest_and_optimal_routes: collection_of_optimal_routes,

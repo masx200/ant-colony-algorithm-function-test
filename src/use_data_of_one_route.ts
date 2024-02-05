@@ -3,7 +3,7 @@ import { COMMON_DataOfOneRoute } from "../classic-acs/tsp-interface";
 
 export function use_data_of_one_route() {
     const onreceivedataofoneroute = function onreceivedataofoneroute(
-        datas: COMMON_DataOfOneRoute[]
+        datas: COMMON_DataOfOneRoute[],
     ): void {
         if (datas.length > dataofoneroute.length) {
             for (let i = dataofoneroute.length; i < datas.length; i++) {

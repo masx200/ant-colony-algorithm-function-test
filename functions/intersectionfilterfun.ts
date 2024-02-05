@@ -35,12 +35,12 @@ export function intersectionfilterfun({
                             right,
                             nextsegment[0],
                             nextsegment[1],
-                        ])
+                        ]),
                 ),
 
                 nextsegment,
-                node_coordinates
-            )
+                node_coordinates,
+            ),
         );
         // debugger;
         return result;
@@ -61,10 +61,10 @@ export function intersectionfilterfun({
                         right,
                         nextsegment[0],
                         nextsegment[1],
-                    ])
+                    ]),
             ),
             nextsegment,
-            node_coordinates
+            node_coordinates,
         );
         // debugger;
         return result;

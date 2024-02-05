@@ -42,13 +42,13 @@ export function testpathTabooList() {
         isEqual(ptl.keys(), [
             [1, 2],
             [2, 1, 3],
-        ])
+        ]),
     );
     assert_true(
         isEqual(ptl.values(), [
             [1, 2],
             [2, 1, 3],
-        ])
+        ]),
     );
     assert_true(!ptl.delete([1, 2, 3]));
     assert_true(ptl.size() === 2);
@@ -80,7 +80,7 @@ export function testpathTabooList() {
         isEqual(jsonofptl, {
             count_of_nodes: 10,
             values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]],
-        })
+        }),
     );
 
     assert_true(ptl.delete([2, 3, 4, 5, 6, 7, 8, 9, 0, 1]));

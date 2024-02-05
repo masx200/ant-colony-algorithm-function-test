@@ -13,7 +13,7 @@ export function get_options_route_number_and_best_length_chart(
     dataofoneroute: Pick<
         DataOfFinishOneRoute,
         "current_search_count" | "global_best_length"
-    >[]
+    >[],
 ): ECBasicOption & ECOption {
     const title_text = "路径序号和最优路径长度";
     // const chart = path_number_and_optimal_path_length_chart.value;

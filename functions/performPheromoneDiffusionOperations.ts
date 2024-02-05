@@ -94,7 +94,7 @@ export function performPheromoneDiffusionOperations({
                 .map((city) => ({
                     distance: euclidean_distance(
                         node_coordinates[city],
-                        centerofcircleE
+                        centerofcircleE,
                     ),
                     city: city,
                 }))
@@ -105,7 +105,7 @@ export function performPheromoneDiffusionOperations({
 
             /* 如果 nodesinsidecircle没达到25个应该设为nodesinsidecircle的长度*/
             const selectedcitiesinsidecircle = ArrayShuffle(
-                nodesinsidecircle
+                nodesinsidecircle,
             ).slice(0, number_of_small_scale_cities_where_pheromone_diffuses);
 
             /*
@@ -120,9 +120,9 @@ export function performPheromoneDiffusionOperations({
                         ([leftofbest, rightofbest]) =>
                             ispathsequalinbothdirectionswithoutcycle(
                                 [left, right],
-                                [leftofbest, rightofbest]
-                            )
-                    )
+                                [leftofbest, rightofbest],
+                            ),
+                    ),
             );
             if (segmentsinsidecircle.length) {
                 const { row } = pheromoneStore;
@@ -146,15 +146,15 @@ export function performPheromoneDiffusionOperations({
                         const distanceofCD = geteuclideandistancebyindex(
                             cityC,
                             cityD,
-                            node_coordinates
+                            node_coordinates,
                         );
                         const distanceofEF = euclidean_distance(
                             pointF,
-                            centerofcircleE
+                            centerofcircleE,
                         );
                         const CDxEF = distanceofCD * distanceofEF;
                         return { cityC, cityD, CDxEF };
-                    }
+                    },
                 );
 
                 const coefficientK =
@@ -162,11 +162,11 @@ export function performPheromoneDiffusionOperations({
                 const citiesandweights = citiesandd1xd2.map(
                     ({ cityC, cityD, CDxEF }) => {
                         const weight = Math.exp(
-                            -Math.pow(coefficientK * CDxEF, 2)
+                            -Math.pow(coefficientK * CDxEF, 2),
                         );
 
                         return { cityC, cityD, weight };
-                    }
+                    },
                 );
                 const weightX0 = 1;
                 const weightsum =
@@ -199,7 +199,7 @@ export function performPheromoneDiffusionOperations({
                 // );
                 const pheromoneStorenext = MatrixAdd(
                     pheromoneStore,
-                    deltapheromoneStore
+                    deltapheromoneStore,
                 );
                 pheromoneStorenext.set(cityA, cityB, pheromoneX0);
                 pheromoneStorenext.set(cityB, cityA, pheromoneX0);

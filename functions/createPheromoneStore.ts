@@ -7,7 +7,7 @@ import {
 
 /* 创建信息素仓库 */
 export function createPheromoneStore<R extends number>(
-    scale: R
+    scale: R,
 ): MatrixSymmetry<R> {
     return MatrixSymmetryCreate({
         row: scale,

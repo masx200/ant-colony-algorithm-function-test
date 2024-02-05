@@ -4,7 +4,7 @@ import { PathTabooList } from "../pathTabooList/PathTabooList";
 import { JSONOfpathTabooList } from "./JSONOfPathTabooList";
 
 export function pathTabooListOfJSON<N extends number = number>(
-    json: JSONOfpathTabooList<N>
+    json: JSONOfpathTabooList<N>,
 ): PathTabooList<N> {
     const { count_of_nodes, values } = json;
 

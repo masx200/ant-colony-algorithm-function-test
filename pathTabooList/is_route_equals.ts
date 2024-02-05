@@ -4,7 +4,7 @@ import { ispathsequalinbothdirectionswithoutcycle } from "../functions/ispathseq
 export function is_route_equals<N extends number = number>(
     value: number[],
     route: number[],
-    count_of_nodes: N
+    count_of_nodes: N,
 ): boolean {
     if (route.length === count_of_nodes) {
         /* 回环路径 */

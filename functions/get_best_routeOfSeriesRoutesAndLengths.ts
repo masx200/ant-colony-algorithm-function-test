@@ -3,7 +3,7 @@ export function get_best_routeOfSeriesRoutesAndLengths(
     routesandlengths: {
         route: number[];
         length: number;
-    }[]
+    }[],
 ): {
     route: number[];
     length: number;
@@ -15,7 +15,7 @@ export function get_best_routeOfSeriesRoutesAndLengths(
         (previous, current) => {
             return previous.length < current.length ? previous : current;
         },
-        routesandlengths[0]
+        routesandlengths[0],
     );
 
     return iteratebestlengthandroute;

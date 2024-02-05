@@ -8,7 +8,7 @@ import { pathTabooListSymbol } from "./pathTabooListSymbol";
 /**
  * 路径禁忌列表  */
 export function createpathTabooListold<N extends number = number>(
-    count_of_nodes: N
+    count_of_nodes: N,
     //路径最多节点数,用于判断是否是环路
 ): PathTabooList<N> {
     if (count_of_nodes < 2) {
@@ -88,7 +88,7 @@ export function createpathTabooListold<N extends number = number>(
 }
 
 export function createpathTabooList<N extends number = number>(
-    count_of_nodes: N
+    count_of_nodes: N,
     //路径最多节点数,用于判断是否是环路
 ): PathTabooList<N> {
     const oldptl = createpathTabooListold(count_of_nodes);

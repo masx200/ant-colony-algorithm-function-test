@@ -3,7 +3,7 @@ import { pathTabooListOfJSON } from "./PathTabooListOfJSON";
 import { pathTabooListToJSON } from "./PathTabooListToJSON";
 
 export function pathTabooListFrom<N extends number = number>(
-    pathTabooList: PathTabooList<N>
+    pathTabooList: PathTabooList<N>,
 ): PathTabooList<N> {
     return pathTabooListOfJSON(pathTabooListToJSON(pathTabooList));
 }

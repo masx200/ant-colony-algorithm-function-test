@@ -5,12 +5,12 @@ import { debounce_animation_frame } from "./debounce_animation_frame";
 
 /* 创建echarts实例 */
 export function createchartofcontainer(
-    container: HTMLElement
+    container: HTMLElement,
 ): Pick<EChartsType, "resize" | "setOption"> {
     const debouncedresize = debounce_animation_frame(
         debounce(() => {
             chart.resize();
-        })
+        }),
     );
     // const container = document.body.appendChild(document.createElement("div"));
     // document.body.appendChild(document.createElement("hr"));
@@ -35,11 +35,11 @@ export function createchartofcontainer(
     //debounce
 
     const resize = debounce_animation_frame(
-        debounce(chart.resize)
+        debounce(chart.resize),
     ) as EChartsType["resize"];
 
     const setOption = debounce_animation_frame(
-        debounce(chart.setOption)
+        debounce(chart.setOption),
     ) as EChartsType["setOption"];
 
     // console.log(chart);

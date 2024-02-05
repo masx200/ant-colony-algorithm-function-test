@@ -4,7 +4,7 @@ declare module "robust-segment-intersect" {
         a0: Coordinate,
         a1: Coordinate,
         b0: Coordinate,
-        b1: Coordinate
+        b1: Coordinate,
     ) => boolean;
     export default a;
 }

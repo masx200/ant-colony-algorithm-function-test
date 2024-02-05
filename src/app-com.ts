@@ -37,7 +37,7 @@ import { use_data_of_summary } from "./use_data_of_summary";
 import { use_history_of_best } from "./use_history_of_best";
 import { use_initialize_tsp_runner } from "./use_initialize_tsp_runner";
 import { run_tsp_by_search_rounds } from "./run_tsp-by-search-rounds";
-import { run_tsp_by_search_time as run_tsp_by_search_time } from "./run_tsp_by_search_time";
+// import { run_tsp_by_search_time as run_tsp_by_search_time } from "./run_tsp_by_search_time";
 import { generate_greedy_preview_echarts_options } from "./generate_greedy_preview_echarts_options";
 import { TSP_cities_map } from "./TSP_cities_map";
 import { TSP_Worker_Remote } from "./TSP_Worker_Remote";
@@ -111,7 +111,7 @@ export default defineComponent({
                     | {
                           addEventListener: (
                               arg0: string,
-                              arg1: () => void
+                              arg1: () => void,
                           ) => void;
                           release: () => Promise<void>;
                       }
@@ -186,7 +186,7 @@ export default defineComponent({
         const options_of_iterations_and_information_entropy_chart: Ref<ECBasicOption> =
             ref({});
         const options_of_current_path_length_chart: Ref<ECBasicOption> = ref(
-            {}
+            {},
         );
         const options_of_best_path_length_chart: Ref<ECBasicOption> = ref({});
         const submit = async () => {
@@ -248,7 +248,7 @@ export default defineComponent({
         const finish_one_iteration_listener = () => {
             const options =
                 get_options_iterations_and_information_entropy_chart(
-                    dataofoneiteration
+                    dataofoneiteration,
                 );
             options_of_iterations_and_information_entropy_chart.value = options;
         };
@@ -256,7 +256,7 @@ export default defineComponent({
         const finish_one_route_listener = () => {
             const options =
                 get_options_route_number_and_current_length_chart(
-                    dataofoneroute
+                    dataofoneroute,
                 );
             options_of_current_path_length_chart.value = options;
         };
@@ -369,22 +369,22 @@ export default defineComponent({
                 throw new Error("incorrect parameters create_runner");
             }
         }
-        const create_and_run_tsp_by_search_time = async () => {
-            is_running.value = true;
-            TSP_RunnerRef.value ||= await create_runner();
-            const runner = TSP_RunnerRef.value;
-            return run_tsp_by_search_time({
-                on_update_output_data,
-                runner: runner.remote,
+        // const create_and_run_tsp_by_search_time = async () => {
+        //     is_running.value = true;
+        //     TSP_RunnerRef.value ||= await create_runner();
+        //     const runner = TSP_RunnerRef.value;
+        //     return run_tsp_by_search_time({
+        //         on_update_output_data,
+        //         runner: runner.remote,
 
-                search_time_seconds,
-                is_running,
-                onprogress,
-            });
-        };
+        //         search_time_seconds,
+        //         is_running,
+        //         onprogress,
+        //     });
+        // };
 
         const radio_run_way = ref(RunWay.round);
-        const run_way_time = RunWay.time;
+        // const run_way_time = RunWay.time;
         const run_way_round = RunWay.round;
         const alpha = ref(default_alpha);
         const beta = ref(default_beta);
@@ -418,9 +418,9 @@ export default defineComponent({
             navbar_float,
             run_way_round,
             show_summary_of_iterations,
-            run_way_time,
+            // run_way_time,
             radio_run_way,
-            create_and_run_tsp_by_search_time,
+            // create_and_run_tsp_by_search_time,
             search_time_seconds,
             indeterminate,
             TableHeadsOfHistoryOfBest,

@@ -3,7 +3,7 @@ import { pickRandomOne } from "../functions/pickRandomOne";
 export interface WorkerPool<
     W extends {
         terminate: () => void;
-    }
+    },
 > {
     clear: () => void;
     getOne: () => W;
@@ -19,7 +19,7 @@ export function createWorkerPool<W extends { terminate: () => void }>(
         size = navigator.hardwareConcurrency,
     }: {
         size?: number;
-    }
+    },
 ): WorkerPool<W> {
     const workers: W[] = [];
     function getOne(): W {

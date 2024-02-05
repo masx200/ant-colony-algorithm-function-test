@@ -33,5 +33,5 @@ export const ant_colony_algorithms_to_creator: Record<
 assert_true(
     ant_colony_algorithms.every((algorithm) => {
         return Reflect.has(ant_colony_algorithms_to_creator, algorithm);
-    })
+    }),
 );

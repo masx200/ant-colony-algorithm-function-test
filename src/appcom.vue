@@ -216,7 +216,7 @@
             v-model="radio_run_way"
             :disabled="!can_run || is_running"
         >
-            <el-radio :label="run_way_time">时间</el-radio>
+            <!-- <el-radio :label="run_way_time">时间</el-radio> -->
             <el-radio :label="run_way_round">轮次</el-radio>
         </el-radio-group>
         <div v-show="radio_run_way === run_way_round">
@@ -236,7 +236,7 @@
                 :disabled="!can_run || is_running"
             />
         </div>
-        <div v-show="radio_run_way === run_way_time">
+        <!-- <div v-show="radio_run_way === run_way_time">
             <span>迭代时间秒</span>
             <el-input-number
                 step-strictly
@@ -252,7 +252,7 @@
                 @click="create_and_run_tsp_by_search_time"
                 :disabled="!can_run || is_running"
             />
-        </div>
+        </div> -->
         <hr />
 
         <div class="chart-container" style="">

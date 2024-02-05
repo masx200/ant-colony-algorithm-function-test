@@ -8,7 +8,7 @@ export function get_options_route_number_and_current_length_chart(
     dataofoneroute: Pick<
         COMMON_DataOfOneRoute,
         "current_route_length" | "current_search_count"
-    >[]
+    >[],
 ): ECBasicOption & ECOption {
     const title_text = "路径序号和当前路径长度";
 

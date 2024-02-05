@@ -24,7 +24,7 @@ import { DefaultOptions } from "../src/default_Options";
 import { run_local_optimization } from "./run_local_optimization";
 /**acs+三种局部优化方法 */
 export function tsp_acs_execution_and_local_optimization(
-    options: COMMON_TSP_Options
+    options: COMMON_TSP_Options,
 ): COMMON_TSP_EXECUTION {
     const {
         max_results_of_2_opt = DefaultOptions.max_results_of_2_opt,
@@ -93,7 +93,7 @@ export function tsp_acs_execution_and_local_optimization(
         const startnode = pickRandomOne(inputindexs);
         const route: number[] = [startnode];
         const available_nodes = new Set<number>(
-            inputindexs.filter((v) => !route.includes(v))
+            inputindexs.filter((v) => !route.includes(v)),
         );
         const getpheromone = (left: number, right: number) => {
             return pheromoneStore.get(left, right);
@@ -103,7 +103,7 @@ export function tsp_acs_execution_and_local_optimization(
                 left,
                 right,
                 node_coordinates,
-                get_distance_round()
+                get_distance_round(),
             );
         };
         while (route.length !== count_of_nodes) {
@@ -128,7 +128,7 @@ export function tsp_acs_execution_and_local_optimization(
             path: route,
             getdistancebyindex: creategetdistancebyindex(
                 node_coordinates,
-                get_distance_round()
+                get_distance_round(),
             ),
         });
         const length = routelength;
@@ -185,7 +185,7 @@ export function tsp_acs_execution_and_local_optimization(
         }[] = await Promise.all(
             Array.from({ length: count_of_ants }).map(() => {
                 return generate_paths_using_state_transition_probabilities();
-            })
+            }),
         );
         for (let {
             route,
@@ -218,16 +218,16 @@ export function tsp_acs_execution_and_local_optimization(
                 max_results_of_k_opt,
                 node_coordinates,
                 max_results_of_k_exchange,
-                max_results_of_2_opt
+                max_results_of_2_opt,
             );
             onRouteCreated(
                 optimal_route_of_iteration,
-                optimal_length_of_iteration
+                optimal_length_of_iteration,
             );
             const starttime_of_process_iteration = Number(new Date());
 
             const current_routes = routes_and_lengths_of_one_iteration.map(
-                (a) => a.route
+                (a) => a.route,
             );
 
             global_pheromone_update();
@@ -237,10 +237,10 @@ export function tsp_acs_execution_and_local_optimization(
                 sum(routes_and_lengths_of_one_iteration.map((a) => a.length)) /
                 routes_and_lengths_of_one_iteration.length;
             const worst_length_of_iteration = Math.max(
-                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length),
             );
             const iterate_best_length = Math.min(
-                ...routes_and_lengths_of_one_iteration.map((a) => a.length)
+                ...routes_and_lengths_of_one_iteration.map((a) => a.length),
             );
             const endtime_of_process_iteration = Number(new Date());
 
@@ -311,7 +311,7 @@ export function tsp_acs_execution_and_local_optimization(
                 });
 
                 return weight;
-            })
+            }),
         );
         return result;
     }

@@ -54,7 +54,7 @@ it("test-intersection_filter_with_cycle_route_find_one-divide_route_to_2_opt_wit
                 ],
             ].some((routes) => {
                 return isEqual(result, routes);
-            })
+            }),
         ).toBeTruthy();
     }
 });
