@@ -104,8 +104,8 @@ devDependencies:
     specifier: ^4.3.1
     version: 4.4.1
   core-js:
-    specifier: ^3.23.5
-    version: 3.35.1
+    specifier: ^3.37.1
+    version: 3.37.1
   echarts:
     specifier: ^5.3.2
     version: 5.4.3
@@ -2434,8 +2434,8 @@ packages:
       browserslist: 4.22.3
     dev: true
 
-  /core-js@3.35.1:
-    resolution: {integrity: sha512-IgdsbxNyMskrTFxa9lWHyMwAJU5gXOPP+1yO+K59d50VLVAIDAbs7gIv705KzALModfK3ZrSZTPNpC0PQgIZuw==}
+  /core-js@3.37.1:
+    resolution: {integrity: sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==}
     requiresBuild: true
     dev: true
 
