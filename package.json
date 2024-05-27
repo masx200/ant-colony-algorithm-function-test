@@ -18,7 +18,7 @@
         "format": " prettier --write  *.ts */*.html */*.ts */*.css *.md  */*.vue *.json"
     },
     "devDependencies": {
-        "@babel/core": "^7.18.0",
+        "@babel/core": "^7.24.6",
         "@babel/generator": "^7.18.0",
         "@babel/plugin-proposal-async-generator-functions": "^7.17.12",
         "@babel/plugin-syntax-typescript": "^7.17.12",
